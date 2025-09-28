@@ -1,5 +1,5 @@
 {
-  "name": "saleor",
+  "name": "pmtraders",
   "version": "3.22.0-a.0",
   "engines": {
     "node": ">=20 <22",
@@ -7,14 +7,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/saleor/saleor.git"
+    "url": "git://github.com/ShashindaE/PMTraders.git"
   },
-  "author": "Saleor Commerce",
-  "license": "BSD-3-Clause",
+  "author": "PMTraders Commerce",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/saleor/saleor/issues"
+    "url": "https://github.com/ShashindaE/PMTraders/issues"
   },
-  "homepage": "http://saleor.io/",
+  "homepage": "http://pmtraders.lk/",
   "devDependencies": {
     "@release-it/bumper": "^7.0.5",
     "release-it": "^19.0.4"

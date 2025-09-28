@@ -1,45 +1,76 @@
-version: "3.4"
+version: "3.8"
 
 services:
-  saleor:
-    image: saleor
+  pmtraders:
+    image: pmtraders
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
-    command: sleep infinity
+    command: python manage.py runserver 0.0.0.0:8000 --noreload
     env_file:
       - common.env
       - backend.env
     depends_on:
       - db
-      - redis
     volumes:
       - ..:/app
+    ports:
+      - 8000:8000
+    networks:
+      - pmtraders-network
 
   dashboard:
+    # Using original Saleor dashboard for now - we'll switch to PMTraders dashboard later
     image: ghcr.io/saleor/saleor-dashboard:3.20.5
+    # Option 1: Build from your GitHub repository (requires local clone)
+    # build:
+    #   context: ../PMTraders-dashboard  # Path to your local dashboard repo
+    #   dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - 9000:80
+    networks:
+      - pmtraders-network
+    environment:
+      - API_URL=http://localhost:8000/graphql/
+      - APP_MOUNT_URI=/dashboard/
+      - STATIC_URL=/
+      - IS_CLOUD_INSTANCE=false
+      - LOCALE_CODE=en
 
   db:
-    image: library/postgres:15-alpine
+    image: postgres:15-alpine
     ports:
      - 5432:5432
     restart: unless-stopped
     volumes:
-      - saleor-db:/var/lib/postgresql/data
+      - pmtraders-db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=saleor
-      - POSTGRES_PASSWORD=saleor
+      - POSTGRES_USER=pmtraders
+      - POSTGRES_PASSWORD=pmtraders
+      - POSTGRES_DB=pmtraders
+    networks:
+      - pmtraders-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pmtraders"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
-    image: library/redis:7.0-alpine
+    image: redis:7.0-alpine
     restart: unless-stopped
     volumes:
-      - saleor-redis:/data
+      - pmtraders-redis:/data
     ports:
       - 6379:6379
+    networks:
+      - pmtraders-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
 
   mailpit:
     image: axllent/mailpit
@@ -47,9 +78,53 @@ services:
       - 1025:1025 # SMTP Server
       - 8025:8025 # Mailpit UI
     restart: unless-stopped
+    networks:
+      - pmtraders-network
+
+  # Celery Worker
+  worker:
+    image: pmtraders
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    env_file:
+      - common.env
+      - backend.env
+    depends_on:
+      - db
+      - redis
+      - pmtraders
+    volumes:
+      - ..:/app
+    networks:
+      - pmtraders-network
+    command: celery -A pmtraders.celeryconf:app worker --loglevel=info --concurrency=2
+
+  # Celery Beat Scheduler
+  beat:
+    image: pmtraders
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    env_file:
+      - common.env
+      - backend.env
+    depends_on:
+      - db
+      - redis
+      - pmtraders
+    volumes:
+      - ..:/app
+    networks:
+      - pmtraders-network
+    command: celery -A pmtraders.celeryconf:app beat --loglevel=info
+
+networks:
+  pmtraders-network:
+    driver: bridge
 
 volumes:
-  saleor-db:
+  pmtraders-db:
     driver: local
-  saleor-redis:
+  pmtraders-redis:
     driver: local

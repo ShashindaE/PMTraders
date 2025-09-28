@@ -19,7 +19,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 ### Final image
 FROM python:3.12-slim
 
-RUN groupadd -r saleor && useradd -r -g saleor saleor
+RUN groupadd -r pmtraders_core && useradd -r -g pmtraders_core pmtraders_core
 
 # Pillow dependencies
 RUN apt-get update \
@@ -40,7 +40,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /app/media /app/static \
-  && chown -R saleor:saleor /app/
+  && chown -R pmtraders_core:pmtraders_core /app/
 
 COPY --from=build-python /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
 COPY --from=build-python /usr/local/bin/ /usr/local/bin/
@@ -54,11 +54,11 @@ RUN SECRET_KEY=dummy STATIC_URL=${STATIC_URL} python3 manage.py collectstatic --
 EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 
-LABEL org.opencontainers.image.title="saleor/saleor" \
+LABEL org.opencontainers.image.title="pmtraders_core/pmtraders_core" \
   org.opencontainers.image.description="The commerce engine for modern software development teams." \
-  org.opencontainers.image.url="https://saleor.io/" \
-  org.opencontainers.image.source="https://github.com/saleor/saleor" \
-  org.opencontainers.image.authors="Saleor Commerce (https://saleor.io)" \
-  org.opencontainers.image.licenses="BSD-3-Clause"
+  org.opencontainers.image.url="https://PMTraders.lk/" \
+  org.opencontainers.image.source="https://github.com/ShashindaE/PMTraders" \
+  org.opencontainers.image.authors="PMTraders Commerce (https://Shashinda.com)" \
+  org.opencontainers.image.licenses="MIT"
 
-CMD ["uvicorn", "saleor.asgi:application", "--host=0.0.0.0", "--port=8000", "--workers=2", "--lifespan=off", "--ws=none", "--no-server-header", "--no-access-log", "--timeout-keep-alive=35", "--timeout-graceful-shutdown=30", "--limit-max-requests=10000"]
+CMD ["uvicorn", "pmtraders.asgi:application", "--host=0.0.0.0", "--port=8000", "--workers=2", "--lifespan=off", "--ws=none", "--no-server-header", "--no-access-log", "--timeout-keep-alive=35", "--timeout-graceful-shutdown=30", "--limit-max-requests=10000"]

@@ -8,7 +8,7 @@ from django.core.management import call_command
 from django.db import connections
 from django.test.testcases import TransactionTestCase
 
-from saleor.tests.utils import prepare_test_db_connections
+from pmtraders.tests.utils import prepare_test_db_connections
 
 TEST_DATABASES = {
     settings.DATABASE_CONNECTION_DEFAULT_NAME,
@@ -23,30 +23,30 @@ django.test.TestCase.databases = TEST_DATABASES
 prepare_test_db_connections()
 
 pytest_plugins = [
-    "saleor.tests.fixtures",
-    "saleor.app.tests.fixtures",
-    "saleor.plugins.tests.fixtures",
-    "saleor.graphql.tests.fixtures",
-    "saleor.webhook.tests.fixtures",
-    "saleor.tax.tests.fixtures",
-    "saleor.channel.tests.fixtures",
-    "saleor.page.tests.fixtures",
-    "saleor.menu.tests.fixtures",
-    "saleor.warehouse.tests.fixtures",
-    "saleor.thumbnail.tests.fixtures",
-    "saleor.order.tests.fixtures",
-    "saleor.product.tests.fixtures",
-    "saleor.site.tests.fixtures",
-    "saleor.shipping.tests.fixtures",
-    "saleor.permission.tests.fixtures",
-    "saleor.giftcard.tests.fixtures",
-    "saleor.discount.tests.fixtures",
-    "saleor.checkout.tests.fixtures",
-    "saleor.attribute.tests.fixtures",
-    "saleor.account.tests.fixtures",
-    "saleor.graphql.account.tests.fixtures",
-    "saleor.payment.tests.fixtures",
-    "saleor.webhook.tests.circuit_breaker.fixtures",
+    "pmtraders.tests.fixtures",
+    "pmtraders.app.tests.fixtures",
+    "pmtraders.plugins.tests.fixtures",
+    "pmtraders.graphql.tests.fixtures",
+    "pmtraders.webhook.tests.fixtures",
+    "pmtraders.tax.tests.fixtures",
+    "pmtraders.channel.tests.fixtures",
+    "pmtraders.page.tests.fixtures",
+    "pmtraders.menu.tests.fixtures",
+    "pmtraders.warehouse.tests.fixtures",
+    "pmtraders.thumbnail.tests.fixtures",
+    "pmtraders.order.tests.fixtures",
+    "pmtraders.product.tests.fixtures",
+    "pmtraders.site.tests.fixtures",
+    "pmtraders.shipping.tests.fixtures",
+    "pmtraders.permission.tests.fixtures",
+    "pmtraders.giftcard.tests.fixtures",
+    "pmtraders.discount.tests.fixtures",
+    "pmtraders.checkout.tests.fixtures",
+    "pmtraders.attribute.tests.fixtures",
+    "pmtraders.account.tests.fixtures",
+    "pmtraders.graphql.account.tests.fixtures",
+    "pmtraders.payment.tests.fixtures",
+    "pmtraders.webhook.tests.circuit_breaker.fixtures",
 ]
 
 

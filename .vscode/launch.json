@@ -5,22 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Saleor",
-            "type": "python",
+            "name": "PMTraders",
+            "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "saleor.asgi:application",
+                "pmtraders.asgi:application",
                 "--lifespan=off"
             ]
         },
         {
             "name": "Celery (worker)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "celery",
             "args": [
-                "--app=saleor.celeryconf:app",
+                "--app=pmtraders.celeryconf:app",
                 "worker",
                 "--beat"
             ]

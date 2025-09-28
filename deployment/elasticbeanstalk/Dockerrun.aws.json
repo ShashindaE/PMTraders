@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "saleor/saleor:latest",
+      "Name": "pmtraders_core/pmtraders_core:latest",
       "Update": "true"
     },
     "Ports": [
