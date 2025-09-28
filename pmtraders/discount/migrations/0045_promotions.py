@@ -5,9 +5,9 @@ import django.db.models.deletion
 import django.utils.timezone
 from django.db import migrations, models
 
-import saleor.core.db.fields
-import saleor.core.utils.editorjs
-import saleor.core.utils.json_serializer
+import pmtraders.core.db.fields
+import pmtraders.core.utils.editorjs
+import pmtraders.core.utils.json_serializer
 
 
 class Migration(migrations.Migration):
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),
@@ -46,17 +46,17 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),
                 ("name", models.CharField(max_length=255)),
                 (
                     "description",
-                    saleor.core.db.fields.SanitizedJSONField(
+                    pmtraders.core.db.fields.SanitizedJSONField(
                         blank=True,
                         null=True,
-                        sanitizer=saleor.core.utils.editorjs.clean_editor_js,
+                        sanitizer=pmtraders.core.utils.editorjs.clean_editor_js,
                     ),
                 ),
                 (
@@ -99,10 +99,10 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "description",
-                    saleor.core.db.fields.SanitizedJSONField(
+                    pmtraders.core.db.fields.SanitizedJSONField(
                         blank=True,
                         null=True,
-                        sanitizer=saleor.core.utils.editorjs.clean_editor_js,
+                        sanitizer=pmtraders.core.utils.editorjs.clean_editor_js,
                     ),
                 ),
                 ("catalogue_predicate", models.JSONField(blank=True, default=dict)),
@@ -312,10 +312,10 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(blank=True, max_length=255, null=True)),
                 (
                     "description",
-                    saleor.core.db.fields.SanitizedJSONField(
+                    pmtraders.core.db.fields.SanitizedJSONField(
                         blank=True,
                         null=True,
-                        sanitizer=saleor.core.utils.editorjs.clean_editor_js,
+                        sanitizer=pmtraders.core.utils.editorjs.clean_editor_js,
                     ),
                 ),
                 (
@@ -347,10 +347,10 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(blank=True, max_length=255, null=True)),
                 (
                     "description",
-                    saleor.core.db.fields.SanitizedJSONField(
+                    pmtraders.core.db.fields.SanitizedJSONField(
                         blank=True,
                         null=True,
-                        sanitizer=saleor.core.utils.editorjs.clean_editor_js,
+                        sanitizer=pmtraders.core.utils.editorjs.clean_editor_js,
                     ),
                 ),
                 (

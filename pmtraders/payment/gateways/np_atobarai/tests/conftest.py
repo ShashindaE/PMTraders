@@ -35,7 +35,7 @@ def np_atobarai_plugin(settings, monkeypatch, channel_USD):
         active=True,
     ):
         settings.PLUGINS = [
-            "saleor.payment.gateways.np_atobarai.plugin.NPAtobaraiGatewayPlugin"
+            "pmtraders.payment.gateways.np_atobarai.plugin.NPAtobaraiGatewayPlugin"
         ]
 
         configuration = [
@@ -157,7 +157,7 @@ def create_refund(payment_dummy):
             payment.captured_amount -= amount
             payment.save(update_fields=["captured_amount"])
 
-        with patch("saleor.payment.gateway.refund", side_effect=mocked_refund):
+        with patch("pmtraders.payment.gateway.refund", side_effect=mocked_refund):
             return create_refund_fulfillment(
                 user=None,
                 app=None,

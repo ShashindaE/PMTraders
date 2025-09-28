@@ -113,8 +113,8 @@ def test_mutation_update_warehouse_with_non_unique_external_reference(
     assert error["message"] == "Warehouse with this External reference already exists."
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_mutation_update_warehouse_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -126,7 +126,7 @@ def test_mutation_update_warehouse_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     warehouse_id = graphene.Node.to_global_id("Warehouse", warehouse.id)
     variables = {

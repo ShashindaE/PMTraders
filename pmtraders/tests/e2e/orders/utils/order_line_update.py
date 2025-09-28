@@ -1,4 +1,4 @@
-from saleor.graphql.tests.utils import get_graphql_content
+from pmtraders.graphql.tests.utils import get_graphql_content
 
 ORDER_LINE_UPDATE_MUTATION = """
 mutation orderLineUpdate($id: ID!, $input: OrderLineInput!) {

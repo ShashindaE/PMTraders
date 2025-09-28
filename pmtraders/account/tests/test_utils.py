@@ -147,7 +147,7 @@ def test_remove_the_oldest_user_address(customer_user, address):
 
 
 @override_settings(MAX_USER_ADDRESSES=2)
-@patch("saleor.account.utils.remove_the_oldest_user_address")
+@patch("pmtraders.account.utils.remove_the_oldest_user_address")
 def test_remove_the_oldest_user_address_if_address_limit_is_reached_limit_not_reached(
     remove_the_oldest_user_address_mock, customer_user, address
 ):
@@ -162,7 +162,7 @@ def test_remove_the_oldest_user_address_if_address_limit_is_reached_limit_not_re
 
 
 @override_settings(MAX_USER_ADDRESSES=2)
-@patch("saleor.account.utils.remove_the_oldest_user_address")
+@patch("pmtraders.account.utils.remove_the_oldest_user_address")
 def test_remove_the_oldest_user_address_if_address_limit_is_reached_limit_reached(
     remove_the_oldest_user_address_mock, customer_user, address
 ):
@@ -240,10 +240,10 @@ def get_user_groups_permissions_user(
     assert permissions.count() == 2
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_updated")
-@patch("saleor.plugins.manager.PluginsManager.customer_created")
-@patch("saleor.plugins.manager.PluginsManager.staff_updated")
-@patch("saleor.plugins.manager.PluginsManager.staff_created")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_created")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_created")
 def test_send_user_event_no_webhook_sent(
     mock_staff_created_webhook,
     mock_staff_updated_webhook,
@@ -263,10 +263,10 @@ def test_send_user_event_no_webhook_sent(
     mock_customer_updated_webhook.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_updated")
-@patch("saleor.plugins.manager.PluginsManager.customer_created")
-@patch("saleor.plugins.manager.PluginsManager.staff_updated")
-@patch("saleor.plugins.manager.PluginsManager.staff_created")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_created")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_created")
 def test_send_user_event_customer_created_event(
     mock_staff_created_webhook,
     mock_staff_updated_webhook,
@@ -286,10 +286,10 @@ def test_send_user_event_customer_created_event(
     mock_staff_updated_webhook.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_updated")
-@patch("saleor.plugins.manager.PluginsManager.customer_created")
-@patch("saleor.plugins.manager.PluginsManager.staff_updated")
-@patch("saleor.plugins.manager.PluginsManager.staff_created")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_created")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_created")
 def test_send_user_event_customer_updated_event(
     mock_staff_created_webhook,
     mock_staff_updated_webhook,
@@ -309,10 +309,10 @@ def test_send_user_event_customer_updated_event(
     mock_staff_updated_webhook.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_updated")
-@patch("saleor.plugins.manager.PluginsManager.customer_created")
-@patch("saleor.plugins.manager.PluginsManager.staff_updated")
-@patch("saleor.plugins.manager.PluginsManager.staff_created")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_created")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_created")
 def test_send_user_event_staff_created_event(
     mock_staff_created_webhook,
     mock_staff_updated_webhook,
@@ -332,10 +332,10 @@ def test_send_user_event_staff_created_event(
     mock_customer_updated_webhook.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_updated")
-@patch("saleor.plugins.manager.PluginsManager.customer_created")
-@patch("saleor.plugins.manager.PluginsManager.staff_updated")
-@patch("saleor.plugins.manager.PluginsManager.staff_created")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_created")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.staff_created")
 def test_send_user_event_staff_updated_event(
     mock_staff_created_webhook,
     mock_staff_updated_webhook,

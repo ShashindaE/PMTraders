@@ -34,7 +34,7 @@ MUTATION_UPDATE_SHIPPING_METHOD = """
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 def test_checkout_shipping_method_update_by_id(
@@ -74,7 +74,7 @@ def test_checkout_shipping_method_update_by_id(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 def test_checkout_shipping_method_update_by_token(
@@ -114,7 +114,7 @@ def test_checkout_shipping_method_update_by_token(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 def test_checkout_shipping_method_update_neither_token_and_id_given(
@@ -133,7 +133,7 @@ def test_checkout_shipping_method_update_neither_token_and_id_given(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 def test_checkout_shipping_method_update_both_token_and_id_given(
@@ -162,7 +162,7 @@ def test_checkout_shipping_method_update_both_token_and_id_given(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 def test_checkout_shipping_method_update_by_id_no_checkout_metadata(

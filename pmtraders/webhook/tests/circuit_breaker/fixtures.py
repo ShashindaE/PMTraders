@@ -28,7 +28,7 @@ def breaker_not_connected_storage():
 @pytest.fixture
 def app_with_webhook(db):
     app = App.objects.create(
-        name="Webhook App", is_active=True, identifier="saleor.webhook.test.app"
+        name="Webhook App", is_active=True, identifier="pmtraders.webhook.test.app"
     )
 
     webhook = Webhook.objects.create(

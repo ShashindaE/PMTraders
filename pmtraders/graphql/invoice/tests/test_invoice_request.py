@@ -36,16 +36,16 @@ INVOICE_REQUEST_MUTATION = """
 @pytest.fixture(autouse=True)
 def setup_dummy_gateways(settings):
     settings.PLUGINS = [
-        "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
+        "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
     ]
     return settings
 
 
 @patch(
-    "saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
+    "pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
     return_value=True,
 )
-@patch("saleor.plugins.manager.PluginsManager.invoice_request")
+@patch("pmtraders.plugins.manager.PluginsManager.invoice_request")
 def test_invoice_request(
     plugin_mock,
     active_event_check_mock,
@@ -118,10 +118,10 @@ def test_invoice_request_by_user_no_channel_access(
 
 
 @patch(
-    "saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
+    "pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
     return_value=True,
 )
-@patch("saleor.plugins.manager.PluginsManager.invoice_request")
+@patch("pmtraders.plugins.manager.PluginsManager.invoice_request")
 def test_invoice_request_by_app(
     plugin_mock,
     active_event_check_mock,
@@ -225,7 +225,7 @@ def test_invoice_request_no_billing_address(
 
 
 @patch(
-    "saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
+    "pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
     return_value=True,
 )
 def test_invoice_request_no_number(
@@ -263,7 +263,7 @@ def test_invoice_request_invalid_id(staff_api_client, permission_group_manage_or
 
 
 @patch(
-    "saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
+    "pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin",
     return_value=False,
 )
 def test_invoice_request_no_invoice_plugin(

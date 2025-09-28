@@ -107,7 +107,7 @@ def test_customers_bulk_update_using_ids(
     assert customer_2.default_shipping_address.metadata == stored_metadata
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_updated")
 def test_stocks_bulk_update_send_stock_updated_event(
     customer_updated_webhook,
     staff_api_client,
@@ -726,7 +726,7 @@ def test_customers_bulk_update_with_duplicated_external_ref(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_metadata_updated")
 def test_customers_bulk_update_metadata(
     mocked_customer_metadata_updated,
     staff_api_client,
@@ -789,7 +789,7 @@ def test_customers_bulk_update_metadata(
     assert mocked_customer_metadata_updated.call_count == 2
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_metadata_updated")
 def test_customers_bulk_update_metadata_empty_key_in_one_input(
     mocked_customer_metadata_updated,
     staff_api_client,

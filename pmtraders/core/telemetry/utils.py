@@ -10,7 +10,7 @@ from django.conf import settings
 from opentelemetry.trace import Link, SpanContext, TraceFlags
 from opentelemetry.util.types import Attributes, AttributeValue
 
-from .saleor_attributes import OPERATION_NAME
+from .pmtraders_attributes import OPERATION_NAME
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +20,8 @@ _GLOBAL_ATTRS: ContextVar[dict[str, AttributeValue]] = ContextVar("global_attrs"
 
 
 class Scope(Enum):
-    CORE = "saleor.core"
-    SERVICE = "saleor.service"
+    CORE = "pmtraders.core"
+    SERVICE = "pmtraders.service"
 
     @property
     def is_service(self):

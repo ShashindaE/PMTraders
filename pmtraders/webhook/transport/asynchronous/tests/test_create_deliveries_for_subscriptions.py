@@ -115,7 +115,7 @@ def test_create_deliveries_no_payload_changes_limiting_disabled(webhook_app, var
 
 @override_settings(ENABLE_LIMITING_WEBHOOKS_FOR_IDENTICAL_PAYLOADS=True)
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.generate_payload_from_subscription",
+    "pmtraders.webhook.transport.asynchronous.transport.generate_payload_from_subscription",
     wraps=generate_payload_from_subscription,
 )
 def test_create_deliveries_reuse_request_for_webhooks(
@@ -186,7 +186,7 @@ def test_create_deliveries_for_multiple_subscription_objects(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.MAX_WEBHOOK_EVENTS_IN_DB_BULK", 2
+    "pmtraders.webhook.transport.asynchronous.transport.MAX_WEBHOOK_EVENTS_IN_DB_BULK", 2
 )
 def test_create_deliveries_for_multiple_subscription_objects_when_more_objs_than_bulk(
     subscription_product_updated_webhook, product_list

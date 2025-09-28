@@ -40,7 +40,7 @@ _context = Local()
 @dataclass
 class WebhookData:
     id: int
-    saleor_domain: str
+    pmtraders_domain: str
     target_url: str
     secret_key: str | None = None
 
@@ -72,7 +72,7 @@ def get_webhooks(timeout=CACHE_TIMEOUT) -> list[WebhookData]:
                     webhooks_data.append(
                         WebhookData(
                             id=webhook.id,
-                            saleor_domain=domain,
+                            pmtraders_domain=domain,
                             target_url=webhook.target_url,
                             secret_key=webhook.secret_key,
                         )

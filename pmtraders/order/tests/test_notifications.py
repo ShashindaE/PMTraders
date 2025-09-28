@@ -339,7 +339,7 @@ def test_get_default_fulfillment_payload(fulfillment, digital_content, site_sett
     }
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_payment_confirmation(mocked_notify, site_settings, payment_dummy):
     # given
     manager = get_plugins_manager(allow_replica=False)
@@ -373,7 +373,7 @@ def test_send_email_payment_confirmation(mocked_notify, site_settings, payment_d
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_order_confirmation(mocked_notify, order, site_settings):
     # given
     manager = get_plugins_manager(allow_replica=False)
@@ -399,7 +399,7 @@ def test_send_email_order_confirmation(mocked_notify, order, site_settings):
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_order_confirmation_for_cc(
     mocked_notify, order_with_lines_for_cc, site_settings, warehouse_for_cc
 ):
@@ -429,7 +429,7 @@ def test_send_email_order_confirmation_for_cc(
     assert expected_payload["order"]["collection_point_name"] == warehouse_for_cc.name
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_confirmation_emails_without_addresses_for_payment(
     mocked_notify,
     site_settings,
@@ -487,7 +487,7 @@ def test_send_confirmation_emails_without_addresses_for_payment(
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_confirmation_emails_without_addresses_for_order(
     mocked_notify,
     order,
@@ -539,7 +539,7 @@ def test_send_confirmation_emails_without_addresses_for_order(
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_fulfillment_confirmation_by_user(
     mocked_notify, fulfilled_order, site_settings, staff_user
 ):
@@ -572,7 +572,7 @@ def test_send_fulfillment_confirmation_by_user(
     assert called_kwargs["channel_slug"] == fulfilled_order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_fulfillment_confirmation_by_app(
     mocked_notify, fulfilled_order, site_settings, app
 ):
@@ -606,7 +606,7 @@ def test_send_fulfillment_confirmation_by_app(
     assert called_kwargs["channel_slug"] == fulfilled_order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_fulfillment_update(mocked_notify, fulfilled_order, site_settings):
     # given
     fulfillment = fulfilled_order.fulfillments.first()
@@ -632,7 +632,7 @@ def test_send_fulfillment_update(mocked_notify, fulfilled_order, site_settings):
     assert called_kwargs["channel_slug"] == fulfilled_order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_order_canceled_by_user(
     mocked_notify, order, site_settings, staff_user
 ):
@@ -661,7 +661,7 @@ def test_send_email_order_canceled_by_user(
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_order_canceled_by_app(mocked_notify, order, site_settings, app):
     # given
     manager = get_plugins_manager(allow_replica=False)
@@ -687,7 +687,7 @@ def test_send_email_order_canceled_by_app(mocked_notify, order, site_settings, a
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_order_refunded_by_user(
     mocked_notify, order, site_settings, staff_user
 ):
@@ -721,7 +721,7 @@ def test_send_email_order_refunded_by_user(
     assert called_kwargs["channel_slug"] == order.channel.slug
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_email_order_refunded_by_app(mocked_notify, order, site_settings, app):
     # given
     manager = get_plugins_manager(allow_replica=False)

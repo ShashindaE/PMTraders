@@ -55,7 +55,7 @@ EXPORT_GIFT_CARDS_MUTATION = """
         ),
     ],
 )
-@patch("saleor.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
+@patch("pmtraders.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
 def test_export_gift_cards_mutation(
     export_gift_cards_mock,
     input,
@@ -97,7 +97,7 @@ def test_export_gift_cards_mutation(
     ).exists()
 
 
-@patch("saleor.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
+@patch("pmtraders.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
 def test_export_gift_cards_mutation_ids_scope(
     export_gift_cards_mock,
     staff_api_client,
@@ -159,7 +159,7 @@ def test_export_gift_cards_mutation_ids_scope(
     ).exists()
 
 
-@patch("saleor.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
+@patch("pmtraders.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
 def test_export_gift_cards_mutation_ids_scope_invalid_object_type(
     export_gift_cards_mock,
     staff_api_client,
@@ -233,7 +233,7 @@ def test_export_gift_cards_mutation_ids_scope_invalid_object_type(
         ),
     ],
 )
-@patch("saleor.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
+@patch("pmtraders.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
 def test_export_gift_cards_mutation_failed(
     export_gift_cards_mock,
     input,
@@ -302,7 +302,7 @@ EXPORT_GIFT_CARDS_MUTATION_BY_APP = """
 """
 
 
-@patch("saleor.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
+@patch("pmtraders.graphql.csv.mutations.export_gift_cards.export_gift_cards_task.delay")
 def test_export_gift_cards_mutation_by_app(
     export_gift_cards_mock,
     app_api_client,
@@ -350,7 +350,7 @@ def test_export_gift_cards_mutation_by_app(
     ).exists()
 
 
-@patch("saleor.plugins.manager.PluginsManager.gift_card_export_completed")
+@patch("pmtraders.plugins.manager.PluginsManager.gift_card_export_completed")
 def test_export_gift_cards_webhooks(
     gift_card_export_completed_mock,
     staff_api_client,

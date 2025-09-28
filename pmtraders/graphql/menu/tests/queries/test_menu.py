@@ -103,7 +103,7 @@ def test_menu_query_error_when_id_and_name_provided(
     graphql_log_handler,
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
 
     variables = {
@@ -116,7 +116,7 @@ def test_menu_query_error_when_id_and_name_provided(
 
     # then
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
     content = get_graphql_content(response, ignore_errors=True)
     assert len(content["errors"]) == 1
@@ -128,7 +128,7 @@ def test_menu_query_error_when_no_param(
     graphql_log_handler,
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
     variables = {}
 
@@ -137,7 +137,7 @@ def test_menu_query_error_when_no_param(
 
     # then
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
     content = get_graphql_content(response, ignore_errors=True)
     assert len(content["errors"]) == 1

@@ -25,7 +25,7 @@ INVOICE_SEND_EMAIL_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_invoice_send_notification_by_user(
     mock_notify, staff_api_client, permission_group_manage_orders, order, site_settings
 ):
@@ -86,7 +86,7 @@ def test_invoice_send_notification_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_invoice_send_notification_by_app(
     mock_notify, app_api_client, permission_manage_orders, order, site_settings
 ):
@@ -125,7 +125,7 @@ def test_invoice_send_notification_by_app(
     assert not content["data"]["invoiceSendNotification"]["errors"]
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_invoice_send_notification_pending(
     mock_notify, staff_api_client, permission_group_manage_orders, order
 ):
@@ -151,7 +151,7 @@ def test_invoice_send_notification_pending(
     assert not order.events.filter(type=OrderEvents.INVOICE_SENT).exists()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_invoice_send_notification_without_url_and_number(
     mock_notify, staff_api_client, permission_group_manage_orders, order
 ):
@@ -176,8 +176,8 @@ def test_invoice_send_notification_without_url_and_number(
     assert not order.events.filter(type=OrderEvents.INVOICE_SENT).exists()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.order.models.Order.get_customer_email")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.order.models.Order.get_customer_email")
 def test_invoice_send_email_without_email(
     order_mock, mock_notify, staff_api_client, permission_group_manage_orders, order
 ):

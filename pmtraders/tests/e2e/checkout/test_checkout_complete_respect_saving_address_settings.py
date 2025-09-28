@@ -51,7 +51,7 @@ def test_respect_saving_address_setting_in_checkout_process_CORE_0132(
     shipping_address = {
         "firstName": "John",
         "lastName": "Muller",
-        "companyName": "Saleor Commerce USA",
+        "companyName": "pmtraders Commerce USA",
         "streetAddress1": "2595 Shinn Street",
         "streetAddress2": "",
         "postalCode": "10281",

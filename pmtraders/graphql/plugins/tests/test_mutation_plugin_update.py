@@ -78,7 +78,7 @@ PLUGIN_UPDATE_MUTATION = """
 def test_plugin_configuration_update(
     staff_api_client_can_manage_plugins, settings, active, updated_configuration_item
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
     old_configuration = copy.deepcopy(plugin.configuration)
@@ -119,7 +119,7 @@ def test_plugin_configuration_update(
 def test_plugin_configuration_update_value_not_given(
     staff_api_client_can_manage_plugins, settings
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
     old_configuration = copy.deepcopy(plugin.configuration)
@@ -170,7 +170,7 @@ def test_plugin_configuration_update_value_not_given(
 def test_plugin_configuration_update_for_channel_configurations(
     staff_api_client_can_manage_plugins, settings, active, channel_PLN
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.ChannelPluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.ChannelPluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(
         ChannelPluginSample.PLUGIN_ID, channel_slug=channel_PLN.slug
@@ -211,7 +211,7 @@ def test_plugin_configuration_update_for_channel_configurations(
 def test_plugin_configuration_update_channel_slug_required(
     staff_api_client_can_manage_plugins, settings, channel_PLN
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.ChannelPluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.ChannelPluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(
         ChannelPluginSample.PLUGIN_ID, channel_slug=channel_PLN.slug
@@ -239,7 +239,7 @@ def test_plugin_configuration_update_channel_slug_required(
 def test_plugin_configuration_update_unneeded_channel_slug(
     staff_api_client_can_manage_plugins, settings, channel_PLN
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID, channel_slug=channel_PLN.slug)
 
@@ -284,7 +284,7 @@ def test_plugin_configuration_update_containing_invalid_plugin_id(
 def test_plugin_update_saves_boolean_as_boolean(
     staff_api_client_can_manage_plugins, settings
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
     use_sandbox = get_config_value("Use sandbox", plugin.configuration)
@@ -304,7 +304,7 @@ def test_plugin_update_saves_boolean_as_boolean(
 
 
 def test_plugin_configuration_update_as_customer_user(user_api_client, settings):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
 
@@ -323,7 +323,7 @@ def test_cannot_update_configuration_of_hidden_plugin(
     settings, staff_api_client_can_manage_plugins
 ):
     client = staff_api_client_can_manage_plugins
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     plugin_id = PluginSample.PLUGIN_ID
     manager = get_plugins_manager(allow_replica=False)
@@ -367,7 +367,7 @@ def test_cannot_update_configuration_of_hidden_multichannel_plugin(
     channel_USD,
 ):
     client = staff_api_client_can_manage_plugins
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.ChannelPluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.ChannelPluginSample"]
 
     plugin_id = ChannelPluginSample.PLUGIN_ID
     manager = get_plugins_manager(allow_replica=False)

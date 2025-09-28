@@ -340,7 +340,7 @@ class Shop(graphene.ObjectType):
     )
     version = PermissionsField(
         graphene.String,
-        description="Saleor API version.",
+        description="pmtraders API version.",
         required=True,
         permissions=[
             AuthorizationFilters.AUTHENTICATED_STAFF_USER,
@@ -348,14 +348,14 @@ class Shop(graphene.ObjectType):
         ],
     )
     schema_version = graphene.String(
-        description="Minor Saleor API version.",
+        description="Minor pmtraders API version.",
         required=True,
     )
     available_tax_apps = PermissionsField(
         NonNullList(App),
         description=(
             "List of tax apps that can be assigned to the channel. "
-            "The list will be calculated by Saleor based on the apps "
+            "The list will be calculated by pmtraders based on the apps "
             "that are subscribed to webhooks related to tax calculations: "
             "CHECKOUT_CALCULATE_TAXES" + ADDED_IN_319
         ),

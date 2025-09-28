@@ -1,4 +1,4 @@
-from saleor.graphql.tests.utils import get_graphql_content
+from pmtraders.graphql.tests.utils import get_graphql_content
 
 ORDER_MARK_AS_PAID_MUTATION = """
 mutation OrderMarkAsPaid($id: ID!, $transactionReference: String) {

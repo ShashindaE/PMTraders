@@ -66,10 +66,10 @@ def test_delete_shipping_methods(
 
 
 @mock.patch(
-    "saleor.graphql.shipping.bulk_mutations."
+    "pmtraders.graphql.shipping.bulk_mutations."
     "shipping_price_bulk_delete.get_webhooks_for_event"
 )
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_shipping_methods_trigger_multiple_webhook_events(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -81,7 +81,7 @@ def test_delete_shipping_methods_trigger_multiple_webhook_events(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     variables = {
         "ids": [
@@ -140,10 +140,10 @@ def test_delete_shipping_zones(
 
 
 @mock.patch(
-    "saleor.graphql.shipping.bulk_mutations."
+    "pmtraders.graphql.shipping.bulk_mutations."
     "shipping_zone_bulk_delete.get_webhooks_for_event"
 )
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_shipping_zones_trigger_multiple_webhook_events(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -155,7 +155,7 @@ def test_delete_shipping_zones_trigger_multiple_webhook_events(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     variables = {
         "ids": [

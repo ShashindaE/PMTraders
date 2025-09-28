@@ -4,7 +4,7 @@ import time
 from celery._state import get_current_task as get_current_celery_task
 from pythonjsonlogger.jsonlogger import JsonFormatter as BaseFormatter
 
-from .. import __version__ as saleor_version
+from .. import __version__ as pmtraders_version
 
 
 class JsonFormatter(BaseFormatter):
@@ -15,7 +15,7 @@ class JsonFormatter(BaseFormatter):
         log_record["hostname"] = platform.node()
         try:
             log_record["query"] = record.exc_info[1]._exc_query
-            log_record["version"] = saleor_version
+            log_record["version"] = pmtraders_version
         except (TypeError, IndexError, AttributeError):
             pass
 

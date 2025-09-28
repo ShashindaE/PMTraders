@@ -483,7 +483,7 @@ def test_delete_expired_checkouts_no_checkouts_to_delete(checkout):
     assert Checkout.objects.count() == checkout_count
 
 
-@mock.patch("saleor.checkout.tasks.delete_expired_checkouts.delay")
+@mock.patch("pmtraders.checkout.tasks.delete_expired_checkouts.delay")
 def test_delete_checkouts_until_done(mocked_task: mock.MagicMock, channel_USD):
     """Ensure the task deletes all inactive checkouts from the database.
 
@@ -549,7 +549,7 @@ def test_delete_checkouts_until_done(mocked_task: mock.MagicMock, channel_USD):
     mocked_task.assert_not_called()
 
 
-@mock.patch("saleor.checkout.tasks.delete_expired_checkouts.delay")
+@mock.patch("pmtraders.checkout.tasks.delete_expired_checkouts.delay")
 def test_aborts_deleting_checkouts_when_invocation_count_exhausted(
     mocked_task: mock.MagicMock, channel_USD
 ):
@@ -836,8 +836,8 @@ def test_automatic_checkout_completion_task_error_raised(checkout, app, caplog):
     "error",
     [IntegrityError, DatabaseError],
 )
-@mock.patch("saleor.checkout.tasks.complete_checkout")
-@mock.patch("saleor.checkout.tasks.automatic_checkout_completion_task.retry")
+@mock.patch("pmtraders.checkout.tasks.complete_checkout")
+@mock.patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.retry")
 def test_automatic_checkout_completion_task_checkout_error_task_retried(
     mocked_retry,
     mocked_complete_checkout,
@@ -911,8 +911,8 @@ def test_automatic_checkout_completion_task_checkout_error_task_retried(
     "error",
     [IntegrityError, DatabaseError],
 )
-@mock.patch("saleor.checkout.tasks.complete_checkout")
-@mock.patch("saleor.checkout.tasks.automatic_checkout_completion_task.retry")
+@mock.patch("pmtraders.checkout.tasks.complete_checkout")
+@mock.patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.retry")
 def test_automatic_checkout_completion_task_checkout_deleted_in_meantime(
     mocked_retry,
     mocked_complete_checkout,

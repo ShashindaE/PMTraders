@@ -111,13 +111,13 @@ class IssuingPrincipal(Union):
 
 class Event(graphene.Interface):
     issued_at = DateTime(description="Time of the event.")
-    version = graphene.String(description="Saleor version that triggered the event.")
+    version = graphene.String(description="pmtraders version that triggered the event.")
     issuing_principal = graphene.Field(
         IssuingPrincipal,
         description="The user or application that triggered the event.",
     )
     recipient = graphene.Field(
-        "saleor.graphql.app.types.App",
+        "pmtraders.graphql.app.types.App",
         description="The application receiving the webhook.",
     )
 
@@ -159,7 +159,7 @@ class AccountOperationBase(AbstractType):
         description="The user the event relates to.",
     )
     channel = graphene.Field(
-        "saleor.graphql.channel.types.Channel",
+        "pmtraders.graphql.channel.types.Channel",
         description="The channel data.",
     )
     token = graphene.String(description="The token required to confirm request.")
@@ -273,7 +273,7 @@ class AccountDeleted(SubscriptionObjectType, AccountOperationBase):
 
 class AddressBase(AbstractType):
     address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         description="The address the event relates to.",
     )
 
@@ -309,7 +309,7 @@ class AddressDeleted(SubscriptionObjectType, AddressBase):
 
 class AppBase(AbstractType):
     app = graphene.Field(
-        "saleor.graphql.app.types.App",
+        "pmtraders.graphql.app.types.App",
         description="The application the event relates to.",
     )
 
@@ -353,7 +353,7 @@ class AppStatusChanged(SubscriptionObjectType, AppBase):
 
 class AttributeBase(AbstractType):
     attribute = graphene.Field(
-        "saleor.graphql.attribute.types.Attribute",
+        "pmtraders.graphql.attribute.types.Attribute",
         description="The attribute the event relates to.",
     )
 
@@ -389,7 +389,7 @@ class AttributeDeleted(SubscriptionObjectType, AttributeBase):
 
 class AttributeValueBase(AbstractType):
     attribute_value = graphene.Field(
-        "saleor.graphql.attribute.types.AttributeValue",
+        "pmtraders.graphql.attribute.types.AttributeValue",
         description="The attribute value the event relates to.",
     )
 
@@ -425,7 +425,7 @@ class AttributeValueDeleted(SubscriptionObjectType, AttributeValueBase):
 
 class CategoryBase(AbstractType):
     category = graphene.Field(
-        "saleor.graphql.product.types.Category",
+        "pmtraders.graphql.product.types.Category",
         description="The category the event relates to.",
     )
 
@@ -461,7 +461,7 @@ class CategoryDeleted(SubscriptionObjectType, CategoryBase):
 
 class ChannelBase(AbstractType):
     channel = graphene.Field(
-        "saleor.graphql.channel.types.Channel",
+        "pmtraders.graphql.channel.types.Channel",
         description="The channel the event relates to.",
     )
 
@@ -513,7 +513,7 @@ class ChannelMetadataUpdated(SubscriptionObjectType, ChannelBase):
 
 class OrderBase(AbstractType):
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         description="The order the event relates to.",
     )
 
@@ -658,7 +658,7 @@ class DraftOrderDeleted(SubscriptionObjectType, OrderBase):
 
 class GiftCardBase(AbstractType):
     gift_card = graphene.Field(
-        "saleor.graphql.giftcard.types.GiftCard",
+        "pmtraders.graphql.giftcard.types.GiftCard",
         description="The gift card the event relates to.",
     )
 
@@ -741,7 +741,7 @@ class GiftCardMetadataUpdated(SubscriptionObjectType, GiftCardBase):
 
 class GiftCardExportCompleted(SubscriptionObjectType):
     export = graphene.Field(
-        "saleor.graphql.csv.types.ExportFile",
+        "pmtraders.graphql.csv.types.ExportFile",
         description="The export file for gift cards.",
     )
 
@@ -760,7 +760,7 @@ class GiftCardExportCompleted(SubscriptionObjectType):
 
 class MenuBase(AbstractType):
     menu = graphene.Field(
-        "saleor.graphql.menu.types.Menu",
+        "pmtraders.graphql.menu.types.Menu",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -799,7 +799,7 @@ class MenuDeleted(SubscriptionObjectType, MenuBase):
 
 class MenuItemBase(AbstractType):
     menu_item = graphene.Field(
-        "saleor.graphql.menu.types.MenuItem",
+        "pmtraders.graphql.menu.types.MenuItem",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -838,14 +838,14 @@ class MenuItemDeleted(SubscriptionObjectType, MenuItemBase):
 
 class ProductBase(AbstractType):
     product = graphene.Field(
-        "saleor.graphql.product.types.Product",
+        "pmtraders.graphql.product.types.Product",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
         description="The product the event relates to.",
     )
     category = graphene.Field(
-        "saleor.graphql.product.types.categories.Category",
+        "pmtraders.graphql.product.types.categories.Category",
         description="The category of the product.",
     )
 
@@ -894,7 +894,7 @@ class ProductMetadataUpdated(SubscriptionObjectType, ProductBase):
 
 class ProductMediaBase(AbstractType):
     product_media = graphene.Field(
-        "saleor.graphql.product.types.ProductMedia",
+        "pmtraders.graphql.product.types.ProductMedia",
         description="The product media the event relates to.",
     )
 
@@ -930,7 +930,7 @@ class ProductMediaDeleted(SubscriptionObjectType, ProductMediaBase):
 
 class ProductVariantBase(AbstractType):
     product_variant = graphene.Field(
-        "saleor.graphql.product.types.ProductVariant",
+        "pmtraders.graphql.product.types.ProductVariant",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -977,7 +977,7 @@ class ProductVariantMetadataUpdated(SubscriptionObjectType, ProductVariantBase):
 
 class ProductVariantOutOfStock(SubscriptionObjectType, ProductVariantBase):
     warehouse = graphene.Field(
-        "saleor.graphql.warehouse.types.Warehouse", description="Look up a warehouse."
+        "pmtraders.graphql.warehouse.types.Warehouse", description="Look up a warehouse."
     )
 
     class Meta:
@@ -1000,7 +1000,7 @@ class ProductVariantOutOfStock(SubscriptionObjectType, ProductVariantBase):
 
 class ProductVariantBackInStock(SubscriptionObjectType, ProductVariantBase):
     warehouse = graphene.Field(
-        "saleor.graphql.warehouse.types.Warehouse", description="Look up a warehouse."
+        "pmtraders.graphql.warehouse.types.Warehouse", description="Look up a warehouse."
     )
 
     class Meta:
@@ -1023,7 +1023,7 @@ class ProductVariantBackInStock(SubscriptionObjectType, ProductVariantBase):
 
 class ProductVariantStockUpdated(SubscriptionObjectType, ProductVariantBase):
     warehouse = graphene.Field(
-        "saleor.graphql.warehouse.types.Warehouse", description="Look up a warehouse."
+        "pmtraders.graphql.warehouse.types.Warehouse", description="Look up a warehouse."
     )
 
     class Meta:
@@ -1050,7 +1050,7 @@ class ProductVariantStockUpdated(SubscriptionObjectType, ProductVariantBase):
 
 class ProductExportCompleted(SubscriptionObjectType):
     export = graphene.Field(
-        "saleor.graphql.csv.types.ExportFile",
+        "pmtraders.graphql.csv.types.ExportFile",
         description="The export file for products.",
     )
 
@@ -1069,7 +1069,7 @@ class ProductExportCompleted(SubscriptionObjectType):
 
 class SaleBase(AbstractType):
     sale = graphene.Field(
-        "saleor.graphql.discount.types.Sale",
+        "pmtraders.graphql.discount.types.Sale",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -1120,7 +1120,7 @@ class SaleDeleted(SubscriptionObjectType, SaleBase):
 
 class SaleToggle(SubscriptionObjectType, SaleBase):
     sale = graphene.Field(
-        "saleor.graphql.discount.types.Sale",
+        "pmtraders.graphql.discount.types.Sale",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -1140,7 +1140,7 @@ class SaleToggle(SubscriptionObjectType, SaleBase):
 
 class PromotionBase(AbstractType):
     promotion = graphene.Field(
-        "saleor.graphql.discount.types.Promotion",
+        "pmtraders.graphql.discount.types.Promotion",
         description="The promotion the event relates to.",
     )
 
@@ -1192,7 +1192,7 @@ class PromotionEnded(SubscriptionObjectType, PromotionBase):
 
 class PromotionRuleBase(AbstractType):
     promotion_rule = graphene.Field(
-        "saleor.graphql.discount.types.PromotionRule",
+        "pmtraders.graphql.discount.types.PromotionRule",
         description="The promotion rule the event relates to.",
     )
 
@@ -1228,11 +1228,11 @@ class PromotionRuleDeleted(SubscriptionObjectType, PromotionRuleBase):
 
 class InvoiceBase(AbstractType):
     invoice = graphene.Field(
-        "saleor.graphql.invoice.types.Invoice",
+        "pmtraders.graphql.invoice.types.Invoice",
         description="The invoice the event relates to.",
     )
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         description="Order related to the invoice.",
     )
 
@@ -1257,7 +1257,7 @@ class InvoiceBase(AbstractType):
 
 class InvoiceRequested(SubscriptionObjectType, InvoiceBase):
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         required=True,
         description="Order related to the invoice.",
     )
@@ -1287,11 +1287,11 @@ class InvoiceSent(SubscriptionObjectType, InvoiceBase):
 
 class FulfillmentBase(AbstractType):
     fulfillment = graphene.Field(
-        "saleor.graphql.order.types.Fulfillment",
+        "pmtraders.graphql.order.types.Fulfillment",
         description="The fulfillment the event relates to.",
     )
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         description="The order the fulfillment belongs to.",
     )
 
@@ -1391,7 +1391,7 @@ class FulfillmentMetadataUpdated(SubscriptionObjectType, FulfillmentBase):
 
 class UserBase(AbstractType):
     user = graphene.Field(
-        "saleor.graphql.account.types.User",
+        "pmtraders.graphql.account.types.User",
         description="The user the event relates to.",
     )
 
@@ -1427,7 +1427,7 @@ class CustomerMetadataUpdated(SubscriptionObjectType, UserBase):
 
 class CollectionBase(AbstractType):
     collection = graphene.Field(
-        "saleor.graphql.product.types.collections.Collection",
+        "pmtraders.graphql.product.types.collections.Collection",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -1474,7 +1474,7 @@ class CollectionMetadataUpdated(SubscriptionObjectType, CollectionBase):
 
 class CheckoutBase(AbstractType):
     checkout = graphene.Field(
-        "saleor.graphql.checkout.types.Checkout",
+        "pmtraders.graphql.checkout.types.Checkout",
         description="The checkout the event relates to.",
     )
 
@@ -1538,7 +1538,7 @@ class CheckoutMetadataUpdated(SubscriptionObjectType, CheckoutBase):
 
 class PageBase(AbstractType):
     page = graphene.Field(
-        "saleor.graphql.page.types.Page", description="The page the event relates to."
+        "pmtraders.graphql.page.types.Page", description="The page the event relates to."
     )
 
     @staticmethod
@@ -1573,7 +1573,7 @@ class PageDeleted(SubscriptionObjectType, PageBase):
 
 class PageTypeBase(AbstractType):
     page_type = graphene.Field(
-        "saleor.graphql.page.types.PageType",
+        "pmtraders.graphql.page.types.PageType",
         description="The page type the event relates to.",
     )
 
@@ -1609,7 +1609,7 @@ class PageTypeDeleted(SubscriptionObjectType, PageTypeBase):
 
 class PermissionGroupBase(AbstractType):
     permission_group = graphene.Field(
-        "saleor.graphql.account.types.Group",
+        "pmtraders.graphql.account.types.Group",
         description="The permission group the event relates to.",
     )
 
@@ -1645,14 +1645,14 @@ class PermissionGroupDeleted(SubscriptionObjectType, PermissionGroupBase):
 
 class ShippingPriceBase(AbstractType):
     shipping_method = graphene.Field(
-        "saleor.graphql.shipping.types.ShippingMethodType",
+        "pmtraders.graphql.shipping.types.ShippingMethodType",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
         description="The shipping method the event relates to.",
     )
     shipping_zone = graphene.Field(
-        "saleor.graphql.shipping.types.ShippingZone",
+        "pmtraders.graphql.shipping.types.ShippingZone",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -1699,7 +1699,7 @@ class ShippingPriceDeleted(SubscriptionObjectType, ShippingPriceBase):
 
 class ShippingZoneBase(AbstractType):
     shipping_zone = graphene.Field(
-        "saleor.graphql.shipping.types.ShippingZone",
+        "pmtraders.graphql.shipping.types.ShippingZone",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -1933,7 +1933,7 @@ class TransactionSessionBase(SubscriptionObjectType, AbstractType):
     customer_ip_address = graphene.String(
         description=(
             "The customer's IP address. If not provided as a parameter in the "
-            "mutation, Saleor will try to determine the customer's IP address on its "
+            "mutation, pmtraders will try to determine the customer's IP address on its "
             "own."
         ),
     )
@@ -2026,7 +2026,7 @@ class ListStoredPaymentMethods(SubscriptionObjectType):
         required=True,
     )
     channel = graphene.Field(
-        "saleor.graphql.channel.types.Channel",
+        "pmtraders.graphql.channel.types.Channel",
         description=(
             "Channel in context which was used to fetch the list of payment methods."
         ),
@@ -2096,7 +2096,7 @@ class StoredPaymentMethodDeleteRequested(SubscriptionObjectType):
     )
 
     channel = graphene.Field(
-        "saleor.graphql.channel.types.Channel",
+        "pmtraders.graphql.channel.types.Channel",
         description="Channel related to the requested delete action.",
         required=True,
     )
@@ -2137,7 +2137,7 @@ class PaymentMethodTokenizationBase(AbstractType):
         required=True,
     )
     channel = graphene.Field(
-        "saleor.graphql.channel.types.Channel",
+        "pmtraders.graphql.channel.types.Channel",
         description="Channel related to the requested action.",
         required=True,
     )
@@ -2291,7 +2291,7 @@ class TranslationUpdated(SubscriptionObjectType, TranslationBase):
 
 class VoucherBase(AbstractType):
     voucher = graphene.Field(
-        "saleor.graphql.discount.types.Voucher",
+        "pmtraders.graphql.discount.types.Voucher",
         channel=graphene.String(
             description="Slug of a channel for which the data should be returned."
         ),
@@ -2330,7 +2330,7 @@ class VoucherDeleted(SubscriptionObjectType, VoucherBase):
 
 class VoucherCodeBase(AbstractType):
     voucher_codes = NonNullList(
-        "saleor.graphql.discount.types.VoucherCode",
+        "pmtraders.graphql.discount.types.VoucherCode",
         description="The voucher codes the event relates to.",
     )
 
@@ -2366,7 +2366,7 @@ class VoucherMetadataUpdated(SubscriptionObjectType, VoucherBase):
 
 class VoucherCodeExportCompleted(SubscriptionObjectType):
     export = graphene.Field(
-        "saleor.graphql.csv.types.ExportFile",
+        "pmtraders.graphql.csv.types.ExportFile",
         description="The export file for voucher codes.",
     )
 
@@ -2399,7 +2399,7 @@ class ShopMetadataUpdated(SubscriptionObjectType, AbstractType):
 
 class PaymentBase(AbstractType):
     payment = graphene.Field(
-        "saleor.graphql.payment.types.Payment",
+        "pmtraders.graphql.payment.types.Payment",
         description="Look up a payment.",
     )
 
@@ -2497,7 +2497,7 @@ class ShippingListMethodsForCheckout(SubscriptionObjectType, CheckoutBase):
 
 class CalculateTaxes(SubscriptionObjectType):
     tax_base = graphene.Field(
-        "saleor.graphql.core.types.taxes.TaxableObject", required=True
+        "pmtraders.graphql.core.types.taxes.TaxableObject", required=True
     )
 
     class Meta:
@@ -2568,7 +2568,7 @@ class OrderFilterShippingMethods(SubscriptionObjectType, OrderBase):
 
 class WarehouseBase(AbstractType):
     warehouse = graphene.Field(
-        "saleor.graphql.warehouse.types.Warehouse",
+        "pmtraders.graphql.warehouse.types.Warehouse",
         description="The warehouse the event relates to.",
     )
 

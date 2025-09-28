@@ -117,10 +117,10 @@ interactions:
       User-Agent:
       - python-requests/2.23.0
 
-      # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-      x-saleor-domain:
+      # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+      x-pmtraders-domain:
       - mirumee.com
-      saleor-domain:
+      pmtraders-domain:
       - mirumee.com
     method: POST
     uri: http://otherapp:3000/register

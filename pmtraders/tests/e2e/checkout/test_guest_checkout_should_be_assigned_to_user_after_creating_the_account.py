@@ -80,7 +80,7 @@ def test_guest_checkout_should_be_assigned_to_user_after_creating_the_account_CO
     )
 
     # Step 1 - Create checkout
-    email = "test@saleor.io"
+    email = "test@pmtraders.io"
     lines = [
         {
             "variantId": product_variant_id,

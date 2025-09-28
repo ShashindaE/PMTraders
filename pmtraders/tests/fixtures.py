@@ -209,7 +209,7 @@ def address_usa():
 @pytest.fixture
 def graphql_address_data():
     return {
-        "firstName": "John Saleor",
+        "firstName": "John pmtraders",
         "lastName": "Doe Mirumee",
         "companyName": "Mirumee Software",
         "streetAddress1": "Tęczowa 7",
@@ -628,12 +628,12 @@ def description_json():
                 "key": "",
                 "data": {
                     "text": (
-                        "Saleor is a rapidly-growing open source e-commerce platform "
+                        "pmtraders is a rapidly-growing open source e-commerce platform "
                         "that has served high-volume companies from branches "
                         "like publishing and apparel since 2012. Based on Python "
                         "and Django, the latest major update introduces a modular "
                         "front end with a GraphQL API and storefront and dashboard "
-                        "written in React to make Saleor a full-functionality "
+                        "written in React to make pmtraders a full-functionality "
                         "open source e-commerce."
                     ),
                 },
@@ -653,7 +653,7 @@ def description_json():
             {
                 "key": "",
                 "data": {
-                    "text": "Get Saleor today!",
+                    "text": "Get pmtraders today!",
                 },
                 "type": "paragraph",
                 "depth": 0,
@@ -663,7 +663,7 @@ def description_json():
         ],
         "entityMap": {
             "0": {
-                "data": {"href": "https://github.com/mirumee/saleor"},
+                "data": {"href": "https://github.com/mirumee/pmtraders"},
                 "type": "LINK",
                 "mutability": "MUTABLE",
             }
@@ -692,7 +692,7 @@ def other_description_json():
                 "key": "",
                 "data": {
                     "text": (
-                        "Saleor is powered by a GraphQL server running on "
+                        "pmtraders is powered by a GraphQL server running on "
                         "top of Python 3 and a Django 2 framework."
                     ),
                 },
@@ -865,14 +865,14 @@ def removed_app_export_event(removed_app_export_file):
 @pytest.fixture
 def app_manifest():
     return {
-        "name": "Sample Saleor App",
+        "name": "Sample pmtraders App",
         "version": "0.1",
-        "about": "Sample Saleor App serving as an example.",
+        "about": "Sample pmtraders App serving as an example.",
         "dataPrivacy": "",
         "dataPrivacyUrl": "",
         "homepageUrl": "http://172.17.0.1:5000/homepageUrl",
         "supportUrl": "http://172.17.0.1:5000/supportUrl",
-        "id": "saleor-complex-sample",
+        "id": "pmtraders-complex-sample",
         "permissions": ["MANAGE_PRODUCTS", "MANAGE_USERS"],
         "appUrl": "",
         "configurationUrl": "http://127.0.0.1:5000/configuration/",

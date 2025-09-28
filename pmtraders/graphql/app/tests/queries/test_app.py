@@ -89,7 +89,7 @@ def test_app_query(
     app.permissions.add(permission_manage_staff)
     app.store_value_in_metadata({"test": "123"})
     app.author = "Acme Ltd"
-    app.identifier = "saleor.app.mock"
+    app.identifier = "pmtraders.app.mock"
     app.save()
 
     webhook = webhook
@@ -137,7 +137,7 @@ def test_app_query(
     assert app_data["metadata"][0]["value"] == "123"
     assert app_data["metafield"] == "123"
     assert app_data["metafields"] == {"test": "123"}
-    assert app_data["identifier"] == "saleor.app.mock"
+    assert app_data["identifier"] == "pmtraders.app.mock"
 
 
 def test_app_query_no_permission(
@@ -697,7 +697,7 @@ def test_app_query_with_metafields_staff_user_without_permissions(
         (CircuitBreakerState.CLOSED, CircuitBreakerStateEnum.CLOSED.name),
     ],
 )
-@patch("saleor.graphql.app.types.breaker_board")
+@patch("pmtraders.graphql.app.types.breaker_board")
 def test_app_query_breaker_state(
     breaker_board_mock,
     breaker_state,
@@ -768,7 +768,7 @@ def test_app_query_breaker_last_change_board_disabled(
 
 
 @freeze_time("2012-01-14 11:00:00")
-@patch("saleor.graphql.app.types.breaker_board")
+@patch("pmtraders.graphql.app.types.breaker_board")
 def test_app_query_breaker_last_change(
     board_mock,
     staff_api_client,

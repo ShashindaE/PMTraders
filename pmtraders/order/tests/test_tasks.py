@@ -382,14 +382,14 @@ def test_expire_orders_task_after(order_list, allocations, channel_USD):
 
 
 @patch(
-    "saleor.order.tasks.call_order_events",
+    "pmtraders.order.tasks.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_expire_orders_task_do_not_call_sync_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -451,7 +451,7 @@ def test_expire_orders_task_do_not_call_sync_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -671,8 +671,8 @@ def test_delete_expired_orders_task_orders_with_payment_objects(
     assert Order.objects.count() == 4
 
 
-@mock.patch("saleor.order.tasks.DELETE_EXPIRED_ORDER_BATCH_SIZE", 1)
-@patch("saleor.order.tasks.delete_expired_orders_task.delay")
+@mock.patch("pmtraders.order.tasks.DELETE_EXPIRED_ORDER_BATCH_SIZE", 1)
+@patch("pmtraders.order.tasks.delete_expired_orders_task.delay")
 def test_delete_expired_orders_task_schedule_itself(
     mocked_delay, order_list, allocations, channel_USD
 ):
@@ -814,14 +814,14 @@ def test_bulk_release_voucher_usage_voucher_usage_mismatch(
 
 
 @patch(
-    "saleor.order.tasks.call_order_event",
+    "pmtraders.order.tasks.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_send_order_updated(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -869,7 +869,7 @@ def test_send_order_updated(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

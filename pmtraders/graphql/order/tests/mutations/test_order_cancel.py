@@ -27,8 +27,8 @@ mutation cancelOrder($id: ID!) {
 """
 
 
-@patch("saleor.graphql.order.mutations.order_cancel.cancel_order", wraps=cancel_order)
-@patch("saleor.graphql.order.mutations.order_cancel.clean_order_cancel")
+@patch("pmtraders.graphql.order.mutations.order_cancel.cancel_order", wraps=cancel_order)
+@patch("pmtraders.graphql.order.mutations.order_cancel.clean_order_cancel")
 def test_order_cancel(
     mock_clean_order_cancel,
     mock_cancel_order,
@@ -52,8 +52,8 @@ def test_order_cancel(
     )
 
 
-@patch("saleor.graphql.order.mutations.order_cancel.cancel_order")
-@patch("saleor.graphql.order.mutations.order_cancel.clean_order_cancel")
+@patch("pmtraders.graphql.order.mutations.order_cancel.cancel_order")
+@patch("pmtraders.graphql.order.mutations.order_cancel.clean_order_cancel")
 def test_order_cancel_as_app(
     mock_clean_order_cancel,
     mock_cancel_order,
@@ -78,8 +78,8 @@ def test_order_cancel_as_app(
     )
 
 
-@patch("saleor.graphql.order.mutations.order_cancel.cancel_order")
-@patch("saleor.graphql.order.mutations.order_cancel.clean_order_cancel")
+@patch("pmtraders.graphql.order.mutations.order_cancel.cancel_order")
+@patch("pmtraders.graphql.order.mutations.order_cancel.clean_order_cancel")
 def test_order_cancel_with_bought_gift_cards(
     mock_clean_order_cancel,
     mock_cancel_order,
@@ -133,15 +133,15 @@ def test_order_cancel_no_channel_access(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@patch("saleor.graphql.order.mutations.order_cancel.clean_order_cancel")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@patch("pmtraders.graphql.order.mutations.order_cancel.clean_order_cancel")
 def test_order_cancel_skip_trigger_webhooks(
     mock_clean_order_cancel,
     mocked_send_webhook_request_async,
@@ -207,7 +207,7 @@ def test_order_cancel_skip_trigger_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],

@@ -40,7 +40,7 @@ def test_get_instrument_method_record():
     assert method == instrument.record
 
 
-@patch("saleor.core.telemetry.metric.get_meter")
+@patch("pmtraders.core.telemetry.metric.get_meter")
 def test_meter_initialization(mock_get_meter):
     # given
     instrumentation_version = "1.0.0"
@@ -221,7 +221,7 @@ def test_meter_record():
     mock_instrument.add.assert_called_once_with(1, {"attr1": "value1"})
 
 
-@patch("saleor.core.telemetry.metric.convert_unit")
+@patch("pmtraders.core.telemetry.metric.convert_unit")
 def test_meter_record_with_different_unit(mock_convert_unit):
     # given
     meter = Meter("1.0.0")
@@ -303,7 +303,7 @@ def test_meter_proxy_initialize():
     )
 
     # Initialize again should log a warning
-    with patch("saleor.core.telemetry.metric.logger.warning") as mock_warning:
+    with patch("pmtraders.core.telemetry.metric.logger.warning") as mock_warning:
         meter_proxy.initialize(mock_meter_cls, "1.0.0")
         mock_warning.assert_called_once_with("Meter already initialized")
 

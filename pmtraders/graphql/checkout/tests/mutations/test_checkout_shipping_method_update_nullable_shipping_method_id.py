@@ -41,7 +41,7 @@ MUTATION_UPDATE_SHIPPING_METHOD = """
 
 @pytest.mark.django_db
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 def test_checkout_shipping_method_update_nullable_shipping_method_id(

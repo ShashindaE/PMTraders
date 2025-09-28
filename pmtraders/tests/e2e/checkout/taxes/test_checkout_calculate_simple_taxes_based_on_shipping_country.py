@@ -134,7 +134,7 @@ def test_checkout_calculate_simple_tax_based_on_shipping_country_CORE_2001(
     shipping_address = {
         "firstName": "John",
         "lastName": "Muller",
-        "companyName": "Saleor Commerce CZ",
+        "companyName": "pmtraders Commerce CZ",
         "streetAddress1": "Sluneční 1396",
         "streetAddress2": "",
         "postalCode": "74784",

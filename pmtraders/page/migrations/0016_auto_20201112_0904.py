@@ -2,8 +2,8 @@
 
 from django.db import migrations
 
-import saleor.core.db.fields
-import saleor.core.utils.editorjs
+import pmtraders.core.db.fields
+import pmtraders.core.utils.editorjs
 
 
 class Migration(migrations.Migration):
@@ -15,19 +15,19 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="page",
             name="content_json",
-            field=saleor.core.db.fields.SanitizedJSONField(
+            field=pmtraders.core.db.fields.SanitizedJSONField(
                 blank=True,
                 default=dict,
-                sanitizer=saleor.core.utils.editorjs.clean_editor_js,
+                sanitizer=pmtraders.core.utils.editorjs.clean_editor_js,
             ),
         ),
         migrations.AlterField(
             model_name="pagetranslation",
             name="content_json",
-            field=saleor.core.db.fields.SanitizedJSONField(
+            field=pmtraders.core.db.fields.SanitizedJSONField(
                 blank=True,
                 default=dict,
-                sanitizer=saleor.core.utils.editorjs.clean_editor_js,
+                sanitizer=pmtraders.core.utils.editorjs.clean_editor_js,
             ),
         ),
     ]

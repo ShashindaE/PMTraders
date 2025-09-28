@@ -194,8 +194,8 @@ def test_category_update_mutation_with_update_at_field(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_category_update_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -210,7 +210,7 @@ def test_category_update_trigger_webhook(
     staff_api_client.user.user_permissions.add(permission_manage_products)
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     category_name = "Updated name"
     description = "description"
@@ -256,7 +256,7 @@ def test_category_update_trigger_webhook(
     )
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_category_update_background_image_mutation(
     delete_from_storage_task_mock,
     monkeypatch,
@@ -322,7 +322,7 @@ def test_category_update_background_image_mutation(
     delete_from_storage_task_mock.assert_called_once_with(img_path)
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_category_update_mutation_invalid_background_image_content_type(
     delete_from_storage_task_mock,
     staff_api_client,
@@ -366,7 +366,7 @@ def test_category_update_mutation_invalid_background_image_content_type(
     delete_from_storage_task_mock.assert_not_called()
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_category_update_mutation_invalid_background_image(
     delete_from_storage_task_mock,
     monkeypatch,
@@ -384,7 +384,7 @@ def test_category_update_mutation_invalid_background_image(
     error_msg = "Test syntax error"
     image_file_mock = Mock(side_effect=SyntaxError(error_msg))
     monkeypatch.setattr(
-        "saleor.graphql.core.validators.file.Image.open", image_file_mock
+        "pmtraders.graphql.core.validators.file.Image.open", image_file_mock
     )
 
     size = 128

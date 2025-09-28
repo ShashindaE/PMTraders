@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from ...context import set_app_on_context
-from ..context import SaleorContext
+from ..context import pmtradersContext
 
 
 def test_app_middleware_accepts_app_requests(app, rf):
@@ -18,7 +18,7 @@ def test_app_middleware_accepts_app_requests(app, rf):
     assert request.app == app
 
 
-def test_app_middleware_accepts_saleors_header(app, rf):
+def test_app_middleware_accepts_pmtraderss_header(app, rf):
     # given
     request = rf.get(reverse("api"))
     _, token = app.tokens.create()
@@ -45,12 +45,12 @@ def test_app_middleware_skips_when_token_length_is_different_than_30(
     assert not request.app
 
 
-def test_saleor_context_init_dataloaders():
+def test_pmtraders_context_init_dataloaders():
     # given
     dataloaders = {}
 
     # when
-    context = SaleorContext(dataloaders=dataloaders)
+    context = pmtradersContext(dataloaders=dataloaders)
 
     # then
     assert context.dataloaders is dataloaders

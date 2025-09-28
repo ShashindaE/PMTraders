@@ -48,7 +48,7 @@ def test_retry_install_app_mutation(
     app_installation.save()
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+        "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
         mocked_task,
     )
     staff_user.user_permissions.set([permission_manage_apps, permission_manage_orders])
@@ -85,7 +85,7 @@ def test_retry_install_app_mutation_with_another_app_installed_but_marked_to_be_
     app_installation.save()
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+        "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
         mocked_task,
     )
     staff_user.user_permissions.set([permission_manage_apps, permission_manage_orders])
@@ -119,7 +119,7 @@ def test_retry_install_app_mutation_by_app(
     app_installation.save()
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+        "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
         mocked_task,
     )
     app_api_client.app.permissions.set(
@@ -157,7 +157,7 @@ def test_retry_install_app_mutation_app_has_more_permission_than_user_requestor(
 
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+        "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
         mocked_task,
     )
     staff_user.user_permissions.set([permission_manage_apps])
@@ -195,7 +195,7 @@ def test_retry_install_app_mutation_app_has_more_permission_than_app_requestor(
 
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+        "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
         mocked_task,
     )
 
@@ -232,7 +232,7 @@ def test_cannot_retry_installation_if_status_is_different_than_failed(
 
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+        "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
         mocked_task,
     )
     staff_user.user_permissions.set([permission_manage_apps, permission_manage_orders])
@@ -255,9 +255,9 @@ def test_cannot_retry_installation_if_status_is_different_than_failed(
     assert not mocked_task.called
 
 
-@patch("saleor.app.installation_utils.send_app_token", Mock())
+@patch("pmtraders.app.installation_utils.send_app_token", Mock())
 @patch(
-    "saleor.graphql.app.mutations.app_retry_install.install_app_task.delay",
+    "pmtraders.graphql.app.mutations.app_retry_install.install_app_task.delay",
     install_app_task,
 )
 def test_install_retry_app_mutation_with_the_same_identifier_twice(
@@ -280,7 +280,7 @@ def test_install_retry_app_mutation_with_the_same_identifier_twice(
     }
 
     # when
-    with patch("saleor.app.installation_utils.fetch_manifest") as mocked_fetch:
+    with patch("pmtraders.app.installation_utils.fetch_manifest") as mocked_fetch:
         mocked_fetch.return_value = {
             "id": app.identifier,
             "tokenTargetUrl": "http://localhost:3000/register",

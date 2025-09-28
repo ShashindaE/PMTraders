@@ -86,7 +86,7 @@ def transaction_initialize(
     }
 
     monkeypatch.setattr(
-        "saleor.plugins.manager.PluginsManager.transaction_initialize_session",
+        "pmtraders.plugins.manager.PluginsManager.transaction_initialize_session",
         mock.Mock(
             return_value=TransactionSessionResult(
                 app_identifier=app_identifier, response=expected_response

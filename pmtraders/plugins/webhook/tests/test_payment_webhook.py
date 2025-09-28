@@ -72,7 +72,7 @@ def webhook_data():
     return WebhookTestData(secret, event_type, data, message)
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_webhook_sync(mock_request, payment_app):
     data = '{"key": "value"}'
     trigger_webhook_sync(
@@ -83,9 +83,9 @@ def test_trigger_webhook_sync(mock_request, payment_app):
 
 
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.create_delivery_for_subscription_sync_event"
+    "pmtraders.webhook.transport.synchronous.transport.create_delivery_for_subscription_sync_event"
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_webhook_sync_with_subscription(
     mock_request,
     mock_delivery_create,
@@ -107,7 +107,7 @@ def test_trigger_webhook_sync_with_subscription(
 
 
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.observability.report_event_delivery_attempt"
+    "pmtraders.webhook.transport.synchronous.transport.observability.report_event_delivery_attempt"
 )
 @mock.patch.object(HTTPSession, "request")
 def test_send_webhook_request_sync_failed_attempt(
@@ -140,9 +140,9 @@ def test_send_webhook_request_sync_failed_attempt(
     mock_observability.assert_called_once_with(attempt)
 
 
-@mock.patch("saleor.webhook.observability.report_event_delivery_attempt")
+@mock.patch("pmtraders.webhook.observability.report_event_delivery_attempt")
 @mock.patch.object(HTTPSession, "request")
-@mock.patch("saleor.webhook.transport.synchronous.transport.clear_successful_delivery")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.clear_successful_delivery")
 def test_send_webhook_request_sync_successful_attempt(
     mock_clear_delivery, mock_post, mock_observability, app, event_delivery
 ):
@@ -177,7 +177,7 @@ def test_send_webhook_request_sync_successful_attempt(
     mock_observability.assert_called_once_with(attempt)
 
 
-@mock.patch("saleor.webhook.observability.report_event_delivery_attempt")
+@mock.patch("pmtraders.webhook.observability.report_event_delivery_attempt")
 @mock.patch.object(HTTPSession, "request", side_effect=RequestException)
 def test_send_webhook_request_sync_request_exception(
     mock_post, mock_observability, app, event_delivery
@@ -209,7 +209,7 @@ def test_send_webhook_request_sync_request_exception(
     mock_observability.assert_called_once_with(attempt)
 
 
-@mock.patch("saleor.webhook.observability.report_event_delivery_attempt")
+@mock.patch("pmtraders.webhook.observability.report_event_delivery_attempt")
 @mock.patch.object(HTTPSession, "request")
 def test_send_webhook_request_sync_when_exception_with_response(
     mock_post, mock_observability, app, event_delivery
@@ -230,7 +230,7 @@ def test_send_webhook_request_sync_when_exception_with_response(
     mock_observability.assert_called_once_with(attempt)
 
 
-@mock.patch("saleor.webhook.observability.report_event_delivery_attempt")
+@mock.patch("pmtraders.webhook.observability.report_event_delivery_attempt")
 @mock.patch.object(HTTPSession, "request")
 def test_send_webhook_request_sync_json_parsing_error(
     mock_post, mock_observability, app, event_delivery
@@ -273,7 +273,7 @@ def test_send_webhook_request_with_proper_timeout(mock_post, event_delivery, app
 
 
 def test_send_webhook_request_sync_invalid_scheme(webhook, app):
-    target_url = "gcpubsub://cloud.google.com/projects/saleor/topics/test"
+    target_url = "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"
     event_payload = EventPayload.objects.create_with_payload_file(
         payload="fake_content"
     )
@@ -289,7 +289,7 @@ def test_send_webhook_request_sync_invalid_scheme(webhook, app):
         send_webhook_request_sync(delivery)
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_payment_gateways(
     mock_send_request, payment_app, permission_manage_payments, webhook_plugin
 ):
@@ -331,7 +331,7 @@ def test_get_payment_gateways(
     assert response_data[1] == expected_response_2[0]
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_payment_gateways_with_transactions(
     mock_send_request, permission_manage_payments, webhook_plugin
 ):
@@ -362,7 +362,7 @@ def test_get_payment_gateways_with_transactions(
     assert not mock_send_request.called
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_payment_gateways_with_transactions_and_app_without_identifier(
     mock_send_request, permission_manage_payments, webhook_plugin
 ):
@@ -389,7 +389,7 @@ def test_get_payment_gateways_with_transactions_and_app_without_identifier(
     assert len(response_data) == 0
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_payment_gateways_multiple_webhooks_in_the_same_app(
     mock_send_request, payment_app, permission_manage_payments, webhook_plugin
 ):
@@ -433,7 +433,7 @@ def test_get_payment_gateways_multiple_webhooks_in_the_same_app(
     assert response_data[1] == expected_response_2[0]
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_payment_gateways_filters_out_unsupported_currencies(
     mock_send_request, payment_app, webhook_plugin
 ):
@@ -451,8 +451,8 @@ def test_get_payment_gateways_filters_out_unsupported_currencies(
     assert response_data == []
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@mock.patch("saleor.plugins.webhook.plugin.generate_list_gateways_payload")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.plugins.webhook.plugin.generate_list_gateways_payload")
 def test_get_payment_gateways_for_checkout(
     mock_generate_payload, mock_send_request, checkout_info, payment_app, webhook_plugin
 ):
@@ -482,7 +482,7 @@ def test_get_payment_gateways_for_checkout(
         (TransactionKind.CAPTURE, "process_payment"),
     ],
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_run_payment_webhook(
     mock_send_request,
     txn_kind,
@@ -580,7 +580,7 @@ def test_run_payment_webhook_inactive_plugin(payment, webhook_plugin):
     assert response == dummy_previous_value
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_run_payment_webhook_no_response(mock_send_request, payment, webhook_plugin):
     # Should raise and error when response data is None.
     mock_send_request.return_value = None
@@ -595,7 +595,7 @@ def test_run_payment_webhook_no_response(mock_send_request, payment, webhook_plu
         )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_run_payment_webhook_empty_response(mock_send_request, payment, webhook_plugin):
     # Empty JSON response "{}"" is accepted; check that it doesn't fail.
     mock_send_request.return_value = {}

@@ -7,10 +7,10 @@ from ....core.utils import to_global_id_or_none
 from ....tests.utils import get_graphql_content
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_shipping_methods_use_pregenerated_payloads_app_without_subscription(
     mock_generate_payload,

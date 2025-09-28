@@ -29,8 +29,8 @@ def test_use_external_shipping_methods_in_checkout_core_1652(
 ):
     # Before
     settings.PLUGINS = [
-        "saleor.plugins.webhook.plugin.WebhookPlugin",
-        "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
+        "pmtraders.plugins.webhook.plugin.WebhookPlugin",
+        "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
     ]
     permissions = [
         permission_manage_products,
@@ -100,9 +100,9 @@ def test_use_external_shipping_methods_in_checkout_core_1652(
     assert checkout_data["totalPrice"]["gross"]["amount"] == calculated_subtotal
     shipping_methods = checkout_data["shippingMethods"]
     assert len(shipping_methods) == 3
-    saleor_shipping = shipping_methods[0]
-    assert saleor_shipping["name"] == "Test shipping method"
-    assert saleor_shipping["price"]["amount"] == 10
+    pmtraders_shipping = shipping_methods[0]
+    assert pmtraders_shipping["name"] == "Test shipping method"
+    assert pmtraders_shipping["price"]["amount"] == 10
     external_shipping_1 = shipping_methods[1]
     assert external_shipping_1["name"] == "Provider - Economy"
     assert external_shipping_1["price"]["amount"] == 100

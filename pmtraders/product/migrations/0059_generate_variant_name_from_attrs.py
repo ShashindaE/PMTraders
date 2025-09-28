@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from django.db import migrations
 
-from saleor.core.utils.translations import get_translation
+from pmtraders.core.utils.translations import get_translation
 
 
 def get_attributes_display_map(obj, attributes):

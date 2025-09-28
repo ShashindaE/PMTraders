@@ -44,7 +44,7 @@ def test_handling_invalid_graphene_type(api_client):
     assert errors[0]["message"] == "Invalid type: Che3kout"
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.product_metadata_updated")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_metadata_updated")
 def test_call_extra_action_only_when_metadata_change(
     mocked_product_metadata_webhook,
     staff_api_client,
@@ -67,7 +67,7 @@ def test_call_extra_action_only_when_metadata_change(
     mocked_product_metadata_webhook.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.product_metadata_updated")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_metadata_updated")
 def test_call_extra_action_when_metadata_changed(
     mocked_product_metadata_webhook,
     staff_api_client,

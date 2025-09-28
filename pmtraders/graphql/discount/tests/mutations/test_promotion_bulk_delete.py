@@ -77,7 +77,7 @@ def test_delete_promotions_by_app(
     ).exists()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.promotion_deleted")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.promotion_deleted")
 def test_delete_promotions_trigger_webhooks(
     deleted_webhook_mock,
     staff_api_client,

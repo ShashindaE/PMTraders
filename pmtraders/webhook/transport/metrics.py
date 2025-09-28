@@ -8,14 +8,14 @@ from .utils import WebhookResponse
 
 # Initialize metrics
 METRIC_EXTERNAL_REQUEST_COUNT = meter.create_metric(
-    "saleor.external_request.count",
+    "pmtraders.external_request.count",
     scope=Scope.SERVICE,
     type=MetricType.COUNTER,
     unit=Unit.REQUEST,
     description="Number of webhook events.",
 )
 METRIC_EXTERNAL_REQUEST_DURATION = meter.create_metric(
-    "saleor.external_request.duration",
+    "pmtraders.external_request.duration",
     scope=Scope.SERVICE,
     type=MetricType.HISTOGRAM,
     unit=Unit.SECOND,
@@ -42,7 +42,7 @@ BODY_SIZE_BUCKETS = [
     4194304,  # 4MB
 ]
 METRIC_EXTERNAL_REQUEST_BODY_SIZE = meter.create_metric(
-    "saleor.external_request.body.size",
+    "pmtraders.external_request.body.size",
     scope=Scope.SERVICE,
     type=MetricType.HISTOGRAM,
     unit=Unit.BYTE,

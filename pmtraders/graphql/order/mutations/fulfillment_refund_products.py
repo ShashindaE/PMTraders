@@ -65,7 +65,7 @@ class OrderRefundProductsInput(BaseInputObjectType):
     )
     include_shipping_costs = graphene.Boolean(
         description=(
-            "If true, Saleor will refund shipping costs. If amountToRefund is provided"
+            "If true, pmtraders will refund shipping costs. If amountToRefund is provided"
             "includeShippingCosts will be ignored."
         ),
         default_value=False,

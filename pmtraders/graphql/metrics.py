@@ -10,12 +10,12 @@ from ..core.telemetry import (
     Scope,
     Unit,
     meter,
-    saleor_attributes,
+    pmtraders_attributes,
 )
 
 # Initialize metrics
 METRIC_GRAPHQL_QUERY_COUNT = meter.create_metric(
-    "saleor.graphql.operation.count",
+    "pmtraders.graphql.operation.count",
     scope=Scope.SERVICE,
     type=MetricType.COUNTER,
     unit=Unit.REQUEST,
@@ -23,7 +23,7 @@ METRIC_GRAPHQL_QUERY_COUNT = meter.create_metric(
 )
 
 METRIC_GRAPHQL_QUERY_DURATION = meter.create_metric(
-    "saleor.graphql.operation.duration",
+    "pmtraders.graphql.operation.duration",
     scope=Scope.SERVICE,
     type=MetricType.HISTOGRAM,
     unit=Unit.SECOND,
@@ -50,7 +50,7 @@ QUERY_COST_BUCKETS = [
     50000,
 ]
 METRIC_GRAPHQL_QUERY_COST = meter.create_metric(
-    "saleor.graphql.operation.cost",
+    "pmtraders.graphql.operation.cost",
     scope=Scope.SERVICE,
     type=MetricType.HISTOGRAM,
     unit=Unit.COST,
@@ -59,7 +59,7 @@ METRIC_GRAPHQL_QUERY_COST = meter.create_metric(
 )
 
 METRIC_REQUEST_COUNT = meter.create_metric(
-    "saleor.request.count",
+    "pmtraders.request.count",
     scope=Scope.SERVICE,
     type=MetricType.COUNTER,
     unit=Unit.REQUEST,
@@ -67,7 +67,7 @@ METRIC_REQUEST_COUNT = meter.create_metric(
 )
 
 METRIC_REQUEST_DURATION = meter.create_metric(
-    "saleor.request.duration",
+    "pmtraders.request.duration",
     scope=Scope.SERVICE,
     type=MetricType.HISTOGRAM,
     unit=Unit.SECOND,
@@ -85,7 +85,7 @@ def record_graphql_query_count(
     error_type: str | None = None,
 ) -> None:
     attributes = {
-        saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier or "",
+        pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier or "",
         graphql_attributes.GRAPHQL_OPERATION_TYPE: operation_type or "",
     }
     if error_type:
@@ -100,7 +100,7 @@ def record_graphql_query_duration() -> AbstractContextManager[
 ]:
     attributes: dict[str, AttributeValue] = {
         graphql_attributes.GRAPHQL_OPERATION_TYPE: "",
-        saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
+        pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
     }
     return meter.record_duration(METRIC_GRAPHQL_QUERY_DURATION, attributes=attributes)
 
@@ -113,7 +113,7 @@ def record_graphql_query_cost(
     error_type: str | None = None,
 ) -> None:
     attributes = {
-        saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier or "",
+        pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier or "",
         graphql_attributes.GRAPHQL_OPERATION_TYPE: operation_type or "",
     }
     if error_type:

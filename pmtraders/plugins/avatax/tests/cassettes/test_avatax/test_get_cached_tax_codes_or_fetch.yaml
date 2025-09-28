@@ -11,7 +11,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - Saleor/3.21
+      - pmtraders/3.21
     method: GET
     uri: https://sandbox-rest.avatax.com/api/v2/definitions/taxcodes
   response:

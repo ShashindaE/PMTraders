@@ -38,8 +38,8 @@ APPROVE_FULFILLMENT_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_approved")
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_approved")
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve(
     mock_email_fulfillment,
     mock_fulfillment_approved,
@@ -100,8 +100,8 @@ def test_fulfillment_approve_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_approved")
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_approved")
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_by_app(
     mock_email_fulfillment,
     mock_fulfillment_approved,
@@ -139,7 +139,7 @@ def test_fulfillment_approve_by_app(
     mock_fulfillment_approved.assert_called_once_with(fulfillment, True)
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_delete_products_before_approval_allow_stock_exceeded_true(
     mock_email_fulfillment,
     staff_api_client,
@@ -175,8 +175,8 @@ def test_fulfillment_approve_delete_products_before_approval_allow_stock_exceede
     assert event.user == staff_api_client.user
 
 
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_approved")
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_approved")
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_delete_products_before_approval_allow_stock_exceeded_false(
     mock_email_fulfillment,
     mock_fulfillment_approved,
@@ -234,7 +234,7 @@ def test_fulfillment_approve_delete_products_before_approval_allow_stock_exceede
     mock_fulfillment_approved.assert_not_called()
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_gift_cards_created(
     mock_email_fulfillment,
     staff_api_client,
@@ -302,7 +302,7 @@ def test_fulfillment_approve_gift_cards_created(
             assert gift_card.fulfillment_line == fulfillment_line_2
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_when_stock_is_exceeded_and_flag_enabled(
     mock_email_fulfillment,
     staff_api_client,
@@ -344,7 +344,7 @@ def test_fulfillment_approve_when_stock_is_exceeded_and_flag_enabled(
     assert event.user == staff_api_client.user
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_when_stock_is_exceeded_and_flag_disabled(
     mock_email_fulfillment,
     staff_api_client,
@@ -392,8 +392,8 @@ def test_fulfillment_approve_when_stock_is_exceeded_and_flag_disabled(
         assert expected_error in errors
 
 
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_approved")
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_approved")
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_fulfillment_approve_partial_order_fulfill(
     mock_email_fulfillment,
     mock_fulfillment_approved,
@@ -508,7 +508,7 @@ def test_fulfillment_approve_preorder(
     assert error["code"] == OrderErrorCode.FULFILL_ORDER_LINE.name
 
 
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_fulfillment_approve_trigger_webhook_event(
     mocked_trigger_async,
     staff_api_client,
@@ -518,7 +518,7 @@ def test_fulfillment_approve_trigger_webhook_event(
     subscription_fulfillment_approved_webhook,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     permission_group_manage_orders.user_set.add(staff_api_client.user)
     fulfillment = full_fulfillment_awaiting_approval
 

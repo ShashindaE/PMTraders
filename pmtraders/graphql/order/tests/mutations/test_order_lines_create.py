@@ -118,7 +118,7 @@ ORDER_LINES_CREATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_lines_create_with_out_of_stock_webhook(
     product_variant_out_of_stock_webhook_mock,
     order_with_lines,
@@ -151,7 +151,7 @@ def test_order_lines_create_with_out_of_stock_webhook(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_lines_create_for_variant_with_many_stocks_with_out_of_stock_webhook(
     product_variant_out_of_stock_webhook_mock,
     order_with_lines,
@@ -177,9 +177,9 @@ def test_order_lines_create_for_variant_with_many_stocks_with_out_of_stock_webho
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_lines_create(
     product_variant_out_of_stock_webhook_mock,
     order_updated_webhook_mock,
@@ -271,8 +271,8 @@ def test_order_lines_create_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_by_app(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -325,9 +325,9 @@ def test_order_lines_create_by_app(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_lines_create_for_just_published_product(
     product_variant_out_of_stock_webhook_mock,
     order_updated_webhook_mock,
@@ -370,8 +370,8 @@ def test_order_lines_create_for_just_published_product(
     assert data["orderLines"][0]["quantity"] == quantity
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_unavailable_variant(
     order_updated_webhook_mock,
     draft_order_updated_webhoook_mock,
@@ -434,8 +434,8 @@ def test_order_lines_create_when_some_line_has_deleted_product(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_existing_variant(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -479,8 +479,8 @@ def test_order_lines_create_with_existing_variant(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_same_variant_and_force_new_line(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -536,8 +536,8 @@ def test_order_lines_create_with_same_variant_and_force_new_line(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_when_variant_already_in_multiple_lines(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -590,8 +590,8 @@ def test_order_lines_create_when_variant_already_in_multiple_lines(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_variant_on_promotion(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -702,8 +702,8 @@ def test_order_lines_create_variant_on_promotion(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_order_promotion(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -784,8 +784,8 @@ def test_order_lines_create_order_promotion(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_gift_promotion(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -848,8 +848,8 @@ def test_order_lines_create_gift_promotion(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_product_and_variant_not_assigned_to_channel(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -883,8 +883,8 @@ def test_order_lines_create_with_product_and_variant_not_assigned_to_channel(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_variant_not_assigned_to_channel(
     order_update_webhook_mock,
     draft_order_update_webhook_mock,
@@ -920,7 +920,7 @@ def test_order_lines_create_with_variant_not_assigned_to_channel(
     draft_order_update_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
 def test_order_lines_create_without_sku(
     product_variant_out_of_stock_webhook_mock,
@@ -970,8 +970,8 @@ def test_order_lines_create_without_sku(
     product_variant_out_of_stock_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_invalid_order_when_creating_lines(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -995,8 +995,8 @@ def test_invalid_order_when_creating_lines(
     draft_order_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_custom_price(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -1063,8 +1063,8 @@ def test_order_lines_create_with_custom_price(
     assert data["orderLines"][0]["isPriceOverridden"] is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_lines_create_with_custom_price_force_new_line(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -1294,14 +1294,14 @@ def test_order_lines_create_no_shipping_address(
     ],
 )
 @patch(
-    "saleor.graphql.order.mutations.utils.call_order_event",
+    "pmtraders.graphql.order.mutations.utils.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_lines_create_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1347,7 +1347,7 @@ def test_order_lines_create_triggers_webhooks(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

@@ -43,7 +43,7 @@ class WarehouseInput(BaseInputObjectType):
 class WarehouseCreateInput(WarehouseInput):
     name = graphene.String(description="Warehouse name.", required=True)
     address = graphene.Field(
-        "saleor.graphql.account.types.AddressInput",
+        "pmtraders.graphql.account.types.AddressInput",
         description="Address of the warehouse.",
         required=True,
     )
@@ -61,7 +61,7 @@ class WarehouseCreateInput(WarehouseInput):
 class WarehouseUpdateInput(WarehouseInput):
     name = graphene.String(description="Warehouse name.", required=False)
     address = graphene.Field(
-        "saleor.graphql.account.types.AddressInput",
+        "pmtraders.graphql.account.types.AddressInput",
         description="Address of the warehouse.",
         required=False,
     )
@@ -87,7 +87,7 @@ class Warehouse(ModelObjectType[models.Warehouse]):
         required=True, description="Determine if the warehouse is private."
     )
     address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         required=True,
         description="Address of the warehouse.",
     )
@@ -101,12 +101,12 @@ class Warehouse(ModelObjectType[models.Warehouse]):
         required=True,
     )
     shipping_zones = ConnectionField(
-        "saleor.graphql.shipping.types.ShippingZoneCountableConnection",
+        "pmtraders.graphql.shipping.types.ShippingZoneCountableConnection",
         required=True,
         description="Shipping zones supported by the warehouse.",
     )
     stocks = ConnectionField(
-        "saleor.graphql.warehouse.types.StockCountableConnection",
+        "pmtraders.graphql.warehouse.types.StockCountableConnection",
         description="Stocks that belong to this warehouse." + ADDED_IN_320,
         permissions=[
             ProductPermissions.MANAGE_PRODUCTS,
@@ -184,7 +184,7 @@ class Stock(ModelObjectType[models.Stock]):
         Warehouse, required=True, description="The warehouse associated with the stock."
     )
     product_variant = graphene.Field(
-        "saleor.graphql.product.types.ProductVariant",
+        "pmtraders.graphql.product.types.ProductVariant",
         required=True,
         description="Information about the product variant.",
     )

@@ -31,7 +31,7 @@ from .utils import (
 )
 
 
-@patch("saleor.csv.utils.products_data.prepare_products_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_products_relations_data")
 def test_get_products_relations_data(prepare_products_data_mocked, product_list):
     # given
     qs = Product.objects.all()
@@ -60,7 +60,7 @@ def test_get_products_relations_data(prepare_products_data_mocked, product_list)
     )
 
 
-@patch("saleor.csv.utils.products_data.prepare_products_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_products_relations_data")
 def test_get_products_relations_data_no_relations_fields(
     prepare_products_data_mocked, product_list
 ):
@@ -77,7 +77,7 @@ def test_get_products_relations_data_no_relations_fields(
     prepare_products_data_mocked.assert_not_called()
 
 
-@patch("saleor.csv.utils.products_data.prepare_products_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_products_relations_data")
 def test_get_products_relations_data_attribute_ids(
     prepare_products_data_mocked,
     product_list,
@@ -155,7 +155,7 @@ def test_get_products_relations_data_attribute_ids(
     assert args[1:] == (set(), attribute_ids, channel_ids)
 
 
-@patch("saleor.csv.utils.products_data.prepare_products_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_products_relations_data")
 def test_get_products_relations_data_channel_ids(
     prepare_products_data_mocked, product_list, channel_USD, channel_PLN
 ):
@@ -373,7 +373,7 @@ def test_prepare_products_relations_data_sets_published_dates(
     )
 
 
-@patch("saleor.csv.utils.products_data.prepare_variants_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_variants_relations_data")
 def test_get_variants_relations_data(prepare_variants_data_mocked, product_list):
     # given
     qs = Product.objects.all()
@@ -405,7 +405,7 @@ def test_get_variants_relations_data(prepare_variants_data_mocked, product_list)
     )
 
 
-@patch("saleor.csv.utils.products_data.prepare_variants_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_variants_relations_data")
 def test_get_variants_relations_data_no_relations_fields(
     prepare_variants_data_mocked, product_list
 ):
@@ -425,7 +425,7 @@ def test_get_variants_relations_data_no_relations_fields(
     prepare_variants_data_mocked.assert_not_called()
 
 
-@patch("saleor.csv.utils.products_data.prepare_variants_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_variants_relations_data")
 def test_get_variants_relations_data_attribute_ids(
     prepare_variants_data_mocked,
     product_list,
@@ -487,7 +487,7 @@ def test_get_variants_relations_data_attribute_ids(
     assert args[1:] == (set(), attribute_ids, warehouse_ids, channel_ids)
 
 
-@patch("saleor.csv.utils.products_data.prepare_variants_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_variants_relations_data")
 def test_get_variants_relations_data_warehouse_ids(
     prepare_variants_data_mocked, product_list, warehouses
 ):
@@ -512,7 +512,7 @@ def test_get_variants_relations_data_warehouse_ids(
     assert args[1:] == (set(), attribute_ids, warehouse_ids, channel_ids)
 
 
-@patch("saleor.csv.utils.products_data.prepare_variants_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_variants_relations_data")
 def test_get_variants_relations_data_channel_ids(
     prepare_variants_data_mocked, product_list, channel_USD, channel_PLN
 ):
@@ -537,7 +537,7 @@ def test_get_variants_relations_data_channel_ids(
     assert args[1:] == (set(), attribute_ids, warehouse_ids, channel_ids)
 
 
-@patch("saleor.csv.utils.products_data.prepare_variants_relations_data")
+@patch("pmtraders.csv.utils.products_data.prepare_variants_relations_data")
 def test_get_variants_relations_data_attributes_warehouses_and_channels_ids(
     prepare_variants_data_mocked, product_list, warehouses, channel_PLN, channel_USD
 ):

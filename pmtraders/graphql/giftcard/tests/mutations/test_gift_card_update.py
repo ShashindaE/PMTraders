@@ -745,8 +745,8 @@ def test_update_gift_card_duplicated_tags_item(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_update_gift_card_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -760,7 +760,7 @@ def test_update_gift_card_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     initial_balance = 100.0
     date_value = datetime.datetime.now(tz=datetime.UTC).date() + datetime.timedelta(

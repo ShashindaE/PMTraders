@@ -74,7 +74,7 @@ def test_external_notification_trigger_query_with_invalid_data(
     assert errors[0]["message"] == message
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_notify_via_external_notification_trigger_for_plugin_manager(
     plugin_manager_notify_mock,
     settings,
@@ -84,7 +84,7 @@ def test_notify_via_external_notification_trigger_for_plugin_manager(
     permission_manage_users,
     channel_PLN,
 ):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     variables = {
         "input": {
@@ -106,7 +106,7 @@ def test_notify_via_external_notification_trigger_for_plugin_manager(
     assert len(response.json()["data"]["externalNotificationTrigger"]["errors"]) == 0
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_notify_via_external_notification_trigger_without_permission(
     plugin_manager_notify_mock,
     staff_users,

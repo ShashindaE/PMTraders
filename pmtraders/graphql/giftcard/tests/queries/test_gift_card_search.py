@@ -1,6 +1,6 @@
 import pytest
 
-from saleor.giftcard.search import update_gift_cards_search_vector
+from pmtraders.giftcard.search import update_gift_cards_search_vector
 
 from ....tests.utils import get_graphql_content
 

@@ -16,7 +16,7 @@ from ..core.payments import PaymentInterface
 from ..core.prices import quantize_price
 from ..core.taxes import TaxData, TaxDataError, TaxType, zero_money, zero_taxed_money
 from ..core.telemetry import tracer
-from ..graphql.core import SaleorContext
+from ..graphql.core import pmtradersContext
 from ..order import base_calculations as base_order_calculations
 from ..order.base_calculations import (
     base_order_line_total,
@@ -2562,7 +2562,7 @@ class PluginsManager(PaymentInterface):
                 channel_slug=channel_slug, active_only=active_only
             )
         else:
-            # Backwards compatibility for: https://github.com/saleor/saleor/pull/15769/
+            # Backwards compatibility for: https://github.com/pmtraders/pmtraders/pull/15769/
             # Load all channel plugins and global plugins if channel_slug is None, as
             # it was done before the mentioned PR.
             plugins = self.get_all_plugins(active_only=active_only)
@@ -2759,7 +2759,7 @@ class PluginsManager(PaymentInterface):
         return None
 
     def webhook_endpoint_without_channel(
-        self, request: SaleorContext, plugin_id: str
+        self, request: pmtradersContext, plugin_id: str
     ) -> HttpResponse:
         # This should be removed in 3.0.0-a.25 as we want to give a possibility to have
         # no downtime between RCs
@@ -2781,7 +2781,7 @@ class PluginsManager(PaymentInterface):
         )
 
     def webhook(
-        self, request: SaleorContext, plugin_id: str, channel_slug: str | None
+        self, request: pmtradersContext, plugin_id: str, channel_slug: str | None
     ) -> HttpResponse:
         split_path = request.path.split(plugin_id, maxsplit=1)
         path = None
@@ -2828,7 +2828,7 @@ class PluginsManager(PaymentInterface):
         )
 
     def external_obtain_access_tokens(
-        self, plugin_id: str, data: dict, request: SaleorContext
+        self, plugin_id: str, data: dict, request: pmtradersContext
     ) -> ExternalAccessTokens:
         """Obtain access tokens from authentication plugin."""
         default_value = ExternalAccessTokens()
@@ -2838,7 +2838,7 @@ class PluginsManager(PaymentInterface):
         )
 
     def external_authentication_url(
-        self, plugin_id: str, data: dict, request: SaleorContext
+        self, plugin_id: str, data: dict, request: pmtradersContext
     ) -> dict:
         """Handle authentication request."""
         default_value: dict = {}
@@ -2848,7 +2848,7 @@ class PluginsManager(PaymentInterface):
         )
 
     def external_refresh(
-        self, plugin_id: str, data: dict, request: SaleorContext
+        self, plugin_id: str, data: dict, request: pmtradersContext
     ) -> ExternalAccessTokens:
         """Handle authentication refresh request."""
         default_value = ExternalAccessTokens()
@@ -2857,7 +2857,7 @@ class PluginsManager(PaymentInterface):
             plugin, "external_refresh", default_value, data, request
         )
 
-    def authenticate_user(self, request: SaleorContext) -> Optional["User"]:
+    def authenticate_user(self, request: pmtradersContext) -> Optional["User"]:
         """Authenticate user which should be assigned to the request."""
         default_value = None
         return self.__run_method_on_plugins(
@@ -2865,7 +2865,7 @@ class PluginsManager(PaymentInterface):
         )
 
     def external_logout(
-        self, plugin_id: str, data: dict, request: SaleorContext
+        self, plugin_id: str, data: dict, request: pmtradersContext
     ) -> dict:
         """Logout the user."""
         default_value: dict[str, str] = {}
@@ -2875,7 +2875,7 @@ class PluginsManager(PaymentInterface):
         )
 
     def external_verify(
-        self, plugin_id: str, data: dict, request: SaleorContext
+        self, plugin_id: str, data: dict, request: pmtradersContext
     ) -> tuple[Optional["User"], dict]:
         """Verify the provided authentication data."""
         default_data: dict[str, str] = {}

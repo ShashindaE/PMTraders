@@ -659,7 +659,7 @@ query OrderQuery($id: ID) {
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_unit")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_unit")
 def test_order_query_undiscounted_prices_taxed(
     mocked_calculate_order_line_unit,
     staff_api_client,

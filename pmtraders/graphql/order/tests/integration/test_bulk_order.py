@@ -5,9 +5,9 @@ from unittest.mock import patch
 import graphene
 import pytest
 
-from saleor.order import OrderEvents
-from saleor.order.models import Order, OrderLine
-from saleor.payment.models import TransactionItem
+from pmtraders.order import OrderEvents
+from pmtraders.order.models import Order, OrderLine
+from pmtraders.payment.models import TransactionItem
 
 from .....order.calculations import fetch_order_prices_if_expired
 from .....plugins.manager import get_plugins_manager
@@ -136,7 +136,7 @@ def test_fulfill_imported_order(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_return_and_refund_imported_order(
     mocked_is_active,
     staff_api_client,

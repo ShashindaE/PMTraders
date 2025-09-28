@@ -21,4 +21,4 @@ package-lock.json linguist-generated -diff -merge
 CHANGELOG.md merge=union
 
 # Make sure that the schema uses LF line endings
-saleor/graphql/schema.graphql text=auto
+pmtraders/graphql/schema.graphql text=auto

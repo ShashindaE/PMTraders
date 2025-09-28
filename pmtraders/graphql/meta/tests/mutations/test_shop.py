@@ -41,7 +41,7 @@ SHOP_SETTINGS_UPDATE_METADATA_MUTATION = """
 """
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.shop_metadata_updated")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.shop_metadata_updated")
 def test_shop_settings_update_metadata(
     mock_shop_metadata_updated, staff_api_client, permission_manage_settings
 ):
@@ -69,7 +69,7 @@ def test_shop_settings_update_metadata(
     mock_shop_metadata_updated.assert_called_once()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.shop_metadata_updated")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.shop_metadata_updated")
 def test_shop_settings_update_metadata_does_not_trigger_webhook_when_metadata_unchanged(
     mock_shop_metadata_updated, staff_api_client, permission_manage_settings
 ):

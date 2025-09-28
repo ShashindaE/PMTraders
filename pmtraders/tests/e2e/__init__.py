@@ -1,7 +1,7 @@
 DEFAULT_ADDRESS = {
-    "firstName": "John Saleor",
+    "firstName": "John pmtraders",
     "lastName": "Doe Mirumee",
-    "companyName": "Saleor Commerce",
+    "companyName": "pmtraders Commerce",
     "streetAddress1": "14208 Hawthorne Blvd",
     "streetAddress2": "",
     "postalCode": "90250",
@@ -12,7 +12,7 @@ DEFAULT_ADDRESS = {
 }
 
 DEFAULT_WAREHOUSE_ADDRESS = {
-    "firstName": "Saleor",
+    "firstName": "pmtraders",
     "lastName": "Mirumee",
     "companyName": "Mirumee Software",
     "streetAddress1": "2137 Cantebury Drive",
@@ -27,7 +27,7 @@ DEFAULT_WAREHOUSE_ADDRESS = {
 ADDRESS_DE = {
     "firstName": "John",
     "lastName": "Muller",
-    "companyName": "Saleor Commerce DE",
+    "companyName": "pmtraders Commerce DE",
     "streetAddress1": "Potsdamer Platz 47",
     "streetAddress2": "",
     "postalCode": "85131",

@@ -134,8 +134,8 @@ def test_category_create_mutation(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_category_create_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -150,7 +150,7 @@ def test_category_create_trigger_webhook(
 
     query = CATEGORY_CREATE_MUTATION
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     category_name = "Test category"
     description = "description"

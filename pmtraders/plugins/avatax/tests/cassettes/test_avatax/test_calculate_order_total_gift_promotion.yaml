@@ -26,7 +26,7 @@ interactions:
       Content-Length:
       - '1145'
       User-Agent:
-      - Saleor/3.21
+      - pmtraders/3.21
     method: POST
     uri: https://sandbox-rest.avatax.com/api/v2/transactions/createoradjust
   response:

@@ -56,11 +56,11 @@ MUTATION_UPDATE_SHIPPING_METHOD = """
 # TODO: Deprecated
 @pytest.mark.parametrize("is_valid_shipping_method", [True, False])
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_method_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_method_update."
     "clean_delivery_method"
 )
 @patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update(
@@ -111,7 +111,7 @@ def test_checkout_shipping_method_update(
         assert checkout.last_change == previous_last_change
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_shipping_method_update_external_shipping_method(
     mock_send_request,
     staff_api_client,
@@ -121,7 +121,7 @@ def test_checkout_shipping_method_update_external_shipping_method(
     channel_USD,
     settings,
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "abcd"
     method_price = Decimal(10)
     method_name = "Provider - Economy"
@@ -215,7 +215,7 @@ def test_checkout_shipping_method_update_overwrites_external_shipping(
     assert checkout.shipping_method_name == shipping_method.name
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_shipping_method_update_deletes_external_shipping_when_not_valid(
     mock_send_request,
     staff_api_client,
@@ -227,7 +227,7 @@ def test_checkout_shipping_method_update_deletes_external_shipping_when_not_vali
     shipping_method,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "abcd"
     mock_json_response = [
         {
@@ -271,7 +271,7 @@ def test_checkout_shipping_method_update_deletes_external_shipping_when_not_vali
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_shipping_method_update_external_shipping_method_with_tax_plugin(
     mock_send_request,
     staff_api_client,
@@ -282,8 +282,8 @@ def test_checkout_shipping_method_update_external_shipping_method_with_tax_plugi
     settings,
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.webhook.plugin.WebhookPlugin",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.webhook.plugin.WebhookPlugin",
     ]
     response_method_id = "abcd"
     mock_json_response = [
@@ -325,7 +325,7 @@ def test_checkout_shipping_method_update_external_shipping_method_with_tax_plugi
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
 )
 def test_checkout_shipping_method_update_excluded_webhook(
     mocked_webhook,
@@ -366,7 +366,7 @@ def test_checkout_shipping_method_update_excluded_webhook(
 
 
 # Deprecated
-@patch("saleor.shipping.postal_codes.is_shipping_method_applicable_for_postal_code")
+@patch("pmtraders.shipping.postal_codes.is_shipping_method_applicable_for_postal_code")
 def test_checkout_shipping_method_update_excluded_postal_code(
     mock_is_shipping_method_available,
     staff_api_client,
@@ -674,14 +674,14 @@ def test_with_active_problems_flow(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_shipping_method_update_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -751,18 +751,18 @@ def test_checkout_shipping_method_update_triggers_webhooks(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async",
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async",
     wraps=send_webhook_request_async.apply_async,
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_shipping_method_update_external_shipping_triggers_webhooks(
     mocked_send_webhook_using_scheme_method,
     mocked_send_webhook_request_async,
@@ -849,14 +849,14 @@ def test_checkout_shipping_method_update_external_shipping_triggers_webhooks(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_shipping_method_update_to_none_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -906,7 +906,7 @@ def test_checkout_shipping_method_update_to_none_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -939,12 +939,12 @@ def test_checkout_shipping_method_update_to_none_triggers_webhooks(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_external_shipping_to_different_external(
@@ -959,7 +959,7 @@ def test_checkout_shipping_method_update_from_external_shipping_to_different_ext
     # given
     checkout = checkout_with_delivery_method_for_external_shipping
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "new-abcd"
     response_shipping_name = "New Provider - Economy"
     response_shipping_price = "10"
@@ -1003,12 +1003,12 @@ def test_checkout_shipping_method_update_from_external_shipping_to_different_ext
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_external_shipping_to_the_same_external(
@@ -1022,7 +1022,7 @@ def test_checkout_shipping_method_update_from_external_shipping_to_the_same_exte
     api_client,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "new-abcd"
     response_shipping_name = "New Provider - Economy"
     response_shipping_price = "10"
@@ -1074,11 +1074,11 @@ def test_checkout_shipping_method_update_from_external_shipping_to_the_same_exte
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_external_shipping_to_built_in_method(
@@ -1121,11 +1121,11 @@ def test_checkout_shipping_method_update_from_external_shipping_to_built_in_meth
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_external_shipping_to_none(
@@ -1161,11 +1161,11 @@ def test_checkout_shipping_method_update_from_external_shipping_to_none(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_built_in_shipping_to_different_built_in(
@@ -1207,12 +1207,12 @@ def test_checkout_shipping_method_update_from_built_in_shipping_to_different_bui
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_built_in_shipping_to_external(
@@ -1225,7 +1225,7 @@ def test_checkout_shipping_method_update_from_built_in_shipping_to_external(
     api_client,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "new-abcd"
     response_shipping_name = "New Provider - Economy"
     response_shipping_price = "10"
@@ -1271,11 +1271,11 @@ def test_checkout_shipping_method_update_from_built_in_shipping_to_external(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_built_in_shipping_to_the_same_built_in(
@@ -1321,11 +1321,11 @@ def test_checkout_shipping_method_update_from_built_in_shipping_to_the_same_buil
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.utils.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_from_built_in_shipping_to_none(

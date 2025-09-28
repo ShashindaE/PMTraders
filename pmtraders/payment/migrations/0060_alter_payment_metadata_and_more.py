@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import saleor.core.utils.json_serializer
+import pmtraders.core.utils.json_serializer
 
 
 class Migration(migrations.Migration):
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 db_default={},
                 default=dict,
-                encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
             ),
         ),
         migrations.AlterField(
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 db_default={},
                 default=dict,
-                encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
             ),
         ),
         migrations.AlterField(
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 db_default={},
                 default=dict,
-                encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
             ),
         ),
         migrations.AlterField(
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 db_default={},
                 default=dict,
-                encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
             ),
         ),
     ]

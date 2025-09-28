@@ -16,7 +16,7 @@ from .payloads import generate_payment_payload
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 def test_trigger_webhooks_async(
     mocked_send_webhook_request,
@@ -48,10 +48,10 @@ def test_trigger_webhooks_async(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.MAX_WEBHOOK_EVENTS_IN_DB_BULK", 2
+    "pmtraders.webhook.transport.asynchronous.transport.MAX_WEBHOOK_EVENTS_IN_DB_BULK", 2
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 def test_trigger_webhooks_async_for_multiple_objects(
     mocked_send_webhook_request,
@@ -111,10 +111,10 @@ def test_trigger_webhooks_async_for_multiple_objects(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.create_deliveries_for_subscriptions"
+    "pmtraders.webhook.transport.asynchronous.transport.create_deliveries_for_subscriptions"
 )
 def test_trigger_webhooks_async_no_subscription_webhooks(
     mocked_create_deliveries_for_subscriptions,
@@ -129,7 +129,7 @@ def test_trigger_webhooks_async_no_subscription_webhooks(
     mocked_create_deliveries_for_subscriptions.assert_not_called()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_webhook_sync_with_subscription(
     mock_request, payment_app_with_subscription_webhooks, payment
 ):

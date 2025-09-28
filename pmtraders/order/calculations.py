@@ -242,7 +242,7 @@ def _calculate_and_add_tax(
         # configured with Avatax plugin identifier.
         if not tax_app_identifier:
             # This is deprecated flow, kept to maintain backward compatibility.
-            # In Saleor 4.0 `tax_app_identifier` should be required and the flow should
+            # In pmtraders 4.0 `tax_app_identifier` should be required and the flow should
             # be dropped.
             _recalculate_with_plugins(manager, order, lines, prices_entered_with_tax)
             # Get the taxes calculated with apps and apply to order.

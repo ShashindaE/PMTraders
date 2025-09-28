@@ -38,7 +38,7 @@ ORDER_NOTE_ADD_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_note_add_as_staff_user(
     order_updated_webhook_mock,
     staff_api_client,
@@ -87,7 +87,7 @@ def test_order_note_add_as_staff_user(
         "   ",
     ],
 )
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_note_add_fail_on_empty_message(
     order_updated_webhook_mock,
     staff_api_client,
@@ -135,7 +135,7 @@ def test_order_add_note_as_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_add_note_by_app(
     order_updated_webhook_mock,
     app_api_client,
@@ -185,14 +185,14 @@ def test_order_note_add_fail_on_missing_permission(staff_api_client, order):
     ],
 )
 @patch(
-    "saleor.graphql.order.mutations.utils.call_order_event",
+    "pmtraders.graphql.order.mutations.utils.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_note_add_user_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -235,7 +235,7 @@ def test_order_note_add_user_triggers_webhooks(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

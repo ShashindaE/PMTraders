@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import saleor.order.models
+import pmtraders.order.models
 
 
 class Migration(migrations.Migration):
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             model_name="order",
             name="number",
             field=models.IntegerField(
-                default=saleor.order.models.get_order_number,
+                default=pmtraders.order.models.get_order_number,
                 editable=False,
                 unique=True,
             ),

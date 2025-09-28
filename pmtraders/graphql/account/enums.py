@@ -19,7 +19,7 @@ CountryCodeEnum = graphene.Enum(
     [(str_to_enum(country[0]), country[0]) for country in countries],
     description=(
         "Represents country codes defined by the ISO 3166-1 alpha-2 standard."
-        "\n\nThe `EU` value is DEPRECATED and will be removed in Saleor 3.21."
+        "\n\nThe `EU` value is DEPRECATED and will be removed in pmtraders 3.21."
     ),
 )
 

@@ -59,8 +59,8 @@ PROMOTION_CREATE_MUTATION = """
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_created")
 def test_promotion_create_by_staff_user(
     promotion_created_mock,
     promotion_started_mock,
@@ -180,8 +180,8 @@ def test_promotion_create_by_staff_user(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_created")
 def test_promotion_create_by_app(
     promotion_created_mock,
     promotion_started_mock,
@@ -258,9 +258,9 @@ def test_promotion_create_by_app(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.product.tasks.update_products_discounted_prices_of_promotion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_created")
+@patch("pmtraders.product.tasks.update_products_discounted_prices_of_promotion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_created")
 def test_promotion_create_by_customer(
     promotion_created_mock,
     promotion_started_mock,
@@ -586,8 +586,8 @@ def test_promotion_create_invalid_percentage_value(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_created")
 def test_promotion_create_only_name_and_end_date(
     promotion_created_mock,
     promotion_started_mock,
@@ -634,8 +634,8 @@ def test_promotion_create_only_name_and_end_date(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_created")
 def test_promotion_create_start_date_and_end_date_after_current_date(
     promotion_created_mock,
     promotion_started_mock,
@@ -1558,9 +1558,9 @@ def test_promotion_create_exceeds_gifts_number_limit(
     assert errors[0]["giftsLimitExceedBy"] == len(gift_ids) - gift_limit
 
 
-@patch("saleor.product.tasks.update_products_discounted_prices_of_promotion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_created")
+@patch("pmtraders.product.tasks.update_products_discounted_prices_of_promotion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_created")
 def test_promotion_create_rules_without_channels_and_percentage_reward(
     promotion_created_mock,
     promotion_started_mock,
@@ -1789,7 +1789,7 @@ def test_promotion_create_events_by_app(
     assert all(rule["id"] in rule_ids for rule in rules)
 
 
-@patch("saleor.product.tasks.update_products_discounted_prices_of_promotion_task.delay")
+@patch("pmtraders.product.tasks.update_products_discounted_prices_of_promotion_task.delay")
 def test_promotion_create_gift_promotion(
     _,
     staff_api_client,

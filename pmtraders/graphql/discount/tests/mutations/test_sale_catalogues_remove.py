@@ -23,7 +23,7 @@ SALE_CATALOGUES_REMOVE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_sale_remove_catalogues(
     updated_webhook_mock,
     staff_api_client,
@@ -99,7 +99,7 @@ def test_sale_remove_catalogues(
         assert listing.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_sale_remove_empty_catalogues(
     updated_webhook_mock,
     staff_api_client,
@@ -164,7 +164,7 @@ def test_sale_remove_empty_catalogues(
         assert listing.discounted_price_dirty is False
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_sale_remove_empty_catalogues_from_sale_with_empty_catalogues(
     updated_webhook_mock,
     staff_api_client,
@@ -206,7 +206,7 @@ def test_sale_remove_empty_catalogues_from_sale_with_empty_catalogues(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_sale_remove_catalogues_no_product_changes(
     updated_webhook_mock,
     staff_api_client,

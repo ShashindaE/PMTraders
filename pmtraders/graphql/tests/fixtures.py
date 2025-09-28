@@ -106,7 +106,7 @@ class ApiClient(BaseApiClient):
 
         if permissions:
             if check_no_permissions:
-                with mock.patch("saleor.graphql.utils.handled_errors_logger"):
+                with mock.patch("pmtraders.graphql.utils.handled_errors_logger"):
                     response = super(Client, self).post(self.api_path, data, **kwargs)
                 assert_no_permission(response)
             if self.app:

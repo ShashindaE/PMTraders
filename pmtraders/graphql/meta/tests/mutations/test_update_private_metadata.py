@@ -221,7 +221,7 @@ def test_update_private_metadata_for_item_on_deleted_instance(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.meta.mutations.update_private_metadata.update_private_metadata",
+        "pmtraders.graphql.meta.mutations.update_private_metadata.update_private_metadata",
         delete_checkout_object,
     ):
         response = execute_update_private_metadata_for_item(
@@ -259,7 +259,7 @@ def test_update_private_metadata_race_condition(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.meta.mutations.update_private_metadata.update_private_metadata",
+        "pmtraders.graphql.meta.mutations.update_private_metadata.update_private_metadata",
         update_private_metadata,
     ):
         # update without using postgresql `concat` operation to

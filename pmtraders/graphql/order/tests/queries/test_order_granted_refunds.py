@@ -3,7 +3,7 @@ from decimal import Decimal
 import graphene
 from prices import Money, TaxedMoney
 
-from saleor.payment import TransactionEventType
+from pmtraders.payment import TransactionEventType
 
 from ....core.utils import to_global_id_or_none
 from ....tests.utils import assert_no_permission, get_graphql_content

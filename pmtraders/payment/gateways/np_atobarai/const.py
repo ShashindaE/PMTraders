@@ -5,7 +5,7 @@ NP_ATOBARAI_WIZ = "03"
 # Custom timeout, as NetProtections recommends a timeout of around 30s.
 REQUEST_TIMEOUT = 30
 
-NP_PLUGIN_ID = "saleor.payments.np-atobarai"
+NP_PLUGIN_ID = "pmtraders.payments.np-atobarai"
 
 NP_TEST_URL = "https://ctcp.np-payment-gateway.com/v1"
 NP_URL = "https://cp.np-payment-gateway.com/v1"

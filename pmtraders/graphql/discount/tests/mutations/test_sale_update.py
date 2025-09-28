@@ -35,7 +35,7 @@ SALE_UPDATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale(
     updated_webhook_mock,
     staff_api_client,
@@ -105,7 +105,7 @@ def test_update_sale(
         assert listing.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_name(
     updated_webhook_mock,
     staff_api_client,
@@ -164,8 +164,8 @@ def test_update_sale_name(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_start_date_after_current_date_notification_not_sent(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -227,8 +227,8 @@ def test_update_sale_start_date_after_current_date_notification_not_sent(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_start_date_before_current_date_notification_already_sent(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -294,8 +294,8 @@ def test_update_sale_start_date_before_current_date_notification_already_sent(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_start_date_before_current_date_notification_sent(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -358,8 +358,8 @@ def test_update_sale_start_date_before_current_date_notification_sent(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_end_date_after_current_date_notification_not_sent(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -422,8 +422,8 @@ def test_update_sale_end_date_after_current_date_notification_not_sent(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_end_date_before_current_date_notification_already_sent(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -488,8 +488,8 @@ def test_update_sale_end_date_before_current_date_notification_already_sent(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_end_date_before_current_date_notification_sent(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -551,7 +551,7 @@ def test_update_sale_end_date_before_current_date_notification_sent(
         assert listing.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_categories(
     updated_webhook_mock,
     staff_api_client,
@@ -597,7 +597,7 @@ def test_update_sale_categories(
         assert product.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_collections(
     updated_webhook_mock,
     staff_api_client,
@@ -645,7 +645,7 @@ def test_update_sale_collections(
         assert product.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_variants(
     updated_webhook_mock,
     staff_api_client,
@@ -704,7 +704,7 @@ def test_update_sale_variants(
         assert listing.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_products(
     updated_webhook_mock,
     staff_api_client,
@@ -762,8 +762,8 @@ def test_update_sale_products(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_end_date_before_start_date(
     updated_webhook_mock,
     sale_toggle_mock,
@@ -870,8 +870,8 @@ def test_update_sale_with_none_values(
     assert not rule.catalogue_predicate
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_updated")
 def test_update_sale_with_promotion_id(
     updated_webhook_mock,
     sale_toggle_mock,

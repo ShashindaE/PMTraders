@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import saleor.permission.models
+import pmtraders.permission.models
 
 # Forward helpers
 DROP_OLD_CONSTRAINTS = """
@@ -125,7 +125,7 @@ class Migration(migrations.Migration):
                                 to="contenttypes.ContentType",
                                 on_delete=models.CASCADE,
                                 verbose_name="content type",
-                                related_name="saleor_content_type",
+                                related_name="pmtraders_content_type",
                             ),
                         ),
                         (
@@ -144,7 +144,7 @@ class Migration(migrations.Migration):
                         "verbose_name_plural": "permissions",
                     },
                     managers=[
-                        ("objects", saleor.permission.models.PermissionManager()),
+                        ("objects", pmtraders.permission.models.PermissionManager()),
                     ],
                 ),
             ],

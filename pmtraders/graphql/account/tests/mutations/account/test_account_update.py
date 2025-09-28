@@ -186,7 +186,7 @@ def test_logged_customer_update_anonymous_user(api_client):
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_metadata_updated")
 def test_logged_customer_updates_metadata(
     mocked_customer_metadata_updated, user_api_client
 ):

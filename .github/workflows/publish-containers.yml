@@ -80,7 +80,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true,oci-mediatypes=true
           # We set `push-by-digest=true` thus we cannot put any tag and thus we use
-          # the container repository name instead (ghcr.io/saleor/saleor)
+          # the container repository name instead (ghcr.io/pmtraders/pmtraders)
           # (we cannot push both by tags and by digest, only one or the other)
           tags: ghcr.io/${{ steps.image.outputs.image_name }}
           push: true
@@ -193,6 +193,6 @@ jobs:
           JOB_STATUS: ${{ job.status }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_MENTION_GROUP_ID: ${{ secrets.SLACK_MENTION_GROUP_ID }}
-          JOB_TITLE: "Build of Saleor Core ${{ steps.meta.outputs.version }}"
+          JOB_TITLE: "Build of pmtraders Core ${{ steps.meta.outputs.version }}"
         run: |
           python3 ./.github/workflows/notify/notify-slack.py

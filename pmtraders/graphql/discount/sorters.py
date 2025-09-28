@@ -117,7 +117,7 @@ class VoucherSortField(graphene.Enum):
     @staticmethod
     def qs_with_code(queryset: QuerySet, channel_slug: str) -> QuerySet:
         # Added to keep compatibility with old API. Workaround for
-        # https://docs.saleor.io/docs/3.x/developer/community/contributing#sorting-and-filtering
+        # https://docs.pmtraders.io/docs/3.x/developer/community/contributing#sorting-and-filtering
 
         subquery = VoucherCode.objects.filter(voucher_id=OuterRef("pk")).values("code")[
             :1

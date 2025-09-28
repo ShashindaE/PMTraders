@@ -37,7 +37,7 @@ mutation AppFetchManifest(
         code
       }
       audience
-      requiredSaleorVersion{
+      requiredpmtradersVersion{
         constraint
         satisfied
       }
@@ -99,11 +99,11 @@ def test_app_fetch_manifest(staff_api_client, staff_user, permission_manage_apps
         "MANAGE_ORDERS",
         "MANAGE_USERS",
     }
-    assert manifest["requiredSaleorVersion"] is None
+    assert manifest["requiredpmtradersVersion"] is None
     assert manifest["brand"] is None
 
 
-def test_app_fetch_manifest_custom_saleor_headers(
+def test_app_fetch_manifest_custom_pmtraders_headers(
     app_manifest, monkeypatch, staff_api_client, permission_manage_apps
 ):
     # given
@@ -124,7 +124,7 @@ def test_app_fetch_manifest_custom_saleor_headers(
     mocked_get.assert_called_once_with(
         "GET",
         manifest_url,
-        headers={"Saleor-Schema-Version": schema_version},
+        headers={"pmtraders-Schema-Version": schema_version},
         timeout=ANY,
         allow_redirects=False,
     )
@@ -683,12 +683,12 @@ def test_app_fetch_manifest_with_extensions(
     assert extension["target"] == AppExtensionTargetEnum.POPUP.name
 
 
-def test_app_fetch_manifest_with_required_saleor_version(
+def test_app_fetch_manifest_with_required_pmtraders_version(
     staff_api_client, app_manifest, permission_manage_apps, monkeypatch
 ):
     # given
-    required_saleor_version = "<3.11"
-    app_manifest["requiredSaleorVersion"] = required_saleor_version
+    required_pmtraders_version = "<3.11"
+    app_manifest["requiredpmtradersVersion"] = required_pmtraders_version
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
@@ -704,18 +704,18 @@ def test_app_fetch_manifest_with_required_saleor_version(
     content = get_graphql_content(response)
     manifest = content["data"]["appFetchManifest"]["manifest"]
     assert len(content["data"]["appFetchManifest"]["errors"]) == 0
-    assert manifest["requiredSaleorVersion"] == {
-        "constraint": required_saleor_version,
+    assert manifest["requiredpmtradersVersion"] == {
+        "constraint": required_pmtraders_version,
         "satisfied": False,
     }
 
 
-def test_app_fetch_manifest_with_invalid_required_saleor_version(
+def test_app_fetch_manifest_with_invalid_required_pmtraders_version(
     staff_api_client, app_manifest, permission_manage_apps, monkeypatch
 ):
     # given
-    required_saleor_version = "3.wrong.1"
-    app_manifest["requiredSaleorVersion"] = required_saleor_version
+    required_pmtraders_version = "3.wrong.1"
+    app_manifest["requiredpmtradersVersion"] = required_pmtraders_version
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
@@ -731,7 +731,7 @@ def test_app_fetch_manifest_with_invalid_required_saleor_version(
     content = get_graphql_content(response)
     errors = content["data"]["appFetchManifest"]["errors"]
     assert len(errors) == 1
-    assert errors[0]["field"] == "requiredSaleorVersion"
+    assert errors[0]["field"] == "requiredpmtradersVersion"
     assert errors[0]["code"] == AppErrorCode.INVALID.name
 
 
@@ -808,7 +808,7 @@ def test_app_fetch_manifest_with_brand_data(
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
     mock_fetch_icon_image = Mock(return_value=icon_image)
     monkeypatch.setattr(
-        "saleor.app.installation_utils.fetch_icon_image", mock_fetch_icon_image
+        "pmtraders.app.installation_utils.fetch_icon_image", mock_fetch_icon_image
     )
 
     # when
@@ -867,7 +867,7 @@ def test_fetch_manifest_fail_when_app_with_same_identifier_already_installed(
     app,
 ):
     # given
-    app.identifier = "saleor.app.avatax"
+    app.identifier = "pmtraders.app.avatax"
     app.save()
     manifest_url = "http://localhost:3000/api/manifest"
 
@@ -901,7 +901,7 @@ def test_fetch_manifest_app_with_same_identifier_installed_but_marked_to_be_remo
     app_marked_to_be_removed,
 ):
     # given
-    app_marked_to_be_removed.identifier = "saleor.app.avatax"
+    app_marked_to_be_removed.identifier = "pmtraders.app.avatax"
     app_marked_to_be_removed.save()
     manifest_url = "http://localhost:3000/api/manifest"
 
@@ -913,7 +913,7 @@ def test_fetch_manifest_app_with_same_identifier_installed_but_marked_to_be_remo
 
     # when
     with patch(
-        "saleor.graphql.app.mutations.app_fetch_manifest.fetch_brand_data"
+        "pmtraders.graphql.app.mutations.app_fetch_manifest.fetch_brand_data"
     ) as mocked_fetch_brand:
         mocked_fetch_brand.return_value = None
         response = staff_api_client.post_graphql(
@@ -927,6 +927,6 @@ def test_fetch_manifest_app_with_same_identifier_installed_but_marked_to_be_remo
     # then
     all_apps = App.objects.all()
     assert not errors
-    assert manifest["identifier"] == "saleor.app.avatax"
+    assert manifest["identifier"] == "pmtraders.app.avatax"
     assert all_apps.not_removed().count() == 0
     assert all_apps.marked_to_be_removed().count() == 1

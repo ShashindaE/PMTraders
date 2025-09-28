@@ -238,7 +238,7 @@ def test_category_query_error_when_id_and_slug_provided(
     user_api_client, product, graphql_log_handler, channel_USD
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
     category = Category.objects.first()
     variables = {
@@ -252,7 +252,7 @@ def test_category_query_error_when_id_and_slug_provided(
 
     # then
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
     content = get_graphql_content(response, ignore_errors=True)
     assert len(content["errors"]) == 1
@@ -262,7 +262,7 @@ def test_category_query_error_when_no_param(
     user_api_client, product, graphql_log_handler
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
     variables = {}
 
@@ -271,7 +271,7 @@ def test_category_query_error_when_no_param(
 
     # then
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
     content = get_graphql_content(response, ignore_errors=True)
     assert len(content["errors"]) == 1

@@ -164,10 +164,10 @@ ME_WITH_CHECKOUTS_WITH_LINES_TOTAL_PRICE_QUERY = """
     "query", [ME_WITH_CHECKOUTS_QUERY, ME_WITH_CHECKOUTS_WITH_LINES_TOTAL_PRICE_QUERY]
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations._calculate_and_add_tax")
+@mock.patch("pmtraders.checkout.calculations._calculate_and_add_tax")
 def test_me_query_checkouts_do_not_trigger_sync_tax_webhooks(
     mocked_calculate_and_add_tax,
     mocked_fetch_checkout_prices_if_expired,
@@ -211,10 +211,10 @@ def test_me_query_checkouts_do_not_trigger_sync_tax_webhooks(
     "query", [ME_WITH_CHECKOUTS_QUERY, ME_WITH_CHECKOUTS_WITH_LINES_TOTAL_PRICE_QUERY]
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations.update_checkout_prices_with_flat_rates")
+@mock.patch("pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates")
 def test_me_query_checkouts_calculate_flat_taxes(
     mocked_update_order_prices_with_flat_rates,
     mocked_fetch_checkout_prices_if_expired,
@@ -311,8 +311,8 @@ ME_WITH_ORDERS_WITH_LINES_TOTAL_PRICE_QUERY = """
 @pytest.mark.parametrize(
     "query", [ME_WITH_ORDERS_QUERY, ME_WITH_ORDERS_WITH_LINES_TOTAL_PRICE_QUERY]
 )
-@mock.patch("saleor.order.calculations.calculate_prices")
-@mock.patch("saleor.order.calculations.update_order_prices_with_flat_rates")
+@mock.patch("pmtraders.order.calculations.calculate_prices")
+@mock.patch("pmtraders.order.calculations.update_order_prices_with_flat_rates")
 def test_me_query_orders_do_not_trigger_sync_tax_webhooks(
     mocked_update_order_prices_with_flat_rates,
     mocked_calculate_prices,
@@ -352,7 +352,7 @@ def test_me_query_orders_do_not_trigger_sync_tax_webhooks(
     "query", [ME_WITH_ORDERS_QUERY, ME_WITH_ORDERS_WITH_LINES_TOTAL_PRICE_QUERY]
 )
 @mock.patch(
-    "saleor.order.calculations.update_order_prices_with_flat_rates",
+    "pmtraders.order.calculations.update_order_prices_with_flat_rates",
     wraps=update_order_prices_with_flat_rates,
 )
 def test_me_query_orders_calculate_flat_taxes(
@@ -599,7 +599,7 @@ query Me($channel: String!) {
 """
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_stored_payment_methods")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_stored_payment_methods")
 def test_me_query_stored_payment_methods(
     mocked_list_stored_payment_methods, user_api_client, channel_USD, customer_user
 ):

@@ -5,7 +5,7 @@ import django.db.models.expressions
 import django_countries.fields
 from django.db import migrations, models
 
-import saleor.core.utils.json_serializer
+import pmtraders.core.utils.json_serializer
 
 
 class Migration(migrations.Migration):
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),
@@ -78,7 +78,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),

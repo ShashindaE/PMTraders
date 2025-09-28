@@ -36,7 +36,7 @@ jobs:
             {
               "action": "${{ github.event.action }}",
               "label": "${{ env.GITHUB_HEAD_REF_SLUG_URL }}",
-              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/saleor-testenvs:${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
+              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/pmtraders-testenvs:${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
             }
           LogType: Tail
 

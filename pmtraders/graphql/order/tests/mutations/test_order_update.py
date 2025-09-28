@@ -36,7 +36,7 @@ ORDER_UPDATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update(
     order_updated_webhook_mock,
     staff_api_client,
@@ -131,7 +131,7 @@ def test_order_update_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_by_app(
     order_updated_webhook_mock,
     app_api_client,
@@ -184,7 +184,7 @@ def test_order_update_by_app(
     order_updated_webhook_mock.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_with_draft_order(
     order_updated_webhook_mock,
     staff_api_client,
@@ -214,7 +214,7 @@ def test_order_update_with_draft_order(
     order_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_without_sku(
     plugin_mock,
     staff_api_client,
@@ -541,14 +541,14 @@ def test_order_update_invalid_address_skip_validation(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.order_update.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_update_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -594,7 +594,7 @@ def test_order_update_triggers_webhooks(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -618,7 +618,7 @@ def test_order_update_triggers_webhooks(
     assert wrapped_call_order_event.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_only_metadata(
     order_updated_webhook_mock,
     staff_api_client,
@@ -656,7 +656,7 @@ def test_order_update_only_metadata(
     order_updated_webhook_mock.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_only_private_metadata(
     order_updated_webhook_mock,
     staff_api_client,
@@ -694,7 +694,7 @@ def test_order_update_only_private_metadata(
     order_updated_webhook_mock.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_public_and_private_metadata(
     order_updated_webhook_mock,
     staff_api_client,
@@ -734,7 +734,7 @@ def test_order_update_public_and_private_metadata(
     order_updated_webhook_mock.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_invalid_metadata(
     order_updated_webhook_mock,
     staff_api_client,
@@ -773,7 +773,7 @@ def test_order_update_invalid_metadata(
     assert order.metadata == {}
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_empty_input(
     order_updated_webhook_mock,
     staff_api_client,
@@ -802,7 +802,7 @@ def test_order_update_empty_input(
     order_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_nothing_changed(
     order_updated_webhook_mock,
     staff_api_client,
@@ -836,7 +836,7 @@ def test_order_update_nothing_changed(
     order_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_update_with_language_code(
     order_updated_webhook_mock,
     staff_api_client,
@@ -873,10 +873,10 @@ def test_order_update_with_language_code(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.order_update.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.graphql.order.mutations.order_update.OrderUpdate._save_order_instance")
+@patch("pmtraders.graphql.order.mutations.order_update.OrderUpdate._save_order_instance")
 def test_order_update_no_changes(
     save_order_mock,
     call_event_mock,
@@ -940,10 +940,10 @@ def test_order_update_no_changes(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.order_update.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.graphql.order.mutations.order_update.OrderUpdate._save_order_instance")
+@patch("pmtraders.graphql.order.mutations.order_update.OrderUpdate._save_order_instance")
 def test_order_update_emit_events(
     save_order_mock,
     call_event_mock,
@@ -1008,7 +1008,7 @@ def test_order_update_emit_events(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.order_update.call_order_event",
     wraps=call_order_event,
 )
 def test_order_update_address_not_set(

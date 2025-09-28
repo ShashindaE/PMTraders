@@ -79,7 +79,7 @@ def handle_promotion_toggle():
         manager.promotion_ended(ending_promo, webhooks=ended_webhooks)
 
     toggle_webhooks = get_webhooks_for_event(WebhookEventAsyncType.SALE_TOGGLE)
-    # DEPRECATED: will be removed in Saleor 4.0.
+    # DEPRECATED: will be removed in pmtraders 4.0.
     for promotion in promotions:
         variants = promotion_id_to_variants.get(promotion.id)
         catalogues = {
@@ -108,7 +108,7 @@ def handle_promotion_toggle():
         [str(ending_promo.id) for ending_promo in ending_promotions]
     )
 
-    # DEPRECATED: will be removed in Saleor 4.0.
+    # DEPRECATED: will be removed in pmtraders 4.0.
     promotion_ids_str = ", ".join([str(promo.id) for promo in promotions])
 
     promotions.update(
@@ -125,7 +125,7 @@ def handle_promotion_toggle():
             ending_promotions_ids,
         )
 
-    # DEPRECATED: will be removed in Saleor 4.0.
+    # DEPRECATED: will be removed in pmtraders 4.0.
     task_logger.info(
         "The sale_toggle webhook sent for sales with ids: %s", promotion_ids_str
     )
@@ -290,7 +290,7 @@ def disconnect_voucher_codes_from_draft_orders_task(order_ids):
 
 
 @app.task(
-    name="saleor.discount.migrations.tasks.saleor3_17.update_discounted_prices_task"
+    name="pmtraders.discount.migrations.tasks.pmtraders3_17.update_discounted_prices_task"
 )
 @allow_writer()
 def update_discounted_prices_task():
@@ -327,7 +327,7 @@ def update_discounted_prices_task():
 
 
 @app.task(
-    name="saleor.discount.migrations.tasks.saleor3_17.set_promotion_rule_variants"
+    name="pmtraders.discount.migrations.tasks.pmtraders3_17.set_promotion_rule_variants"
 )
 @allow_writer()
 def set_promotion_rule_variants_task(start_id=None):

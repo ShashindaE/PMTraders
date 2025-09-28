@@ -10,10 +10,10 @@ from ....tests.utils import get_graphql_content
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_create.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_product_variants_stocks_create(
     product_variant_back_in_stock_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -27,7 +27,7 @@ def test_product_variants_stocks_create(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     query = """
     mutation ProductVariantStocksCreate($variantId: ID!, $stocks: [StockInput!]!){
         productVariantStocksCreate(variantId: $variantId, stocks: $stocks){
@@ -91,10 +91,10 @@ def test_product_variants_stocks_create(
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_create.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_product_variants_stocks_create_with_single_webhook_called(
     product_variant_back_in_stock_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -108,7 +108,7 @@ def test_product_variants_stocks_create_with_single_webhook_called(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     query = """
     mutation ProductVariantStocksCreate($variantId: ID!, $stocks: [StockInput!]!){
         productVariantStocksCreate(variantId: $variantId, stocks: $stocks){
@@ -294,10 +294,10 @@ PRODUCT_VARIANT_STOCKS_DELETE_MUTATION = """
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_delete.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_product_variants_stocks_delete_by_id(
     product_variant_out_of_stock_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -311,7 +311,7 @@ def test_product_variants_stocks_delete_by_id(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variant_id = graphene.Node.to_global_id("ProductVariant", variant.pk)
     second_warehouse = Warehouse.objects.get(pk=warehouse.pk)
     second_warehouse.slug = "second warehouse"
@@ -353,10 +353,10 @@ def test_product_variants_stocks_delete_by_id(
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_delete.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_product_variants_stocks_delete_by_sku(
     product_variant_out_of_stock_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -370,7 +370,7 @@ def test_product_variants_stocks_delete_by_sku(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     second_warehouse = Warehouse.objects.get(pk=warehouse.pk)
     second_warehouse.slug = "second warehouse"
     second_warehouse.pk = None
@@ -411,10 +411,10 @@ def test_product_variants_stocks_delete_by_sku(
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_delete.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_product_variants_stocks_delete_with_out_of_stock_webhook_many_calls(
     product_variant_out_of_stock_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -428,7 +428,7 @@ def test_product_variants_stocks_delete_with_out_of_stock_webhook_many_calls(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     query = """
     mutation ProductVariantStocksDelete($variantId: ID!, $warehouseIds: [ID!]!){
             productVariantStocksDelete(

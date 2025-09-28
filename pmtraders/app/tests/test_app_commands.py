@@ -74,7 +74,7 @@ def test_creates_app_from_manifest_sends_token(monkeypatch, app_manifest):
     get_call = call(
         "GET",
         manifest_url,
-        headers={"Saleor-Schema-Version": schema_version},
+        headers={"pmtraders-Schema-Version": schema_version},
         timeout=ANY,
         allow_redirects=False,
     )
@@ -84,11 +84,11 @@ def test_creates_app_from_manifest_sends_token(monkeypatch, app_manifest):
         app_manifest["tokenTargetUrl"],
         headers={
             "Content-Type": "application/json",
-            # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-            "X-Saleor-Domain": "example.com",
-            "Saleor-Domain": "example.com",
-            "Saleor-Api-Url": "https://example.com/graphql/",
-            "Saleor-Schema-Version": schema_version,
+            # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+            "X-pmtraders-Domain": "example.com",
+            "pmtraders-Domain": "example.com",
+            "pmtraders-Api-Url": "https://example.com/graphql/",
+            "pmtraders-Schema-Version": schema_version,
         },
         json={"auth_token": ANY},
         allow_redirects=False,
@@ -152,11 +152,11 @@ def test_sends_data_to_target_url(monkeypatch):
         "POST",
         target_url,
         headers={
-            # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-            "X-Saleor-Domain": "example.com",
-            "Saleor-Domain": "example.com",
-            "Saleor-Api-Url": "https://example.com/graphql/",
-            "Saleor-Schema-Version": schema_version,
+            # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+            "X-pmtraders-Domain": "example.com",
+            "pmtraders-Domain": "example.com",
+            "pmtraders-Api-Url": "https://example.com/graphql/",
+            "pmtraders-Schema-Version": schema_version,
         },
         json={"auth_token": ANY},
         allow_redirects=False,

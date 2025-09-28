@@ -39,9 +39,9 @@ def test_delete_menu_items(staff_api_client, menu_item_list, permission_manage_m
 
 
 @mock.patch(
-    "saleor.graphql.menu.bulk_mutations.menu_item_bulk_delete.get_webhooks_for_event"
+    "pmtraders.graphql.menu.bulk_mutations.menu_item_bulk_delete.get_webhooks_for_event"
 )
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_menu_items_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -53,7 +53,7 @@ def test_delete_menu_items_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     variables = {
         "ids": [

@@ -51,7 +51,7 @@ def voucher_percentage(channel_USD):
     voucher = Voucher.objects.create(
         discount_value_type=DiscountValueType.PERCENTAGE,
     )
-    VoucherCode.objects.create(code="saleor", voucher=voucher)
+    VoucherCode.objects.create(code="pmtraders", voucher=voucher)
     VoucherChannelListing.objects.create(
         voucher=voucher,
         channel=channel_USD,

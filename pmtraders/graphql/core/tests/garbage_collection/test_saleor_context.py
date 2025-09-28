@@ -26,7 +26,7 @@ PRODUCTS_QUERY = """
 # This is necessary to ensure that tests don't interfere with each other.
 # Without grouping we could receive false positive results.
 @pytest.mark.xdist_group(name="garbage_collection")
-def test_query_remove_SaleorContext_memory_cycles(rf, staff_user):
+def test_query_remove_pmtradersContext_memory_cycles(rf, staff_user):
     try:
         # given
         # Disable automatic garbage collection and set debugging flag.

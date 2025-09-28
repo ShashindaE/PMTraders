@@ -128,7 +128,7 @@ def test_delete_public_metadata_for_product_media(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_delete_private_metadata_for_product(
     updated_webhook_mock, staff_api_client, permission_manage_products, product
 ):
@@ -295,7 +295,7 @@ def test_delete_public_metadata_for_digital_content(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_delete_public_metadata_for_product(
     updated_webhook_mock, staff_api_client, permission_manage_products, product
 ):
@@ -451,7 +451,7 @@ def test_add_public_metadata_for_digital_content(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_add_public_metadata_for_product(
     updated_webhook_mock, staff_api_client, permission_manage_products, product
 ):
@@ -510,7 +510,7 @@ def test_add_public_metadata_for_product_variant(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_add_private_metadata_for_product(
     updated_webhook_mock, staff_api_client, permission_manage_products, product
 ):

@@ -52,17 +52,17 @@ def openid_plugin(settings, plugin_configuration):
         client_id="client_id",
         client_secret="client_secret",
         enable_refresh_token=True,
-        oauth_authorization_url="https://saleor.io/oauth/authorize",
-        oauth_token_url="https://saleor.io/oauth/token",
-        json_web_key_set_url="https://saleor.io/.well-known/jwks.json",
+        oauth_authorization_url="https://pmtraders.io/oauth/authorize",
+        oauth_token_url="https://pmtraders.io/oauth/token",
+        json_web_key_set_url="https://pmtraders.io/.well-known/jwks.json",
         oauth_logout_url="",
         use_oauth_scope_permissions=False,
-        user_info_url="https://saleor.io/userinfo",
+        user_info_url="https://pmtraders.io/userinfo",
         audience="perms",
         staff_user_domains="",
         default_group_name_for_new_staff_users="OpenID test group",
     ):
-        settings.PLUGINS = ["saleor.plugins.openid_connect.plugin.OpenIDConnectPlugin"]
+        settings.PLUGINS = ["pmtraders.plugins.openid_connect.plugin.OpenIDConnectPlugin"]
         manager = get_plugins_manager(allow_replica=False)
         manager.save_plugin_configuration(
             OpenIDConnectPlugin.PLUGIN_ID,
@@ -95,15 +95,15 @@ def openid_plugin(settings, plugin_configuration):
 @pytest.fixture
 def decoded_access_token():
     return {
-        "iss": "https://saleor-test.eu.auth0.com/",
+        "iss": "https://pmtraders-test.eu.auth0.com/",
         "sub": "google-oauth2|114622651317794521039",
-        "aud": ["perms", "https://saleor.io/userinfo"],
+        "aud": ["perms", "https://pmtraders.io/userinfo"],
         "iat": 1615374231,
         "exp": 1615460631,
         "azp": "mnrVS8QkVOjtvC2zeapSkLLkwowr37Lt",
         "scope": (
-            "openid profile email saleor:manage_apps saleor:manage_orders "
-            "saleor:manage_products saleor:staff"
+            "openid profile email pmtraders:manage_apps pmtraders:manage_orders "
+            "pmtraders:manage_products pmtraders:staff"
         ),
     }
 
@@ -127,16 +127,16 @@ def user_info_response():
 @pytest.fixture
 def id_payload():
     return {
-        "given_name": "Saleor",
+        "given_name": "pmtraders",
         "family_name": "Admin",
         "nickname": "saloer",
-        "name": "Saleor Admin",
+        "name": "pmtraders Admin",
         "picture": "",
         "locale": "pl",
         "updated_at": "2020-09-22T08:50:50.110Z",
         "email": "admin@example.com",
         "email_verified": True,
-        "iss": "https://saleor.io/",
+        "iss": "https://pmtraders.io/",
         "sub": "google-oauth2|",
         "aud": "",
         "iat": 1600764712,

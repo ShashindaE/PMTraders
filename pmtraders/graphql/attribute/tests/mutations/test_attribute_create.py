@@ -127,8 +127,8 @@ def test_create_attribute_and_attribute_values(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_create_attribute_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -140,7 +140,7 @@ def test_create_attribute_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     attribute_name = "Example name"
     name = "Value name"
@@ -1735,7 +1735,7 @@ def test_create_attribute_with_reference_types_invalid_input_type(
     assert errors[0]["code"] == AttributeErrorCode.INVALID.name
 
 
-@mock.patch("saleor.graphql.attribute.mutations.mixins.REFERENCE_TYPES_LIMIT", 1)
+@mock.patch("pmtraders.graphql.attribute.mutations.mixins.REFERENCE_TYPES_LIMIT", 1)
 def test_create_attribute_with_reference_types_limit_exceeded(
     staff_api_client,
     permission_manage_product_types_and_attributes,

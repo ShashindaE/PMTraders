@@ -11,7 +11,7 @@ interactions:
       Host:
       - example.com
       User-Agent:
-      - Saleor/3.21
+      - pmtraders/3.21
     method: GET
     uri: http://23.215.0.136/
   response:

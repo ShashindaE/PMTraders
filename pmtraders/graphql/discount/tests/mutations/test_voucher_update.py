@@ -178,8 +178,8 @@ def test_update_voucher_without_codes(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_update_voucher_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -192,7 +192,7 @@ def test_update_voucher_trigger_webhook(
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     new_code = "newCode"
     new_name = "newName"
     variables = {
@@ -252,8 +252,8 @@ def test_update_voucher_trigger_webhook(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_update_voucher_doesnt_trigger_voucher_updated_when_only_codes_added(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -266,7 +266,7 @@ def test_update_voucher_doesnt_trigger_voucher_updated_when_only_codes_added(
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     new_code = "newCode"
     variables = {
         "id": graphene.Node.to_global_id("Voucher", voucher.id),

@@ -618,7 +618,7 @@ def test_update_percentage_order_discount_to_order(
     assert discount_data["amount_value"] == str(discount_amount.amount)
 
 
-@patch("saleor.order.calculations.PluginsManager.calculate_order_shipping")
+@patch("pmtraders.order.calculations.PluginsManager.calculate_order_shipping")
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
 def test_update_fixed_order_discount_to_order(
     mocked_function,
@@ -1173,7 +1173,7 @@ mutation OrderLineDiscountUpdate($input: OrderDiscountCommonInput!, $orderLineId
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_line_discount_update.invalidate_order_prices",
+    "pmtraders.graphql.order.mutations.order_line_discount_update.invalidate_order_prices",
     wraps=invalidate_order_prices,
 )
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
@@ -1332,7 +1332,7 @@ def test_update_order_line_discount_by_user_no_channel_access(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_line_discount_update.invalidate_order_prices",
+    "pmtraders.graphql.order.mutations.order_line_discount_update.invalidate_order_prices",
     wraps=invalidate_order_prices,
 )
 def test_update_order_line_discount_by_app(
@@ -1934,8 +1934,8 @@ mutation OrderLineDiscountRemove($orderLineId: ID!){
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_unit")
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_total")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_unit")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_total")
 def test_delete_discount_from_order_line(
     mocked_calculate_order_line_total,
     mocked_calculate_order_line_unit,
@@ -2006,8 +2006,8 @@ def test_delete_discount_from_order_line(
     assert not line.discounts.exists()
 
 
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_unit")
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_total")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_unit")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_total")
 def test_delete_discount_from_order_line_by_user_no_channel_access(
     mocked_calculate_order_line_total,
     mocked_calculate_order_line_unit,
@@ -2054,8 +2054,8 @@ def test_delete_discount_from_order_line_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_unit")
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_total")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_unit")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_total")
 def test_delete_discount_from_order_line_by_app(
     mocked_calculate_order_line_total,
     mocked_calculate_order_line_unit,

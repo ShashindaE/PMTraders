@@ -195,7 +195,7 @@ def test_validate_draft_order_no_shipping_method(draft_order):
     assert error.code == OrderErrorCode.SHIPPING_METHOD_REQUIRED.value
 
 
-@patch("saleor.graphql.order.utils.is_shipping_required")
+@patch("pmtraders.graphql.order.utils.is_shipping_required")
 def test_validate_draft_order_no_shipping_method_shipping_not_required(
     mocked_is_shipping_required, draft_order
 ):
@@ -211,7 +211,7 @@ def test_validate_draft_order_no_shipping_method_shipping_not_required(
     )
 
 
-@patch("saleor.graphql.order.utils.is_shipping_required")
+@patch("pmtraders.graphql.order.utils.is_shipping_required")
 def test_validate_draft_order_no_shipping_address_no_method_shipping_not_required(
     mocked_is_shipping_required,
     draft_order,

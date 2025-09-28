@@ -25,7 +25,7 @@ PROMOTION_DELETE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_deleted")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_deleted")
 def test_promotion_delete_by_staff_user(
     promotion_deleted_mock,
     staff_api_client,
@@ -65,7 +65,7 @@ def test_promotion_delete_by_staff_user(
         assert listing.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_deleted")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_deleted")
 def test_promotion_delete_by_staff_app(
     promotion_deleted_mock,
     app_api_client,
@@ -106,7 +106,7 @@ def test_promotion_delete_by_staff_app(
         assert listing.discounted_price_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_deleted")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_deleted")
 def test_promotion_delete_by_customer(
     promotion_deleted_mock,
     api_client,

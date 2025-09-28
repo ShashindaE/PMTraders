@@ -29,7 +29,7 @@ query Orders {
 
 
 @patch(
-    "saleor.order.calculations.update_order_prices_with_flat_rates",
+    "pmtraders.order.calculations.update_order_prices_with_flat_rates",
     wraps=update_order_prices_with_flat_rates,
 )
 def test_query_orders_when_flat_rates_active(
@@ -58,8 +58,8 @@ def test_query_orders_when_flat_rates_active(
     mocked_update_order_prices_with_flat_rates.assert_called_once()
 
 
-@patch("saleor.order.calculations.calculate_prices")
-@patch("saleor.order.calculations.update_order_prices_with_flat_rates")
+@patch("pmtraders.order.calculations.calculate_prices")
+@patch("pmtraders.order.calculations.update_order_prices_with_flat_rates")
 def test_query_orders_for_order_with_lines_when_tax_app_active(
     mocked_update_order_prices_with_flat_rates,
     mocked_calculate_prices,
@@ -90,8 +90,8 @@ def test_query_orders_for_order_with_lines_when_tax_app_active(
     mocked_calculate_prices.assert_not_called()
 
 
-@patch("saleor.order.calculations.calculate_prices")
-@patch("saleor.order.calculations.update_order_prices_with_flat_rates")
+@patch("pmtraders.order.calculations.calculate_prices")
+@patch("pmtraders.order.calculations.update_order_prices_with_flat_rates")
 def test_query_orders_for_order_with_granted_refunds_when_tax_app_active(
     mocked_update_order_prices_with_flat_rates,
     mocked_calculate_prices,
@@ -136,8 +136,8 @@ def test_query_orders_for_order_with_granted_refunds_when_tax_app_active(
     mocked_calculate_prices.assert_not_called()
 
 
-@patch("saleor.order.calculations.calculate_prices")
-@patch("saleor.order.calculations.update_order_prices_with_flat_rates")
+@patch("pmtraders.order.calculations.calculate_prices")
+@patch("pmtraders.order.calculations.update_order_prices_with_flat_rates")
 def test_query_orders_for_order_with_fulfillments_when_tax_app_active(
     mocked_update_order_prices_with_flat_rates,
     mocked_calculate_prices,
@@ -172,8 +172,8 @@ def test_query_orders_for_order_with_fulfillments_when_tax_app_active(
     mocked_calculate_prices.assert_not_called()
 
 
-@patch("saleor.order.calculations.calculate_prices")
-@patch("saleor.order.calculations.update_order_prices_with_flat_rates")
+@patch("pmtraders.order.calculations.calculate_prices")
+@patch("pmtraders.order.calculations.update_order_prices_with_flat_rates")
 def test_query_orders_for_order_with_events_when_tax_app_active(
     mocked_update_order_prices_with_flat_rates,
     mocked_calculate_prices,
@@ -234,7 +234,7 @@ def test_query_orders_with_active_filter_shipping_methods_webhook(
     staff_api_client,
     permission_group_manage_orders,
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     # given
     order_with_lines.status = OrderStatus.UNCONFIRMED

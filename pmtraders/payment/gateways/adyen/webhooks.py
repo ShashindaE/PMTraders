@@ -32,7 +32,7 @@ from ....checkout.models import Checkout
 from ....core.prices import quantize_price
 from ....core.transactions import transaction_with_commit_on_errors
 from ....core.utils.url import prepare_url
-from ....graphql.core import SaleorContext
+from ....graphql.core import pmtradersContext
 from ....graphql.core.utils import from_global_id_or_error
 from ....order.actions import (
     cancel_order,
@@ -688,11 +688,11 @@ def get_or_create_adyen_partial_payments(
 ) -> list[Payment] | None:
     """Store basic data about partial payments created by Adyen.
 
-    This is a workaround for not supporting partial payments in Saleor. Adyen can
+    This is a workaround for not supporting partial payments in pmtraders. Adyen can
     handle partial payments on their side and send us info about them. We want to
     somehow store some basic information about this but without modifying a whole
-    Saleor logic. We're going to change it by introducing partial payments feature on
-    Saleor side.
+    pmtraders logic. We're going to change it by introducing partial payments feature on
+    pmtraders side.
     """
     additional_data = notification.get("additionalData", {})
     new_payments = []
@@ -990,7 +990,7 @@ def validate_merchant_account(
 
 
 @transaction_with_commit_on_errors()
-def handle_webhook(request: SaleorContext, gateway_config: "GatewayConfig"):
+def handle_webhook(request: pmtradersContext, gateway_config: "GatewayConfig"):
     try:
         json_data = json.loads(request.body)
     except JSONDecodeError:
@@ -1026,12 +1026,12 @@ class HttpResponseRedirectWithTrustedProtocol(HttpResponseRedirect):
 
 @transaction_with_commit_on_errors()
 def handle_additional_actions(
-    request: SaleorContext, payment_details: Callable, channel_slug: str
+    request: pmtradersContext, payment_details: Callable, channel_slug: str
 ):
     """Handle redirect with additional actions.
 
     When a customer uses a payment method with redirect, before customer is redirected
-    back to storefront, the request goes through the Saleor. We use the data received
+    back to storefront, the request goes through the pmtraders. We use the data received
     from Adyen, as a query params or as a post data, to finalize an additional action.
     After that, if payment doesn't require any additional action we create an order.
     In case if action data exists, we don't create an order and we include them in url.
@@ -1095,7 +1095,7 @@ def handle_additional_actions(
     return HttpResponseRedirectWithTrustedProtocol(redirect_url)
 
 
-def prepare_api_request_data(request: SaleorContext, data: dict):
+def prepare_api_request_data(request: pmtradersContext, data: dict):
     if "parameters" not in data or "payment_data" not in data:
         raise KeyError(
             "Cannot perform payment. Lack of payment data and parameters information."
@@ -1211,7 +1211,7 @@ def confirm_payment_and_set_back_to_confirm(payment, manager, channel_slug):
     # The workaround for refund payments when something will crash in
     # `create_order` function before processing a payment.
     # At this moment we have a payment processed on Adyen side but we have to do
-    # something more on Saleor side (ACTION_TO_CONFIRM), it's create an order in
+    # something more on pmtraders side (ACTION_TO_CONFIRM), it's create an order in
     # this case, so before try to create the order we have to confirm the payment
     # and force change the flag to_confirm to True again.
     #
@@ -1221,7 +1221,7 @@ def confirm_payment_and_set_back_to_confirm(payment, manager, channel_slug):
     #    in `create_order` without errors. We just receive a processed transaction
     #    then.
     #
-    # This fix is related to SALEOR-4777. PR #8471
+    # This fix is related to pmtraders-4777. PR #8471
     gateway.confirm(payment, manager, channel_slug)
     payment.to_confirm = True
     payment.save(update_fields=["to_confirm"])

@@ -105,8 +105,8 @@ def test_permission_group_create_mutation(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_permission_group_create_mutation_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -120,7 +120,7 @@ def test_permission_group_create_mutation_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     staff_user = staff_users[0]
     staff_user.groups.add(permission_group_manage_users, permission_group_manage_apps)

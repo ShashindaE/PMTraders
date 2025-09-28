@@ -5,7 +5,7 @@ from ..core.telemetry import MetricType, Scope, Unit, meter
 
 # Initialize metrics
 METRIC_FIRST_EVENT_DELIVERY_ATTEMPT_DELAY = meter.create_metric(
-    "saleor.webhooks.async.first_event_delivery_attempt_delay",
+    "pmtraders.webhooks.async.first_event_delivery_attempt_delay",
     scope=Scope.CORE,
     type=MetricType.HISTOGRAM,
     unit=Unit.MILLISECOND,
@@ -13,7 +13,7 @@ METRIC_FIRST_EVENT_DELIVERY_ATTEMPT_DELAY = meter.create_metric(
 )
 
 METRIC_ASYNC_WEBHOOK_CALLS = meter.create_metric(
-    "saleor.webhooks.async.calls",
+    "pmtraders.webhooks.async.calls",
     scope=Scope.CORE,
     type=MetricType.COUNTER,
     unit=Unit.REQUEST,

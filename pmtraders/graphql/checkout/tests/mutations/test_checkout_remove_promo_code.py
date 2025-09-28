@@ -67,7 +67,7 @@ def _mutate_checkout_remove_promo_code(client, variables):
     return content["data"]["checkoutRemovePromoCode"]
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher
 ):
@@ -102,7 +102,7 @@ def test_checkout_remove_voucher_code(
         (ProductChannelListing, "product__variants__id"),
     ],
 )
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_when_line_without_listing(
     checkout_updated_webhook_mock,
     channel_listing_model,
@@ -141,7 +141,7 @@ def test_checkout_remove_voucher_code_when_line_without_listing(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_from_voucher_with_multiple_codes(
     checkout_updated_webhook_mock,
     api_client,
@@ -174,7 +174,7 @@ def test_checkout_remove_voucher_code_from_voucher_with_multiple_codes(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_voucher_not_exists_anymore(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher
 ):
@@ -203,7 +203,7 @@ def test_checkout_remove_voucher_code_voucher_not_exists_anymore(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_id_voucher_not_exists_anymore(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher, voucher
 ):
@@ -229,7 +229,7 @@ def test_checkout_remove_promo_code_id_voucher_not_exists_anymore(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_with_inactive_channel(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher
 ):
@@ -262,7 +262,7 @@ def test_checkout_remove_voucher_code_with_inactive_channel(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_gift_card_code(
     checkout_updated_webhook_mock, api_client, checkout_with_gift_card
 ):
@@ -289,7 +289,7 @@ def test_checkout_remove_gift_card_code(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_gift_card_code_from_wrong_checkout(
     checkout_updated_webhook_mock,
     api_client,
@@ -322,7 +322,7 @@ def test_checkout_remove_gift_card_code_from_wrong_checkout(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_one_of_gift_cards(
     checkout_updated_webhook_mock,
     api_client,
@@ -356,7 +356,7 @@ def test_checkout_remove_one_of_gift_cards(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_invalid_promo_code(
     checkout_updated_webhook_mock, api_client, checkout_with_item
 ):
@@ -382,7 +382,7 @@ def test_checkout_remove_promo_code_invalid_promo_code(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_invalid_checkout(
     checkout_updated_webhook_mock, api_client, voucher, checkout
 ):
@@ -399,7 +399,7 @@ def test_checkout_remove_promo_code_invalid_checkout(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_by_id(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher, voucher, gift_card
 ):
@@ -427,7 +427,7 @@ def test_checkout_remove_voucher_code_by_id(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_by_id_wrong_voucher(
     checkout_updated_webhook_mock,
     api_client,
@@ -473,7 +473,7 @@ def test_checkout_remove_voucher_code_by_id_wrong_voucher(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_with_multiple_codes_by_id(
     checkout_updated_webhook_mock,
     api_client,
@@ -507,7 +507,7 @@ def test_checkout_remove_voucher_with_multiple_codes_by_id(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_gift_card_by_id(
     checkout_updated_webhook_mock,
     api_client,
@@ -542,7 +542,7 @@ def test_checkout_remove_gift_card_by_id(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_id_and_code_given(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher, gift_card
 ):
@@ -564,7 +564,7 @@ def test_checkout_remove_promo_code_id_and_code_given(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_no_id_and_code_given(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher, gift_card
 ):
@@ -584,7 +584,7 @@ def test_checkout_remove_promo_code_no_id_and_code_given(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_id_does_not_exist(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher, gift_card
 ):
@@ -606,7 +606,7 @@ def test_checkout_remove_promo_code_id_does_not_exist(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_promo_code_invalid_object_type(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher, gift_card
 ):
@@ -628,7 +628,7 @@ def test_checkout_remove_promo_code_invalid_object_type(
     checkout_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_invalidates_price(
     checkout_updated_webhook_mock, api_client, checkout_with_item, voucher
 ):
@@ -662,7 +662,7 @@ def test_checkout_remove_voucher_code_invalidates_price(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_order_promotion_discount_applied(
     checkout_updated_webhook_mock,
     api_client,
@@ -702,7 +702,7 @@ def test_checkout_remove_voucher_code_order_promotion_discount_applied(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_gift_reward_applied(
     checkout_updated_webhook_mock,
     api_client,
@@ -743,7 +743,7 @@ def test_checkout_remove_voucher_code_gift_reward_applied(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_with_active_problems_flow(
     checkout_updated_webhook_mock,
     api_client,
@@ -782,18 +782,18 @@ def test_with_active_problems_flow(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_remove_promo_code.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.checkout_remove_promo_code.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async",
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async",
     wraps=send_webhook_request_async.apply_async,
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_remove_triggers_webhooks(
     mocked_send_webhook_using_scheme_method,
     mocked_send_webhook_request_async,
@@ -862,7 +862,7 @@ def test_checkout_remove_triggers_webhooks(
     assert tax_delivery.webhook_id == tax_webhook.id
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_voucher_inactive(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher
 ):
@@ -895,7 +895,7 @@ def test_checkout_remove_voucher_code_voucher_inactive(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_checkout_remove_voucher_code_voucher_code_deleted(
     checkout_updated_webhook_mock, api_client, checkout_with_voucher
 ):

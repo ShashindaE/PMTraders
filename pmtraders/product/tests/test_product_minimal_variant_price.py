@@ -463,12 +463,12 @@ def test_update_discounted_price_for_promotion_discount_one_rule_not_valid_anymo
 
 
 @patch(
-    "saleor.product.management.commands"
+    "pmtraders.product.management.commands"
     ".update_all_products_discounted_prices"
     ".update_discounted_prices_for_promotion"
 )
 @patch(
-    "saleor.product.management.commands.update_all_products_discounted_prices.DISCOUNTED_PRODUCT_BATCH",
+    "pmtraders.product.management.commands.update_all_products_discounted_prices.DISCOUNTED_PRODUCT_BATCH",
     1,
 )
 def test_management_commmand_update_all_products_discounted_price(
@@ -522,7 +522,7 @@ def test_update_discounted_price_for_promotion_promotion_rule_deleted_in_meantim
 
     # when
     with race_condition.RunBefore(
-        "saleor.product.utils.variant_prices._get_discounted_variants_prices_for_promotions",
+        "pmtraders.product.utils.variant_prices._get_discounted_variants_prices_for_promotions",
         delete_promotion_rule,
     ):
         update_discounted_prices_for_promotion(
@@ -583,7 +583,7 @@ def test_update_discounted_price_rule_deleted_in_meantime_promotion_listing_exis
 
     # when
     with race_condition.RunBefore(
-        "saleor.product.utils.variant_prices._update_or_create_listings",
+        "pmtraders.product.utils.variant_prices._update_or_create_listings",
         delete_promotion_rule,
     ):
         update_discounted_prices_for_promotion(

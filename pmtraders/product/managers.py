@@ -267,7 +267,7 @@ class ProductVariantQueryset(models.QuerySet):
           which is calculated as `quantity - quantity_allocated`.
         """
 
-        from saleor.warehouse.models import Allocation
+        from pmtraders.warehouse.models import Allocation
 
         allocations_subquery = (
             Allocation.objects.using(self.db)

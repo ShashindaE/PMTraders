@@ -24,9 +24,9 @@ from ..calculations import calculate_checkout_total, fetch_checkout_data
 from ..fetch import fetch_checkout_info, fetch_checkout_lines
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_updated_fully_paid(
     mocked_fully_authorized,
     mocked_fully_paid,
@@ -61,9 +61,9 @@ def test_transaction_amounts_for_checkout_updated_fully_paid(
     assert not mocked_automatic_checkout_completion_task.called
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_fully_paid_automatic_checkout_complete(
     mocked_fully_authorized,
     mocked_fully_paid,
@@ -103,9 +103,9 @@ def test_transaction_amounts_for_checkout_fully_paid_automatic_checkout_complete
     )
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_updated_not_fully_paid_no_automatic_complete(
     mocked_fully_authorized,
     mocked_fully_paid,
@@ -143,9 +143,9 @@ def test_transaction_amounts_for_checkout_updated_not_fully_paid_no_automatic_co
     assert not mocked_automatic_checkout_completion_task.called
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_updated_with_already_fully_paid(
     mocked_fully_paid,
     mocked_fully_authorized,
@@ -185,9 +185,9 @@ def test_transaction_amounts_for_checkout_updated_with_already_fully_paid(
     assert not mocked_automatic_checkout_completion_task.called
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_updated_with_already_fully_authorized(
     mocked_fully_paid,
     mocked_fully_authorized,
@@ -237,9 +237,9 @@ def test_transaction_amounts_for_checkout_updated_with_already_fully_authorized(
     assert not mocked_automatic_checkout_completion_task.called
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_updated_fully_authorized(
     mocked_fully_authorized,
     mocked_fully_paid,
@@ -275,9 +275,9 @@ def test_transaction_amounts_for_checkout_updated_fully_authorized(
     mocked_fully_authorized.assert_called_once_with(checkout, webhooks=set())
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_for_checkout_fully_authorized_automatic_checkout_complete(
     mocked_fully_authorized,
     mocked_fully_paid,
@@ -318,9 +318,9 @@ def test_transaction_amounts_for_checkout_fully_authorized_automatic_checkout_co
     mocked_fully_authorized.assert_called_once_with(checkout, webhooks=set())
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_amounts_automatic_checkout_complete_called_once(
     mocked_fully_authorized,
     mocked_fully_paid,
@@ -351,7 +351,7 @@ def test_transaction_amounts_automatic_checkout_complete_called_once(
 
     with django_capture_on_commit_callbacks(execute=True):
         with race_condition.RunAfter(
-            "saleor.checkout.actions.update_last_transaction_modified_at_for_checkout",
+            "pmtraders.checkout.actions.update_last_transaction_modified_at_for_checkout",
             call_again,
         ):
             transaction_amounts_for_checkout_updated(
@@ -603,11 +603,11 @@ def test_get_checkout_refundable_with_multiple_active_transactions(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_event_incorrect_webhook_event(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -643,15 +643,15 @@ def test_call_checkout_event_incorrect_webhook_event(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_event_triggers_sync_webhook_when_needed(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -702,7 +702,7 @@ def test_call_checkout_event_triggers_sync_webhook_when_needed(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -739,15 +739,15 @@ def test_call_checkout_event_triggers_sync_webhook_when_needed(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_event_skips_tax_webhook_when_not_expired(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -797,7 +797,7 @@ def test_call_checkout_event_skips_tax_webhook_when_not_expired(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -831,11 +831,11 @@ def test_call_checkout_event_skips_tax_webhook_when_not_expired(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_event_skip_sync_webhooks_when_async_missing(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -869,15 +869,15 @@ def test_call_checkout_event_skip_sync_webhooks_when_async_missing(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_event_only_async_when_sync_missing(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -916,7 +916,7 @@ def test_call_checkout_event_only_async_when_sync_missing(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_called_once_with(
@@ -925,11 +925,11 @@ def test_call_checkout_event_only_async_when_sync_missing(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_info_event_incorrect_webhook_event(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -974,15 +974,15 @@ def test_call_checkout_info_event_incorrect_webhook_event(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_info_event_triggers_sync_webhook_when_needed(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1044,7 +1044,7 @@ def test_call_checkout_info_event_triggers_sync_webhook_when_needed(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1081,15 +1081,15 @@ def test_call_checkout_info_event_triggers_sync_webhook_when_needed(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_info_event_skips_tax_webhook_when_not_expired(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1150,7 +1150,7 @@ def test_call_checkout_info_event_skips_tax_webhook_when_not_expired(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1184,15 +1184,15 @@ def test_call_checkout_info_event_skips_tax_webhook_when_not_expired(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_info_event_only_async_when_sync_missing(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1241,7 +1241,7 @@ def test_call_checkout_info_event_only_async_when_sync_missing(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_called_once_with(
@@ -1250,11 +1250,11 @@ def test_call_checkout_info_event_only_async_when_sync_missing(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_info_event_skip_sync_webhooks_when_async_missing(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1299,18 +1299,18 @@ def test_call_checkout_info_event_skip_sync_webhooks_when_async_missing(
 
 @freeze_time("2023-05-31 12:00:01")
 @patch(
-    "saleor.checkout.actions.call_checkout_info_event",
+    "pmtraders.checkout.actions.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_transaction_amounts_for_checkout_fully_paid_triggers_sync_webhook(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1368,7 +1368,7 @@ def test_transaction_amounts_for_checkout_fully_paid_triggers_sync_webhook(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1414,18 +1414,18 @@ def test_transaction_amounts_for_checkout_fully_paid_triggers_sync_webhook(
 
 @freeze_time("2023-05-31 12:00:01")
 @patch(
-    "saleor.checkout.actions.call_checkout_info_event",
+    "pmtraders.checkout.actions.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_transaction_amounts_for_checkout_fully_authorized_triggers_sync_webhook(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1485,7 +1485,7 @@ def test_transaction_amounts_for_checkout_fully_authorized_triggers_sync_webhook
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1524,11 +1524,11 @@ def test_transaction_amounts_for_checkout_fully_authorized_triggers_sync_webhook
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_events_incorrect_webhook_event(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1564,15 +1564,15 @@ def test_call_checkout_events_incorrect_webhook_event(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_events_triggers_sync_webhook_when_needed(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1626,7 +1626,7 @@ def test_call_checkout_events_triggers_sync_webhook_when_needed(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1668,15 +1668,15 @@ def test_call_checkout_events_triggers_sync_webhook_when_needed(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_events_skips_tax_webhook_when_not_expired(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1729,7 +1729,7 @@ def test_call_checkout_events_skips_tax_webhook_when_not_expired(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1768,11 +1768,11 @@ def test_call_checkout_events_skips_tax_webhook_when_not_expired(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_events_skip_sync_webhooks_when_async_missing(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1809,15 +1809,15 @@ def test_call_checkout_events_skip_sync_webhooks_when_async_missing(
 
 
 @freeze_time("2023-05-31 12:00:01")
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.checkout.actions.call_event_including_protected_events",
+    "pmtraders.checkout.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_checkout_events_only_async_when_sync_missing(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -1859,7 +1859,7 @@ def test_call_checkout_events_only_async_when_sync_missing(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_has_calls(

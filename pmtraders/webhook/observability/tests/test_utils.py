@@ -34,7 +34,7 @@ def api_call(test_request):
 @pytest.fixture
 def patch_get_buffer(buffer):
     with patch(
-        "saleor.webhook.observability.utils.get_buffer", return_value=buffer
+        "pmtraders.webhook.observability.utils.get_buffer", return_value=buffer
     ) as get_buffer:
         yield get_buffer
 
@@ -42,7 +42,7 @@ def patch_get_buffer(buffer):
 @pytest.fixture
 def patch_get_webhooks(observability_webhook_data):
     with patch(
-        "saleor.webhook.observability.utils.get_webhooks",
+        "pmtraders.webhook.observability.utils.get_webhooks",
         return_value=observability_webhook_data,
     ) as get_webhooks:
         yield get_webhooks
@@ -65,8 +65,8 @@ def _observability_disabled(settings):
     settings.OBSERVABILITY_REPORT_ALL_API_CALLS = False
 
 
-@patch("saleor.webhook.observability.utils.cache.get")
-@patch("saleor.webhook.observability.utils.get_webhooks_for_event")
+@patch("pmtraders.webhook.observability.utils.cache.get")
+@patch("pmtraders.webhook.observability.utils.get_webhooks_for_event")
 def test_get_webhooks(
     mocked_get_webhooks_for_event,
     mock_cache_get,
@@ -146,7 +146,7 @@ def test_task_next_retry_date(retry, next_retry_date):
     assert task_next_retry_date(retry) == next_retry_date
 
 
-@patch("saleor.webhook.observability.utils.ApiCall.report")
+@patch("pmtraders.webhook.observability.utils.ApiCall.report")
 def test_report_api_call_scope(mocked_api_call_report, test_request):
     with report_api_call(test_request) as level_1:
         with report_api_call(test_request) as level_2:
@@ -172,7 +172,7 @@ def test_report_gql_operation_scope(test_request):
         assert api_call.gql_operations == [operation_a, operation_b]
 
 
-@patch("saleor.webhook.observability.utils.put_event")
+@patch("pmtraders.webhook.observability.utils.put_event")
 def test_api_call_report(
     mock_put_event,
     _observability_enabled,
@@ -188,7 +188,7 @@ def test_api_call_report(
     mock_put_event.assert_called_once()
 
 
-@patch("saleor.webhook.observability.utils.put_event")
+@patch("pmtraders.webhook.observability.utils.put_event")
 def test_api_call_response_report_when_observability_not_active(
     mock_put_event,
     _observability_disabled,
@@ -201,7 +201,7 @@ def test_api_call_response_report_when_observability_not_active(
     mock_put_event.assert_not_called()
 
 
-@patch("saleor.webhook.observability.utils.put_event")
+@patch("pmtraders.webhook.observability.utils.put_event")
 def test_api_call_response_report_when_request_not_from_app(
     mock_put_event,
     _observability_enabled,
@@ -214,7 +214,7 @@ def test_api_call_response_report_when_request_not_from_app(
     mock_put_event.assert_not_called()
 
 
-@patch("saleor.webhook.observability.utils.put_event")
+@patch("pmtraders.webhook.observability.utils.put_event")
 def test_api_call_response_report_when_no_gql_response(
     mock_put_event,
     _observability_enabled,
@@ -228,7 +228,7 @@ def test_api_call_response_report_when_no_gql_response(
     mock_put_event.assert_not_called()
 
 
-@patch("saleor.webhook.observability.utils.put_event")
+@patch("pmtraders.webhook.observability.utils.put_event")
 def test_report_event_delivery_attempt(
     mock_put_event,
     _observability_enabled,
@@ -239,7 +239,7 @@ def test_report_event_delivery_attempt(
     mock_put_event.assert_called_once()
 
 
-@patch("saleor.webhook.observability.utils.put_event")
+@patch("pmtraders.webhook.observability.utils.put_event")
 def test_report_event_delivery_attempt_not_active(
     mock_put_event,
     _observability_disabled,

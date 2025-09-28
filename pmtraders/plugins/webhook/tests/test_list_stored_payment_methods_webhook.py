@@ -32,9 +32,9 @@ subscription {
 """
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_list_stored_payment_methods_with_static_payload(
     mock_request,
     mocked_cache_get,
@@ -90,8 +90,8 @@ def test_list_stored_payment_methods_with_static_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_list_stored_payment_methods_subscription_issuing_principal(
     mock_request,
     mocked_cache_get,
@@ -138,8 +138,8 @@ def test_list_stored_payment_methods_subscription_issuing_principal(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_list_stored_payment_methods_subscription_issuing_principal_as_app(
     mock_request,
     mocked_cache_get,
@@ -188,9 +188,9 @@ def test_list_stored_payment_methods_subscription_issuing_principal_as_app(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_list_stored_payment_methods_with_subscription_payload(
     mock_request,
     mocked_cache_get,
@@ -249,9 +249,9 @@ def test_list_stored_payment_methods_with_subscription_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_list_stored_payment_methods_uses_cache_if_available(
     mock_request,
     mocked_cache_get,
@@ -303,9 +303,9 @@ def test_list_stored_payment_methods_uses_cache_if_available(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_list_stored_payment_methods_app_returns_incorrect_response(
     mock_request,
     mocked_cache_get,

@@ -12,10 +12,10 @@ from ...transport.asynchronous.transport import (
 from .. import concatenate_json_events
 
 
-@patch("saleor.webhook.transport.asynchronous.transport.group")
-@patch("saleor.webhook.transport.asynchronous.transport.send_observability_events")
-@patch("saleor.webhook.observability.get_webhooks")
-@patch("saleor.webhook.observability.pop_events_with_remaining_size")
+@patch("pmtraders.webhook.transport.asynchronous.transport.group")
+@patch("pmtraders.webhook.transport.asynchronous.transport.send_observability_events")
+@patch("pmtraders.webhook.observability.get_webhooks")
+@patch("pmtraders.webhook.observability.pop_events_with_remaining_size")
 def test_observability_reporter_task(
     mock_pop_events_with_remaining_size,
     mock_get_webhooks,
@@ -41,9 +41,9 @@ def test_observability_reporter_task(
     mock_send_observability_events.assert_called_once_with(webhooks, events)
 
 
-@patch("saleor.webhook.transport.asynchronous.transport.send_observability_events")
-@patch("saleor.webhook.observability.get_webhooks")
-@patch("saleor.webhook.observability.pop_events_with_remaining_size")
+@patch("pmtraders.webhook.transport.asynchronous.transport.send_observability_events")
+@patch("pmtraders.webhook.observability.get_webhooks")
+@patch("pmtraders.webhook.observability.pop_events_with_remaining_size")
 def test_observability_send_events(
     mock_pop_events_with_remaining_size,
     mock_get_webhooks,
@@ -61,7 +61,7 @@ def test_observability_send_events(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_observability_events(
     mock_send_webhook_using_scheme_method, observability_webhook_data
@@ -72,7 +72,7 @@ def test_send_observability_events(
 
     mock_send_webhook_using_scheme_method.assert_called_once_with(
         observability_webhook_data.target_url,
-        observability_webhook_data.saleor_domain,
+        observability_webhook_data.pmtraders_domain,
         observability_webhook_data.secret_key,
         WebhookEventAsyncType.OBSERVABILITY,
         concatenate_json_events(events),
@@ -80,7 +80,7 @@ def test_send_observability_events(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_observability_events_when_response_failed(
     mock_send_webhook_using_scheme_method, observability_webhook_data
@@ -95,13 +95,13 @@ def test_send_observability_events_when_response_failed(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_observability_events_to_google_pub_sub(
     mock_send_webhook_using_scheme_method, observability_webhook_data
 ):
     observability_webhook_data.target_url = (
-        "gcpubsub://cloud.google.com/projects/saleor/topics/test"
+        "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"
     )
     webhooks = [observability_webhook_data]
     events = [b'{"event": "data"}', b'{"event": "data"}']
@@ -111,7 +111,7 @@ def test_send_observability_events_to_google_pub_sub(
     assert mock_send_webhook_using_scheme_method.call_count == len(events)
     mock_send_webhook_using_scheme_method.assert_called_with(
         observability_webhook_data.target_url,
-        observability_webhook_data.saleor_domain,
+        observability_webhook_data.pmtraders_domain,
         observability_webhook_data.secret_key,
         WebhookEventAsyncType.OBSERVABILITY,
         events[-1],
@@ -119,13 +119,13 @@ def test_send_observability_events_to_google_pub_sub(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_observability_events_to_google_pub_sub_when_response_failed(
     mock_send_webhook_using_scheme_method, observability_webhook_data
 ):
     observability_webhook_data.target_url = (
-        "gcpubsub://cloud.google.com/projects/saleor/topics/test"
+        "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"
     )
     events = [b'{"event": "data"}', b'{"event": "data"}']
     response = Mock()

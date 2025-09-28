@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 from django.db import connections
 
-from ....graphql.context import SaleorContext
+from ....graphql.context import pmtradersContext
 from ....tests.models import Book
 from ..connection import (
     UnsafeWriterAccessError,
@@ -40,7 +40,7 @@ def test_allow_writer_yield_exception(settings):
 
 
 def test_allow_writer_in_context_writer(settings):
-    context = SaleorContext()
+    context = pmtradersContext()
     context.allow_replica = False
 
     with allow_writer_in_context(context):
@@ -49,11 +49,11 @@ def test_allow_writer_in_context_writer(settings):
         assert connection._allow_writer
 
 
-@patch("saleor.core.db.connection.get_database_connection_name")
+@patch("pmtraders.core.db.connection.get_database_connection_name")
 def test_allow_writer_in_context_replica(mocked_get_database_connection_name, settings):
     mocked_get_database_connection_name.return_value = "replica"
 
-    context = SaleorContext()
+    context = pmtradersContext()
     context.allow_replica = True
 
     with allow_writer_in_context(context):

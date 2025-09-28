@@ -114,7 +114,7 @@ class AttributeValueTranslation(
     )
     plain_text = graphene.String(description="Translated plain text attribute value .")
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.AttributeValueTranslatableContent",
+        "pmtraders.graphql.translations.types.AttributeValueTranslatableContent",
         description="Represents the attribute value fields to translate.",
     )
 
@@ -136,7 +136,7 @@ class AttributeTranslation(BaseTranslationType[attribute_models.AttributeTransla
     )
     name = graphene.String(required=True, description="Translated attribute name.")
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.AttributeTranslatableContent",
+        "pmtraders.graphql.translations.types.AttributeTranslatableContent",
         description="Represents the attribute fields to translate.",
     )
 
@@ -162,7 +162,7 @@ class AttributeTranslatableContent(ModelObjectType[attribute_models.Attribute]):
     )
     translation = TranslationField(AttributeTranslation, type_name="attribute")
     attribute = graphene.Field(
-        "saleor.graphql.attribute.types.Attribute",
+        "pmtraders.graphql.attribute.types.Attribute",
         description="Custom attribute of a product.",
         deprecation_reason="Get model fields from the root level queries.",
     )
@@ -204,7 +204,7 @@ class AttributeValueTranslatableContent(
         AttributeValueTranslation, type_name="attribute value"
     )
     attribute_value = graphene.Field(
-        "saleor.graphql.attribute.types.AttributeValue",
+        "pmtraders.graphql.attribute.types.AttributeValue",
         description="Represents a value of an attribute.",
         deprecation_reason="Get model fields from the root level queries.",
     )
@@ -244,7 +244,7 @@ class ProductVariantTranslation(
         required=True, description="Translated product variant name."
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.ProductVariantTranslatableContent",
+        "pmtraders.graphql.translations.types.ProductVariantTranslatableContent",
         description="Represents the product variant fields to translate.",
     )
 
@@ -275,7 +275,7 @@ class ProductVariantTranslatableContent(ModelObjectType[product_models.ProductVa
         ProductVariantTranslation, type_name="product variant"
     )
     product_variant = graphene.Field(
-        "saleor.graphql.product.types.products.ProductVariant",
+        "pmtraders.graphql.product.types.products.ProductVariant",
         description=(
             "Represents a version of a product such as different size or color."
         ),
@@ -352,7 +352,7 @@ class ProductTranslation(BaseTranslationType[product_models.ProductTranslation])
         deprecation_reason="Use the `description` field instead.",
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.ProductTranslatableContent",
+        "pmtraders.graphql.translations.types.ProductTranslatableContent",
         description="Represents the product fields to translate.",
     )
 
@@ -392,7 +392,7 @@ class ProductTranslatableContent(ModelObjectType[product_models.Product]):
     )
     translation = TranslationField(ProductTranslation, type_name="product")
     product = graphene.Field(
-        "saleor.graphql.product.types.products.Product",
+        "pmtraders.graphql.product.types.products.Product",
         description="Represents an individual item for sale in the storefront.",
         deprecation_reason="Get model fields from the root level queries.",
     )
@@ -469,7 +469,7 @@ class CollectionTranslation(BaseTranslationType[product_models.CollectionTransla
         deprecation_reason="Use the `description` field instead.",
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.CollectionTranslatableContent",
+        "pmtraders.graphql.translations.types.CollectionTranslatableContent",
         description="Represents the collection fields to translate.",
     )
 
@@ -508,7 +508,7 @@ class CollectionTranslatableContent(ModelObjectType[product_models.Collection]):
     )
     translation = TranslationField(CollectionTranslation, type_name="collection")
     collection = graphene.Field(
-        "saleor.graphql.product.types.collections.Collection",
+        "pmtraders.graphql.product.types.collections.Collection",
         description="Represents a collection of products.",
         deprecation_reason="Get model fields from the root level queries.",
     )
@@ -561,7 +561,7 @@ class CategoryTranslation(BaseTranslationType[product_models.CategoryTranslation
         deprecation_reason="Use the `description` field instead.",
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.CategoryTranslatableContent",
+        "pmtraders.graphql.translations.types.CategoryTranslatableContent",
         description="Represents the category fields to translate.",
     )
 
@@ -603,7 +603,7 @@ class CategoryTranslatableContent(ModelObjectType[product_models.Category]):
     )
     translation = TranslationField(CategoryTranslation, type_name="category")
     category = graphene.Field(
-        "saleor.graphql.product.types.categories.Category",
+        "pmtraders.graphql.product.types.categories.Category",
         description="Represents a single category of products.",
         deprecation_reason="Get model fields from the root level queries.",
     )
@@ -641,7 +641,7 @@ class PageTranslation(BaseTranslationType[page_models.PageTranslation]):
         deprecation_reason="Use the `content` field instead.",
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.PageTranslatableContent",
+        "pmtraders.graphql.translations.types.PageTranslatableContent",
         description="Represents the page fields to translate.",
     )
 
@@ -676,7 +676,7 @@ class PageTranslatableContent(ModelObjectType[page_models.Page]):
     )
     translation = TranslationField(PageTranslation, type_name="page")
     page = graphene.Field(
-        "saleor.graphql.page.types.Page",
+        "pmtraders.graphql.page.types.Page",
         description=(
             "A static page that can be manually added by a shop operator "
             "through the dashboard."
@@ -746,7 +746,7 @@ class VoucherTranslation(BaseTranslationType[discount_models.VoucherTranslation]
     )
     name = graphene.String(description="Translated voucher name.")
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.VoucherTranslatableContent",
+        "pmtraders.graphql.translations.types.VoucherTranslatableContent",
         description="Represents the voucher fields to translate.",
     )
 
@@ -770,7 +770,7 @@ class VoucherTranslatableContent(ModelObjectType[discount_models.Voucher]):
     name = graphene.String(description="Voucher name to translate.")
     translation = TranslationField(VoucherTranslation, type_name="voucher")
     voucher = PermissionsField(
-        "saleor.graphql.discount.types.Voucher",
+        "pmtraders.graphql.discount.types.Voucher",
         description=(
             "Vouchers allow giving discounts to particular customers on categories, "
             "collections or specific products. They can be used during checkout by "
@@ -801,7 +801,7 @@ class SaleTranslation(BaseTranslationType[discount_models.PromotionTranslation])
     id = graphene.GlobalID(required=True, description="The ID of the sale translation.")
     name = graphene.String(description="Translated name of sale.")
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.SaleTranslatableContent",
+        "pmtraders.graphql.translations.types.SaleTranslatableContent",
         description="Represents the sale fields to translate.",
     )
 
@@ -827,7 +827,7 @@ class SaleTranslatableContent(ModelObjectType[discount_models.Promotion]):
     name = graphene.String(required=True, description="Name of the sale to translate.")
     translation = TranslationField(SaleTranslation, type_name="sale")
     sale = PermissionsField(
-        "saleor.graphql.discount.types.Sale",
+        "pmtraders.graphql.discount.types.Sale",
         description=(
             "Sales allow creating discounts for categories, collections "
             "or products and are visible to all the customers."
@@ -875,7 +875,7 @@ class MenuItemTranslation(BaseTranslationType[menu_models.MenuItemTranslation]):
     )
     name = graphene.String(required=True, description="Translated menu item name.")
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.MenuItemTranslatableContent",
+        "pmtraders.graphql.translations.types.MenuItemTranslatableContent",
         description="Represents the menu item fields to translate.",
     )
 
@@ -901,7 +901,7 @@ class MenuItemTranslatableContent(ModelObjectType[menu_models.MenuItem]):
     )
     translation = TranslationField(MenuItemTranslation, type_name="menu item")
     menu_item = graphene.Field(
-        "saleor.graphql.menu.types.MenuItem",
+        "pmtraders.graphql.menu.types.MenuItem",
         description=(
             "Represents a single item of the related menu. Can store categories, "
             "collection or pages."
@@ -937,7 +937,7 @@ class ShippingMethodTranslation(
         description="Translated description of the shipping method." + RICH_CONTENT
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.ShippingMethodTranslatableContent",
+        "pmtraders.graphql.translations.types.ShippingMethodTranslatableContent",
         description="Represents the shipping method fields to translate.",
     )
 
@@ -972,7 +972,7 @@ class ShippingMethodTranslatableContent(
         ShippingMethodTranslation, type_name="shipping method"
     )
     shipping_method = PermissionsField(
-        "saleor.graphql.shipping.types.ShippingMethodType",
+        "pmtraders.graphql.shipping.types.ShippingMethodType",
         description=(
             "Shipping method are the methods you'll use to get customer's orders "
             " to them. They are directly exposed to the customers."
@@ -1009,7 +1009,7 @@ class PromotionTranslation(BaseTranslationType[discount_models.PromotionTranslat
         description="Translated description of the promotion." + RICH_CONTENT
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.PromotionTranslatableContent",
+        "pmtraders.graphql.translations.types.PromotionTranslatableContent",
         description="Represents the promotion fields to translate.",
     )
 
@@ -1058,7 +1058,7 @@ class PromotionRuleTranslation(
         description="Translated description of the promotion rule." + RICH_CONTENT
     )
     translatable_content = graphene.Field(
-        "saleor.graphql.translations.types.PromotionRuleTranslatableContent",
+        "pmtraders.graphql.translations.types.PromotionRuleTranslatableContent",
         description="Represents the promotion rule fields to translate.",
     )
 

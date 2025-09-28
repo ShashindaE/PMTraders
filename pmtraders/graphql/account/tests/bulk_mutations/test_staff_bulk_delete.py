@@ -48,8 +48,8 @@ def test_delete_staff_members(
     assert User.objects.filter(id__in=[user.id for user in users]).count() == len(users)
 
 
-@patch("saleor.graphql.account.bulk_mutations.staff_bulk_delete.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.graphql.account.bulk_mutations.staff_bulk_delete.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_staff_members_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -62,7 +62,7 @@ def test_delete_staff_members_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     *users, staff_1, staff_2 = user_list
     users.append(superuser)

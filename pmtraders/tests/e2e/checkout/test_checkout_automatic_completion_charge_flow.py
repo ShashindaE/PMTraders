@@ -121,7 +121,7 @@ def test_automatically_complete_checkout_paid_by_transaction_create_charge_flow_
         event_type,
         total_gross_amount,
         psp_reference,
-        external_url="https://saleor.io/event-details/123",
+        external_url="https://pmtraders.io/event-details/123",
         available_actions=["REFUND"],
     )
     assert transaction_data["transactionEvent"]["type"] == event_type

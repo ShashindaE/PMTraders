@@ -187,7 +187,7 @@ def get_taxed_money(
 
 
 @freeze_time("2020-12-12 12:00:00")
-@patch("saleor.checkout.calculations._apply_tax_data")
+@patch("pmtraders.checkout.calculations._apply_tax_data")
 def test_fetch_checkout_data_plugins(
     _mocked_from_app,
     plugins_manager,
@@ -251,7 +251,7 @@ def test_fetch_checkout_data_plugins(
 
 
 @freeze_time("2020-12-12 12:00:00")
-@patch("saleor.checkout.calculations._apply_tax_data")
+@patch("pmtraders.checkout.calculations._apply_tax_data")
 def test_fetch_checkout_data_plugins_allow_sync_webhooks_set_to_false(
     _mocked_from_app,
     plugins_manager,
@@ -313,7 +313,7 @@ def test_fetch_checkout_data_plugins_allow_sync_webhooks_set_to_false(
 
 @pytest.mark.parametrize("allow_sync_webhooks", [True, False])
 @patch(
-    "saleor.checkout.calculations.update_checkout_prices_with_flat_rates",
+    "pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates",
     wraps=update_checkout_prices_with_flat_rates,
 )
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
@@ -355,7 +355,7 @@ def test_fetch_checkout_data_flat_rates(
 
 @pytest.mark.parametrize("allow_sync_webhooks", [True, False])
 @patch(
-    "saleor.checkout.calculations.update_checkout_prices_with_flat_rates",
+    "pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates",
     wraps=update_checkout_prices_with_flat_rates,
 )
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
@@ -423,7 +423,7 @@ def test_fetch_checkout_data_flat_rates_with_weighted_shipping_tax(
 
 
 @patch(
-    "saleor.checkout.calculations.update_checkout_prices_with_flat_rates",
+    "pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates",
     wraps=update_checkout_prices_with_flat_rates,
 )
 def test_fetch_checkout_data_flat_rates_and_no_tax_calc_strategy(
@@ -615,7 +615,7 @@ def test_fetch_checkout_prices_when_tax_exemption_and_include_taxes_in_prices(
     value = 10
     """
     # given
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
 
     checkout = checkout_with_items_and_shipping
@@ -673,7 +673,7 @@ def test_fetch_checkout_prices_when_tax_exemption_and_not_include_taxes_in_price
     tax plugins should be ignored and only net prices should be calculated and returned.
     """
     # given
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
 
     checkout = checkout_with_items_and_shipping
@@ -721,9 +721,9 @@ def test_fetch_checkout_prices_when_tax_exemption_and_not_include_taxes_in_price
 
 
 @freeze_time()
-@patch("saleor.plugins.manager.PluginsManager.calculate_checkout_total")
-@patch("saleor.plugins.manager.PluginsManager.get_taxes_for_checkout")
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_checkout_total")
+@patch("pmtraders.plugins.manager.PluginsManager.get_taxes_for_checkout")
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_fetch_checkout_data_calls_plugin(
     mock_get_taxes,
     mock_calculate_checkout_total,
@@ -761,10 +761,10 @@ def test_fetch_checkout_data_calls_plugin(
 
 
 @freeze_time()
-@patch("saleor.plugins.manager.PluginsManager.calculate_checkout_total")
-@patch("saleor.plugins.manager.PluginsManager.get_taxes_for_checkout")
-@patch("saleor.checkout.calculations._apply_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_checkout_total")
+@patch("pmtraders.plugins.manager.PluginsManager.get_taxes_for_checkout")
+@patch("pmtraders.checkout.calculations._apply_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_fetch_checkout_data_calls_tax_app(
     mock_apply_tax_data,
     mock_get_taxes,
@@ -804,10 +804,10 @@ def test_fetch_checkout_data_calls_tax_app(
 
 
 @freeze_time()
-@patch("saleor.plugins.manager.PluginsManager.calculate_checkout_total")
-@patch("saleor.plugins.manager.PluginsManager.get_taxes_for_checkout")
-@patch("saleor.checkout.calculations._apply_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_checkout_total")
+@patch("pmtraders.plugins.manager.PluginsManager.get_taxes_for_checkout")
+@patch("pmtraders.checkout.calculations._apply_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_fetch_checkout_data_calls_tax_app_when_allow_sync_webhooks_set_to_false(
     mock_apply_tax_data,
     mock_get_taxes,
@@ -889,7 +889,7 @@ def test_fetch_checkout_data_calls_inactive_plugin(
     assert checkout_with_items.tax_error == "Empty tax data."
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_external_shipping_method_called_only_once_during_tax_calculations(
     mock_send_webhook_request_sync,
     checkout_with_single_item,
@@ -930,7 +930,7 @@ def test_external_shipping_method_called_only_once_during_tax_calculations(
         price=Money(shipping_price, currency),
     )
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     checkout_with_single_item.shipping_address = address
@@ -1021,7 +1021,7 @@ def test_calculate_and_add_tax_empty_tax_data_logging_address(
     [(True, None), (True, "test.app"), (False, None), (False, "test.app")],
 )
 @patch.object(logger, "warning")
-@patch("saleor.checkout.calculations._set_checkout_base_prices")
+@patch("pmtraders.checkout.calculations._set_checkout_base_prices")
 def test_fetch_checkout_data_tax_data_with_tax_data_error(
     mock_set_base_prices,
     mocked_logger,
@@ -1072,7 +1072,7 @@ def test_fetch_checkout_data_tax_data_with_tax_data_error(
     [True, False],
 )
 @patch.object(logger, "warning")
-@patch("saleor.checkout.calculations._set_checkout_base_prices")
+@patch("pmtraders.checkout.calculations._set_checkout_base_prices")
 def test_fetch_checkout_data_tax_data_missing_tax_id_empty_tax_data(
     mock_set_base_prices,
     mocked_logger,
@@ -1112,8 +1112,8 @@ def test_fetch_checkout_data_tax_data_missing_tax_id_empty_tax_data(
     mock_set_base_prices.assert_not_called()
 
 
-@patch("saleor.plugins.avatax.plugin.get_checkout_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
+@patch("pmtraders.plugins.avatax.plugin.get_checkout_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
 def test_fetch_order_data_plugin_tax_data_with_negative_values(
     mock_get_tax_data,
     checkout_with_item_and_shipping,
@@ -1157,8 +1157,8 @@ def test_fetch_order_data_plugin_tax_data_with_negative_values(
     assert caplog.records[0].checkout_id == to_global_id_or_none(checkout)
 
 
-@patch("saleor.plugins.avatax.plugin.get_checkout_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
+@patch("pmtraders.plugins.avatax.plugin.get_checkout_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
 def test_fetch_order_data_plugin_tax_data_price_overflow(
     mock_get_tax_data,
     checkout_with_item_and_shipping,
@@ -1388,7 +1388,7 @@ def test_fetch_checkout_data_checkout_removed_before_save(
         Checkout.objects.filter(pk=checkout.pk).delete()
 
     with race_condition.RunAfter(
-        "saleor.checkout.calculations._calculate_and_add_tax", delete_checkout
+        "pmtraders.checkout.calculations._calculate_and_add_tax", delete_checkout
     ):
         result_checkout_info, result_lines_info = fetch_checkout_data(**fetch_kwargs)
 
@@ -1439,7 +1439,7 @@ def test_fetch_checkout_data_checkout_updated_during_price_recalculation(
         checkout_to_modify.save(update_fields=["email", "last_change"])
 
     with race_condition.RunAfter(
-        "saleor.checkout.calculations._calculate_and_add_tax", modify_checkout
+        "pmtraders.checkout.calculations._calculate_and_add_tax", modify_checkout
     ):
         result_checkout_info, result_lines_info = fetch_checkout_data(**fetch_kwargs)
 

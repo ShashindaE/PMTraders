@@ -28,9 +28,9 @@ ORDER_REFUND_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_refund(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -80,9 +80,9 @@ def test_order_refund(
     assert not mock_order_fully_refunded.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_fully_refunded(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -157,9 +157,9 @@ def test_order_refund_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_refund_by_app(
     mock_order_fully_refunded,
     mock_order_refunded,

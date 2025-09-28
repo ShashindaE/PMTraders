@@ -7,7 +7,7 @@ from django.core.exceptions import ImproperlyConfigured
 from ..rlimit import RLIMIT_TYPE, validate_and_set_rlimit
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_limit_passed_as_string(mock_setrlimit):
     # given
     soft_limit = "1000"
@@ -25,7 +25,7 @@ def test_limit_passed_as_string(mock_setrlimit):
     )
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_limit_passed_as_int(mock_setrlimit):
     # given
     soft_limit = 1000
@@ -43,7 +43,7 @@ def test_limit_passed_as_int(mock_setrlimit):
     )
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_no_limits(mock_setrlimit):
     # given
     soft_limit = None
@@ -61,7 +61,7 @@ def test_no_limits(mock_setrlimit):
     )
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_only_soft_limit_set(mock_setrlimit):
     # given
     soft_limit = 1000
@@ -75,7 +75,7 @@ def test_only_soft_limit_set(mock_setrlimit):
     mock_setrlimit.assert_not_called()
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_only_hard_limit_set(mock_setrlimit):
     # given
     soft_limit = None
@@ -89,7 +89,7 @@ def test_only_hard_limit_set(mock_setrlimit):
     mock_setrlimit.assert_not_called()
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_negative_soft_limit(mock_setrlimit):
     # given
     soft_limit = -10
@@ -103,7 +103,7 @@ def test_negative_soft_limit(mock_setrlimit):
     mock_setrlimit.assert_not_called()
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_negative_hard_limit(mock_setrlimit):
     # given
     soft_limit = 1000
@@ -117,7 +117,7 @@ def test_negative_hard_limit(mock_setrlimit):
     mock_setrlimit.assert_not_called()
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_invalid_soft_limit(mock_setrlimit):
     # given
     soft_limit = "invalid"
@@ -131,7 +131,7 @@ def test_invalid_soft_limit(mock_setrlimit):
     mock_setrlimit.assert_not_called()
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_invalid_hard_limit(mock_setrlimit):
     # given
     soft_limit = 1000
@@ -145,7 +145,7 @@ def test_invalid_hard_limit(mock_setrlimit):
     mock_setrlimit.assert_not_called()
 
 
-@patch("saleor.core.rlimit.resource.setrlimit")
+@patch("pmtraders.core.rlimit.resource.setrlimit")
 def test_soft_limit_greater_than_hard_limit(mock_setrlimit):
     # given
     soft_limit = 2000

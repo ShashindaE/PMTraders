@@ -396,7 +396,7 @@ def test_tax_configuration_update_tax_app_id_with_non_existent_app(
     assert errors[0]["code"] == TaxConfigurationUpdateErrorCode.NOT_FOUND.name
 
 
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_tax_configuration_update_tax_app_id_with_plugin(
     example_tax_configuration, staff_api_client, permission_manage_taxes
 ):

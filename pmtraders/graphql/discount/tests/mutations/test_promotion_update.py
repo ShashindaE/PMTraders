@@ -38,8 +38,8 @@ PROMOTION_UPDATE_MUTATION = """
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_updated")
 def test_promotion_update_by_staff_user(
     promotion_updated_mock,
     promotion_started_mock,
@@ -92,8 +92,8 @@ def test_promotion_update_by_staff_user(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_ended")
-@patch("saleor.plugins.manager.PluginsManager.promotion_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_ended")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_updated")
 def test_promotion_update_by_app(
     promotion_updated_mock,
     promotion_ended_mock,
@@ -145,9 +145,9 @@ def test_promotion_update_by_app(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_ended")
-@patch("saleor.plugins.manager.PluginsManager.promotion_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_ended")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_updated")
 def test_promotion_update_dates_dont_change(
     promotion_updated_mock,
     promotion_started_mock,
@@ -206,9 +206,9 @@ def test_promotion_update_dates_dont_change(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_ended")
-@patch("saleor.plugins.manager.PluginsManager.promotion_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_ended")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_updated")
 def test_promotion_update_by_customer(
     promotion_updated_mock,
     promotion_started_mock,
@@ -281,8 +281,8 @@ def test_promotion_update_end_date_before_start_date(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
-@patch("saleor.plugins.manager.PluginsManager.promotion_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_updated")
 def test_promotion_update_clears_old_sale_id(
     promotion_updated_mock,
     promotion_started_mock,

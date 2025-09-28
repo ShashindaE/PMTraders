@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 class BaseAssignedAttribute(models.Model):
     # TODO: stop using this class in new code
-    # See: https://github.com/saleor/saleor/issues/12881
+    # See: https://github.com/pmtraders/pmtraders/issues/12881
     class Meta:
         abstract = True
 

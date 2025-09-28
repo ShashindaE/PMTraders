@@ -62,13 +62,13 @@ from ..utils import updates_amounts_for_order
 
 
 @patch(
-    "saleor.order.actions.send_fulfillment_confirmation_to_customer",
+    "pmtraders.order.actions.send_fulfillment_confirmation_to_customer",
     wraps=send_fulfillment_confirmation_to_customer,
 )
 @patch(
-    "saleor.order.actions.send_payment_confirmation", wraps=send_payment_confirmation
+    "pmtraders.order.actions.send_payment_confirmation", wraps=send_payment_confirmation
 )
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_created")
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_created")
 def test_handle_fully_paid_order_digital_lines(
     mock_fulfillment_created,
     mock_send_payment_confirmation,
@@ -109,7 +109,7 @@ def test_handle_fully_paid_order_digital_lines(
     mock_fulfillment_created.assert_called_once_with(fulfillment)
 
 
-@patch("saleor.order.actions.send_payment_confirmation")
+@patch("pmtraders.order.actions.send_payment_confirmation")
 def test_handle_fully_paid_order(mock_send_payment_confirmation, order):
     # given
     manager = get_plugins_manager(allow_replica=False)
@@ -129,7 +129,7 @@ def test_handle_fully_paid_order(mock_send_payment_confirmation, order):
     mock_send_payment_confirmation.assert_called_once_with(order_info, manager)
 
 
-@patch("saleor.order.notifications.send_payment_confirmation")
+@patch("pmtraders.order.notifications.send_payment_confirmation")
 def test_handle_fully_paid_order_no_email(mock_send_payment_confirmation, order):
     # given
     order.user = None
@@ -147,7 +147,7 @@ def test_handle_fully_paid_order_no_email(mock_send_payment_confirmation, order)
     assert not mock_send_payment_confirmation.called
 
 
-@patch("saleor.order.actions.send_payment_confirmation")
+@patch("pmtraders.order.actions.send_payment_confirmation")
 def test_handle_fully_paid_order_with_gateway(mock_send_payment_confirmation, order):
     # given
     manager = get_plugins_manager(allow_replica=False)
@@ -173,8 +173,8 @@ def test_handle_fully_paid_order_with_gateway(mock_send_payment_confirmation, or
     mock_send_payment_confirmation.assert_called_once_with(order_info, manager)
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
-@patch("saleor.order.actions.send_payment_confirmation")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.order.actions.send_payment_confirmation")
 def test_handle_fully_paid_order_gift_cards_created(
     mock_send_payment_confirmation,
     send_notification_mock,
@@ -254,8 +254,8 @@ def test_handle_fully_paid_order_gift_cards_created(
     )
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
-@patch("saleor.order.actions.send_payment_confirmation")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.order.actions.send_payment_confirmation")
 def test_handle_fully_paid_order_gift_cards_not_created(
     mock_send_payment_confirmation,
     send_notification_mock,
@@ -324,7 +324,7 @@ def test_handle_fully_paid_order_gift_cards_not_created(
 
 
 @pytest.mark.parametrize("automatically_confirm_all_new_orders", [True, False])
-@patch("saleor.order.actions.send_payment_confirmation")
+@patch("pmtraders.order.actions.send_payment_confirmation")
 def test_handle_fully_paid_order_for_draft_order(
     mock_send_payment_confirmation, automatically_confirm_all_new_orders, draft_order
 ):
@@ -352,14 +352,14 @@ def test_handle_fully_paid_order_for_draft_order(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_handle_fully_paid_order_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -424,7 +424,7 @@ def test_handle_fully_paid_order_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -618,7 +618,7 @@ def test_cancel_fulfillment_variant_without_inventory_tracking(
     assert stock_quantity_before == line.order_line.variant.stocks.get().quantity
 
 
-@patch("saleor.order.actions.send_order_canceled_confirmation")
+@patch("pmtraders.order.actions.send_order_canceled_confirmation")
 def test_cancel_order(
     send_order_canceled_confirmation_mock,
     fulfilled_order_with_all_cancelled_fulfillments,
@@ -651,14 +651,14 @@ def test_cancel_order(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_cancel_order_dont_trigger_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -724,7 +724,7 @@ def test_cancel_order_dont_trigger_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -743,9 +743,9 @@ def test_cancel_order_dont_trigger_webhooks(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
-@patch("saleor.order.actions.send_order_refunded_confirmation")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.order.actions.send_order_refunded_confirmation")
 def test_order_refunded_by_user(
     send_order_refunded_confirmation_mock,
     order_fully_refunded_mock,
@@ -777,9 +777,9 @@ def test_order_refunded_by_user(
     order_refunded_mock.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
-@patch("saleor.order.actions.send_order_refunded_confirmation")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.order.actions.send_order_refunded_confirmation")
 def test_order_refunded_by_app(
     send_order_refunded_confirmation_mock,
     order_fully_refunded_mock,
@@ -812,14 +812,14 @@ def test_order_refunded_by_app(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_refunded_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -898,7 +898,7 @@ def test_order_refunded_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -939,14 +939,14 @@ def test_order_refunded_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_voided_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -997,7 +997,7 @@ def test_order_voided_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1029,14 +1029,14 @@ def test_order_voided_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_fulfilled_dont_trigger_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1105,7 +1105,7 @@ def test_order_fulfilled_dont_trigger_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -1125,14 +1125,14 @@ def test_order_fulfilled_dont_trigger_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_awaits_fulfillment_approval_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1190,7 +1190,7 @@ def test_order_awaits_fulfillment_approval_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1222,14 +1222,14 @@ def test_order_awaits_fulfillment_approval_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_authorized_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1284,7 +1284,7 @@ def test_order_authorized_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1317,18 +1317,18 @@ def test_order_authorized_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_charged_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1400,7 +1400,7 @@ def test_order_charged_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -1555,9 +1555,9 @@ def test_fulfill_order_lines_without_inventory_tracking(order_with_lines):
     assert line.quantity_fulfilled == quantity_fulfilled_before + line.quantity
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer")
-@patch("saleor.order.utils.get_default_digital_content_settings")
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_created")
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer")
+@patch("pmtraders.order.utils.get_default_digital_content_settings")
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_created")
 def test_fulfill_digital_lines(
     mock_fulfillment_created,
     mock_digital_settings,
@@ -1608,9 +1608,9 @@ def test_fulfill_digital_lines(
     }
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer")
-@patch("saleor.order.utils.get_default_digital_content_settings")
-@patch("saleor.plugins.manager.PluginsManager.fulfillment_created")
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer")
+@patch("pmtraders.order.utils.get_default_digital_content_settings")
+@patch("pmtraders.plugins.manager.PluginsManager.fulfillment_created")
 def test_fulfill_digital_lines_no_allocation(
     mock_fulfillment_created,
     mock_digital_settings,
@@ -1660,8 +1660,8 @@ def test_fulfill_digital_lines_no_allocation(
     mock_fulfillment_created.assert_called_once_with(fulfillment)
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_order_fully_paid(
     order_fully_paid,
     order_updated,
@@ -1698,18 +1698,18 @@ def test_order_transaction_updated_order_fully_paid(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_transaction_updated_for_charged_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1794,7 +1794,7 @@ def test_order_transaction_updated_for_charged_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -1837,14 +1837,14 @@ def test_order_transaction_updated_for_charged_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_transaction_updated_for_authorized_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1910,7 +1910,7 @@ def test_order_transaction_updated_for_authorized_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -1943,14 +1943,14 @@ def test_order_transaction_updated_for_authorized_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_transaction_updated_for_refunded_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -2034,7 +2034,7 @@ def test_order_transaction_updated_for_refunded_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -2075,8 +2075,8 @@ def test_order_transaction_updated_for_refunded_triggers_webhooks(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_order_partially_paid(
     order_fully_paid,
     order_updated,
@@ -2112,8 +2112,8 @@ def test_order_transaction_updated_order_partially_paid(
     order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_order_partially_paid_and_multiple_transactions(
     order_fully_paid,
     order_updated,
@@ -2150,8 +2150,8 @@ def test_order_transaction_updated_order_partially_paid_and_multiple_transaction
     order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_with_the_same_transaction_charged_amount(
     order_fully_paid,
     order_updated,
@@ -2189,8 +2189,8 @@ def test_order_transaction_updated_with_the_same_transaction_charged_amount(
     assert not order_updated.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_order_authorized(
     order_fully_paid,
     order_updated,
@@ -2227,8 +2227,8 @@ def test_order_transaction_updated_order_authorized(
     order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_order_partially_authorized_and_multiple_transactions(
     order_fully_paid,
     order_updated,
@@ -2267,8 +2267,8 @@ def test_order_transaction_updated_order_partially_authorized_and_multiple_trans
     order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_order_transaction_updated_with_the_same_transaction_authorized_amount(
     order_fully_paid,
     order_updated,
@@ -2306,8 +2306,8 @@ def test_order_transaction_updated_with_the_same_transaction_authorized_amount(
     assert not order_updated.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_transaction_updated_order_fully_refunded(
     order_fully_refunded,
     order_refunded,
@@ -2343,8 +2343,8 @@ def test_order_transaction_updated_order_fully_refunded(
     order_refunded.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_transaction_updated_order_partially_refunded(
     order_fully_refunded,
     order_refunded,
@@ -2380,8 +2380,8 @@ def test_order_transaction_updated_order_partially_refunded(
     order_refunded.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_transaction_updated_order_fully_refunded_and_multiple_transactions(
     order_fully_refunded,
     order_refunded,
@@ -2419,8 +2419,8 @@ def test_order_transaction_updated_order_fully_refunded_and_multiple_transaction
     order_refunded.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_order_transaction_updated_order_fully_refunded_with_transaction_and_payment(
     order_fully_refunded,
     order_refunded,
@@ -2489,15 +2489,15 @@ def test_order_transaction_updated_order_fully_refunded_with_transaction_and_pay
         WebhookEventAsyncType.ORDER_METADATA_UPDATED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_triggers_sync_webhook(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -2535,7 +2535,7 @@ def test_call_order_event_triggers_sync_webhook(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -2561,11 +2561,11 @@ def test_call_order_event_triggers_sync_webhook(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_incorrect_webhook_event(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -2618,15 +2618,15 @@ def test_call_order_event_incorrect_webhook_event(
         WebhookEventAsyncType.ORDER_METADATA_UPDATED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_missing_filter_shipping_method_webhook(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -2667,7 +2667,7 @@ def test_call_order_event_missing_filter_shipping_method_webhook(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     mocked_send_webhook_request_sync.assert_called_once()
@@ -2699,15 +2699,15 @@ def test_call_order_event_missing_filter_shipping_method_webhook(
         WebhookEventAsyncType.DRAFT_ORDER_UPDATED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_skips_tax_webhook_when_prices_are_valid(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -2748,7 +2748,7 @@ def test_call_order_event_skips_tax_webhook_when_prices_are_valid(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -2787,15 +2787,15 @@ def test_call_order_event_skips_tax_webhook_when_prices_are_valid(
         WebhookEventAsyncType.DRAFT_ORDER_UPDATED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_skips_sync_webhooks_when_order_not_editable(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -2836,7 +2836,7 @@ def test_call_order_event_skips_sync_webhooks_when_order_not_editable(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
     assert not mocked_send_webhook_request_sync.called
     assert not EventDelivery.objects.exclude(webhook_id=order_webhook.id).exists()
@@ -2845,15 +2845,15 @@ def test_call_order_event_skips_sync_webhooks_when_order_not_editable(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_skips_sync_webhooks_when_draft_order_deleted(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -2896,7 +2896,7 @@ def test_call_order_event_skips_sync_webhooks_when_draft_order_deleted(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_called_once_with(
@@ -2904,11 +2904,11 @@ def test_call_order_event_skips_sync_webhooks_when_draft_order_deleted(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_skips_when_async_webhooks_missing(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -2951,15 +2951,15 @@ def test_call_order_event_skips_when_async_webhooks_missing(
     assert not mocked_send_webhook_request_sync.called
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_event_skips_when_sync_webhooks_missing(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -2994,7 +2994,7 @@ def test_call_order_event_skips_when_sync_webhooks_missing(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_called_once_with(
@@ -3017,15 +3017,15 @@ def test_call_order_event_skips_when_sync_webhooks_missing(
         WebhookEventAsyncType.ORDER_FULFILLED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_triggers_sync_webhook(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3066,7 +3066,7 @@ def test_call_order_events_triggers_sync_webhook(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
     # confirm each sync webhook was called without saving event delivery
     assert mocked_send_webhook_request_sync.call_count == 2
@@ -3101,15 +3101,15 @@ def test_call_order_events_triggers_sync_webhook(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_incorrect_webhook_event(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3166,15 +3166,15 @@ def test_call_order_events_incorrect_webhook_event(
         WebhookEventAsyncType.ORDER_FULFILLED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_missing_filter_shipping_method_webhook(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3218,7 +3218,7 @@ def test_call_order_events_missing_filter_shipping_method_webhook(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -3259,15 +3259,15 @@ def test_call_order_events_missing_filter_shipping_method_webhook(
         WebhookEventAsyncType.DRAFT_ORDER_UPDATED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_skips_tax_webhook_when_prices_are_valid(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3311,7 +3311,7 @@ def test_call_order_events_skips_tax_webhook_when_prices_are_valid(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -3358,15 +3358,15 @@ def test_call_order_events_skips_tax_webhook_when_prices_are_valid(
         WebhookEventAsyncType.DRAFT_ORDER_UPDATED,
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_skips_sync_webhooks_when_order_not_editable(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3417,7 +3417,7 @@ def test_call_order_events_skips_sync_webhooks_when_order_not_editable(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_has_calls(
@@ -3434,15 +3434,15 @@ def test_call_order_events_skips_sync_webhooks_when_order_not_editable(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_skips_sync_webhooks_when_draft_order_deleted(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3488,7 +3488,7 @@ def test_call_order_events_skips_sync_webhooks_when_draft_order_deleted(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_has_calls(
@@ -3505,11 +3505,11 @@ def test_call_order_events_skips_sync_webhooks_when_draft_order_deleted(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_skips_when_async_webhooks_missing(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -3555,15 +3555,15 @@ def test_call_order_events_skips_when_async_webhooks_missing(
     assert not mocked_send_webhook_request_sync.called
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @patch(
-    "saleor.order.actions.call_event_including_protected_events",
+    "pmtraders.order.actions.call_event_including_protected_events",
     wraps=call_event_including_protected_events,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_call_order_events_skips_when_sync_webhooks_missing(
     mocked_call_event_including_protected_events,
     mocked_send_webhook_request_async,
@@ -3601,7 +3601,7 @@ def test_call_order_events_skips_when_sync_webhooks_missing(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )
     assert not mocked_send_webhook_request_sync.called
     mocked_call_event_including_protected_events.assert_has_calls(
@@ -3619,18 +3619,18 @@ def test_call_order_events_skips_when_sync_webhooks_missing(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_created_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -3718,7 +3718,7 @@ def test_order_created_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -3780,14 +3780,14 @@ def test_order_created_triggers_webhooks(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_confirmed_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -3832,7 +3832,7 @@ def test_order_confirmed_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

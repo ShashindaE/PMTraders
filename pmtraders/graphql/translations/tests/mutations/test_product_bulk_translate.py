@@ -104,7 +104,7 @@ def test_product_bulk_translate_get_base_objects_returns_valid_objects(
     assert base_objects == [first_product]
 
 
-@patch("saleor.plugins.manager.PluginsManager.translations_created")
+@patch("pmtraders.plugins.manager.PluginsManager.translations_created")
 def test_product_bulk_translate_creates_translations(
     created_webhook_mock,
     staff_api_client,
@@ -151,7 +151,7 @@ def test_product_bulk_translate_creates_translations(
     assert created_webhook_mock.call_count == 1
 
 
-@patch("saleor.plugins.manager.PluginsManager.translations_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.translations_updated")
 def test_product_bulk_translate_updates_translations(
     updated_webhook_mock,
     staff_api_client,
@@ -202,7 +202,7 @@ def test_product_bulk_translate_updates_translations(
     assert updated_webhook_mock.call_count == 1
 
 
-@patch("saleor.plugins.manager.PluginsManager.translations_created")
+@patch("pmtraders.plugins.manager.PluginsManager.translations_created")
 def test_product_bulk_translate_creates_translations_using_attr_external_ref(
     created_webhook_mock,
     staff_api_client,
@@ -249,7 +249,7 @@ def test_product_bulk_translate_creates_translations_using_attr_external_ref(
     assert created_webhook_mock.call_count == 1
 
 
-@patch("saleor.plugins.manager.PluginsManager.translations_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.translations_updated")
 def test_product_bulk_translate_updates_translations_using_attr_external_ref(
     updated_webhook_mock,
     staff_api_client,

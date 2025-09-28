@@ -58,8 +58,8 @@ CREATE_COLLECTION_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.collection_updated")
-@patch("saleor.plugins.manager.PluginsManager.collection_created")
+@patch("pmtraders.plugins.manager.PluginsManager.collection_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.collection_created")
 def test_create_collection(
     created_webhook_mock,
     updated_webhook_mock,
@@ -122,7 +122,7 @@ def test_create_collection(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_create_collection_trigger_product_update_webhook(
     product_updated_mock,
     staff_api_client,

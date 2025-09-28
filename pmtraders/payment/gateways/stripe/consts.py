@@ -1,9 +1,9 @@
-PLUGIN_ID = "saleor.payments.stripe"
+PLUGIN_ID = "pmtraders.payments.stripe"
 PLUGIN_NAME = "Stripe (deprecated)"
 PLUGIN_DESCRIPTION = """
 Stripe Plugin has been deprecated and will be removed in the future. Use the Stripe App instead.
 
-https://docs.saleor.io/developer/app-store/apps/stripe/overview
+https://docs.pmtraders.io/developer/app-store/apps/stripe/overview
 """
 WEBHOOK_PATH = "webhooks/"
 
@@ -24,7 +24,7 @@ WEBHOOK_EVENTS = [
     WEBHOOK_CANCELED_EVENT,
     WEBHOOK_REFUND_EVENT,
 ]
-METADATA_IDENTIFIER = "saleor-domain"
+METADATA_IDENTIFIER = "pmtraders-domain"
 
 ACTION_REQUIRED_STATUSES = [
     "requires_payment_method",

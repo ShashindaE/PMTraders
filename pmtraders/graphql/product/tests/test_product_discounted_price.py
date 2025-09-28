@@ -13,7 +13,7 @@ from ...discount.enums import DiscountValueTypeEnum
 from ...tests.utils import get_graphql_content
 
 
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_product_variant_delete_updates_discounted_price(
     mocked_recalculate_orders_task,
     staff_api_client,

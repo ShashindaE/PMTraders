@@ -105,7 +105,7 @@ def test_digital_checkout_calculate_simple_tax_based_on_billing_country_CORE_200
     billing_address = {
         "firstName": "John",
         "lastName": "Muller",
-        "companyName": "Saleor Commerce CZ",
+        "companyName": "pmtraders Commerce CZ",
         "streetAddress1": "Sluneční 1396",
         "streetAddress2": "",
         "postalCode": "74784",

@@ -85,7 +85,7 @@ def test_invoice_delete_by_app(app_api_client, permission_manage_orders, order):
     assert order.search_vector
 
 
-@patch("saleor.plugins.manager.PluginsManager.invoice_delete")
+@patch("pmtraders.plugins.manager.PluginsManager.invoice_delete")
 def test_invoice_delete_invalid_id(
     plugin_mock, staff_api_client, permission_group_manage_orders
 ):

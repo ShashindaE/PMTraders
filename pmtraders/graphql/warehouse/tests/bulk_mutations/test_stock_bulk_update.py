@@ -77,9 +77,9 @@ def test_stocks_bulk_update_using_ids(
 
 
 @patch(
-    "saleor.graphql.warehouse.bulk_mutations.stock_bulk_update.get_webhooks_for_event"
+    "pmtraders.graphql.warehouse.bulk_mutations.stock_bulk_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
 def test_stocks_bulk_update_send_stock_updated_event(
     product_variant_stocks_update_webhook,
     mocked_get_webhooks_for_event,
@@ -91,7 +91,7 @@ def test_stocks_bulk_update_send_stock_updated_event(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variant = variant_with_many_stocks
     variant_id = graphene.Node.to_global_id("ProductVariant", variant.pk)
     stocks = variant.stocks.all()
@@ -123,9 +123,9 @@ def test_stocks_bulk_update_send_stock_updated_event(
 
 
 @patch(
-    "saleor.graphql.warehouse.bulk_mutations.stock_bulk_update.get_webhooks_for_event"
+    "pmtraders.graphql.warehouse.bulk_mutations.stock_bulk_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
 def test_stocks_bulk_update_send_stock_updated_event_only_for_changed_stocks(
     product_variant_stocks_update_webhook,
     mocked_get_webhooks_for_event,
@@ -137,7 +137,7 @@ def test_stocks_bulk_update_send_stock_updated_event_only_for_changed_stocks(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variant = variant_with_many_stocks
     variant_id = graphene.Node.to_global_id("ProductVariant", variant.pk)
     stocks = variant.stocks.all()

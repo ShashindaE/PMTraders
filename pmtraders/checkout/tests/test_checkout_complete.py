@@ -45,7 +45,7 @@ from ..payment_utils import update_checkout_payment_statuses
 from ..utils import add_variant_to_checkout, add_voucher_to_checkout
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_create_order_captured_payment_creates_expected_events(
     mock_notify,
     checkout_with_item,
@@ -209,7 +209,7 @@ def test_create_order_captured_payment_creates_expected_events(
     assert not placement_event.parameters  # should not have any additional parameters
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_create_order_captured_payment_creates_expected_events_anonymous_user(
     mock_notify,
     checkout_with_item,
@@ -370,7 +370,7 @@ def test_create_order_captured_payment_creates_expected_events_anonymous_user(
     assert not CustomerEvent.objects.exists()  # should not have created any event
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_create_order_preauth_payment_creates_expected_events(
     mock_notify,
     checkout_with_item,
@@ -486,7 +486,7 @@ def test_create_order_preauth_payment_creates_expected_events(
     assert not placement_event.parameters  # should not have any additional parameters
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_create_order_preauth_payment_creates_expected_events_anonymous_user(
     mock_notify,
     checkout_with_item,
@@ -843,7 +843,7 @@ def test_create_order_with_many_gift_cards(
     )
 
 
-@mock.patch("saleor.giftcard.utils.send_gift_card_notification")
+@mock.patch("pmtraders.giftcard.utils.send_gift_card_notification")
 @pytest.mark.parametrize("is_anonymous_user", [True, False])
 def test_create_order_gift_card_bought(
     send_notification_mock,
@@ -938,7 +938,7 @@ def test_create_order_gift_card_bought(
     )
 
 
-@mock.patch("saleor.giftcard.utils.send_gift_card_notification")
+@mock.patch("pmtraders.giftcard.utils.send_gift_card_notification")
 @pytest.mark.parametrize("is_anonymous_user", [True, False])
 def test_create_order_gift_card_bought_order_not_captured_gift_cards_not_sent(
     send_notification_mock,
@@ -1000,7 +1000,7 @@ def test_create_order_gift_card_bought_order_not_captured_gift_cards_not_sent(
     send_notification_mock.assert_not_called()
 
 
-@mock.patch("saleor.giftcard.utils.send_gift_card_notification")
+@mock.patch("pmtraders.giftcard.utils.send_gift_card_notification")
 @pytest.mark.parametrize("is_anonymous_user", [True, False])
 def test_create_order_gift_card_bought_only_shippable_gift_card(
     send_notification_mock,
@@ -1270,7 +1270,7 @@ def test_complete_checkout_0_total_with_transaction_for_mark_as_paid(
     assert order.status == OrderStatus.UNFULFILLED
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_complete_checkout_0_total_captured_payment_creates_expected_events(
     mock_notify,
     checkout_with_item_total_0,
@@ -1400,8 +1400,8 @@ def test_complete_checkout_0_total_captured_payment_creates_expected_events(
     assert not placement_event.parameters  # should not have any additional parameters
 
 
-@mock.patch("saleor.checkout.complete_checkout._create_order")
-@mock.patch("saleor.checkout.complete_checkout._process_payment")
+@mock.patch("pmtraders.checkout.complete_checkout._create_order")
+@mock.patch("pmtraders.checkout.complete_checkout._process_payment")
 def test_complete_checkout_action_required_voucher_once_per_customer(
     mocked_process_payment,
     mocked_create_order,
@@ -1461,8 +1461,8 @@ def test_complete_checkout_action_required_voucher_once_per_customer(
     assert checkout.is_voucher_usage_increased is False
 
 
-@mock.patch("saleor.checkout.complete_checkout._create_order")
-@mock.patch("saleor.checkout.complete_checkout._process_payment")
+@mock.patch("pmtraders.checkout.complete_checkout._create_order")
+@mock.patch("pmtraders.checkout.complete_checkout._process_payment")
 def test_complete_checkout_action_required_voucher_single_use(
     mocked_process_payment,
     mocked_create_order,
@@ -1532,7 +1532,7 @@ def test_complete_checkout_action_required_voucher_single_use(
     assert checkout.is_voucher_usage_increased is False
 
 
-@mock.patch("saleor.checkout.complete_checkout._create_order")
+@mock.patch("pmtraders.checkout.complete_checkout._create_order")
 def test_complete_checkout_order_not_created_when_the_refund_is_ongoing(
     mocked_create_order,
     customer_user,
@@ -1584,7 +1584,7 @@ def test_complete_checkout_order_not_created_when_the_refund_is_ongoing(
     assert not checkout.completing_started_at
 
 
-@mock.patch("saleor.checkout.complete_checkout._create_order")
+@mock.patch("pmtraders.checkout.complete_checkout._create_order")
 def test_complete_checkout_when_checkout_doesnt_exists(
     mocked_create_order,
     customer_user,
@@ -1640,8 +1640,8 @@ def test_complete_checkout_when_checkout_doesnt_exists(
     mocked_create_order.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout._create_order")
-@mock.patch("saleor.checkout.complete_checkout._process_payment")
+@mock.patch("pmtraders.checkout.complete_checkout._create_order")
+@mock.patch("pmtraders.checkout.complete_checkout._process_payment")
 def test_complete_checkout_checkout_was_deleted_before_completing(
     mocked_process_payment,
     mocked_create_order,
@@ -1679,7 +1679,7 @@ def test_complete_checkout_checkout_was_deleted_before_completing(
         Checkout.objects.filter(token=checkout.token).delete()
 
     with race_condition.RunAfter(
-        "saleor.checkout.complete_checkout._process_payment", convert_checkout_to_order
+        "pmtraders.checkout.complete_checkout._process_payment", convert_checkout_to_order
     ):
         order_from_checkout, action_required, _ = complete_checkout(
             checkout_info=checkout_info,
@@ -1696,8 +1696,8 @@ def test_complete_checkout_checkout_was_deleted_before_completing(
     mocked_create_order.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@mock.patch("saleor.checkout.complete_checkout._process_payment")
+@mock.patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.checkout.complete_checkout._process_payment")
 def test_complete_checkout_checkout_limited_use_voucher_multiple_thread(
     mocked_process_payment,
     mocked_payment_refund_or_void,
@@ -1751,7 +1751,7 @@ def test_complete_checkout_checkout_limited_use_voucher_multiple_thread(
         )
 
     with race_condition.RunAfter(
-        "saleor.checkout.complete_checkout._process_payment", call_checkout_complete
+        "pmtraders.checkout.complete_checkout._process_payment", call_checkout_complete
     ):
         order_from_checkout, action_required, _ = complete_checkout(
             checkout_info=checkout_info,
@@ -1769,8 +1769,8 @@ def test_complete_checkout_checkout_limited_use_voucher_multiple_thread(
     assert code.used == 1
 
 
-@mock.patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@mock.patch("saleor.checkout.complete_checkout._process_payment")
+@mock.patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.checkout.complete_checkout._process_payment")
 def test_complete_checkout_checkout_completed_in_the_meantime(
     mocked_process_payment,
     mocked_payment_refund_or_void,
@@ -1819,7 +1819,7 @@ def test_complete_checkout_checkout_completed_in_the_meantime(
         )
 
     with race_condition.RunAfter(
-        "saleor.checkout.complete_checkout._reserve_stocks_without_availability_check",
+        "pmtraders.checkout.complete_checkout._reserve_stocks_without_availability_check",
         call_checkout_complete,
     ):
         order_from_checkout, action_required, _ = complete_checkout(
@@ -2172,7 +2172,7 @@ def test_create_order_store_shipping_prices_with_free_shipping_voucher(
     )
 
 
-@mock.patch("saleor.payment.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.payment.gateway.payment_refund_or_void")
 def test_complete_checkout_invalid_shipping_method(
     mocked_payment_refund_or_void,
     voucher,
@@ -2236,7 +2236,7 @@ def test_complete_checkout_invalid_shipping_method(
     assert checkout.is_voucher_usage_increased is False
 
 
-@mock.patch("saleor.checkout.complete_checkout.complete_checkout_with_transaction")
+@mock.patch("pmtraders.checkout.complete_checkout.complete_checkout_with_transaction")
 def test_checkout_complete_pick_transaction_flow(
     mocked_flow,
     order,
@@ -2283,7 +2283,7 @@ def test_checkout_complete_pick_transaction_flow(
     )
 
 
-@mock.patch("saleor.checkout.complete_checkout.complete_checkout_with_transaction")
+@mock.patch("pmtraders.checkout.complete_checkout.complete_checkout_with_transaction")
 def test_checkout_complete_pick_transaction_flow_when_checkout_total_zero(
     mocked_flow, order, checkout_with_item_total_0, customer_user, channel_USD
 ):
@@ -2335,7 +2335,7 @@ def test_checkout_complete_pick_transaction_flow_when_checkout_total_zero(
     )
 
 
-@mock.patch("saleor.checkout.complete_checkout.complete_checkout_with_transaction")
+@mock.patch("pmtraders.checkout.complete_checkout.complete_checkout_with_transaction")
 def test_checkout_complete_pick_transaction_flow_not_authorized_no_active_payment(
     mocked_flow,
     order,
@@ -2395,7 +2395,7 @@ def test_checkout_complete_pick_transaction_flow_not_authorized_no_active_paymen
     )
 
 
-@mock.patch("saleor.checkout.complete_checkout.complete_checkout_with_payment")
+@mock.patch("pmtraders.checkout.complete_checkout.complete_checkout_with_payment")
 def test_checkout_complete_pick_payment_flow(
     mocked_flow, order, checkout_ready_to_complete, customer_user
 ):
@@ -2446,7 +2446,7 @@ def test_checkout_complete_pick_payment_flow(
     )
 
 
-@mock.patch("saleor.checkout.complete_checkout.complete_checkout_with_payment")
+@mock.patch("pmtraders.checkout.complete_checkout.complete_checkout_with_payment")
 def test_checkout_complete_pick_payment_flow_not_authorized_active_payment(
     mocked_flow,
     order,
@@ -2507,9 +2507,9 @@ def test_checkout_complete_pick_payment_flow_not_authorized_active_payment(
     )
 
 
-@mock.patch("saleor.checkout.calculations.get_tax_calculation_strategy_for_checkout")
-@mock.patch("saleor.checkout.complete_checkout._create_order")
-@mock.patch("saleor.checkout.complete_checkout._process_payment")
+@mock.patch("pmtraders.checkout.calculations.get_tax_calculation_strategy_for_checkout")
+@mock.patch("pmtraders.checkout.complete_checkout._create_order")
+@mock.patch("pmtraders.checkout.complete_checkout._process_payment")
 def test_complete_checkout_ensure_prices_are_not_recalculated_in_post_payment_part(
     mocked_process_payment,
     mocked_create_order,
@@ -2568,7 +2568,7 @@ def test_complete_checkout_ensure_prices_are_not_recalculated_in_post_payment_pa
 
     # when
     with race_condition.RunAfter(
-        "saleor.checkout.complete_checkout._process_payment", update_price_expiration
+        "pmtraders.checkout.complete_checkout._process_payment", update_price_expiration
     ):
         order, action_required, _ = complete_checkout(
             checkout_info=checkout_info,
@@ -2589,7 +2589,7 @@ def test_complete_checkout_ensure_prices_are_not_recalculated_in_post_payment_pa
     )
 
 
-@mock.patch("saleor.checkout.complete_checkout.increase_voucher_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.increase_voucher_usage")
 def test_increase_checkout_voucher_usage(
     increase_voucher_usage_mock, checkout_with_voucher, voucher
 ):
@@ -2605,7 +2605,7 @@ def test_increase_checkout_voucher_usage(
     increase_voucher_usage_mock.assert_called_once()
 
 
-@mock.patch("saleor.checkout.complete_checkout.increase_voucher_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.increase_voucher_usage")
 def test_increase_checkout_voucher_usage_checkout_usage_already_increased(
     increase_voucher_usage_mock, checkout_with_voucher, voucher
 ):
@@ -2623,7 +2623,7 @@ def test_increase_checkout_voucher_usage_checkout_usage_already_increased(
     increase_voucher_usage_mock.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout.release_voucher_code_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.release_voucher_code_usage")
 def test_release_checkout_voucher_usage(
     release_voucher_usage_mock, checkout_with_voucher, voucher
 ):
@@ -2641,7 +2641,7 @@ def test_release_checkout_voucher_usage(
     release_voucher_usage_mock.assert_called_once()
 
 
-@mock.patch("saleor.checkout.complete_checkout.release_voucher_code_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.release_voucher_code_usage")
 def test_release_checkout_voucher_usage_checkout_usage_not_increased(
     release_voucher_usage_mock, checkout_with_voucher, voucher
 ):
@@ -2659,7 +2659,7 @@ def test_release_checkout_voucher_usage_checkout_usage_not_increased(
     release_voucher_usage_mock.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout.release_voucher_code_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.release_voucher_code_usage")
 def test_release_checkout_voucher_usage_no_voucher_code(
     release_voucher_usage_mock, checkout_with_voucher, voucher
 ):
@@ -2676,8 +2676,8 @@ def test_release_checkout_voucher_usage_no_voucher_code(
     release_voucher_usage_mock.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@mock.patch("saleor.checkout.complete_checkout._release_checkout_voucher_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.checkout.complete_checkout._release_checkout_voucher_usage")
 def test_complete_checkout_fail_handler(
     _release_checkout_voucher_usage_mock,
     _payment_refund_or_void_mock,
@@ -2702,8 +2702,8 @@ def test_complete_checkout_fail_handler(
     _release_checkout_voucher_usage_mock.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@mock.patch("saleor.checkout.complete_checkout._release_checkout_voucher_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.checkout.complete_checkout._release_checkout_voucher_usage")
 def test_complete_checkout_fail_handler_with_voucher(
     _release_checkout_voucher_usage_mock,
     _payment_refund_or_void_mock,
@@ -2729,8 +2729,8 @@ def test_complete_checkout_fail_handler_with_voucher(
     _release_checkout_voucher_usage_mock.assert_called_once()
 
 
-@mock.patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@mock.patch("saleor.checkout.complete_checkout._release_checkout_voucher_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.checkout.complete_checkout._release_checkout_voucher_usage")
 def test_complete_checkout_fail_handler_with_payment(
     _release_checkout_voucher_usage_mock,
     _payment_refund_or_void_mock,
@@ -2756,8 +2756,8 @@ def test_complete_checkout_fail_handler_with_payment(
     _release_checkout_voucher_usage_mock.assert_not_called()
 
 
-@mock.patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@mock.patch("saleor.checkout.complete_checkout._release_checkout_voucher_usage")
+@mock.patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@mock.patch("pmtraders.checkout.complete_checkout._release_checkout_voucher_usage")
 def test_complete_checkout_fail_handler_with_voucher_and_payment(
     _release_checkout_voucher_usage_mock,
     _payment_refund_or_void_mock,

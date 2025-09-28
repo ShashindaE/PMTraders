@@ -73,7 +73,7 @@ class CheckoutSettings(ObjectType):
             "updating checkoutShippingAddress.) "
             "If `false`, the errors will be aggregated in `checkout.problems` field. "
             "Some of the `problems` can block the finalizing checkout process. "
-            "The legacy flow will be removed in Saleor 4.0. "
+            "The legacy flow will be removed in pmtraders 4.0. "
             "The flow with `checkout.problems` will be the default one."
             + DEPRECATED_IN_3X_INPUT
         ),
@@ -290,7 +290,7 @@ class Channel(ModelObjectType):
     )
 
     available_shipping_methods_per_country = graphene.Field(
-        NonNullList("saleor.graphql.shipping.types.ShippingMethodsPerCountry"),
+        NonNullList("pmtraders.graphql.shipping.types.ShippingMethodsPerCountry"),
         countries=graphene.Argument(NonNullList(CountryCodeEnum)),
         description="Shipping methods that are available for the channel.",
     )
@@ -333,7 +333,7 @@ class Channel(ModelObjectType):
     )
 
     tax_configuration = PermissionsField(
-        "saleor.graphql.tax.types.TaxConfiguration",
+        "pmtraders.graphql.tax.types.TaxConfiguration",
         description="Channel specific tax configuration." + ADDED_IN_320,
         required=True,
         permissions=[

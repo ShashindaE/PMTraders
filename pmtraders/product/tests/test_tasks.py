@@ -21,7 +21,7 @@ from ..utils.variants import fetch_variants_for_promotion_rules
 
 
 @patch(
-    "saleor.product.tasks.update_variant_relations_for_active_promotion_rules_task."
+    "pmtraders.product.tasks.update_variant_relations_for_active_promotion_rules_task."
     "delay"
 )
 def test_update_variant_relations_for_active_promotion_rules_task(
@@ -57,7 +57,7 @@ def test_update_variant_relations_for_active_promotion_rules_task(
 
 
 @patch(
-    "saleor.product.tasks.update_variant_relations_for_active_promotion_rules_task."
+    "pmtraders.product.tasks.update_variant_relations_for_active_promotion_rules_task."
     "delay"
 )
 def test_update_variant_relations_for_active_promotion_rules_task_when_not_valid(
@@ -102,7 +102,7 @@ def test_update_variant_relations_for_active_promotion_rules_task_when_not_valid
     ).count() == len(product_ids_in_category)
 
 
-@patch("saleor.product.tasks.PROMOTION_RULE_BATCH_SIZE", 1)
+@patch("pmtraders.product.tasks.PROMOTION_RULE_BATCH_SIZE", 1)
 def test_update_variant_relations_for_active_promotion_rules_task_with_order_predicate(
     order_promotion_rule,
 ):
@@ -118,9 +118,9 @@ def test_update_variant_relations_for_active_promotion_rules_task_with_order_pre
 
 
 @pytest.mark.parametrize("reward_value", [None, 0])
-@patch("saleor.product.tasks.PROMOTION_RULE_BATCH_SIZE", 1)
-@patch("saleor.product.tasks.recalculate_discounted_price_for_products_task.delay")
-@patch("saleor.product.utils.variants.fetch_variants_for_promotion_rules")
+@patch("pmtraders.product.tasks.PROMOTION_RULE_BATCH_SIZE", 1)
+@patch("pmtraders.product.tasks.recalculate_discounted_price_for_products_task.delay")
+@patch("pmtraders.product.utils.variants.fetch_variants_for_promotion_rules")
 def test_update_variant_relations_for_active_promotion_rules_with_empty_reward_value(
     fetch_variants_for_promotion_rules_mock,
     recalculate_discounted_price_for_products_task_mock,
@@ -149,7 +149,7 @@ def test_update_variant_relations_for_active_promotion_rules_with_empty_reward_v
     assert not recalculate_discounted_price_for_products_task_mock.called
 
 
-@patch("saleor.product.tasks.recalculate_discounted_price_for_products_task.delay")
+@patch("pmtraders.product.tasks.recalculate_discounted_price_for_products_task.delay")
 def test_recalculate_discounted_price_for_products_task(
     recalculate_discounted_price_for_products_task_mock,
     product_list,
@@ -171,8 +171,8 @@ def test_recalculate_discounted_price_for_products_task(
     assert recalculate_discounted_price_for_products_task_mock.called
 
 
-@patch("saleor.product.tasks.update_discounted_prices_for_promotion")
-@patch("saleor.product.tasks.recalculate_discounted_price_for_products_task.delay")
+@patch("pmtraders.product.tasks.update_discounted_prices_for_promotion")
+@patch("pmtraders.product.tasks.recalculate_discounted_price_for_products_task.delay")
 def test_recalculate_discounted_price_for_products_task_with_correct_prices(
     recalculate_discounted_price_for_products_task_mock,
     update_discounted_prices_for_promotion_mock,
@@ -189,8 +189,8 @@ def test_recalculate_discounted_price_for_products_task_with_correct_prices(
     assert not update_discounted_prices_for_promotion_mock.called
 
 
-@patch("saleor.product.tasks.update_discounted_prices_for_promotion")
-@patch("saleor.product.tasks.recalculate_discounted_price_for_products_task.delay")
+@patch("pmtraders.product.tasks.update_discounted_prices_for_promotion")
+@patch("pmtraders.product.tasks.recalculate_discounted_price_for_products_task.delay")
 def test_recalculate_discounted_price_for_products_task_updates_only_dirty_listings(
     recalculate_discounted_price_for_products_task_mock,
     update_discounted_prices_for_promotion_mock,
@@ -213,8 +213,8 @@ def test_recalculate_discounted_price_for_products_task_updates_only_dirty_listi
     recalculate_discounted_price_for_products_task_mock.assert_called_once_with()
 
 
-@patch("saleor.product.tasks.recalculate_discounted_price_for_products_task.delay")
-@patch("saleor.product.tasks.PROMOTION_RULE_BATCH_SIZE", 1)
+@patch("pmtraders.product.tasks.recalculate_discounted_price_for_products_task.delay")
+@patch("pmtraders.product.tasks.PROMOTION_RULE_BATCH_SIZE", 1)
 def test_recalculate_discounted_price_for_products_task_re_trigger_task(
     recalculate_discounted_price_for_products_task_mock,
     product_list,

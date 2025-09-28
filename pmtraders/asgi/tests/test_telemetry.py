@@ -4,7 +4,7 @@ import pytest
 from asgiref.typing import ASGIReceiveCallable, ASGISendCallable
 
 from ...asgi.telemetry import get_hostname, telemetry_middleware
-from ...core.telemetry.saleor_attributes import SALEOR_ENVIRONMENT_DOMAIN
+from ...core.telemetry.pmtraders_attributes import PMTRADERS_ENVIRONMENT_DOMAIN
 
 
 @pytest.mark.parametrize(
@@ -59,7 +59,7 @@ def test_get_hostname_with_no_host_header():
 
 
 @pytest.mark.asyncio
-@patch("saleor.asgi.telemetry.set_global_attributes")
+@patch("pmtraders.asgi.telemetry.set_global_attributes")
 async def test_telemetry_middleware(mock_set_global_attrs):
     # given
     mock_set_global_attrs.return_value = MagicMock()
@@ -80,9 +80,9 @@ async def test_telemetry_middleware(mock_set_global_attrs):
 
     # then
     mock_set_global_attrs.assert_called_once()
-    assert SALEOR_ENVIRONMENT_DOMAIN in mock_set_global_attrs.call_args[0][0]
+    assert PMTRADERS_ENVIRONMENT_DOMAIN in mock_set_global_attrs.call_args[0][0]
     assert (
-        mock_set_global_attrs.call_args[0][0][SALEOR_ENVIRONMENT_DOMAIN]
+        mock_set_global_attrs.call_args[0][0][PMTRADERS_ENVIRONMENT_DOMAIN]
         == "example.com"
     )
 

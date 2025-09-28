@@ -776,7 +776,7 @@ def send_observability_events(webhooks: list[WebhookData], events: list[bytes]):
                 for event in events:
                     response = send_webhook_using_scheme_method(
                         webhook.target_url,
-                        webhook.saleor_domain,
+                        webhook.pmtraders_domain,
                         webhook.secret_key,
                         event_type,
                         event,
@@ -786,7 +786,7 @@ def send_observability_events(webhooks: list[WebhookData], events: list[bytes]):
             else:
                 response = send_webhook_using_scheme_method(
                     webhook.target_url,
-                    webhook.saleor_domain,
+                    webhook.pmtraders_domain,
                     webhook.secret_key,
                     event_type,
                     observability.concatenate_json_events(events),

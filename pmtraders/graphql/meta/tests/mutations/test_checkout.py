@@ -220,7 +220,7 @@ def test_add_public_metadata_for_checkout_by_token(api_client, checkout):
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_updated")
 def test_add_metadata_for_checkout_triggers_checkout_updated_hook(
     mock_checkout_updated, api_client, checkout
 ):
@@ -364,14 +364,14 @@ def test_update_public_metadata_for_checkout_line(api_client, checkout_line):
 
 @freeze_time("2023-05-31 12:00:01")
 @patch(
-    "saleor.graphql.meta.extra_methods.call_checkout_events",
+    "pmtraders.graphql.meta.extra_methods.call_checkout_events",
     wraps=call_checkout_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_add_metadata_for_checkout_triggers_webhooks_with_checkout_updated(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -424,7 +424,7 @@ def test_add_metadata_for_checkout_triggers_webhooks_with_checkout_updated(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook con was called without saving event delivery
@@ -458,14 +458,14 @@ def test_add_metadata_for_checkout_triggers_webhooks_with_checkout_updated(
 
 @freeze_time("2023-05-31 12:00:01")
 @patch(
-    "saleor.graphql.meta.extra_methods.call_checkout_events",
+    "pmtraders.graphql.meta.extra_methods.call_checkout_events",
     wraps=call_checkout_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_add_metadata_for_checkout_triggers_webhooks_with_updated_metadata(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -519,7 +519,7 @@ def test_add_metadata_for_checkout_triggers_webhooks_with_updated_metadata(
             "telemetry_context": ANY,
         },
         queue=None,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook con was called without saving event delivery

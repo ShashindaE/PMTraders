@@ -170,7 +170,7 @@ def test_checkout_billing_address_update_by_id_without_street_address_2(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_billing_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_billing_address_update."
     "invalidate_checkout",
     wraps=invalidate_checkout,
 )
@@ -657,14 +657,14 @@ def test_checkout_billing_address_skip_validation_by_app(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_billing_address_update.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.checkout_billing_address_update.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_billing_address_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -720,7 +720,7 @@ def test_checkout_billing_address_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

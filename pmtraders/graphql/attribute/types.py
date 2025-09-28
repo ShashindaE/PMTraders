@@ -281,7 +281,7 @@ class Attribute(ChannelContextType[models.Attribute]):
         description=AttributeDescriptions.ENTITY_TYPE, required=False
     )
     reference_types = NonNullList(
-        "saleor.graphql.attribute.unions.ReferenceType",
+        "pmtraders.graphql.attribute.unions.ReferenceType",
         description=(
             "The reference types (product or page type) that are used to narrow down "
             "the choices of reference objects." + ADDED_IN_322
@@ -388,14 +388,14 @@ class Attribute(ChannelContextType[models.Attribute]):
         description=AttributeDescriptions.WITH_CHOICES, required=True
     )
     product_types = ConnectionField(
-        "saleor.graphql.product.types.ProductTypeCountableConnection",
+        "pmtraders.graphql.product.types.ProductTypeCountableConnection",
         required=True,
         description=(
             "A list of product types that use this attribute as a product attribute."
         ),
     )
     product_variant_types = ConnectionField(
-        "saleor.graphql.product.types.ProductTypeCountableConnection",
+        "pmtraders.graphql.product.types.ProductTypeCountableConnection",
         required=True,
         description=(
             "A list of product types that use this attribute "
@@ -949,7 +949,7 @@ class AssignedFileAttribute(BaseObjectType):
 
 class AssignedSinglePageReferenceAttribute(BaseObjectType):
     value = graphene.Field(
-        "saleor.graphql.page.types.Page",
+        "pmtraders.graphql.page.types.Page",
         description="The assigned page reference.",
         required=False,
     )
@@ -983,7 +983,7 @@ class AssignedSinglePageReferenceAttribute(BaseObjectType):
 
 class AssignedSingleProductReferenceAttribute(BaseObjectType):
     value = graphene.Field(
-        "saleor.graphql.product.types.Product",
+        "pmtraders.graphql.product.types.Product",
         description="The assigned product reference.",
         required=False,
     )
@@ -1021,7 +1021,7 @@ class AssignedSingleProductReferenceAttribute(BaseObjectType):
 
 class AssignedSingleProductVariantReferenceAttribute(BaseObjectType):
     value = graphene.Field(
-        "saleor.graphql.product.types.ProductVariant",
+        "pmtraders.graphql.product.types.ProductVariant",
         description="The assigned product variant reference.",
         required=False,
     )
@@ -1062,7 +1062,7 @@ class AssignedSingleProductVariantReferenceAttribute(BaseObjectType):
 
 class AssignedSingleCategoryReferenceAttribute(BaseObjectType):
     value = graphene.Field(
-        "saleor.graphql.product.types.Category",
+        "pmtraders.graphql.product.types.Category",
         description="The assigned category reference.",
         required=False,
     )
@@ -1093,7 +1093,7 @@ class AssignedSingleCategoryReferenceAttribute(BaseObjectType):
 
 class AssignedSingleCollectionReferenceAttribute(BaseObjectType):
     value = graphene.Field(
-        "saleor.graphql.product.types.Collection",
+        "pmtraders.graphql.product.types.Collection",
         description="The assigned collection reference.",
         required=False,
     )
@@ -1131,7 +1131,7 @@ class AssignedSingleCollectionReferenceAttribute(BaseObjectType):
 
 class AssignedMultiPageReferenceAttribute(BaseObjectType):
     value = NonNullList(
-        "saleor.graphql.page.types.Page",
+        "pmtraders.graphql.page.types.Page",
         description="List of assigned page references.",
         required=True,
         limit=PositiveInt(
@@ -1185,7 +1185,7 @@ class AssignedMultiPageReferenceAttribute(BaseObjectType):
 
 class AssignedMultiProductReferenceAttribute(BaseObjectType):
     value = NonNullList(
-        "saleor.graphql.product.types.Product",
+        "pmtraders.graphql.product.types.Product",
         description="List of assigned product references.",
         required=True,
         limit=PositiveInt(
@@ -1239,7 +1239,7 @@ class AssignedMultiProductReferenceAttribute(BaseObjectType):
 
 class AssignedMultiProductVariantReferenceAttribute(BaseObjectType):
     value = NonNullList(
-        "saleor.graphql.product.types.ProductVariant",
+        "pmtraders.graphql.product.types.ProductVariant",
         description="List of assigned product variant references.",
         required=True,
         limit=PositiveInt(
@@ -1296,7 +1296,7 @@ class AssignedMultiProductVariantReferenceAttribute(BaseObjectType):
 
 class AssignedMultiCategoryReferenceAttribute(BaseObjectType):
     value = NonNullList(
-        "saleor.graphql.product.types.Category",
+        "pmtraders.graphql.product.types.Category",
         description="List of assigned category references.",
         required=True,
         limit=PositiveInt(
@@ -1337,7 +1337,7 @@ class AssignedMultiCategoryReferenceAttribute(BaseObjectType):
 
 class AssignedMultiCollectionReferenceAttribute(BaseObjectType):
     value = NonNullList(
-        "saleor.graphql.product.types.Collection",
+        "pmtraders.graphql.product.types.Collection",
         description="List of assigned collection references.",
         required=True,
         limit=PositiveInt(

@@ -307,7 +307,7 @@ class TaxableObject(BaseObjectType):
         ),
     )
     address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         description="The address data.",
     )
     discounts = NonNullList(

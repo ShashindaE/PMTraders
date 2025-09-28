@@ -47,7 +47,7 @@ def test_get_delay_time(ip_attempts_count, ip_user_attempts_count, expected_dela
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_successful_first_attempt(
     mocked_cache, rf, customer_user, setup_mock_for_cache
 ):
@@ -82,7 +82,7 @@ def test_authenticate_successful_first_attempt(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_successful_subsequent_attempt(
     mocked_cache, rf, customer_user, setup_mock_for_cache
 ):
@@ -122,7 +122,7 @@ def test_authenticate_successful_subsequent_attempt(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_incorrect_password_non_existing_email_first_attempt(
     mocked_cache,
     rf,
@@ -158,7 +158,7 @@ def test_authenticate_incorrect_password_non_existing_email_first_attempt(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_incorrect_password_non_existing_email_subsequent_attempt(
     mocked_cache,
     rf,
@@ -199,7 +199,7 @@ def test_authenticate_incorrect_password_non_existing_email_subsequent_attempt(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_incorrect_password_existing_email_first_attempt(
     mocked_cache,
     rf,
@@ -233,7 +233,7 @@ def test_authenticate_incorrect_password_existing_email_first_attempt(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_incorrect_password_existing_email_subsequent_attempt(
     mocked_cache,
     rf,
@@ -288,7 +288,7 @@ def test_authenticate_unidentified_ip_address(rf, customer_user, caplog):
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_login_attempt_delayed(
     mocked_cache, rf, customer_user, setup_mock_for_cache
 ):
@@ -327,7 +327,7 @@ def test_authenticate_login_attempt_delayed(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_race_condition(
     mocked_cache, rf, customer_user, setup_mock_for_cache
 ):
@@ -349,7 +349,7 @@ def test_authenticate_race_condition(
     def login_attempt(*args, **kwargs):
         authenticate_with_throttling(request, EXISTING_EMAIL, INCORRECT_PASSWORD)
 
-    with race_condition.RunBefore("saleor.account.throttling.add_block", login_attempt):
+    with race_condition.RunBefore("pmtraders.account.throttling.add_block", login_attempt):
         with pytest.raises(ValidationError) as e:
             authenticate_with_throttling(request, EXISTING_EMAIL, INCORRECT_PASSWORD)
 
@@ -364,7 +364,7 @@ def test_authenticate_race_condition(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_authenticate_incorrect_credentials_max_attempts(
     mocked_cache,
     rf,

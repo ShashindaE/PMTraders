@@ -321,7 +321,7 @@ def test_checkout_add_payment_no_checkout_email(
 
 
 @patch(
-    "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin.CONFIGURATION_PER_CHANNEL",
+    "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin.CONFIGURATION_PER_CHANNEL",
     False,
 )
 def test_checkout_add_payment_not_supported_currency(
@@ -372,7 +372,7 @@ def test_checkout_add_payment_not_existing_gateway(
 
 
 @patch(
-    "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin.DEFAULT_ACTIVE",
+    "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin.DEFAULT_ACTIVE",
     False,
 )
 def test_checkout_add_payment_gateway_inactive(
@@ -767,7 +767,7 @@ def test_checkout_add_payment_run_multiple_times(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.payment.mutations.payment."
+        "pmtraders.graphql.payment.mutations.payment."
         "checkout_payment_create.cancel_active_payments",
         call_payment_create_mutation,
     ):

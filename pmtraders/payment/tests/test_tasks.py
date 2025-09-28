@@ -13,8 +13,8 @@ from ..tasks import (
 )
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_checkout_with_new_last_change(
     mocked_refund_action,
@@ -51,8 +51,8 @@ def test_transaction_release_funds_for_checkout_task_checkout_with_new_last_chan
     assert transaction_item.last_refund_success is True
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_checkout_not_refundable(
     mocked_refund_action,
@@ -86,8 +86,8 @@ def test_transaction_release_funds_for_checkout_task_checkout_not_refundable(
     assert transaction_item.last_refund_success is True
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_checkout_with_new_tr_modified(
     mocked_refund_action,
@@ -124,8 +124,8 @@ def test_transaction_release_funds_for_checkout_task_checkout_with_new_tr_modifi
     assert transaction_item.last_refund_success is True
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_checkout_with_none_status(
     mocked_refund_action,
@@ -161,8 +161,8 @@ def test_transaction_release_funds_for_checkout_task_checkout_with_none_status(
     assert transaction_item.last_refund_success is True
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_not_valid_checkout(
     mocked_refund_action,
@@ -187,8 +187,8 @@ def test_transaction_release_funds_for_checkout_task_not_valid_checkout(
     assert not mocked_cancel_action.called
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_transaction_for_order(
     mocked_refund_action,
@@ -215,8 +215,8 @@ def test_transaction_release_funds_for_checkout_task_transaction_for_order(
     assert not mocked_cancel_action.called
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_without_transaction(
     mocked_refund_action,
@@ -250,8 +250,8 @@ def test_transaction_release_funds_for_checkout_task_without_transaction(
     assert not mocked_cancel_action.called
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_refund_already_requested(
     mocked_refund_action,
@@ -287,8 +287,8 @@ def test_transaction_release_funds_for_checkout_task_refund_already_requested(
     assert transaction_item.last_refund_success is False
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_cancel_already_requested(
     mocked_refund_action,
@@ -324,8 +324,8 @@ def test_transaction_release_funds_for_checkout_task_cancel_already_requested(
     assert transaction_item.last_refund_success is False
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_transaction_with_authorization(
     mocked_refund_action,
@@ -372,8 +372,8 @@ def test_transaction_release_funds_for_checkout_task_transaction_with_authorizat
     assert transaction_item.last_refund_success is False
 
 
-@mock.patch("saleor.payment.tasks.request_cancelation_action")
-@mock.patch("saleor.payment.tasks.request_refund_action")
+@mock.patch("pmtraders.payment.tasks.request_cancelation_action")
+@mock.patch("pmtraders.payment.tasks.request_refund_action")
 @freeze_time("2021-03-18 12:00:00")
 def test_transaction_release_funds_for_checkout_task_transaction_with_charge(
     mocked_refund_action,

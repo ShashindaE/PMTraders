@@ -147,12 +147,12 @@ class CheckoutLineProblemInsufficientStock(
 ):
     available_quantity = graphene.Int(description="Available quantity of a variant.")
     line = graphene.Field(
-        "saleor.graphql.checkout.types.CheckoutLine",
+        "pmtraders.graphql.checkout.types.CheckoutLine",
         description="The line that has variant with insufficient stock.",
         required=True,
     )
     variant = graphene.Field(
-        "saleor.graphql.product.types.ProductVariant",
+        "pmtraders.graphql.product.types.ProductVariant",
         description="The variant with insufficient stock.",
         required=True,
     )
@@ -179,7 +179,7 @@ class CheckoutLineProblemVariantNotAvailable(
     SyncWebhookControlContextObjectType[problems.CheckoutLineProblemVariantNotAvailable]
 ):
     line = graphene.Field(
-        "saleor.graphql.checkout.types.CheckoutLine",
+        "pmtraders.graphql.checkout.types.CheckoutLine",
         description="The line that has variant that is not available.",
         required=True,
     )
@@ -261,7 +261,7 @@ class CheckoutProblem(graphene.Union):
 class CheckoutLine(SyncWebhookControlContextModelObjectType[models.CheckoutLine]):
     id = graphene.GlobalID(required=True, description="The ID of the checkout line.")
     variant = graphene.Field(
-        "saleor.graphql.product.types.ProductVariant",
+        "pmtraders.graphql.product.types.ProductVariant",
         required=True,
         description="The product variant from which the checkout line was created.",
     )
@@ -618,7 +618,7 @@ class Checkout(SyncWebhookControlContextModelObjectType[models.Checkout]):
         deprecation_reason="Use `updatedAt` instead.",
     )
     user = graphene.Field(
-        "saleor.graphql.account.types.User",
+        "pmtraders.graphql.account.types.User",
         description=(
             "The user assigned to the checkout. Requires one of the following "
             "permissions: "
@@ -633,11 +633,11 @@ class Checkout(SyncWebhookControlContextModelObjectType[models.Checkout]):
         description="The channel for which checkout was created.",
     )
     billing_address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         description="The billing address of the checkout.",
     )
     shipping_address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         description="The shipping address of the checkout.",
     )
     customer_note = graphene.String(
@@ -667,7 +667,7 @@ class Checkout(SyncWebhookControlContextModelObjectType[models.Checkout]):
         )
     )
     voucher = PermissionsField(
-        "saleor.graphql.discount.types.vouchers.Voucher",
+        "pmtraders.graphql.discount.types.vouchers.Voucher",
         description="The voucher assigned to the checkout." + ADDED_IN_318,
         permissions=[DiscountPermissions.MANAGE_DISCOUNTS],
     )

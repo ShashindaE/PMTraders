@@ -19,7 +19,7 @@ from ....permission.enums import AccountPermissions
 from ...account.i18n import I18nMixin
 from ...account.types import Address, AddressInput, User
 from ...app.dataloaders import get_app_promise
-from ...core import ResolveInfo, SaleorContext
+from ...core import ResolveInfo, pmtradersContext
 from ...core.descriptions import DEPRECATED_IN_3X_INPUT
 from ...core.doc_category import DOC_CATEGORY_USERS
 from ...core.enums import LanguageCodeEnum
@@ -434,7 +434,7 @@ class StaffDeleteMixin(UserDeleteMixin):
     @classmethod
     def check_permissions(
         cls,
-        context: SaleorContext,
+        context: pmtradersContext,
         permissions=None,
         require_all_permissions=False,
         **data,

@@ -3,11 +3,11 @@ from unittest.mock import patch
 from django.utils import timezone
 
 from ....app.models import App, AppToken
-from ...context import SaleorContext
+from ...context import pmtradersContext
 from ..dataloaders.app import AppByTokenLoader, create_app_cache_key_from_token
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_cache_token_calculation(
     mocked_cache, app, setup_mock_for_cache
 ):
@@ -22,7 +22,7 @@ def test_app_by_token_loader_cache_token_calculation(
     expected_cache_key = create_app_cache_key_from_token(raw_token)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -33,7 +33,7 @@ def test_app_by_token_loader_cache_token_calculation(
     assert fetched_app.id == app.id == cached_app_id
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_invalid_token(mocked_cache, app, setup_mock_for_cache):
     # given
     dummy_cache = {}
@@ -42,7 +42,7 @@ def test_app_by_token_loader_invalid_token(mocked_cache, app, setup_mock_for_cac
     expected_cache_key = create_app_cache_key_from_token(raw_token)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -53,7 +53,7 @@ def test_app_by_token_loader_invalid_token(mocked_cache, app, setup_mock_for_cac
     assert cached_data is None
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_use_cached_app(mocked_cache, app, setup_mock_for_cache):
     # given
     dummy_cache = {}
@@ -67,7 +67,7 @@ def test_app_by_token_loader_use_cached_app(mocked_cache, app, setup_mock_for_ca
     mocked_cache.set(expected_cache_key, (app.id, token.id), 123)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -82,7 +82,7 @@ def test_app_by_token_loader_use_cached_app(mocked_cache, app, setup_mock_for_ca
     )
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_cached_app_not_active(
     mocked_cache, app, setup_mock_for_cache
 ):
@@ -100,7 +100,7 @@ def test_app_by_token_loader_cached_app_not_active(
     mocked_cache.set(expected_cache_key, (app.id, token.id), 123)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -117,7 +117,7 @@ def test_app_by_token_loader_cached_app_not_active(
     )
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_cached_app_marked_as_removed(
     mocked_cache, app, setup_mock_for_cache
 ):
@@ -135,7 +135,7 @@ def test_app_by_token_loader_cached_app_marked_as_removed(
     mocked_cache.set(expected_cache_key, (app.id, token.id), 123)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -152,7 +152,7 @@ def test_app_by_token_loader_cached_app_marked_as_removed(
     )
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_missing_app(mocked_cache, app, setup_mock_for_cache):
     # given
     dummy_cache = {}
@@ -168,7 +168,7 @@ def test_app_by_token_loader_missing_app(mocked_cache, app, setup_mock_for_cache
     mocked_cache.set(expected_cache_key, (deleted_app_id, token.id), 123)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -186,7 +186,7 @@ def test_app_by_token_loader_missing_app(mocked_cache, app, setup_mock_for_cache
     assert mocked_cache.get(expected_cache_key) is None
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_removed_token(mocked_cache, app, setup_mock_for_cache):
     # given
     dummy_cache = {}
@@ -202,7 +202,7 @@ def test_app_by_token_loader_removed_token(mocked_cache, app, setup_mock_for_cac
     mocked_cache.set(expected_cache_key, (app.id, token_id), 123)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token])
     fetched_app = loaded_apps[0]
@@ -220,7 +220,7 @@ def test_app_by_token_loader_removed_token(mocked_cache, app, setup_mock_for_cac
     assert mocked_cache.get(expected_cache_key) is None
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_one_of_tokens_in_cache(
     mocked_cache, app, setup_mock_for_cache
 ):
@@ -243,7 +243,7 @@ def test_app_by_token_loader_one_of_tokens_in_cache(
     expected_cache_key2 = create_app_cache_key_from_token(raw_token2)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token, raw_token2])
     fetched_app = loaded_apps[0]
@@ -260,7 +260,7 @@ def test_app_by_token_loader_one_of_tokens_in_cache(
     assert mocked_cache.set.call_count == 2
 
 
-@patch("saleor.graphql.app.dataloaders.app.cache")
+@patch("pmtraders.graphql.app.dataloaders.app.cache")
 def test_app_by_token_loader_tokens_with_same_last_4(
     mocked_cache, app, app_with_token, setup_mock_for_cache
 ):
@@ -283,7 +283,7 @@ def test_app_by_token_loader_tokens_with_same_last_4(
     expected_cache_key2 = create_app_cache_key_from_token(raw_token2)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     app_by_token_loader = AppByTokenLoader(context)
     loaded_apps = app_by_token_loader.batch_load([raw_token, raw_token2])
     fetched_app = loaded_apps[0]

@@ -28,7 +28,7 @@ def sendgrid_email_plugin(settings, channel_USD):
         api_key=None,
     ):
         settings.PLUGINS = [
-            "saleor.plugins.sendgrid.plugin.DeprecatedSendgridEmailPlugin"
+            "pmtraders.plugins.sendgrid.plugin.DeprecatedSendgridEmailPlugin"
         ]
         manager = get_plugins_manager(allow_replica=False)
         manager.save_plugin_configuration(

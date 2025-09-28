@@ -21,12 +21,12 @@ mutation emailUpdate($token: String!, $channel: String) {
 
 
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_email_change.match_orders_with_new_user"
+    "pmtraders.graphql.account.mutations.account.confirm_email_change.match_orders_with_new_user"
 )
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_email_change.assign_user_gift_cards"
+    "pmtraders.graphql.account.mutations.account.confirm_email_change.assign_user_gift_cards"
 )
-@patch("saleor.plugins.manager.PluginsManager.account_email_changed")
+@patch("pmtraders.plugins.manager.PluginsManager.account_email_changed")
 def test_email_update(
     mocked_account_email_changed,
     assign_gift_cards_mock,
@@ -78,7 +78,7 @@ def test_email_update_to_existing_email(user_api_client, customer_user, staff_us
     ]
 
 
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_account_email_changed_webhook_event_triggered(
     mocked_trigger_webhooks_async,
     settings,
@@ -88,7 +88,7 @@ def test_account_email_changed_webhook_event_triggered(
     channel_PLN,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     new_email = "new_email@example.com"
     payload = {

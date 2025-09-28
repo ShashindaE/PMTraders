@@ -84,7 +84,7 @@ def test_should_be_able_to_create_partially_paid_order_core_0112(
         e2e_not_logged_api_client,
         lines,
         channel_slug,
-        email="testEmail@saleor.io",
+        email="testEmail@pmtraders.io",
     )
     checkout_id = checkout_data["id"]
 

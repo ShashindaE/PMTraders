@@ -1,4 +1,4 @@
-from saleor.graphql.tests.utils import get_graphql_content
+from pmtraders.graphql.tests.utils import get_graphql_content
 
 DRAFT_ORDER_BULK_DELETE_MUTATION = """
 mutation DraftBulkDelete($ids: [ID!]!) {

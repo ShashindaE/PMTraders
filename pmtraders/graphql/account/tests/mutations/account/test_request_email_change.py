@@ -36,7 +36,7 @@ mutation requestEmailChange(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_email_change_with_upper_case_email(
     mocked_notify,
     user_api_client,
@@ -163,8 +163,8 @@ def test_request_email_change_with_invalid_password(user_api_client, customer_us
     assert data["errors"][0]["field"] == "password"
 
 
-@patch("saleor.graphql.account.mutations.account.request_email_change.create_token")
-@patch("saleor.plugins.manager.PluginsManager.account_change_email_requested")
+@patch("pmtraders.graphql.account.mutations.account.request_email_change.create_token")
+@patch("pmtraders.plugins.manager.PluginsManager.account_change_email_requested")
 def test_request_email_change_send_event(
     account_change_email_requested_mock,
     create_token_mock,

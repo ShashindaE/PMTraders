@@ -23,7 +23,7 @@ jobs:
         id: set-domain
         # Set test instance domain based on branch name slug
         run: |
-          echo "domain=${{ env.GITHUB_HEAD_REF_SLUG_URL }}.api.saleor.rocks" >> $GITHUB_OUTPUT
+          echo "domain=${{ env.GITHUB_HEAD_REF_SLUG_URL }}.api.pmtraders.rocks" >> $GITHUB_OUTPUT
 
       - name: Start deployment
         uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
@@ -46,7 +46,7 @@ jobs:
           access_key_id: ${{ env.AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           account_id: ${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}
-          repo: saleor-testenvs
+          repo: pmtraders-testenvs
           region: ${{ vars.AWS_TESTENVS_REGION }}
           tags: ${{ env.GITHUB_HEAD_REF_SLUG_URL }},${{ github.sha }}
 
@@ -62,7 +62,7 @@ jobs:
             {
               "action": "${{ github.event.action }}",
               "label": "${{ env.GITHUB_HEAD_REF_SLUG_URL }}",
-              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/saleor-testenvs:${{ github.sha }}"
+              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/pmtraders-testenvs:${{ github.sha }}"
             }
           LogType: Tail
 

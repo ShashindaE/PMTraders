@@ -7,7 +7,7 @@ from django.core.management.color import color_style
 from django.db import connections
 from django.db.backends.base.base import BaseDatabaseWrapper
 
-from ...graphql.core.context import SaleorContext, get_database_connection_name
+from ...graphql.core.context import pmtradersContext, get_database_connection_name
 
 logger = logging.getLogger(__name__)
 
@@ -55,8 +55,8 @@ def allow_writer():
 
 
 @contextmanager
-def allow_writer_in_context(context: SaleorContext):
-    """Context manager that allows write access to the default database connection in a context (SaleorContext).
+def allow_writer_in_context(context: pmtradersContext):
+    """Context manager that allows write access to the default database connection in a context (pmtradersContext).
 
     This is a helper context manager that conditionally allows write access based on the
     database connection name in the given context.

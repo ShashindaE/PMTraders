@@ -45,7 +45,7 @@ def test_stocks_bulk_update_queries_count(
     settings,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variant_1 = variant_with_many_stocks
     variant_2 = variant
 

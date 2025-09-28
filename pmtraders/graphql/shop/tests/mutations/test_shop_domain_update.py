@@ -17,7 +17,7 @@ def test_shop_domain_update(staff_api_client, permission_manage_settings, settin
             }
         }
     """
-    new_name = "saleor test store"
+    new_name = "pmtraders test store"
     variables = {"input": {"domain": "lorem-ipsum.com", "name": new_name}}
     site = Site.objects.get_current()
     assert site.domain != "lorem-ipsum.com"

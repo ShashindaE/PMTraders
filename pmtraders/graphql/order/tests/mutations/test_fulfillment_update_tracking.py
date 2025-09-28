@@ -24,7 +24,7 @@ FULFILLMENT_UPDATE_TRACKING_QUERY = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_fulfillment_update_tracking(
     send_fulfillment_update_mock,
     staff_api_client,
@@ -43,7 +43,7 @@ def test_fulfillment_update_tracking(
     send_fulfillment_update_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_fulfillment_update_tracking_by_user_no_channel_access(
     send_fulfillment_update_mock,
     staff_api_client,
@@ -70,7 +70,7 @@ def test_fulfillment_update_tracking_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_fulfillment_update_tracking_by_app(
     send_fulfillment_update_mock, app_api_client, fulfillment, permission_manage_orders
 ):
@@ -92,9 +92,9 @@ def test_fulfillment_update_tracking_by_app(
     send_fulfillment_update_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.tracking_number_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.tracking_number_updated")
 @patch(
-    "saleor.graphql.order.mutations.fulfillment_update_tracking.send_fulfillment_update"
+    "pmtraders.graphql.order.mutations.fulfillment_update_tracking.send_fulfillment_update"
 )
 def test_fulfillment_update_tracking_send_notification_true(
     send_fulfillment_update_mock,
@@ -120,8 +120,8 @@ def test_fulfillment_update_tracking_send_notification_true(
     mocked_tracking_number_updated_event.assert_called_once_with(fulfillment)
 
 
-@patch("saleor.plugins.manager.PluginsManager.tracking_number_updated")
-@patch("saleor.order.notifications.send_fulfillment_update")
+@patch("pmtraders.plugins.manager.PluginsManager.tracking_number_updated")
+@patch("pmtraders.order.notifications.send_fulfillment_update")
 def test_fulfillment_update_tracking_send_notification_false(
     send_fulfillment_update_mock,
     mocked_tracking_number_updated_event,
@@ -145,7 +145,7 @@ def test_fulfillment_update_tracking_send_notification_false(
 
 
 @pytest.mark.parametrize("notify_customer", [True, False])
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_fulfillment_tracking_number_updated_event_triggered(
     mocked_webhooks,
     notify_customer,
@@ -156,7 +156,7 @@ def test_fulfillment_tracking_number_updated_event_triggered(
     staff_api_client,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     permission_group_manage_orders.user_set.add(staff_api_client.user)
     fulfillment_id = graphene.Node.to_global_id("Fulfillment", fulfillment.id)
     variables = {

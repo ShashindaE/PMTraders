@@ -3,7 +3,7 @@
 from django.db import migrations
 
 # Drop tables that were used by packages that are no longer used:
-# - `django-prices-openexchangerates` - removed in https://github.com/saleor/saleor/pull/13175/
+# - `django-prices-openexchangerates` - removed in https://github.com/pmtraders/pmtraders/pull/13175/
 
 
 class Migration(migrations.Migration):

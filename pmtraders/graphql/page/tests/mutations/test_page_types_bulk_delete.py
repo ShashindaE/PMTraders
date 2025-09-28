@@ -57,8 +57,8 @@ def test_page_type_bulk_delete_by_staff(
     assert not Page.objects.filter(pk__in=pages_pks)
 
 
-@mock.patch("saleor.graphql.page.bulk_mutations.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.graphql.page.bulk_mutations.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_page_type_bulk_delete_trigger_webhooks(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -70,7 +70,7 @@ def test_page_type_bulk_delete_trigger_webhooks(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     staff_api_client.user.user_permissions.add(
         permission_manage_page_types_and_attributes

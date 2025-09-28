@@ -2,7 +2,7 @@ from django.apps import apps as registry
 from django.db import migrations
 from django.db.models.signals import post_migrate
 
-from .tasks.saleor3_22 import populate_order_line_product_type_id_task
+from .tasks.pmtraders3_22 import populate_order_line_product_type_id_task
 
 
 def populate_order_line_product_id(apps, _schema_editor):

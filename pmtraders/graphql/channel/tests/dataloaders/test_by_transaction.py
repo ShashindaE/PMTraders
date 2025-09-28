@@ -1,5 +1,5 @@
 from .....channel.models import Channel
-from ....context import SaleorContext
+from ....context import pmtradersContext
 from ...dataloaders.by_transaction import ChannelByTransactionIdLoader
 
 
@@ -12,7 +12,7 @@ def test_batch_load_with_order_transactions(
     transaction2 = transaction_item_generator(order_id=order.id, checkout_id=None)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([transaction1.id, transaction2.id]).get()
 
@@ -29,7 +29,7 @@ def test_batch_load_with_checkout_transactions(checkout, transaction_item_genera
     transaction2 = transaction_item_generator(checkout_id=checkout.token, order_id=None)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([transaction1.id, transaction2.id]).get()
 
@@ -51,7 +51,7 @@ def test_batch_load_with_mixed_transactions(
     )
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([order_transaction.id, checkout_transaction.id]).get()
 
@@ -66,7 +66,7 @@ def test_batch_load_with_nonexistent_transaction_ids():
     nonexistent_ids = [99999, 88888]
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load(nonexistent_ids).get()
 
@@ -83,7 +83,7 @@ def test_batch_load_with_transaction_without_order_or_checkout(
     transaction = transaction_item_generator(order_id=None, checkout_id=None)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([transaction.id]).get()
 
@@ -94,7 +94,7 @@ def test_batch_load_with_transaction_without_order_or_checkout(
 
 def test_batch_load_empty_keys():
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([]).get()
 
@@ -112,7 +112,7 @@ def test_batch_load_with_deleted_order(order_with_lines, transaction_item_genera
     order.delete()
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([transaction_id]).get()
 
@@ -127,7 +127,7 @@ def test_batch_load_with_deleted_checkout(checkout, transaction_item_generator):
     checkout.delete()
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     channels = loader.batch_load([transaction.id]).get()
 
@@ -146,7 +146,7 @@ def test_batch_load_maintains_order(
     transaction3 = transaction_item_generator(order_id=order.id, checkout_id=None)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     # Request in specific order
     channels = loader.batch_load(
@@ -169,7 +169,7 @@ def test_batch_load_handles_duplicate_transaction_ids(
     transaction = transaction_item_generator(order_id=order.id, checkout_id=None)
 
     # when
-    context = SaleorContext()
+    context = pmtradersContext()
     loader = ChannelByTransactionIdLoader(context)
     # Request same transaction ID multiple times
     channels = loader.batch_load([transaction.id, transaction.id, transaction.id]).get()

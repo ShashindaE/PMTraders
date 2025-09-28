@@ -10,7 +10,7 @@ def app(db):
     app = App.objects.create(
         name="Sample app objects",
         is_active=True,
-        identifier="saleor.app.test",
+        identifier="pmtraders.app.test",
         manifest_url="http://localhost:3000/manifest",
     )
     return app
@@ -21,7 +21,7 @@ def app_marked_to_be_removed(db):
     app = App.objects.create(
         name="Sample app objects",
         is_active=True,
-        identifier="saleor.app.test",
+        identifier="pmtraders.app.test",
         manifest_url="http://localhost:3000/manifest",
         removed_at=timezone.now(),
     )

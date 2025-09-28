@@ -401,7 +401,7 @@ def test_webhook_update_filterable_channel_slugs(
     ],
 )
 @patch(
-    "saleor.graphql.webhook.mutations.webhook_create.MAX_FILTERABLE_CHANNEL_SLUGS_LIMIT"
+    "pmtraders.graphql.webhook.mutations.webhook_create.MAX_FILTERABLE_CHANNEL_SLUGS_LIMIT"
 )
 def test_webhook_create_assigns_filterable_channel_slugs_above_max_limit(
     mocked_limit, channel_slugs, app_api_client, webhook

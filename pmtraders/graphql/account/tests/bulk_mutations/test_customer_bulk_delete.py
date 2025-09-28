@@ -14,7 +14,7 @@ CUSTOMER_BULK_DELETE_MUTATION = """
 """
 
 
-@patch("saleor.graphql.account.mutations.base.account_events.customer_deleted_event")
+@patch("pmtraders.graphql.account.mutations.base.account_events.customer_deleted_event")
 def test_delete_customers(
     mocked_deletion_event,
     staff_api_client,
@@ -56,9 +56,9 @@ def test_delete_customers(
 
 
 @patch(
-    "saleor.graphql.account.bulk_mutations.customer_bulk_delete.get_webhooks_for_event"
+    "pmtraders.graphql.account.bulk_mutations.customer_bulk_delete.get_webhooks_for_event"
 )
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_customers_trigger_webhooks(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -71,7 +71,7 @@ def test_delete_customers_trigger_webhooks(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     variables = {
         "ids": [graphene.Node.to_global_id("User", user.id) for user in user_list]
@@ -88,7 +88,7 @@ def test_delete_customers_trigger_webhooks(
     assert mocked_webhook_trigger.call_count == 2
 
 
-@patch("saleor.graphql.account.mutations.base.account_events.customer_deleted_event")
+@patch("pmtraders.graphql.account.mutations.base.account_events.customer_deleted_event")
 def test_delete_customers_by_app(
     mocked_deletion_event,
     app_api_client,

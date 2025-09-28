@@ -169,7 +169,7 @@ def get_voucher_code_instance(
 def get_active_voucher_code(voucher, channel_slug):
     """Return an active VoucherCode instance.
 
-    This method along with `Voucher.code` should be removed in Saleor 4.0.
+    This method along with `Voucher.code` should be removed in pmtraders 4.0.
     """
 
     voucher_queryset = Voucher.objects.active_in_channel(timezone.now(), channel_slug)

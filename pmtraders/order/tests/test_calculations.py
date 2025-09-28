@@ -914,7 +914,7 @@ def test_fetch_order_prices_if_expired_plugins(
 
 
 @patch(
-    "saleor.order.calculations.update_order_prices_with_flat_rates",
+    "pmtraders.order.calculations.update_order_prices_with_flat_rates",
     wraps=update_order_prices_with_flat_rates,
 )
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
@@ -1013,7 +1013,7 @@ def test_fetch_order_prices_if_expired_plugins_with_allow_sync_webhooks_to_false
 
 
 @patch(
-    "saleor.order.calculations.update_order_prices_with_flat_rates",
+    "pmtraders.order.calculations.update_order_prices_with_flat_rates",
     wraps=update_order_prices_with_flat_rates,
 )
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
@@ -1308,7 +1308,7 @@ def test_fetch_order_prices_on_promotion_if_expired_recalculate_all_prices(
     assert order_with_lines.total == subtotal + shipping_price
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_line_unit(mocked_fetch_order_prices_if_expired):
     # given
     expected_line_unit_price = create_taxed_money(
@@ -1336,7 +1336,7 @@ def test_order_line_unit(mocked_fetch_order_prices_if_expired):
     )
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_line_total(mocked_fetch_order_prices_if_expired):
     # given
     expected_line_total_price = create_taxed_money(
@@ -1364,7 +1364,7 @@ def test_order_line_total(mocked_fetch_order_prices_if_expired):
     )
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_line_tax_rate(mocked_fetch_order_prices_if_expired):
     # given
     expected_line_tax_rate = sentinel.TAX_RATE
@@ -1379,7 +1379,7 @@ def test_order_line_tax_rate(mocked_fetch_order_prices_if_expired):
     assert line_tax_rate == expected_line_tax_rate
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_shipping(mocked_fetch_order_prices_if_expired):
     # given
     expected_shipping_price = Decimal("1234.0000")
@@ -1394,7 +1394,7 @@ def test_order_shipping(mocked_fetch_order_prices_if_expired):
     assert shipping_price == quantize_price(expected_shipping_price, order.currency)
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_shipping_tax_rate(mocked_fetch_order_prices_if_expired):
     # given
     expected_shipping_tax_rate = sentinel.SHIPPING_TAX_RATE
@@ -1409,7 +1409,7 @@ def test_order_shipping_tax_rate(mocked_fetch_order_prices_if_expired):
     assert shipping_tax_rate == expected_shipping_tax_rate
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_total(mocked_fetch_order_prices_if_expired):
     # given
     expected_total = Decimal("1234.0000")
@@ -1424,7 +1424,7 @@ def test_order_total(mocked_fetch_order_prices_if_expired):
     assert total == quantize_price(expected_total, order.currency)
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_subtotal(mocked_fetch_order_prices_if_expired):
     # given
     currency = "USD"
@@ -1457,7 +1457,7 @@ def test_order_subtotal(mocked_fetch_order_prices_if_expired):
     assert subtotal == expected_subtotal
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_order_undiscounted_total(mocked_fetch_order_prices_if_expired):
     # given
     expected_undiscounted_total = Decimal("1234.0000")
@@ -1474,9 +1474,9 @@ def test_order_undiscounted_total(mocked_fetch_order_prices_if_expired):
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_total")
-@patch("saleor.plugins.manager.PluginsManager.get_taxes_for_order")
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_total")
+@patch("pmtraders.plugins.manager.PluginsManager.get_taxes_for_order")
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_fetch_order_data_calls_plugin(
     mock_get_taxes,
     mock_calculate_order_line_total,
@@ -1511,10 +1511,10 @@ def test_fetch_order_data_calls_plugin(
     mock_get_taxes.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_total")
-@patch("saleor.plugins.manager.PluginsManager.get_taxes_for_order")
-@patch("saleor.order.calculations._apply_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_total")
+@patch("pmtraders.plugins.manager.PluginsManager.get_taxes_for_order")
+@patch("pmtraders.order.calculations._apply_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_fetch_order_data_calls_tax_app(
     mock_apply_tax_data,
     mock_get_taxes,
@@ -1699,8 +1699,8 @@ def test_fetch_order_data_tax_data_missing_tax_id_empty_tax_data(
     assert mocked_logger.call_count == 0
 
 
-@patch("saleor.plugins.avatax.plugin.get_order_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
+@patch("pmtraders.plugins.avatax.plugin.get_order_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
 def test_fetch_order_data_plugin_tax_data_with_negative_values(
     mock_get_tax_data,
     order_with_lines,
@@ -1747,8 +1747,8 @@ def test_fetch_order_data_plugin_tax_data_with_negative_values(
     assert caplog.records[0].order_id == to_global_id_or_none(order)
 
 
-@patch("saleor.plugins.avatax.plugin.get_order_tax_data")
-@override_settings(PLUGINS=["saleor.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
+@patch("pmtraders.plugins.avatax.plugin.get_order_tax_data")
+@override_settings(PLUGINS=["pmtraders.plugins.avatax.plugin.DeprecatedAvataxPlugin"])
 def test_fetch_order_data_plugin_tax_data_price_overflow(
     mock_get_tax_data,
     order_with_lines,
@@ -1796,7 +1796,7 @@ def test_fetch_order_data_plugin_tax_data_price_overflow(
 
 
 @patch(
-    "saleor.order.calculations.update_order_prices_with_flat_rates",
+    "pmtraders.order.calculations.update_order_prices_with_flat_rates",
     wraps=update_order_prices_with_flat_rates,
 )
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])

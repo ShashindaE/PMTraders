@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from saleor.account.throttling import get_cache_key_blocked_ip
+from pmtraders.account.throttling import get_cache_key_blocked_ip
 
 from ...shop.utils import prepare_shop
 from ...utils import assign_permissions
@@ -10,8 +10,8 @@ from ..utils import account_register, raw_token_create
 
 
 @pytest.mark.e2e
-@patch("saleor.account.throttling.get_client_ip")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.get_client_ip")
+@patch("pmtraders.account.throttling.cache")
 def test_should_not_be_able_to_login_with_invalid_credentials_core_1506(
     mocked_cache,
     mocked_get_ip,
@@ -50,7 +50,7 @@ def test_should_not_be_able_to_login_with_invalid_credentials_core_1506(
         },
     )
     channel_slug = shop_data[0]["slug"]
-    user_email = "user1@saleor.io"
+    user_email = "user1@pmtraders.io"
     user_password = "Test1234!"
 
     ip = "123.123.123.123"

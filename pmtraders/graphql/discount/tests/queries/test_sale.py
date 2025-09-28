@@ -1,6 +1,6 @@
 import graphene
 
-from saleor.discount import DiscountValueType
+from pmtraders.discount import DiscountValueType
 
 from ....tests.utils import (
     assert_no_permission,

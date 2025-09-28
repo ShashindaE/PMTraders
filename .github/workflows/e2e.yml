@@ -10,13 +10,13 @@ on:
     paths:
       - "**.py"
       - Dockerfile
-      - "saleor/**"
+      - "pmtraders/**"
       - ".github/workflows/e2e.yml"
       - pyproject.toml
       - uv.lock
 
 env:
-  DATABASE_URL: "postgres://saleor:saleor@postgres:5432/saleor"
+  DATABASE_URL: "postgres://pmtraders:pmtraders@postgres:5432/pmtraders"
   SECRET_KEY: ci-test
 
 jobs:
@@ -29,8 +29,8 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: saleor
-          POSTGRES_USER: saleor
+          POSTGRES_PASSWORD: pmtraders
+          POSTGRES_USER: pmtraders
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

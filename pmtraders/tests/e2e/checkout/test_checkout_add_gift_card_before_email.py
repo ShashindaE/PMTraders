@@ -82,9 +82,9 @@ def test_add_gift_card_before_email_in_checkout_core_1104(
 
     # Step 3 - Set email for checkout
     checkout_data = checkout_update_email(
-        e2e_not_logged_api_client, checkout_id, "testEmail@saleor.io"
+        e2e_not_logged_api_client, checkout_id, "testEmail@pmtraders.io"
     )
-    assert checkout_data["email"] == "testEmail@saleor.io"
+    assert checkout_data["email"] == "testEmail@pmtraders.io"
 
     # Step 4 - Set DeliveryMethod for checkout.
     checkout_data = checkout_delivery_method_update(

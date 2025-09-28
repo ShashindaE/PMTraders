@@ -1,4 +1,4 @@
-from saleor.graphql.tests.utils import get_graphql_content
+from pmtraders.graphql.tests.utils import get_graphql_content
 
 CHECKOUT_CREATE_FROM_ORDER_MUTATION = """
 mutation CheckoutCreateFromOrder( $id: ID!){

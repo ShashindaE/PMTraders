@@ -7,7 +7,7 @@ from ....webhook.observability import WebhookData
 def observability_webhook_data(observability_webhook):
     return WebhookData(
         id=observability_webhook.id,
-        saleor_domain="example.com",
+        pmtraders_domain="example.com",
         target_url=observability_webhook.target_url,
         secret_key=observability_webhook.secret_key,
     )

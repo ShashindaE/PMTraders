@@ -194,7 +194,7 @@ def _fail(errors, **_kwargs) -> ExecutionResult:
     return ExecutionResult(errors=errors, invalid=True)
 
 
-class SaleorGraphQLBackend(GraphQLCoreBackend):
+class pmtradersGraphQLBackend(GraphQLCoreBackend):
     def document_from_string(
         self,
         schema: GraphQLSchema,
@@ -219,4 +219,4 @@ class SaleorGraphQLBackend(GraphQLCoreBackend):
         )
 
 
-backend = GraphQLCachedBackend(SaleorGraphQLBackend(), cache_map=CacheDict(1000))
+backend = GraphQLCachedBackend(pmtradersGraphQLBackend(), cache_map=CacheDict(1000))

@@ -65,7 +65,7 @@ MUTATION_CHECKOUT_CREATE = """
 """
 
 
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_checkout_create_triggers_async_webhooks(
     mocked_webhook_trigger,
     webhook,
@@ -80,7 +80,7 @@ def test_checkout_create_triggers_async_webhooks(
     webhook.app.permissions.set([permission_manage_checkouts])
     webhook.events.create(event_type=WebhookEventAsyncType.CHECKOUT_CREATED)
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variant = stock.product_variant
     variant_id = graphene.Node.to_global_id("ProductVariant", variant.id)
     shipping_address = graphql_address_data
@@ -2701,14 +2701,14 @@ def test_checkout_create_skip_validation_billing_address_by_app(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_create.call_checkout_event",
+    "pmtraders.graphql.checkout.mutations.checkout_create.call_checkout_event",
     wraps=call_checkout_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_create_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -2768,7 +2768,7 @@ def test_checkout_create_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

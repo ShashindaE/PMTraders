@@ -167,7 +167,7 @@ def test_fetch_variants_for_promotion_rules_discount_race_condition(
 
     # when
     with race_condition.RunAfter(
-        "saleor.product.utils.variants.update_rule_variant_relation",
+        "pmtraders.product.utils.variants.update_rule_variant_relation",
         update_rule_variant_relation,
     ):
         fetch_variants_for_promotion_rules(PromotionRule.objects.all())

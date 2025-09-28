@@ -86,11 +86,11 @@ def test_is_valid_delivery_method(checkout_with_item, address, shipping_zone):
     assert not delivery_method_info.is_method_in_valid_methods(checkout_info)
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_is_valid_delivery_method_external_method(
     mock_send_request, checkout_with_item, address, settings, shipping_app
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     assert not shipping_app.identifier
     response_method_id = "abcd"
     mock_json_response = [
@@ -123,12 +123,12 @@ def test_is_valid_delivery_method_external_method(
     assert delivery_method_info.is_method_in_valid_methods(checkout_info)
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_is_valid_delivery_method_external_method_with_metadata_and_description(
     mock_send_request, checkout_with_item, address, settings, shipping_app
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     assert not shipping_app.identifier
     response_method_id = "abcd"
     metadata = {"key": "value", "key_2": "value_2"}
@@ -171,12 +171,12 @@ def test_is_valid_delivery_method_external_method_with_metadata_and_description(
     assert delivery_method_info.is_method_in_valid_methods(checkout_info)
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_delivery_method_external_method_with_not_allowed_webhooks(
     mocked_request, checkout_with_item, shipping_app, settings
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     shipping_method_id = "abcd"
     shipping_method_name = "Default shipping"
     graphql_shipping_method_id = graphene.Node.to_global_id(
@@ -208,7 +208,7 @@ def test_delivery_method_external_method_with_not_allowed_webhooks(
     mocked_request.assert_not_called()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_delivery_method_exclude_shipping_methods_with_not_allowed_webhooks(
     mocked_request, checkout_with_item, shipping_app, settings
 ):
@@ -218,7 +218,7 @@ def test_delivery_method_exclude_shipping_methods_with_not_allowed_webhooks(
         event_type=WebhookEventSyncType.CHECKOUT_FILTER_SHIPPING_METHODS
     )
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     shipping_method_id = "abcd"
     shipping_method_name = "Default shipping"
     graphql_shipping_method_id = graphene.Node.to_global_id(
@@ -250,12 +250,12 @@ def test_delivery_method_exclude_shipping_methods_with_not_allowed_webhooks(
     mocked_request.assert_not_called()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_all_shipping_methods_with_external_methods_and_not_allowed_webhooks(
     mocked_request, checkout_with_shipping_method, shipping_app, settings
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     checkout = checkout_with_shipping_method
 
@@ -272,12 +272,12 @@ def test_get_all_shipping_methods_with_external_methods_and_not_allowed_webhooks
     mocked_request.assert_not_called()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_all_shipping_methods_with_exclude_shipping_methods_with_not_allowed_webhooks(
     mocked_request, checkout_with_shipping_method, shipping_app, settings
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     webhook = shipping_app.webhooks.get()
     webhook.events.create(
@@ -308,7 +308,7 @@ def test_get_all_shipping_methods_with_exclude_shipping_methods_with_not_allowed
         "invalid format string",
     ],
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_is_valid_delivery_method_external_method_with_invalid_metadata(
     mock_send_request,
     invalid_metadata,
@@ -318,7 +318,7 @@ def test_is_valid_delivery_method_external_method_with_invalid_metadata(
     shipping_app,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     assert not shipping_app.identifier
     response_method_id = "abcd"
     metadata = invalid_metadata
@@ -361,11 +361,11 @@ def test_is_valid_delivery_method_external_method_with_invalid_metadata(
     assert delivery_method_info.is_method_in_valid_methods(checkout_info)
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_is_valid_delivery_method_external_method_shipping_app_id_with_identifier(
     mock_send_request, checkout_with_item, address, settings, shipping_app
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     shipping_app.identifier = "abcd"
     shipping_app.save(update_fields=["identifier"])
@@ -401,11 +401,11 @@ def test_is_valid_delivery_method_external_method_shipping_app_id_with_identifie
     assert delivery_method_info.is_method_in_valid_methods(checkout_info)
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_is_valid_delivery_method_external_method_old_shipping_app_id(
     mock_send_request, checkout_with_item, address, settings, shipping_app
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     shipping_app.identifier = "abcd"
     shipping_app.save(update_fields=["identifier"])
@@ -441,11 +441,11 @@ def test_is_valid_delivery_method_external_method_old_shipping_app_id(
     assert delivery_method_info.is_method_in_valid_methods(checkout_info)
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_is_valid_delivery_method_external_method_no_longer_available(
     mock_send_request, checkout_with_item, address, settings, shipping_app
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     mock_json_response = [
         {
             "id": "New-ID",
@@ -601,7 +601,7 @@ def test_get_discount_for_checkout_value_entire_order_voucher(
     checkout = Mock(spec=checkout_with_items, channel=channel_USD)
     subtotal = Money(total, "USD")
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     manager = get_plugins_manager(allow_replica=False)
@@ -763,12 +763,12 @@ def test_get_discount_for_checkout_value_specific_product_voucher(
 
     checkout = Mock(spec=checkout_with_items, channel=channel_USD)
     monkeypatch.setattr(
-        "saleor.checkout.utils.get_base_lines_prices",
+        "pmtraders.checkout.utils.get_base_lines_prices",
         Mock(return_value=prices),
     )
     subtotal = sum(prices, start=Money(0, "USD"))
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     lines = [
@@ -814,7 +814,7 @@ def test_get_discount_for_checkout_value_specific_product_voucher(
     assert discount == Money(expected_value, "USD")
 
 
-@patch("saleor.discount.utils.voucher.validate_voucher")
+@patch("pmtraders.discount.utils.voucher.validate_voucher")
 def test_get_voucher_discount_for_checkout_voucher_validation(
     mock_validate_voucher, voucher, checkout_with_voucher
 ):
@@ -886,7 +886,7 @@ def test_get_discount_for_checkout_entire_order_voucher_not_applicable(
     checkout = Mock(spec=Checkout, channel=channel_USD)
     subtotal = Money(total, "USD")
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     manager = get_plugins_manager(allow_replica=False)
@@ -1043,15 +1043,15 @@ def test_get_discount_for_checkout_specific_products_voucher_not_applicable(
     channel_USD,
 ):
     monkeypatch.setattr(
-        "saleor.checkout.utils.get_prices_of_discounted_specific_product",
+        "pmtraders.checkout.utils.get_prices_of_discounted_specific_product",
         lambda checkout, product: [],
     )
     monkeypatch.setattr(
-        "saleor.checkout.calculations.checkout_shipping_price",
+        "pmtraders.checkout.calculations.checkout_shipping_price",
         lambda _: TaxedMoney(Money(0, "USD"), Money(0, "USD")),
     )
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: Money(total, "USD"),
     )
 
@@ -1147,11 +1147,11 @@ def test_get_discount_for_checkout_shipping_voucher(
     )
     subtotal = Money(100, "USD")
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     monkeypatch.setattr(
-        "saleor.checkout.utils.is_shipping_required", lambda lines: True
+        "pmtraders.checkout.utils.is_shipping_required", lambda lines: True
     )
     checkout = Mock(
         spec=Checkout,
@@ -1199,11 +1199,11 @@ def test_get_discount_for_checkout_shipping_voucher_all_countries(
 ):
     subtotal = Money(100, "USD")
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     monkeypatch.setattr(
-        "saleor.checkout.utils.is_shipping_required", lambda lines: True
+        "pmtraders.checkout.utils.is_shipping_required", lambda lines: True
     )
     shipping_total = TaxedMoney(Money(10, "USD"), Money(10, "USD"))
     checkout = Mock(
@@ -1254,7 +1254,7 @@ def test_get_discount_for_checkout_shipping_voucher_limited_countries(
     subtotal = Money(100, "USD")
     shipping_total = TaxedMoney(net=Money(10, "USD"), gross=Money(10, "USD"))
     monkeypatch.setattr(
-        "saleor.checkout.utils.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.utils.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     checkout = Mock(
@@ -1403,11 +1403,11 @@ def test_get_discount_for_checkout_shipping_voucher_not_applicable(
     channel_USD,
 ):
     monkeypatch.setattr(
-        "saleor.checkout.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.base_calculations.base_checkout_subtotal",
         lambda *args: subtotal,
     )
     monkeypatch.setattr(
-        "saleor.checkout.utils.is_shipping_required", lambda lines: is_shipping_required
+        "pmtraders.checkout.utils.is_shipping_required", lambda lines: is_shipping_required
     )
 
     if shipping_method_data:

@@ -22,6 +22,6 @@ jobs:
         run: |
           curl -f -X POST \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.SALEOR_RELEASE_TOKEN }}" \
-            https://api.github.com/repos/saleor/saleor-multitenant/dispatches \
+            -H "Authorization: Bearer ${{ secrets.pmtraders_RELEASE_TOKEN }}" \
+            https://api.github.com/repos/pmtraders/pmtraders-multitenant/dispatches \
             -d "{\"event_type\":\"deploy-staging\",\"client_payload\":{\"version\":\"${{ needs.publish.outputs.version }}\"}}"

@@ -12,7 +12,7 @@ I want to merge this change because...
 
 # Docs
 
-<!-- Docs are stored in a separate repository: https://github.com/saleor/saleor-docs/. -->
+<!-- Docs are stored in a separate repository: https://github.com/pmtraders/pmtraders-docs/. -->
 <!-- Please provide a link to the PR that updates documentation for your changes. -->
 <!-- If changes in docs are not required, please mention that in the description. -->
 

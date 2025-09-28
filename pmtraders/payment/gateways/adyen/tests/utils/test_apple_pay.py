@@ -3,8 +3,8 @@ from unittest import mock
 import pytest
 from requests_hardened import HTTPSession
 
-from saleor.payment import PaymentError
-from saleor.payment.gateways.adyen.utils.apple_pay import (
+from pmtraders.payment import PaymentError
+from pmtraders.payment.gateways.adyen.utils.apple_pay import (
     initialize_apple_pay_session,
     validate_payment_data_for_apple_pay,
 )
@@ -16,37 +16,37 @@ from saleor.payment.gateways.adyen.utils.apple_pay import (
         (
             "https://apple-pay-gateway.apple.com/paymentservices/startSession",
             "merchant.com.identifier",
-            "saleor.com",
+            "pmtraders.com",
             None,
             "certifiate data",
         ),
-        (None, "merchant.com.identifier", "saleor.com", "Saleor", "certifiate data"),
+        (None, "merchant.com.identifier", "pmtraders.com", "pmtraders", "certifiate data"),
         (
             "https://apple-pay-gateway.apple.com/paymentservices/startSession",
             None,
-            "saleor.com",
-            "Saleor",
+            "pmtraders.com",
+            "pmtraders",
             "certifiate data",
         ),
         (
             "https://apple-pay-gateway.apple.com/paymentservices/startSession",
             "merchant.com.identifier",
             None,
-            "Saleor",
+            "pmtraders",
             "certifiate data",
         ),
         (
             "https://not-whitelisted-domain.com/paymentservices/startSession",
             "merchant.com.identifier",
-            "saleor.com",
-            "Saleor",
+            "pmtraders.com",
+            "pmtraders",
             "certifiate data",
         ),
         (
             "https://apple-pay-gateway.apple.com/paymentservices/startSession",
             "merchant.com.identifier",
-            "saleor.com",
-            "Saleor",
+            "pmtraders.com",
+            "pmtraders",
             None,
         ),
     ],
@@ -63,8 +63,8 @@ def test_validate_payment_data_for_apple_pay_raises_payment_error(
 def test_validate_payment_data_for_apple_pay():
     validation_url = "https://apple-pay-gateway.apple.com/paymentservices/startSession"
     merchant_identifier = "merchant.com.identifier"
-    domain = "saleor.com"
-    display_name = "Saleor "
+    domain = "pmtraders.com"
+    display_name = "pmtraders "
     certificate = "certifiate data"
 
     validate_payment_data_for_apple_pay(
@@ -72,7 +72,7 @@ def test_validate_payment_data_for_apple_pay():
     )
 
 
-@mock.patch("saleor.payment.gateways.adyen.utils.apple_pay.NamedTemporaryFile")
+@mock.patch("pmtraders.payment.gateways.adyen.utils.apple_pay.NamedTemporaryFile")
 @mock.patch.object(HTTPSession, "request")
 def test_initialize_payment_for_apple_pay(mocked_request, mocked_tmp_file):
     mocked_cert_file_name = "cert-file-name"
@@ -92,8 +92,8 @@ def test_initialize_payment_for_apple_pay(mocked_request, mocked_tmp_file):
 
     validation_url = "https://apple-pay-gateway.apple.com/paymentservices/startSession"
     merchant_identifier = "merchant.com.identifier"
-    domain = "saleor.com"
-    display_name = "Saleor Shop"
+    domain = "pmtraders.com"
+    display_name = "pmtraders Shop"
     certificate = "certifiate data"
 
     initialize_apple_pay_session(
@@ -129,8 +129,8 @@ def test_initialize_payment_for_apple_pay_request_failed(mocked_request):
 
     validation_url = "https://apple-pay-gateway.apple.com/paymentservices/startSession"
     merchant_identifier = "merchant.com.identifier"
-    domain = "saleor.com"
-    display_name = "Saleor Shop"
+    domain = "pmtraders.com"
+    display_name = "pmtraders Shop"
     certificate = "certifiate data"
 
     with pytest.raises(PaymentError):

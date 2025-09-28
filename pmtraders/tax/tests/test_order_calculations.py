@@ -3,7 +3,7 @@ from decimal import Decimal
 import pytest
 from prices import Money, TaxedMoney
 
-from saleor.tax.models import TaxClass, TaxClassCountryRate
+from pmtraders.tax.models import TaxClass, TaxClassCountryRate
 
 from ...core.prices import quantize_price
 from ...core.taxes import zero_money, zero_taxed_money

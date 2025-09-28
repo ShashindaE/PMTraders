@@ -219,7 +219,7 @@ def test_checkout_available_payment_gateways(
     ]
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_payment_gateways")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_payment_gateways")
 def test_checkout_available_payment_gateways_valid_info_sent(
     mocked_list_gateways,
     api_client,
@@ -546,9 +546,9 @@ query getCheckout($id: ID) {
 
 
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_checkout"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_query_checkout_empty_address_with_shipping_method_without_exclude_webhook(
     mock_excluded_shipping_methods_for_checkout,
     api_client,
@@ -576,9 +576,9 @@ def test_query_checkout_empty_address_with_shipping_method_without_exclude_webho
 
 
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_checkout"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_query_checkout_with_address_with_shipping_method_without_exclude_webhook(
     mock_excluded_shipping_methods_for_checkout,
     api_client,
@@ -849,7 +849,7 @@ def test_checkout_available_shipping_methods_excluded_postal_codes(
     assert data["availableShippingMethods"] == []
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_available_shipping_methods_with_price_displayed(
     send_webhook_request_sync,
     monkeypatch,
@@ -2707,7 +2707,7 @@ def test_checkout_prices_with_promotion_line_deleted_in_meantime(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.checkout.dataloaders.promotion_rule_infos.CheckoutLineByIdLoader.load_many",
+        "pmtraders.graphql.checkout.dataloaders.promotion_rule_infos.CheckoutLineByIdLoader.load_many",
         delete_checkout_line,
     ):
         with allow_writer():
@@ -2803,7 +2803,7 @@ def test_checkout_prices_with_promotion_one_line_deleted_in_meantime(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.checkout.dataloaders.promotion_rule_infos.CheckoutLineByIdLoader.load_many",
+        "pmtraders.graphql.checkout.dataloaders.promotion_rule_infos.CheckoutLineByIdLoader.load_many",
         delete_checkout_line,
     ):
         with allow_writer():
@@ -2864,11 +2864,11 @@ def test_checkout_display_gross_prices_use_default(user_api_client, checkout_wit
 
 
 @mock.patch(
-    "saleor.checkout.calculations._calculate_and_add_tax",
+    "pmtraders.checkout.calculations._calculate_and_add_tax",
     wraps=_calculate_and_add_tax,
 )
 @mock.patch(
-    "saleor.checkout.calculations.fetch_checkout_data",
+    "pmtraders.checkout.calculations.fetch_checkout_data",
     wraps=fetch_checkout_data,
 )
 def test_checkout_prices_with_checkout_updated_during_price_recalculation(
@@ -2895,7 +2895,7 @@ def test_checkout_prices_with_checkout_updated_during_price_recalculation(
             checkout_to_modify.save(update_fields=["email", "last_change"])
 
     with race_condition.RunAfter(
-        "saleor.checkout.calculations._calculate_and_add_tax", modify_checkout
+        "pmtraders.checkout.calculations._calculate_and_add_tax", modify_checkout
     ):
         response = user_api_client.post_graphql(QUERY_CHECKOUT_PRICES, variables)
     content = get_graphql_content(response)
@@ -3877,10 +3877,10 @@ def test_query_checkouts(
     "query", [CHECKOUTS_QUERY, CHECKOUTS_WITH_LINES_TOTAL_PRICE_QUERY]
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations._calculate_and_add_tax")
+@mock.patch("pmtraders.checkout.calculations._calculate_and_add_tax")
 def test_query_checkouts_do_not_trigger_sync_tax_webhooks(
     mocked_calculate_and_add_tax,
     mocked_fetch_checkout_prices_if_expired,
@@ -3923,10 +3923,10 @@ def test_query_checkouts_do_not_trigger_sync_tax_webhooks(
     "query", [CHECKOUTS_QUERY, CHECKOUTS_WITH_LINES_TOTAL_PRICE_QUERY]
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations.update_checkout_prices_with_flat_rates")
+@mock.patch("pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates")
 def test_query_checkouts_calculate_flat_taxes(
     mocked_update_order_prices_with_flat_rates,
     mocked_fetch_checkout_prices_if_expired,
@@ -4027,10 +4027,10 @@ CHECKOUT_LINES_WITH_TOTAL_PRICE = """
 
 
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations._calculate_and_add_tax")
+@mock.patch("pmtraders.checkout.calculations._calculate_and_add_tax")
 def test_query_checkout_lines_do_not_trigger_sync_tax_webhooks(
     mocked_calculate_and_add_tax,
     mocked_fetch_checkout_prices_if_expired,
@@ -4069,10 +4069,10 @@ def test_query_checkout_lines_do_not_trigger_sync_tax_webhooks(
 
 
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations.update_checkout_prices_with_flat_rates")
+@mock.patch("pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates")
 def test_query_checkout_lines_calculate_flat_taxes(
     mocked_update_order_prices_with_flat_rates,
     mocked_fetch_checkout_prices_if_expired,
@@ -4628,7 +4628,7 @@ query getCheckout($id: ID, $amount: PositiveDecimal) {
 """
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_stored_payment_methods")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_stored_payment_methods")
 def test_checkout_with_stored_payment_methods_empty_response(
     mocked_list_stored_payment_methods,
     user_api_client,
@@ -4660,7 +4660,7 @@ def test_checkout_with_stored_payment_methods_empty_response(
     assert content["data"]["checkout"]["storedPaymentMethods"] == []
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_stored_payment_methods")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_stored_payment_methods")
 def test_checkout_with_stored_payment_methods(
     mocked_list_stored_payment_methods,
     user_api_client,
@@ -4753,7 +4753,7 @@ def test_checkout_with_stored_payment_methods(
     ]
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_stored_payment_methods")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_stored_payment_methods")
 def test_checkout_with_stored_payment_methods_requested_by_staff_user(
     mocked_list_stored_payment_methods,
     staff_api_client,
@@ -4787,7 +4787,7 @@ def test_checkout_with_stored_payment_methods_requested_by_staff_user(
     assert content["data"]["checkout"]["storedPaymentMethods"] == []
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_stored_payment_methods")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_stored_payment_methods")
 def test_checkout_with_stored_payment_methods_requested_by_app(
     mocked_list_stored_payment_methods,
     app_api_client,

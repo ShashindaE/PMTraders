@@ -3,7 +3,7 @@
 from django.db import migrations
 
 # Drop tables that were used by packages that are no longer used:
-# - `django-prices-vatlayer` - removed in https://github.com/saleor/saleor/pull/13179/
+# - `django-prices-vatlayer` - removed in https://github.com/pmtraders/pmtraders/pull/13179/
 
 
 class Migration(migrations.Migration):

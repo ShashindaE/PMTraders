@@ -99,10 +99,10 @@ mutation RegisterAccount($input: AccountRegisterInput!) {
 @override_settings(
     ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL=True, ALLOWED_CLIENT_HOSTS=["localhost"]
 )
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 @patch(
-    "saleor.graphql.account.mutations.account.account_register.finish_creating_user",
+    "pmtraders.graphql.account.mutations.account.account_register.finish_creating_user",
     wraps=finish_creating_user,
 )
 def test_customer_register(
@@ -124,7 +124,7 @@ def test_customer_register(
             "email": email,
             "password": "Password",
             "redirectUrl": redirect_url,
-            "firstName": "saleor",
+            "firstName": "pmtraders",
             "lastName": "rocks",
             "languageCode": "PL",
             "metadata": [{"key": "meta", "value": "data"}],
@@ -179,10 +179,10 @@ def test_customer_register(
 @override_settings(
     ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL=True, ALLOWED_CLIENT_HOSTS=["localhost"]
 )
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 @patch(
-    "saleor.graphql.account.mutations.account.account_register.finish_creating_user",
+    "pmtraders.graphql.account.mutations.account.account_register.finish_creating_user",
     wraps=finish_creating_user,
 )
 def test_customer_register_twice(
@@ -204,7 +204,7 @@ def test_customer_register_twice(
             "email": email,
             "password": "Password",
             "redirectUrl": redirect_url,
-            "firstName": "saleor",
+            "firstName": "pmtraders",
             "lastName": "rocks",
             "languageCode": "PL",
             "metadata": [{"key": "meta", "value": "data"}],
@@ -292,7 +292,7 @@ def test_customer_register_twice(
 @override_settings(
     ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL=True, ALLOWED_CLIENT_HOSTS=["localhost"]
 )
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_customer_register_generates_valid_token(
     mocked_notify,
     api_client,
@@ -308,7 +308,7 @@ def test_customer_register_generates_valid_token(
             "email": email,
             "password": "Password",
             "redirectUrl": redirect_url,
-            "firstName": "saleor",
+            "firstName": "pmtraders",
             "lastName": "rocks",
             "languageCode": "PL",
             "metadata": [{"key": "meta", "value": "data"}],
@@ -333,7 +333,7 @@ def test_customer_register_generates_valid_token(
     assert token_generator.check_token(new_user, token)
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_customer_register_disabled_email_confirmation(
     mocked_notify, api_client, site_settings
 ):
@@ -357,7 +357,7 @@ def test_customer_register_disabled_email_confirmation(
     mocked_notify.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_customer_register_no_redirect_url(mocked_notify, api_client, site_settings):
     # given
     site_settings.enable_account_confirmation_by_email = True
@@ -393,7 +393,7 @@ def test_customer_register_upper_case_email(api_client, site_settings):
     assert data["user"]["email"].lower()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_customer_register_no_channel_email_confirmation_unset(
     mocked_notify, api_client, channel_PLN, site_settings
 ):
@@ -408,7 +408,7 @@ def test_customer_register_no_channel_email_confirmation_unset(
             "email": email,
             "password": "Password",
             "redirectUrl": redirect_url,
-            "firstName": "saleor",
+            "firstName": "pmtraders",
             "lastName": "rocks",
             "languageCode": "PL",
             "metadata": [{"key": "meta", "value": "data"}],
@@ -439,7 +439,7 @@ def test_account_register_properly_filter_errors(
         "input": {
             "email": email,
             "password": "Password",
-            "firstName": "saleor",
+            "firstName": "pmtraders",
             "lastName": "rocks",
         }
     }
@@ -483,10 +483,10 @@ def test_account_register_returns_empty_id(
 @override_settings(
     ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL=True, ALLOWED_CLIENT_HOSTS=["localhost"]
 )
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 @patch(
-    "saleor.graphql.account.mutations.account.account_register.finish_creating_user",
+    "pmtraders.graphql.account.mutations.account.account_register.finish_creating_user",
     wraps=finish_creating_user,
 )
 def test_customer_register_race_codition(
@@ -506,7 +506,7 @@ def test_customer_register_race_codition(
             "email": email,
             "password": "Password",
             "redirectUrl": redirect_url,
-            "firstName": "saleor",
+            "firstName": "pmtraders",
             "lastName": "rocks",
             "languageCode": "PL",
             "channel": channel_PLN.slug,
@@ -518,7 +518,7 @@ def test_customer_register_race_codition(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.account.mutations.account.account_register."
+        "pmtraders.graphql.account.mutations.account.account_register."
         "AccountRegister.save_and_create_task",
         create_new_user,
     ):

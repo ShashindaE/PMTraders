@@ -320,7 +320,7 @@ def test_channel_update_mutation_add_shipping_zone(
 
 
 @patch(
-    "saleor.graphql.channel.mutations.channel_update."
+    "pmtraders.graphql.channel.mutations.channel_update."
     "drop_invalid_shipping_methods_relations_for_given_channels.delay"
 )
 def test_channel_update_mutation_remove_shipping_zone(
@@ -482,8 +482,8 @@ def test_channel_update_mutation_duplicated_shipping_zone(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_channel_update_mutation_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -495,7 +495,7 @@ def test_channel_update_mutation_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     channel_id = graphene.Node.to_global_id("Channel", channel_USD.id)
     name = "newName"
@@ -1172,7 +1172,7 @@ def test_channel_update_order_settings_voucher_usage_disable(
     assert code_2.used == code_2_checkout_usage
 
 
-@patch("saleor.discount.tasks.disconnect_voucher_codes_from_draft_orders_task.delay")
+@patch("pmtraders.discount.tasks.disconnect_voucher_codes_from_draft_orders_task.delay")
 def test_channel_update_order_settings_voucher_usage_enable(
     disconnect_voucher_codes_from_draft_orders_task_mock,
     permission_manage_orders,

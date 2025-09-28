@@ -565,10 +565,10 @@ CHECKOUTS_WITH_TOTAL_INSIDE_PROBLEMS_QUERY = """
     ],
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations._calculate_and_add_tax")
+@mock.patch("pmtraders.checkout.calculations._calculate_and_add_tax")
 def test_query_checkouts_do_not_trigger_sync_tax_webhooks_when_variant_not_available(
     mocked_calculate_and_add_tax,
     mocked_fetch_checkout_prices_if_expired,
@@ -621,10 +621,10 @@ def test_query_checkouts_do_not_trigger_sync_tax_webhooks_when_variant_not_avail
     ],
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations.update_checkout_prices_with_flat_rates")
+@mock.patch("pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates")
 def test_query_checkouts_calculate_flat_taxes_when_variant_not_available(
     mocked_update_order_prices_with_flat_rates,
     mocked_fetch_checkout_prices_if_expired,
@@ -671,10 +671,10 @@ def test_query_checkouts_calculate_flat_taxes_when_variant_not_available(
     ],
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations._calculate_and_add_tax")
+@mock.patch("pmtraders.checkout.calculations._calculate_and_add_tax")
 def test_query_checkouts_do_not_trigger_sync_tax_webhooks_when_out_of_stock(
     mocked_calculate_and_add_tax,
     mocked_fetch_checkout_prices_if_expired,
@@ -730,10 +730,10 @@ def test_query_checkouts_do_not_trigger_sync_tax_webhooks_when_out_of_stock(
     ],
 )
 @mock.patch(
-    "saleor.checkout.calculations._fetch_checkout_prices_if_expired",
+    "pmtraders.checkout.calculations._fetch_checkout_prices_if_expired",
     wraps=_fetch_checkout_prices_if_expired,
 )
-@mock.patch("saleor.checkout.calculations.update_checkout_prices_with_flat_rates")
+@mock.patch("pmtraders.checkout.calculations.update_checkout_prices_with_flat_rates")
 def test_query_checkouts_calculate_flat_taxes_when_variant_out_of_stock(
     mocked_update_order_prices_with_flat_rates,
     mocked_fetch_checkout_prices_if_expired,

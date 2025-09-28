@@ -217,8 +217,8 @@ def test_transaction_belongs_to_different_order_than_granted_refund_order(
     assert all(err["code"] == error_class.INVALID.name for err in data["errors"])
 
 
-@patch("saleor.payment.gateway.get_webhooks_for_event")
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.payment.gateway.get_webhooks_for_event")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_missing_assigned_webhook_event(
     mocked_is_active,
     mocked_get_webhooks,
@@ -274,8 +274,8 @@ def test_missing_assigned_webhook_event(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_triggers_refund_request_for_app(
     mocked_payment_action_request,
     mocked_is_active,
@@ -342,8 +342,8 @@ def test_triggers_refund_request_for_app(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_triggers_refund_request_for_app_via_token(
     mocked_payment_action_request,
     mocked_is_active,
@@ -410,8 +410,8 @@ def test_triggers_refund_request_for_app_via_token(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_triggers_refund_request_for_staff_user(
     mocked_payment_action_request,
     mocked_is_active,
@@ -482,8 +482,8 @@ def test_triggers_refund_request_for_staff_user(
 
 
 @pytest.mark.parametrize("expected_refund_amount", [Decimal("10.00"), Decimal("20.00")])
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_trigger_refund_request_with_assigned_transaction_item(
     mocked_payment_action_request,
     mocked_is_active,
@@ -550,8 +550,8 @@ def test_trigger_refund_request_with_assigned_transaction_item(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_trigger_refund_request_with_assigned_transaction_item_and_not_enough_charged(
     mocked_payment_action_request,
     mocked_is_active,
@@ -614,8 +614,8 @@ def test_trigger_refund_request_with_assigned_transaction_item_and_not_enough_ch
         (OrderGrantedRefundStatus.SUCCESS, "REFUND_ALREADY_PROCESSED"),
     ],
 )
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_trigger_refund_blocked_based_on_status_of_granted_refund(
     mocked_payment_action_request,
     mocked_is_active,
@@ -683,8 +683,8 @@ def test_trigger_refund_blocked_based_on_status_of_granted_refund(
         OrderGrantedRefundStatus.FAILURE,
     ],
 )
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_trigger_refund_possible_based_on_status_of_granted_refund(
     mocked_payment_action_request,
     mocked_is_active,

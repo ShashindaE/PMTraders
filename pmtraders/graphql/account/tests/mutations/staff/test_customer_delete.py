@@ -27,8 +27,8 @@ CUSTOMER_DELETE_MUTATION = """
 """
 
 
-@patch("saleor.account.signals.delete_from_storage_task.delay")
-@patch("saleor.graphql.account.mutations.base.account_events.customer_deleted_event")
+@patch("pmtraders.account.signals.delete_from_storage_task.delay")
+@patch("pmtraders.graphql.account.mutations.base.account_events.customer_deleted_event")
 def test_customer_delete(
     mocked_deletion_event,
     delete_from_storage_task_mock,
@@ -61,8 +61,8 @@ def test_customer_delete(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_customer_delete_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -74,7 +74,7 @@ def test_customer_delete_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     customer_id = graphene.Node.to_global_id("User", customer_user.pk)
     variables = {"id": customer_id}
@@ -104,8 +104,8 @@ def test_customer_delete_trigger_webhook(
     )
 
 
-@patch("saleor.account.signals.delete_from_storage_task.delay")
-@patch("saleor.graphql.account.mutations.base.account_events.customer_deleted_event")
+@patch("pmtraders.account.signals.delete_from_storage_task.delay")
+@patch("pmtraders.graphql.account.mutations.base.account_events.customer_deleted_event")
 def test_customer_delete_by_app(
     mocked_deletion_event,
     delete_from_storage_task_mock,

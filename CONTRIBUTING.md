@@ -3,11 +3,11 @@ title: Contributing
 ---
 
 > [!IMPORTANT]
-> We value your contributions to Saleor and want to ensure they meet our project's needs. To help us maintain quality and consistency, we ask that you follow the process described in our [Contribution Guidelines](http://docs.saleor.io/developer/community/contributing). We welcome issues, new features, documentation improvements, community support, and more.
+> We value your contributions to pmtraders and want to ensure they meet our project's needs. To help us maintain quality and consistency, we ask that you follow the process described in our [Contribution Guidelines](http://docs.pmtraders.io/developer/community/contributing). We welcome issues, new features, documentation improvements, community support, and more.
 
 ## Table of Contents
 
-- [Running Saleor locally](#running-saleor-locally)
+- [Running pmtraders locally](#running-pmtraders-locally)
 - [Managing dependencies](#managing-dependencies)
 - [File structure](#file-structure)
 - [Testing](#testing)
@@ -17,11 +17,11 @@ title: Contributing
 - [Pull requests](#pull-requests)
 - [Changelog](#changelog)
 
-## Running Saleor locally
+## Running pmtraders locally
 
-### Running Saleor locally in development containers
+### Running pmtraders locally in development containers
 
-The easiest way of running Saleor for local development is to use [development containers](https://containers.dev/).
+The easiest way of running pmtraders for local development is to use [development containers](https://containers.dev/).
 
 Editor instructions:
 
@@ -33,7 +33,7 @@ Editor instructions:
 
 Development container only creates container, you still need to start the server. See [common-commands](#common-commands) section to learn more.
 
-### Running Saleor locally with database and additional services in docker
+### Running pmtraders locally with database and additional services in docker
 
 Install & setup prerequisites via homebrew:
 
@@ -43,7 +43,7 @@ brew install uv
 uv python install 3.12
 ```
 
-Clone this [repository](https://github.com/saleor/saleor) and setup database and additional services in docker:
+Clone this [repository](https://github.com/pmtraders/pmtraders) and setup database and additional services in docker:
 
 ```shell
 cd .devcontainer
@@ -72,7 +72,7 @@ cp .env.example .env
 > Example env variables set-up Celery broker, mail server, allow `localhost` URLs and set Dashboard URL
 > so that your development setup works with additional services set-up via `docker compose`
 >
-> Learn more about each env variable in [Environment Variable docs](https://docs.saleor.io/setup/configuration)
+> Learn more about each env variable in [Environment Variable docs](https://docs.pmtraders.io/setup/configuration)
 
 > [!TIP]
 > Env variables from `.env` file are loaded automatically by [Poe the Poet](https://poethepoet.natn.io/index.html) (when using `poe` commands below)
@@ -100,7 +100,7 @@ poe scheduler
 ```
 
 > [!NOTE]
-> To learn more about Celery tasks and scheduler, check [Task Queue docs](https://docs.saleor.io/developer/running-saleor/task-queue#periodic-tasks)
+> To learn more about Celery tasks and scheduler, check [Task Queue docs](https://docs.pmtraders.io/developer/running-pmtraders/task-queue#periodic-tasks)
 
 To run database migrations:
 
@@ -154,7 +154,7 @@ We are using a standard Django structure - every app has its directory, where yo
 
 ### API file structure
 
-The `API` files are in `saleor/graphql/` directory. Every app has its directory
+The `API` files are in `pmtraders/graphql/` directory. Every app has its directory
 inside with:
 
 - `schema.py` - with definitions of queries and mutations
@@ -170,7 +170,7 @@ We aim to have a `mutations` directory in every module with a file per every mut
 
 ```bash
 .
-└── saleor
+└── pmtraders
     └── graphql
         └── checkout
             ├── mutations
@@ -186,7 +186,7 @@ After joining it with the previous example, it would look like this:
 
 ```bash
 .
-└── saleor
+└── pmtraders
     └── graphql
         └── checkout
             ├── mutations
@@ -205,7 +205,7 @@ After joining it with the previous example, it would look like this:
 ## Testing
 
 Testing is an essential part of every project.
-In Saleor, we use the `pytest` library and mostly have unit tests.
+In pmtraders, we use the `pytest` library and mostly have unit tests.
 
 To reduce tests execution time, we use [pytest-xdist](https://pypi.org/project/pytest-xdist/)
 that allows running tests on more than one CPU. By default, we use `-n=auto`, which creates a separate process equal to the number of available CPUs.
@@ -228,7 +228,7 @@ poe test
 By default `poe test` is using the `--reuse-db` flag to speed up testing time.
 
 > [!TIP]
-> If you need to ignore `--reuse-db` (e.g when testing Saleor on different versions that have different migrations) add `--create-db` argument: `poe test --create-db`
+> If you need to ignore `--reuse-db` (e.g when testing pmtraders on different versions that have different migrations) add `--create-db` argument: `poe test --create-db`
 
 ### How to run particular tests?
 
@@ -236,14 +236,14 @@ As running all tests is quite time-consuming, sometimes you want to run only tes
 You can use the following command for that. In the case of a particular directory or file, provide the path after the `pytest` command, like:
 
 ```bash
-poe test saleor/graphql/app/tests
+poe test pmtraders/graphql/app/tests
 ```
 
 If you want to run a particular test, you need to provide the path to the file where the test is and the file name after the `::` sign. In the case of running a single test, it's also worth using the `-n0` flag to run the test only in one thread. It will significantly decrease time.
 See an example below:
 
 ```bash
-poe test saleor/graphql/app/tests/mutations/test_app_create.py::test_app_create_mutation -n0
+poe test pmtraders/graphql/app/tests/mutations/test_app_create.py::test_app_create_mutation -n0
 ```
 
 ### Using pdb when testing
@@ -252,7 +252,7 @@ If you would like to use `pdb` in code when running a test, you need to use a fe
 So the previous example will look like this:
 
 ```bash
-poe test saleor/graphql/app/tests/mutations/test_app_create.py::test_app_create_mutation -n0 -s --allow-hosts=127.0.0.1
+poe test pmtraders/graphql/app/tests/mutations/test_app_create.py::test_app_create_mutation -n0 -s --allow-hosts=127.0.0.1
 ```
 
 ### Recording cassettes
@@ -260,7 +260,7 @@ poe test saleor/graphql/app/tests/mutations/test_app_create.py::test_app_create_
 Some of our tests use `VCR.py` cassettes to record requests and responses from external APIs. To record one, you need to use the `vcr-record` flag and specify `allow-hosts`:
 
 ```bash
-poe test --vcr-record=once saleor/app/tests/test_app_commands.py --allow-hosts=127.0.0.1
+poe test --vcr-record=once pmtraders/app/tests/test_app_commands.py --allow-hosts=127.0.0.1
 ```
 
 ### Writing benchmark tests
@@ -298,14 +298,14 @@ It significantly improves test readability and clarifies what you are testing.
 
 ## Coding style
 
-Saleor uses various tools to maintain a common coding style and help with development.
+pmtraders uses various tools to maintain a common coding style and help with development.
 To install all the development tools, use [uv](https://docs.astral.sh/uv/):
 
 ```shell
 uv sync
 ```
 
-Saleor uses the [pre-commit](https://pre-commit.com/#install) tool to check and automatically fix any formatting issue before creating a git commit.
+pmtraders uses the [pre-commit](https://pre-commit.com/#install) tool to check and automatically fix any formatting issue before creating a git commit.
 
 Run the following command to install pre-commit into your git hooks and have it run on every commit:
 
@@ -318,7 +318,7 @@ For more information on how it works, see the `.pre-commit-config.yaml` configur
 > [!NOTE]
 > Running `git commit` for the first time might take a while, since all dependencies will be setting up.
 
-Saleor has a strict formatting policy enforced by the [black formatting tool](https://github.com/python/black).
+pmtraders has a strict formatting policy enforced by the [black formatting tool](https://github.com/python/black).
 
 Module names should make their purpose obvious. Avoid generic file names such as `utils.py`.
 
@@ -330,7 +330,7 @@ Use [ruff](https://github.com/astral-sh/ruff) to check and format your code.
 
 [EditorConfig](http://editorconfig.org/) is a standard configuration file that aims to ensure consistent style across multiple programming environments.
 
-Saleor's repository contains [an `.editorconfig` file](.editorconfig) describing our formatting requirements.
+pmtraders's repository contains [an `.editorconfig` file](.editorconfig) describing our formatting requirements.
 
 Most editors and IDEs support this file either directly or via plugins. See the [list of supported editors and IDEs](http://editorconfig.org/#download) for detailed instructions.
 
@@ -403,10 +403,10 @@ To reduce the chance of deadlocks and to keep the locking logic consistent:
 ### Searching
 
 So far, we have mainly used the `GinIndex` and `ilike` operators for searching, but currently, we are testing a new solution with the use of `SearchVector` and `SearchRank`.
-You can find it in this PR [#9344](https://github.com/saleor/saleor/pull/9344).
+You can find it in this PR [#9344](https://github.com/pmtraders/pmtraders/pull/9344).
 
 > [!NOTE]
-> The search vector update task is triggered by [celery beat scheduler](https://docs.saleor.io/developer/running-saleor/task-queue#periodic-tasks).
+> The search vector update task is triggered by [celery beat scheduler](https://docs.pmtraders.io/developer/running-pmtraders/task-queue#periodic-tasks).
 > This feature will not work without task queue configuration.
 
 ### API
@@ -418,7 +418,7 @@ You can find it in this PR [#9344](https://github.com/saleor/saleor/pull/9344).
 
 Every mutation, mutation field, and type field should have a short, meaningful description ending with a dot. Also, we labeled every new field with info in which version it was introduced, and when it's a new feature, we added the preview feature label.
 The labels `ADDED_IN_X` and `PREVIEW_FEATURE` should be at the end of the description.
-All labels can be found in `saleor/graphql/core/descriptions.py`.
+All labels can be found in `pmtraders/graphql/core/descriptions.py`.
 
 When we want to remove the API field, we mark it first as `DEPRECATED`.
 In a field definition, there is a dedicated argument for that: `deprecation_reason`, but for mutation arguments, we use `DEPRECATED_IN_X_INPUT` label in the description.
@@ -446,10 +446,10 @@ New mutations should always have their error class.
 Example: instead of using generic `PaymentErrorCode`, for `PaymentCreate` mutation we could have `PaymentCreateErrorCode`. The frontend will get a list of error codes that could be triggered by this mutation instead of the list of all errors that could be raised
 by ALL payment mutations.
 
-The error classes are defined in the `saleor/graphql/core/types/common.py` file.
+The error classes are defined in the `pmtraders/graphql/core/types/common.py` file.
 You will need the GraphQL enum with error codes to create the new one.
 First, create a new enum in the `error_codes.py` file in the main app directory.
-Then use it to create a GraphQL enum in the `saleor/graphql/core/enums.py` file.
+Then use it to create a GraphQL enum in the `pmtraders/graphql/core/enums.py` file.
 When defining a GraphQL enum, you could specify the enum type name and attach the description, for example, the enum docstring, as is shown below.
 
 ```python
@@ -603,7 +603,7 @@ psql -h <host-name> -p <db-port> -U <db-user> -XqAt -f data.sql > analyze.json
 It should look similar to:
 
 ```bash
-psql -h localhost -p 5432 -U saleor -XqAt -f data.sql > analyze.json
+psql -h localhost -p 5432 -U pmtraders -XqAt -f data.sql > analyze.json
 ```
 
 6. Open the `analyze.json`, copy the data and paste it to the `plan` input field in [explain.dalibo](https://explain.dalibo.com/).

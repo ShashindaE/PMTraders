@@ -38,10 +38,10 @@ from ...utils.export import (
     "file_type",
     [FileTypes.CSV, FileTypes.XLSX],
 )
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_products_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_products_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_products(
     save_file_mock,
     send_email_mock,
@@ -96,10 +96,10 @@ def test_export_products(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_products_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_products_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_products_ids(
     save_file_mock,
     send_email_mock,
@@ -143,10 +143,10 @@ def test_export_products_ids(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_products_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_products_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_products_filter_is_published(
     save_file_mock,
     send_email_mock,
@@ -200,10 +200,10 @@ def test_export_products_filter_is_published(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_products_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_products_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_products_filter_collections(
     save_file_mock,
     send_email_mock,
@@ -249,10 +249,10 @@ def test_export_products_filter_collections(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_products_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_products_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_products_by_app(
     save_file_mock,
     send_email_mock,
@@ -300,7 +300,7 @@ def test_export_products_by_app(
     save_file_mock.assert_called_once_with(app_export_file, mock_file, ANY)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_export_completed")
+@patch("pmtraders.plugins.manager.PluginsManager.product_export_completed")
 def test_export_products_webhook(
     mocked_product_export_completed,
     product_list,
@@ -317,10 +317,10 @@ def test_export_products_webhook(
     mocked_product_export_completed.assert_called_once_with(user_export_file)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_gift_cards_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_gift_cards_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_gift_cards(
     save_file_mock,
     send_email_mock,
@@ -360,10 +360,10 @@ def test_export_gift_cards(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_gift_cards_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_gift_cards_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_gift_cards_by_app(
     save_file_mock,
     send_email_mock,
@@ -402,10 +402,10 @@ def test_export_gift_cards_by_app(
     save_file_mock.assert_called_once_with(app_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_gift_cards_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_gift_cards_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_gift_cards_ids(
     save_file_mock,
     send_email_mock,
@@ -443,10 +443,10 @@ def test_export_gift_cards_ids(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_gift_cards_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_gift_cards_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_gift_cards_with_filter(
     save_file_mock,
     send_email_mock,
@@ -500,7 +500,7 @@ def test_export_gift_cards_with_filter(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.plugins.manager.PluginsManager.gift_card_export_completed")
+@patch("pmtraders.plugins.manager.PluginsManager.gift_card_export_completed")
 def test_export_gift_cards_webhook(
     mocked_gift_card_export_completed,
     user_export_file,
@@ -682,7 +682,7 @@ def test_append_to_file_for_xlsx(user_export_file, tmpdir, media_root):
     shutil.rmtree(tmpdir)
 
 
-@patch("saleor.csv.utils.export.BATCH_SIZE", 1)
+@patch("pmtraders.csv.utils.export.BATCH_SIZE", 1)
 def test_export_products_in_batches_for_csv(
     product_list,
     user_export_file,
@@ -744,7 +744,7 @@ def test_export_products_in_batches_for_csv(
     shutil.rmtree(tmpdir)
 
 
-@patch("saleor.csv.utils.export.BATCH_SIZE", 1)
+@patch("pmtraders.csv.utils.export.BATCH_SIZE", 1)
 def test_export_products_in_batches_for_xlsx(
     product_list,
     user_export_file,
@@ -823,7 +823,7 @@ def test_export_products_in_batches_for_xlsx(
     shutil.rmtree(tmpdir)
 
 
-@patch("saleor.csv.utils.export.BATCH_SIZE", 1)
+@patch("pmtraders.csv.utils.export.BATCH_SIZE", 1)
 def test_export_gift_cards_in_batches_to_csv(
     gift_card,
     gift_card_expiry_date,
@@ -858,7 +858,7 @@ def test_export_gift_cards_in_batches_to_csv(
     shutil.rmtree(tmpdir)
 
 
-@patch("saleor.csv.utils.export.BATCH_SIZE", 1)
+@patch("pmtraders.csv.utils.export.BATCH_SIZE", 1)
 def test_export_gift_cards_in_batches_to_xlsx(
     gift_card,
     gift_card_expiry_date,
@@ -941,10 +941,10 @@ def test_parse_input():
     assert data == parsed_data
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_voucher_codes_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_voucher_codes_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_voucher_codes_by_voucher_id(
     save_file_mock,
     send_email_mock,
@@ -982,10 +982,10 @@ def test_export_voucher_codes_by_voucher_id(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_voucher_codes_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_voucher_codes_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_voucher_codes_by_ids(
     save_file_mock,
     send_email_mock,
@@ -1024,10 +1024,10 @@ def test_export_voucher_codes_by_ids(
     save_file_mock.assert_called_once_with(user_export_file, mock_file, ANY)
 
 
-@patch("saleor.csv.utils.export.create_file_with_headers")
-@patch("saleor.csv.utils.export.export_voucher_codes_in_batches")
-@patch("saleor.csv.utils.export.send_export_download_link_notification")
-@patch("saleor.csv.utils.export.save_csv_file_in_export_file")
+@patch("pmtraders.csv.utils.export.create_file_with_headers")
+@patch("pmtraders.csv.utils.export.export_voucher_codes_in_batches")
+@patch("pmtraders.csv.utils.export.send_export_download_link_notification")
+@patch("pmtraders.csv.utils.export.save_csv_file_in_export_file")
 def test_export_voucher_codes_by_app(
     save_file_mock,
     send_email_mock,
@@ -1064,7 +1064,7 @@ def test_export_voucher_codes_by_app(
     save_file_mock.assert_called_once_with(app_export_file, mock_file, ANY)
 
 
-@patch("saleor.plugins.manager.PluginsManager.voucher_code_export_completed")
+@patch("pmtraders.plugins.manager.PluginsManager.voucher_code_export_completed")
 def test_export_voucher_codes_webhooks(
     mocked_voucher_code_export_completed,
     user_export_file,
@@ -1081,7 +1081,7 @@ def test_export_voucher_codes_webhooks(
     mocked_voucher_code_export_completed.assert_called_once()
 
 
-@patch("saleor.csv.utils.export.BATCH_SIZE", 1)
+@patch("pmtraders.csv.utils.export.BATCH_SIZE", 1)
 def test_export_voucher_codes_in_batches_to_csv(
     voucher_with_many_codes,
     tmpdir,
@@ -1114,7 +1114,7 @@ def test_export_voucher_codes_in_batches_to_csv(
     shutil.rmtree(tmpdir)
 
 
-@patch("saleor.csv.utils.export.BATCH_SIZE", 1)
+@patch("pmtraders.csv.utils.export.BATCH_SIZE", 1)
 def test_export_voucher_codes_in_batches_to_xlsx(
     voucher_with_many_codes,
     tmpdir,

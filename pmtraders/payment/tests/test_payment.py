@@ -424,7 +424,7 @@ def test_create_transaction_no_gateway_response(transaction_data):
 
 
 @patch.object(PluginsManager, "capture_payment")
-@patch("saleor.order.actions.handle_fully_paid_order")
+@patch("pmtraders.order.actions.handle_fully_paid_order")
 def test_gateway_charge_failed(
     mock_handle_fully_paid_order,
     mock_capture_payment,
@@ -690,7 +690,7 @@ def test_is_currency_supported(
     manager = get_plugins_manager(allow_replica=False)
     dummy_gateway_config.supported_currencies = "USD, EUR"
     monkeypatch.setattr(
-        "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin._get_gateway_config",
+        "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin._get_gateway_config",
         lambda _: dummy_gateway_config,
     )
 

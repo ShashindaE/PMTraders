@@ -60,14 +60,14 @@ def test_fetch_promotion_variants_and_product_ids(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.discount.tasks.clear_promotion_rule_variants_task.delay")
+@patch("pmtraders.discount.tasks.clear_promotion_rule_variants_task.delay")
 @patch(
-    "saleor.discount.tasks.mark_catalogue_promotion_rules_as_dirty",
+    "pmtraders.discount.tasks.mark_catalogue_promotion_rules_as_dirty",
     wraps=mark_catalogue_promotion_rules_as_dirty,
 )
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.promotion_ended")
-@patch("saleor.plugins.manager.PluginsManager.promotion_started")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_ended")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_started")
 def test_handle_promotion_toggle(
     promotion_started_mock,
     promotion_ended_mock,

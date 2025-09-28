@@ -148,11 +148,11 @@ class Payment(ModelObjectType[models.Payment]):
         required=True, description="Unique token associated with a payment."
     )
     checkout = graphene.Field(
-        "saleor.graphql.checkout.types.Checkout",
+        "pmtraders.graphql.checkout.types.Checkout",
         description="Checkout associated with a payment.",
     )
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         description="Order associated with a payment.",
     )
     payment_method_type = graphene.String(
@@ -370,7 +370,7 @@ class TransactionEvent(ModelObjectType[models.TransactionEvent]):
     )
 
     created_by = graphene.Field(
-        "saleor.graphql.core.types.user_or_app.UserOrApp",
+        "pmtraders.graphql.core.types.user_or_app.UserOrApp",
         description="User or App that created the transaction event.",
     )
 
@@ -603,18 +603,18 @@ class TransactionItem(ModelObjectType[models.TransactionItem]):
         description="PSP reference of transaction.", required=True
     )
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         description="The related order.",
     )
     checkout = graphene.Field(
-        "saleor.graphql.checkout.types.Checkout",
+        "pmtraders.graphql.checkout.types.Checkout",
         description="The related checkout.",
     )
     events = NonNullList(
         TransactionEvent, required=True, description="List of all transaction's events."
     )
     created_by = graphene.Field(
-        "saleor.graphql.core.types.user_or_app.UserOrApp",
+        "pmtraders.graphql.core.types.user_or_app.UserOrApp",
         description="User or App that created the transaction.",
     )
     external_url = graphene.String(

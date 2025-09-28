@@ -61,7 +61,7 @@ CUSTOMER_UPDATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_metadata_updated")
 def test_customer_update(
     mocked_customer_metadata_updated,
     staff_api_client,

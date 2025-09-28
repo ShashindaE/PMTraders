@@ -44,8 +44,8 @@ def test_delete_warehouse_mutation(
     assert not Warehouse.objects.exists()
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_warehouse_mutation_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -57,7 +57,7 @@ def test_delete_warehouse_mutation_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     warehouse_id = graphene.Node.to_global_id("Warehouse", warehouse.pk)
 
@@ -87,7 +87,7 @@ def test_delete_warehouse_mutation_trigger_webhook(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_delete_warehouse_mutation_with_webhooks(
     product_variant_out_of_stock_webhook,
     staff_api_client,
@@ -117,7 +117,7 @@ def test_delete_warehouse_mutation_with_webhooks(
     product_variant_out_of_stock_webhook.assert_called_once_with(old_first_stock)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_delete_warehouse_mutation_with_webhooks_for_many_product_variants(
     product_variant_out_of_stock_webhook,
     staff_api_client,

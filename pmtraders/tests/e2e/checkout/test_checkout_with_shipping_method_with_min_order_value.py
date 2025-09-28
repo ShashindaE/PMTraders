@@ -91,7 +91,7 @@ def test_checkout_with_shipping_method_with_min_order_value_CORE_0501(
         e2e_not_logged_api_client,
         lines,
         channel_slug,
-        email="jon.doe@saleor.io",
+        email="jon.doe@pmtraders.io",
     )
     checkout_id = checkout_data["id"]
 
@@ -118,7 +118,7 @@ def test_checkout_with_shipping_method_with_min_order_value_CORE_0501(
         e2e_not_logged_api_client,
         lines,
         channel_slug,
-        email="jon.doe@saleor.io",
+        email="jon.doe@pmtraders.io",
     )
     checkout_id = checkout_data["id"]
 

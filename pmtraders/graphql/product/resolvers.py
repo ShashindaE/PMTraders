@@ -21,7 +21,7 @@ from ..core import ResolveInfo
 from ..core.context import (
     ChannelContext,
     ChannelQsContext,
-    SaleorContext,
+    pmtradersContext,
     get_database_connection_name,
 )
 from ..core.tracing import traced_resolver
@@ -257,7 +257,7 @@ def resolve_report_product_sales(info, period, channel_slug) -> ChannelQsContext
     return ChannelQsContext(qs=qs, channel_slug=channel_slug)
 
 
-def requestor_has_access_to_all_attributes(context: SaleorContext) -> bool:
+def requestor_has_access_to_all_attributes(context: pmtradersContext) -> bool:
     requestor = get_user_or_app_from_context(context)
     if (
         requestor

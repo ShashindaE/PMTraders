@@ -339,7 +339,7 @@ def undiscounted_order_shipping(
 ) -> Money:
     """Return shipping price without any discounts."""
     # TODO: add undiscounted_shipping_price field to order model.
-    # https://github.com/saleor/saleor/issues/14915
+    # https://github.com/pmtraders/pmtraders/issues/14915
 
     with allow_writer():
         # TODO: load shipping_method with dataloader and pass as an argument

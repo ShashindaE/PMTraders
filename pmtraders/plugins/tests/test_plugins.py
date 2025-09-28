@@ -5,7 +5,7 @@ from ..tests.utils import get_config_value
 
 
 def test_update_config_items_keeps_bool_value(plugin_configuration, settings):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     data_to_update = [
         {"name": "Username", "value": "new_admin@example.com"},
         {"name": "Use sandbox", "value": False},
@@ -205,7 +205,7 @@ def test_base_plugin__update_configuration_structure_configuration_has_change(
 
 
 def test_base_plugin__append_config_structure_to_config(settings):
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = get_plugins_manager(allow_replica=False)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
     config = [

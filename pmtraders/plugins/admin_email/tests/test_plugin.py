@@ -53,7 +53,7 @@ def test_event_map():
         NotifyEventType.ACCOUNT_STAFF_RESET_PASSWORD,
     ],
 )
-@patch("saleor.plugins.admin_email.plugin.get_admin_event_map")
+@patch("pmtraders.plugins.admin_email.plugin.get_admin_event_map")
 def test_notify(mocked_get_event_map, event_type, admin_email_plugin):
     payload = {
         "field1": 1,
@@ -68,7 +68,7 @@ def test_notify(mocked_get_event_map, event_type, admin_email_plugin):
     mocked_event.assert_called_with(payload, asdict(plugin.config), plugin)
 
 
-@patch("saleor.plugins.admin_email.plugin.get_admin_event_map")
+@patch("pmtraders.plugins.admin_email.plugin.get_admin_event_map")
 def test_notify_event_not_related(mocked_get_event_map, admin_email_plugin):
     event_type = NotifyEventType.ACCOUNT_SET_CUSTOMER_PASSWORD
     payload = {
@@ -85,7 +85,7 @@ def test_notify_event_not_related(mocked_get_event_map, admin_email_plugin):
     assert not mocked_event.called
 
 
-@patch("saleor.plugins.admin_email.plugin.get_admin_event_map")
+@patch("pmtraders.plugins.admin_email.plugin.get_admin_event_map")
 def test_notify_event_missing_handler(mocked_get_event_map, admin_email_plugin):
     event_type = NotifyEventType.CSV_EXPORT_FAILED
     payload = {
@@ -102,7 +102,7 @@ def test_notify_event_missing_handler(mocked_get_event_map, admin_email_plugin):
     assert not mocked_event_map.__getitem__.called
 
 
-@patch("saleor.plugins.admin_email.plugin.get_admin_event_map")
+@patch("pmtraders.plugins.admin_email.plugin.get_admin_event_map")
 def test_notify_event_plugin_is_not_active(mocked_get_event_map, admin_email_plugin):
     event_type = NotifyEventType.CSV_EXPORT_FAILED
     payload = {
@@ -296,7 +296,7 @@ def test_configuration_resolver_returns_email_template_value(
 def test_plugin_manager_doesnt_load_email_templates_from_db(
     admin_email_plugin, admin_email_template, settings
 ):
-    settings.PLUGINS = ["saleor.plugins.admin_email.plugin.AdminEmailPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.admin_email.plugin.AdminEmailPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.get_all_plugins()
     plugin = manager.all_plugins[0]
@@ -359,7 +359,7 @@ def test_default_plugin_configuration(
     assert not plugin.config.use_ssl
 
 
-@patch("saleor.plugins.email_common.validate_email_config")
+@patch("pmtraders.plugins.email_common.validate_email_config")
 def test_override_default_config(
     mocked_validate_email_config, default_admin_email_plugin
 ):
@@ -408,7 +408,7 @@ def test_override_default_config(
     assert not email_backed.password
 
 
-@patch("saleor.plugins.email_common.validate_email_config")
+@patch("pmtraders.plugins.email_common.validate_email_config")
 def test_set_and_unset_custom_email_template(
     mocked_validate_email_config, admin_email_plugin
 ):

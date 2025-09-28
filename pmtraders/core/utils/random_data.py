@@ -114,51 +114,51 @@ DUMMY_STAFF_PASSWORD = "password"
 DEFAULT_CURRENCY = os.environ.get("DEFAULT_CURRENCY", "USD")
 
 IMAGES_MAPPING = {
-    126: ["saleor-headless-omnichannel-book.png"],
+    126: ["pmtraders-headless-omnichannel-book.png"],
     127: [
-        "saleor-white-plimsolls-1.png",
-        "saleor-white-plimsolls-2.png",
-        "saleor-white-plimsolls-3.png",
-        "saleor-white-plimsolls-4.png",
+        "pmtraders-white-plimsolls-1.png",
+        "pmtraders-white-plimsolls-2.png",
+        "pmtraders-white-plimsolls-3.png",
+        "pmtraders-white-plimsolls-4.png",
     ],
     128: [
-        "saleor-blue-plimsolls-1.png",
-        "saleor-blue-plimsolls-2.png",
-        "saleor-blue-plimsolls-3.png",
-        "saleor-blue-plimsolls-4.png",
+        "pmtraders-blue-plimsolls-1.png",
+        "pmtraders-blue-plimsolls-2.png",
+        "pmtraders-blue-plimsolls-3.png",
+        "pmtraders-blue-plimsolls-4.png",
     ],
-    129: ["saleor-dash-force-1.png", "saleor-dash-force-2.png"],
-    130: ["saleor-pauls-blanace-420-1.png", "saleor-pauls-blanace-420-2.png"],
-    131: ["saleor-grey-hoodie.png"],
-    132: ["saleor-blue-hoodie.png"],
-    133: ["saleor-white-hoodie.png"],
-    134: ["saleor-ascii-shirt-front.png", "saleor-ascii-shirt-back.png"],
-    135: ["saleor-team-tee-front.png", "saleor-team-tee-front.png"],
-    136: ["saleor-polo-shirt-front.png", "saleor-polo-shirt-back.png"],
-    137: ["saleor-blue-polygon-tee-front.png", "saleor-blue-polygon-tee-back.png"],
-    138: ["saleor-dark-polygon-tee-front.png", "saleor-dark-polygon-tee-back.png"],
-    141: ["saleor-beanie-1.png", "saleor-beanie-2.png"],
-    143: ["saleor-neck-warmer.png"],
-    144: ["saleor-sunnies.png"],
-    145: ["saleor-battle-tested-book.png"],
-    146: ["saleor-enterprise-cloud-book.png"],
-    147: ["saleor-own-your-stack-and-data-book.png"],
-    150: ["saleor-mighty-mug.png"],
-    151: ["saleor-cushion-blue.png"],
-    152: ["saleor-apple-drink.png"],
-    153: ["saleor-bean-drink.png"],
-    154: ["saleor-banana-drink.png"],
-    155: ["saleor-carrot-drink.png"],
-    156: ["saleor-sunnies-dark.png"],
+    129: ["pmtraders-dash-force-1.png", "pmtraders-dash-force-2.png"],
+    130: ["pmtraders-pauls-blanace-420-1.png", "pmtraders-pauls-blanace-420-2.png"],
+    131: ["pmtraders-grey-hoodie.png"],
+    132: ["pmtraders-blue-hoodie.png"],
+    133: ["pmtraders-white-hoodie.png"],
+    134: ["pmtraders-ascii-shirt-front.png", "pmtraders-ascii-shirt-back.png"],
+    135: ["pmtraders-team-tee-front.png", "pmtraders-team-tee-front.png"],
+    136: ["pmtraders-polo-shirt-front.png", "pmtraders-polo-shirt-back.png"],
+    137: ["pmtraders-blue-polygon-tee-front.png", "pmtraders-blue-polygon-tee-back.png"],
+    138: ["pmtraders-dark-polygon-tee-front.png", "pmtraders-dark-polygon-tee-back.png"],
+    141: ["pmtraders-beanie-1.png", "pmtraders-beanie-2.png"],
+    143: ["pmtraders-neck-warmer.png"],
+    144: ["pmtraders-sunnies.png"],
+    145: ["pmtraders-battle-tested-book.png"],
+    146: ["pmtraders-enterprise-cloud-book.png"],
+    147: ["pmtraders-own-your-stack-and-data-book.png"],
+    150: ["pmtraders-mighty-mug.png"],
+    151: ["pmtraders-cushion-blue.png"],
+    152: ["pmtraders-apple-drink.png"],
+    153: ["pmtraders-bean-drink.png"],
+    154: ["pmtraders-banana-drink.png"],
+    155: ["pmtraders-carrot-drink.png"],
+    156: ["pmtraders-sunnies-dark.png"],
     157: [
-        "saleor-monospace-white-tee-front.png",
-        "saleor-monospace-white-tee-back.png",
+        "pmtraders-monospace-white-tee-front.png",
+        "pmtraders-monospace-white-tee-back.png",
     ],
-    160: ["saleor-gift-100.png"],
-    161: ["saleor-white-cubes-tee-front.png", "saleor-white-cubes-tee-back.png"],
-    162: ["saleor-white-parrot-cushion.png"],
-    163: ["saleor-gift-500.png"],
-    164: ["saleor-gift-50.png"],
+    160: ["pmtraders-gift-100.png"],
+    161: ["pmtraders-white-cubes-tee-front.png", "pmtraders-white-cubes-tee-back.png"],
+    162: ["pmtraders-white-parrot-cushion.png"],
+    163: ["pmtraders-gift-500.png"],
+    164: ["pmtraders-gift-50.png"],
 }
 
 CATEGORY_IMAGES = {
@@ -173,7 +173,7 @@ COLLECTION_IMAGES = {1: "summer.jpg", 2: "clothing.jpg", 3: "clothing.jpg"}
 @lru_cache
 def get_sample_data():
     path = os.path.join(
-        settings.PROJECT_ROOT, "saleor", "static", "populatedb_data.json"
+        settings.PROJECT_ROOT, "pmtraders", "static", "populatedb_data.json"
     )
     with open(path, encoding="utf8") as f:
         db_items = json.load(f)
@@ -458,7 +458,7 @@ def create_products_by_schema(placeholder_dir, create_images):
     update_products_search_vector(all_products_qs.values_list("id", flat=True))
 
 
-class SaleorProvider(BaseProvider):
+class pmtradersProvider(BaseProvider):
     def money(self):
         return Money(fake.pydecimal(2, 2, positive=True), DEFAULT_CURRENCY)
 
@@ -466,7 +466,7 @@ class SaleorProvider(BaseProvider):
         return Weight(kg=fake.pydecimal(1, 2, positive=True))
 
 
-fake.add_provider(SaleorProvider)
+fake.add_provider(pmtradersProvider)
 
 
 def get_email(first_name, last_name):
@@ -550,7 +550,7 @@ def create_fake_user(user_password, save=True, generate_id=False):
 
 # We don't want to spam the console with payment confirmations sent to
 # fake customers.
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def create_fake_payment(mock_notify, order):
     payment = create_payment(
         gateway="mirumee.payments.dummy",
@@ -1027,7 +1027,7 @@ def create_catalogue_promotions(how_many=5):
         promotion = create_fake_catalogue_promotion()
         yield f"Promotion: {promotion}"
     # recalculation is handled by celery beat, so we trigger it manually, to receive the
-    # correct amounts in random data created by saleor.
+    # correct amounts in random data created by pmtraders.
     update_variant_relations_for_active_promotion_rules_task()
     recalculate_discounted_price_for_products_task()
 

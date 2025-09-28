@@ -24,12 +24,12 @@ CONFIRM_ACCOUNT_MUTATION = """
 
 @freeze_time("2018-05-31 12:00:01")
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_account.assign_user_gift_cards"
+    "pmtraders.graphql.account.mutations.account.confirm_account.assign_user_gift_cards"
 )
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_account.match_orders_with_new_user"
+    "pmtraders.graphql.account.mutations.account.confirm_account.match_orders_with_new_user"
 )
-@patch("saleor.plugins.manager.PluginsManager.account_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.account_confirmed")
 def test_account_confirmation(
     match_orders_with_new_user_mock,
     assign_gift_cards_mock,
@@ -59,10 +59,10 @@ def test_account_confirmation(
 
 @freeze_time("2018-05-31 12:00:01")
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_account.assign_user_gift_cards"
+    "pmtraders.graphql.account.mutations.account.confirm_account.assign_user_gift_cards"
 )
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_account.match_orders_with_new_user"
+    "pmtraders.graphql.account.mutations.account.confirm_account.match_orders_with_new_user"
 )
 def test_account_confirmation_invalid_user(
     match_orders_with_new_user_mock,
@@ -88,10 +88,10 @@ def test_account_confirmation_invalid_user(
 
 
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_account.assign_user_gift_cards"
+    "pmtraders.graphql.account.mutations.account.confirm_account.assign_user_gift_cards"
 )
 @patch(
-    "saleor.graphql.account.mutations.account.confirm_account.match_orders_with_new_user"
+    "pmtraders.graphql.account.mutations.account.confirm_account.match_orders_with_new_user"
 )
 def test_account_confirmation_invalid_token(
     match_orders_with_new_user_mock,

@@ -46,7 +46,7 @@ MUTATION_CREATE_TOKEN = """
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token(_mocked_cache, api_client, customer_user, settings):
     # given
     variables = {"email": customer_user.email, "password": customer_user._password}
@@ -98,7 +98,7 @@ def test_create_token(_mocked_cache, api_client, customer_user, settings):
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_with_audience(_mocked_cache, api_client, customer_user, settings):
     # given
     audience = "dashboard"
@@ -156,14 +156,14 @@ def test_create_token_with_audience(_mocked_cache, api_client, customer_user, se
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_sets_cookie(
     _mocked_cache, api_client, customer_user, settings, monkeypatch
 ):
     # given
     csrf_token = _get_new_csrf_token()
     monkeypatch.setattr(
-        "saleor.graphql.account.mutations.authentication.create_token._get_new_csrf_token",
+        "pmtraders.graphql.account.mutations.authentication.create_token._get_new_csrf_token",
         lambda: csrf_token,
     )
     variables = {"email": customer_user.email, "password": customer_user._password}
@@ -188,7 +188,7 @@ def test_create_token_sets_cookie(
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_invalid_password(_mocked_cache, api_client, customer_user):
     # given
     variables = {"email": customer_user.email, "password": "wrongpassword"}
@@ -205,7 +205,7 @@ def test_create_token_invalid_password(_mocked_cache, api_client, customer_user)
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_invalid_email(_mocked_cache, api_client, customer_user):
     # given
     variables = {"email": "wrongemail", "password": "wrongpassword"}
@@ -222,7 +222,7 @@ def test_create_token_invalid_email(_mocked_cache, api_client, customer_user):
 
 
 @freeze_time("2024-05-31 12:00:01")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_unconfirmed_email(_mocked_cache, api_client, customer_user):
     # given
     variables = {"email": customer_user.email, "password": customer_user._password}
@@ -241,7 +241,7 @@ def test_create_token_unconfirmed_email(_mocked_cache, api_client, customer_user
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_unconfirmed_user_unconfirmed_login_enabled(
     _mocked_cache, api_client, customer_user, settings, site_settings
 ):
@@ -299,7 +299,7 @@ def test_create_token_unconfirmed_user_unconfirmed_login_enabled(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_deactivated_user(_mocked_cache, api_client, customer_user):
     # given
     variables = {"email": customer_user.email, "password": customer_user._password}
@@ -320,7 +320,7 @@ def test_create_token_deactivated_user(_mocked_cache, api_client, customer_user)
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_active_user_logged_before(
     _mocked_cache, api_client, customer_user, settings
 ):
@@ -376,7 +376,7 @@ def test_create_token_active_user_logged_before(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_email_case_insensitive(
     _mocked_cache, api_client, customer_user, settings
 ):
@@ -453,8 +453,8 @@ def test_create_token_do_update_last_login_when_out_of_threshold(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.get_client_ip")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.get_client_ip")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_throttling_login_attempt_delay(
     mocked_cache, mocked_get_ip, api_client, customer_user, setup_mock_for_cache
 ):
@@ -495,8 +495,8 @@ def test_create_token_throttling_login_attempt_delay(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.get_client_ip")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.get_client_ip")
+@patch("pmtraders.account.throttling.cache")
 def test_create_token_throttling_unidentified_ip_address(
     _mocked_cache, mock_get_ip, api_client, customer_user
 ):

@@ -98,7 +98,7 @@ def test_attribute_bulk_update_with_base_data(
     assert data["results"][1]["attribute"]["name"] == attribute_2_new_name
 
 
-@patch("saleor.plugins.manager.PluginsManager.attribute_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.attribute_updated")
 def test_attribute_bulk_update_trigger_webhook(
     created_webhook_mock,
     color_attribute,
@@ -415,8 +415,8 @@ def test_attribute_bulk_update_removes_value(
     assert not data["results"][0]["errors"]
 
 
-@patch("saleor.plugins.manager.PluginsManager.attribute_updated")
-@patch("saleor.plugins.manager.PluginsManager.attribute_value_deleted")
+@patch("pmtraders.plugins.manager.PluginsManager.attribute_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.attribute_value_deleted")
 def test_attribute_bulk_update_removes_value_trigger_webhook(
     attribute_updated_webhook_mock,
     value_deleted_webhook_mock,
@@ -997,7 +997,7 @@ def test_attribute_bulk_update_reference_types(
     assert page_type_page_reference_attribute.reference_page_types.count() == 0
 
 
-@patch("saleor.graphql.attribute.mutations.mixins.REFERENCE_TYPES_LIMIT", 1)
+@patch("pmtraders.graphql.attribute.mutations.mixins.REFERENCE_TYPES_LIMIT", 1)
 def test_attribute_bulk_update_invalid_reference_types(
     staff_api_client,
     permission_manage_product_types_and_attributes,

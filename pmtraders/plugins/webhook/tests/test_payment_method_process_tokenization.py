@@ -47,7 +47,7 @@ def webhook_payment_method_process_tokenization_response():
     }
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_method_process_tokenization_with_static_payload(
     mock_request,
     customer_user,
@@ -63,14 +63,14 @@ def test_payment_method_process_tokenization_with_static_payload(
     plugin = webhook_plugin()
 
     expected_payment_method_id = "payment-method-id"
-    expected_saleor_id = to_payment_app_id(
+    expected_pmtraders_id = to_payment_app_id(
         payment_method_process_tokenization_app, expected_payment_method_id
     )
 
     expected_data = {"foo": "bar"}
     request_data = PaymentMethodProcessTokenizationRequestData(
         user=customer_user,
-        id=expected_saleor_id,
+        id=expected_pmtraders_id,
         channel=channel_USD,
         data=expected_data,
     )
@@ -108,7 +108,7 @@ def test_payment_method_process_tokenization_with_static_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_method_process_tokenization_with_subscription_payload(
     mock_request,
     customer_user,
@@ -128,7 +128,7 @@ def test_payment_method_process_tokenization_with_subscription_payload(
     plugin = webhook_plugin()
 
     expected_payment_method_id = "payment-method-id"
-    expected_saleor_id = to_payment_app_id(
+    expected_pmtraders_id = to_payment_app_id(
         payment_method_process_tokenization_app, expected_payment_method_id
     )
 
@@ -136,7 +136,7 @@ def test_payment_method_process_tokenization_with_subscription_payload(
 
     request_data = PaymentMethodProcessTokenizationRequestData(
         user=customer_user,
-        id=expected_saleor_id,
+        id=expected_pmtraders_id,
         channel=channel_USD,
         data=expected_data,
     )
@@ -174,7 +174,7 @@ def test_payment_method_process_tokenization_with_subscription_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_method_process_tokenization_missing_correct_response_from_webhook(
     mock_request,
     customer_user,
@@ -226,7 +226,7 @@ def test_payment_method_process_tokenization_missing_correct_response_from_webho
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_method_process_tokenization_failure_from_app(
     mock_request,
     customer_user,
@@ -246,14 +246,14 @@ def test_payment_method_process_tokenization_failure_from_app(
     plugin = webhook_plugin()
 
     expected_payment_method_id = "payment-method-id"
-    expected_saleor_id = to_payment_app_id(
+    expected_pmtraders_id = to_payment_app_id(
         payment_method_process_tokenization_app, expected_payment_method_id
     )
 
     expected_data = {"foo": "bar"}
     request_data = PaymentMethodProcessTokenizationRequestData(
         user=customer_user,
-        id=expected_saleor_id,
+        id=expected_pmtraders_id,
         channel=channel_USD,
         data=expected_data,
     )
@@ -288,7 +288,7 @@ def test_payment_method_process_tokenization_failure_from_app(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_method_process_tokenization_additional_action_required(
     mock_request,
     customer_user,
@@ -299,7 +299,7 @@ def test_payment_method_process_tokenization_additional_action_required(
 ):
     # given
     expected_payment_method_id = "payment-method-id"
-    expected_saleor_id = to_payment_app_id(
+    expected_pmtraders_id = to_payment_app_id(
         payment_method_process_tokenization_app, expected_payment_method_id
     )
 
@@ -315,7 +315,7 @@ def test_payment_method_process_tokenization_additional_action_required(
     expected_data = {"foo": "bar"}
     request_data = PaymentMethodProcessTokenizationRequestData(
         user=customer_user,
-        id=expected_saleor_id,
+        id=expected_pmtraders_id,
         channel=channel_USD,
         data=expected_data,
     )
@@ -359,7 +359,7 @@ def test_payment_method_process_tokenization_additional_action_required(
         PaymentMethodTokenizationResult.ADDITIONAL_ACTION_REQUIRED.name,
     ],
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_method_process_tokenization_missing_required_id(
     mock_request,
     result,
@@ -379,13 +379,13 @@ def test_payment_method_process_tokenization_missing_required_id(
     plugin = webhook_plugin()
 
     expected_payment_method_id = "payment-method-id"
-    expected_saleor_id = to_payment_app_id(
+    expected_pmtraders_id = to_payment_app_id(
         payment_method_process_tokenization_app, expected_payment_method_id
     )
     expected_data = {"foo": "bar"}
     request_data = PaymentMethodProcessTokenizationRequestData(
         user=customer_user,
-        id=expected_saleor_id,
+        id=expected_pmtraders_id,
         channel=channel_USD,
         data=expected_data,
     )
@@ -427,10 +427,10 @@ def test_payment_method_process_tokenization_missing_required_id(
         PaymentMethodTokenizationResult.PENDING,
     ],
 )
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.delete")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.delete")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_expected_result_invalidates_cache_for_app(
     mocked_request,
     mocked_cache_get,
@@ -470,14 +470,14 @@ def test_expected_result_invalidates_cache_for_app(
     plugin = webhook_plugin()
 
     expected_payment_method_id = "payment-method-id"
-    expected_saleor_id = to_payment_app_id(
+    expected_pmtraders_id = to_payment_app_id(
         payment_method_process_tokenization_app, expected_payment_method_id
     )
     expected_data = {"foo": "bar"}
 
     request_data = PaymentMethodProcessTokenizationRequestData(
         user=customer_user,
-        id=expected_saleor_id,
+        id=expected_pmtraders_id,
         channel=channel_USD,
         data=expected_data,
     )

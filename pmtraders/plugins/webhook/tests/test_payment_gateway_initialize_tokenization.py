@@ -39,7 +39,7 @@ def webhook_payment_gateway_initialize_tokenization_response():
     }
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_gateway_initialize_tokenization_with_static_payload(
     mock_request,
     customer_user,
@@ -91,7 +91,7 @@ def test_payment_gateway_initialize_tokenization_with_static_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_gateway_initialize_tokenization_with_subscription_payload(
     mock_request,
     customer_user,
@@ -148,7 +148,7 @@ def test_payment_gateway_initialize_tokenization_with_subscription_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_gateway_initialize_tokenization_missing_correct_response_from_webhook(
     mock_request,
     customer_user,
@@ -197,7 +197,7 @@ def test_payment_gateway_initialize_tokenization_missing_correct_response_from_w
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_payment_gateway_initialize_tokenization_failure_from_app(
     mock_request,
     customer_user,

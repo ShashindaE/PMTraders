@@ -5,7 +5,7 @@ from decimal import Decimal
 import razorpay
 import razorpay.errors
 
-from ....core.telemetry import saleor_attributes, tracer
+from ....core.telemetry import pmtraders_attributes, tracer
 from ... import TransactionKind
 from ...interface import GatewayConfig, GatewayResponse, PaymentData
 from . import errors
@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 def _generate_response(
     payment_information: PaymentData, kind: str, data: dict
 ) -> GatewayResponse:
-    """Generate Saleor transaction information from the payload or from passed data."""
+    """Generate pmtraders transaction information from the payload or from passed data."""
     return GatewayResponse(
         transaction_id=data.get("id", payment_information.token),  # type: ignore[arg-type]
         action_required=False,
@@ -97,7 +97,7 @@ def capture(payment_information: PaymentData, config: GatewayConfig) -> GatewayR
     if not error:
         try:
             with tracer.start_as_current_span("razorpay.payment.capture") as span:
-                span.set_attribute(saleor_attributes.COMPONENT, "payment")
+                span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
                 response = razorpay_client.payment.capture(
                     payment_information.token, razorpay_amount
                 )
@@ -139,7 +139,7 @@ def refund(payment_information: PaymentData, config: GatewayConfig) -> GatewayRe
         razorpay_amount = get_amount_for_razorpay(payment_information.amount)
         try:
             with tracer.start_as_current_span("razorpay.payment.refund") as span:
-                span.set_attribute(saleor_attributes.COMPONENT, "payment")
+                span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
                 response = razorpay_client.payment.refund(
                     payment_information.token, razorpay_amount
                 )

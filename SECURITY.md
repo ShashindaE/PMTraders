@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The following releases of Saleor are currently supported.
+The following releases of pmtraders are currently supported.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -12,8 +12,8 @@ The following releases of Saleor are currently supported.
 ## Reporting a Vulnerability
 
 Please DO NOT report security vulnerabilities using a public GitHub issue. If you believe you've found a security issue, please contact us through one of the following methods:
-- https://github.com/saleor/saleor/security/advisories
-- Through our mailing list: security@saleor.io
+- https://github.com/pmtraders/pmtraders/security/advisories
+- Through our mailing list: security@pmtraders.io
 
 We do not currently have a bounty program in place, so we cannot offer monetary rewards for any reported problems.
 

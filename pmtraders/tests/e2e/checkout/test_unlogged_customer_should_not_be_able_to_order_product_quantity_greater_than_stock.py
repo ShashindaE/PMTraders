@@ -109,7 +109,7 @@ def test_unlogged_customer_cannot_buy_product_in_quantity_grater_than_stock_core
         e2e_not_logged_api_client,
         lines,
         channel_slug,
-        email="jon.doe@saleor.io",
+        email="jon.doe@pmtraders.io",
     )
 
     errors = checkout_data["errors"]

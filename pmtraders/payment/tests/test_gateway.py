@@ -100,7 +100,7 @@ TOKEN = "token"
 USED_GATEWAY = "mirumee.payments.dummy"
 
 
-@patch("saleor.payment.gateway.update_payment")
+@patch("pmtraders.payment.gateway.update_payment")
 def test_process_payment(
     update_payment_mock, fake_payment_interface, payment_txn_preauth
 ):
@@ -150,7 +150,7 @@ def test_store_source_when_processing_payment(
     assert transaction.customer_id == PROCESS_PAYMENT_RESPONSE.customer_id
 
 
-@patch("saleor.payment.gateway.update_payment")
+@patch("pmtraders.payment.gateway.update_payment")
 def test_authorize_payment(update_payment_mock, fake_payment_interface, payment_dummy):
     PAYMENT_DATA = create_payment_information(
         payment=payment_dummy, payment_token=TOKEN
@@ -174,7 +174,7 @@ def test_authorize_payment(update_payment_mock, fake_payment_interface, payment_
     update_payment_mock.assert_called_once_with(payment_dummy, AUTHORIZE_RESPONSE)
 
 
-@patch("saleor.payment.gateway.update_payment")
+@patch("pmtraders.payment.gateway.update_payment")
 def test_capture_payment(
     update_payment_mock, fake_payment_interface, payment_txn_preauth
 ):
@@ -294,7 +294,7 @@ def test_void_payment(fake_payment_interface, payment_txn_preauth):
     assert transaction.gateway_response == RAW_RESPONSE
 
 
-@patch("saleor.payment.gateway.update_payment")
+@patch("pmtraders.payment.gateway.update_payment")
 def test_confirm_payment(
     update_payment_mock, fake_payment_interface, payment_txn_to_confirm
 ):
@@ -334,7 +334,7 @@ def test_list_gateways(fake_payment_interface):
     assert lst == gateways
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_request_charge_action_missing_active_event(
     mocked_is_active, order, staff_user
 ):
@@ -368,8 +368,8 @@ def test_request_charge_action_missing_active_event(
         )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_charge_action_on_order(
     mocked_transaction_request,
     mocked_is_active,
@@ -433,8 +433,8 @@ def test_request_charge_action_on_order(
     assert event.user == staff_user
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_charge_action_by_app(
     mocked_transaction_request,
     mocked_is_active,
@@ -497,7 +497,7 @@ def test_request_charge_action_by_app(
     assert event.app == app
 
 
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_action_by_removed_app(mocked_transaction_request, order, removed_app):
     # given
     app_identifier = "webhook.app.identifier"
@@ -533,7 +533,7 @@ def test_request_action_by_removed_app(mocked_transaction_request, order, remove
     assert not mocked_transaction_request.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_action_by_disabled_app(mocked_transaction_request, order, app):
     # given
     app_identifier = "webhook.app.identifier"
@@ -570,7 +570,7 @@ def test_request_action_by_disabled_app(mocked_transaction_request, order, app):
     assert not mocked_transaction_request.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_action_by_removed_app_and_second_active(
     mocked_transaction_request,
     order,
@@ -635,7 +635,7 @@ def test_request_action_by_removed_app_and_second_active(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_action_by_disabled_app_and_second_active(
     mocked_transaction_request, order, app, webhook_app, permission_manage_payments
 ):
@@ -697,8 +697,8 @@ def test_request_action_by_disabled_app_and_second_active(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_charge_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_charge_requested")
 def test_request_charge_action_on_checkout(
     mocked_transaction_request,
     mocked_is_active,
@@ -756,7 +756,7 @@ def test_request_charge_action_on_checkout(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_request_refund_action_missing_active_event(
     mocked_is_active, order, staff_user
 ):
@@ -790,7 +790,7 @@ def test_request_refund_action_missing_active_event(
         )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_request_refund_action_updates_refundable_for_checkout(
     mocked_is_active, staff_user, checkout, transaction_item_generator
 ):
@@ -827,8 +827,8 @@ def test_request_refund_action_updates_refundable_for_checkout(
     assert transaction.last_refund_success is False
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_request_refund_action_on_order(
     mocked_transaction_request,
     mocked_is_active,
@@ -892,8 +892,8 @@ def test_request_refund_action_on_order(
     assert event.user == staff_user
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_request_refund_action_with_granted_refund(
     mocked_transaction_request,
     mocked_is_active,
@@ -968,8 +968,8 @@ def test_request_refund_action_with_granted_refund(
     assert event.user == staff_user
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_request_refund_action_by_app(
     mocked_transaction_request,
     mocked_is_active,
@@ -1034,8 +1034,8 @@ def test_request_refund_action_by_app(
     assert not event.user
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_refund_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_refund_requested")
 def test_request_refund_action_on_checkout(
     mocked_transaction_request,
     mocked_is_active,
@@ -1093,7 +1093,7 @@ def test_request_refund_action_on_checkout(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_request_cancelation_action_missing_active_event(
     mocked_is_active, order, staff_user
 ):
@@ -1127,7 +1127,7 @@ def test_request_cancelation_action_missing_active_event(
         )
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
 def test_request_cancel_action_updates_refundable_for_checkout(
     mocked_is_active, checkout, staff_user, transaction_item_generator
 ):
@@ -1165,8 +1165,8 @@ def test_request_cancel_action_updates_refundable_for_checkout(
     assert transaction.last_refund_success is False
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_cancelation_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_cancelation_requested")
 def test_request_cancelation_action_on_order(
     mocked_transaction_request,
     mocked_is_active,
@@ -1230,8 +1230,8 @@ def test_request_cancelation_action_on_order(
     assert event.user == staff_user
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_cancelation_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_cancelation_requested")
 def test_request_cancelation_action_by_app(
     mocked_transaction_request,
     mocked_is_active,
@@ -1297,8 +1297,8 @@ def test_request_cancelation_action_by_app(
     assert not event.user
 
 
-@patch("saleor.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
-@patch("saleor.plugins.manager.PluginsManager.transaction_cancelation_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.is_event_active_for_any_plugin")
+@patch("pmtraders.plugins.manager.PluginsManager.transaction_cancelation_requested")
 def test_request_cancelation_action_on_checkout(
     mocked_transaction_request,
     mocked_is_active,
@@ -1358,8 +1358,8 @@ def test_request_cancelation_action_on_checkout(
     )
 
 
-@patch("saleor.payment.gateway.void")
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.void")
+@patch("pmtraders.payment.gateway.refund")
 def test_payment_refund_or_void_no_payment(refund_mock, void_mock):
     """Test that neither refund nor void is called when there is no payment object."""
     # when
@@ -1370,7 +1370,7 @@ def test_payment_refund_or_void_no_payment(refund_mock, void_mock):
     void_mock.assert_not_called()
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_payment_refund_or_void_refund_called(refund_mock, payment):
     """Test that refund is called when there is no matching transaction."""
     # given
@@ -1387,7 +1387,7 @@ def test_payment_refund_or_void_refund_called(refund_mock, payment):
     refund_mock.assert_called_once()
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_payment_refund_or_void_refund_not_called_refund_already_started(
     refund_mock, payment
 ):
@@ -1417,7 +1417,7 @@ def test_payment_refund_or_void_refund_not_called_refund_already_started(
     refund_mock.assert_not_called()
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_payment_refund_or_void_refund_called_txn_exist(refund_mock, payment):
     """Test that refund is called when existing transactions don't cover the captured amount."""
     # given
@@ -1448,7 +1448,7 @@ def test_payment_refund_or_void_refund_called_txn_exist(refund_mock, payment):
     refund_mock.assert_called_once()
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_payment_refund_or_void_refund_called_no_txn_with_given_transaction_id(
     refund_mock, payment
 ):
@@ -1481,7 +1481,7 @@ def test_payment_refund_or_void_refund_called_no_txn_with_given_transaction_id(
     refund_mock.assert_called_once()
 
 
-@patch("saleor.payment.gateway.void")
+@patch("pmtraders.payment.gateway.void")
 def test_payment_refund_or_void_void_called(void_mock, payment):
     """Test that void is called when there is no matching transaction."""
     # given
@@ -1498,7 +1498,7 @@ def test_payment_refund_or_void_void_called(void_mock, payment):
     void_mock.assert_called_once()
 
 
-@patch("saleor.payment.gateway.void")
+@patch("pmtraders.payment.gateway.void")
 def test_payment_refund_or_void_void_not_called_txn_exist(void_mock, payment):
     """Test that void is not called if a matching void transaction already exists."""
     # given

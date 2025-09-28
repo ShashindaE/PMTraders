@@ -11,7 +11,7 @@ from prices import TaxedMoney
 from promise.promise import Promise
 
 from ..core.models import EventDelivery
-from ..graphql.core import SaleorContext
+from ..graphql.core import pmtradersContext
 from ..payment.interface import (
     CustomerSource,
     GatewayResponse,
@@ -336,7 +336,7 @@ class BasePlugin:
     # Authenticate user which should be assigned to the request.
     #
     # Overwrite this method if the plugin handles authentication flow.
-    authenticate_user: Callable[[SaleorContext, Optional["User"]], Union["User", None]]
+    authenticate_user: Callable[[pmtradersContext, Optional["User"]], Union["User", None]]
 
     authorize_payment: Callable[["PaymentData", Any], GatewayResponse]
 
@@ -640,18 +640,18 @@ class BasePlugin:
     # Handle authentication request.
     #
     # Overwrite this method if the plugin handles authentication flow.
-    external_authentication_url: Callable[[dict, SaleorContext, dict], dict]
+    external_authentication_url: Callable[[dict, pmtradersContext, dict], dict]
 
     # Handle logout request.
     #
     # Overwrite this method if the plugin handles logout flow.
-    external_logout: Callable[[dict, SaleorContext, dict], Any]
+    external_logout: Callable[[dict, pmtradersContext, dict], Any]
 
     # Handle authentication request responsible for obtaining access tokens.
     #
     # Overwrite this method if the plugin handles authentication flow.
     external_obtain_access_tokens: Callable[
-        [dict, SaleorContext, ExternalAccessTokens], ExternalAccessTokens
+        [dict, pmtradersContext, ExternalAccessTokens], ExternalAccessTokens
     ]
 
     # Handle authentication refresh request.
@@ -659,14 +659,14 @@ class BasePlugin:
     # Overwrite this method if the plugin handles authentication flow and supports
     # refreshing the access.
     external_refresh: Callable[
-        [dict, SaleorContext, ExternalAccessTokens], ExternalAccessTokens
+        [dict, pmtradersContext, ExternalAccessTokens], ExternalAccessTokens
     ]
 
     # Verify the provided authentication data.
     #
     # Overwrite this method if the plugin should validate the authentication data.
     external_verify: Callable[
-        [dict, SaleorContext, tuple[Union["User", None], dict]],
+        [dict, pmtradersContext, tuple[Union["User", None], dict]],
         tuple[Union["User", None], dict],
     ]
 
@@ -1705,7 +1705,7 @@ class BasePlugin:
     # Handle received http request.
     #
     # Overwrite this method if the plugin expects the incoming requests.
-    webhook: Callable[[SaleorContext, str, Any], HttpResponse]
+    webhook: Callable[[pmtradersContext, str, Any], HttpResponse]
 
     # Triggers retry mechanism for event delivery
     #

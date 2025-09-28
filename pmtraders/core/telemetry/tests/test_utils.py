@@ -56,7 +56,7 @@ def test_convert_unit_unsupported_conversion_with_raising_disabled(settings):
     settings.TELEMETRY_RAISE_UNIT_CONVERSION_ERRORS = False
 
     # Test unsupported conversion (e.g., milliseconds to requests)
-    with patch("saleor.core.telemetry.utils.logger.error") as mock_error:
+    with patch("pmtraders.core.telemetry.utils.logger.error") as mock_error:
         assert convert_unit(100, Unit.MILLISECOND, Unit.REQUEST) == 100
         mock_error.assert_called_once_with(
             "Conversion from Unit.MILLISECOND to Unit.REQUEST not supported",
@@ -298,7 +298,7 @@ def test_telemetry_task_context_from_dict_skip_link_to_invalid_span():
     assert context.links == []
 
 
-@patch("saleor.core.telemetry.utils.set_global_attributes")
+@patch("pmtraders.core.telemetry.utils.set_global_attributes")
 def test_task_with_telemetry_context_decorator(mock_set_global_attrs):
     # given
     mock_func = MagicMock()
@@ -317,8 +317,8 @@ def test_task_with_telemetry_context_decorator(mock_set_global_attrs):
     )
 
 
-@patch("saleor.core.telemetry.utils.set_global_attributes")
-@patch("saleor.core.telemetry.utils.logger.warning")
+@patch("pmtraders.core.telemetry.utils.set_global_attributes")
+@patch("pmtraders.core.telemetry.utils.logger.warning")
 def test_task_with_telemetry_context_decorator_no_context(
     mock_warning, mock_set_global_attrs
 ):
@@ -335,8 +335,8 @@ def test_task_with_telemetry_context_decorator_no_context(
     mock_func.assert_called_once()
 
 
-@patch("saleor.core.telemetry.utils.set_global_attributes")
-@patch("saleor.core.telemetry.utils.logger.exception")
+@patch("pmtraders.core.telemetry.utils.set_global_attributes")
+@patch("pmtraders.core.telemetry.utils.logger.exception")
 def test_task_with_telemetry_context_decorator_invalid_links_context(
     mock_logger, mock_set_global_attrs
 ):
@@ -353,7 +353,7 @@ def test_task_with_telemetry_context_decorator_invalid_links_context(
     mock_func.assert_called_once()
 
 
-@patch("saleor.core.telemetry.utils.set_global_attributes")
+@patch("pmtraders.core.telemetry.utils.set_global_attributes")
 def test_task_with_telemetry_context_decorator_invalid_context(mock_set_global_attrs):
     # given
     mock_func = MagicMock()

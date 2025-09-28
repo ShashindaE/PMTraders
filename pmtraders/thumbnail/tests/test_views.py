@@ -258,7 +258,7 @@ def test_handle_thumbnail_view_object_does_not_exists(client):
     assert response.status_code == 404
 
 
-@patch("saleor.thumbnail.utils.magic.from_buffer")
+@patch("pmtraders.thumbnail.utils.magic.from_buffer")
 def test_handle_thumbnail_view_invalid_image_mime_type(
     from_buffer_mock, client, category_with_image
 ):

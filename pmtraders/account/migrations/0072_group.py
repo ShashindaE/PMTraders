@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import saleor.account.models
+import pmtraders.account.models
 
 
 # Forward helpers
@@ -159,7 +159,7 @@ class Migration(migrations.Migration):
                         "verbose_name_plural": "groups",
                     },
                     managers=[
-                        ("objects", saleor.account.models.GroupManager()),
+                        ("objects", pmtraders.account.models.GroupManager()),
                     ],
                 ),
             ],

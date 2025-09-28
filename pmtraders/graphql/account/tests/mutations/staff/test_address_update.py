@@ -58,8 +58,8 @@ def test_address_update_mutation(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_address_update_mutation_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -72,7 +72,7 @@ def test_address_update_mutation_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     address = customer_user.addresses.first()
     assert staff_api_client.user not in address.user_addresses.all()
@@ -101,7 +101,7 @@ def test_address_update_mutation_trigger_webhook(
     )
 
 
-@patch("saleor.graphql.account.mutations.base.prepare_user_search_document_value")
+@patch("pmtraders.graphql.account.mutations.base.prepare_user_search_document_value")
 def test_address_update_mutation_no_user_assigned(
     prepare_user_search_document_value_mock,
     staff_api_client,

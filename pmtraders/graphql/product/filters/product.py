@@ -122,7 +122,7 @@ class ProductFilter(MetadataFilterBase):
         help_text="Filter by the lowest variant price after discounts.",
     )
     attributes = ListObjectTypeFilter(
-        input_class="saleor.graphql.attribute.types.AttributeInput",
+        input_class="pmtraders.graphql.attribute.types.AttributeInput",
         method="filter_attributes",
     )
     stock_availability = EnumFilter(
@@ -293,7 +293,7 @@ class ProductWhere(MetadataWhereFilterBase):
         help_text="Filter by the lowest variant price after discounts.",
     )
     attributes = ListObjectTypeWhereFilter(
-        input_class="saleor.graphql.attribute.types.AttributeInput",
+        input_class="pmtraders.graphql.attribute.types.AttributeInput",
         method="filter_attributes",
         help_text="Filter by attributes associated with the product.",
     )

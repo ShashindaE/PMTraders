@@ -737,7 +737,7 @@ def get_valid_shipping_methods_for_order(
     database_connection_name: str = settings.DATABASE_CONNECTION_DEFAULT_NAME,
     allow_sync_webhooks: bool = True,
 ) -> list[ShippingMethodData]:
-    """Return a list of shipping methods according to Saleor's own business logic."""
+    """Return a list of shipping methods according to pmtraders's own business logic."""
     valid_methods = get_all_shipping_methods_for_order(
         order, shipping_channel_listings, database_connection_name
     )

@@ -109,7 +109,7 @@ DB_CONN_MAX_AGE = int(os.environ.get("DB_CONN_MAX_AGE", 0))
 
 DATABASE_CONNECTION_DEFAULT_NAME = "default"
 # TODO: For local envs will be activated in separate PR.
-# We need to update docs an saleor platform.
+# We need to update docs an pmtraders platform.
 # This variable should be set to `replica`
 DATABASE_CONNECTION_REPLICA_NAME = "replica"
 
@@ -123,21 +123,21 @@ else:
 DATABASES = {
     DATABASE_CONNECTION_DEFAULT_NAME: dj_database_url.config(
         env=dj_database_url.DEFAULT_ENV,
-        default="postgres://saleor:saleor@localhost:5432/saleor",
+        default="postgres://pmtraders:pmtraders@localhost:5432/pmtraders",
         conn_max_age=DB_CONN_MAX_AGE,
     ),
     DATABASE_CONNECTION_REPLICA_NAME: dj_database_url.config(
         env=DATABASE_URL_REPLICA_ENV_NAME,
-        default="postgres://saleor:saleor@localhost:5432/saleor",
-        # TODO: We need to add read only user to saleor platform,
+        default="postgres://pmtraders:pmtraders@localhost:5432/pmtraders",
+        # TODO: We need to add read only user to pmtraders platform,
         # and we need to update docs.
-        # default="postgres://saleor_read_only:saleor@localhost:5432/saleor",
+        # default="postgres://pmtraders_read_only:pmtraders@localhost:5432/pmtraders",
         conn_max_age=DB_CONN_MAX_AGE,
         test_options={"MIRROR": DATABASE_CONNECTION_DEFAULT_NAME},
     ),
 }
 
-DATABASE_ROUTERS = ["saleor.core.db_routers.PrimaryReplicaRouter"]
+DATABASE_ROUTERS = ["pmtraders.core.db_routers.PrimaryReplicaRouter"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -184,7 +184,7 @@ USER_EMAIL_USE_SSL: bool = user_email_config.get("EMAIL_USE_SSL", False)
 
 ENABLE_SSL: bool = get_bool_from_env("ENABLE_SSL", False)
 
-# URL on which Saleor is hosted (e.g., https://api.example.com/). This has precedence
+# URL on which pmtraders is hosted (e.g., https://api.example.com/). This has precedence
 # over ENABLE_SSL and Shop.domain when generating URLs pointing to itself.
 PUBLIC_URL: str | None = get_url_from_env("PUBLIC_URL", schemes=["http", "https"])
 if PUBLIC_URL:
@@ -208,7 +208,7 @@ MEDIA_URL: str = os.environ.get("MEDIA_URL", "/media/")
 STATIC_ROOT: str = os.path.join(PROJECT_ROOT, "static")
 STATIC_URL: str = os.environ.get("STATIC_URL", "/static/")
 STATICFILES_DIRS = [
-    ("images", os.path.join(PROJECT_ROOT, "saleor", "static", "images"))
+    ("images", os.path.join(PROJECT_ROOT, "pmtraders", "static", "images"))
 ]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -219,7 +219,7 @@ context_processors = [
     "django.template.context_processors.debug",
     "django.template.context_processors.media",
     "django.template.context_processors.static",
-    "saleor.site.context_processors.site",
+    "pmtraders.site.context_processors.site",
 ]
 
 loaders = [
@@ -244,13 +244,13 @@ TEMPLATES = [
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# Additional password algorithms that can be used by Saleor.
+# Additional password algorithms that can be used by pmtraders.
 # The first algorithm defined by Django is the preferred one; users not using the
 # first algorithm will automatically be upgraded to it upon login
 PASSWORD_HASHERS = [
     *global_settings.PASSWORD_HASHERS,
     "django.contrib.auth.hashers.BCryptPasswordHasher",
-    "saleor.core.hashers.SHA512Base64PBKDF2PasswordHasher",
+    "pmtraders.core.hashers.SHA512Base64PBKDF2PasswordHasher",
 ]
 
 if not SECRET_KEY and DEBUG:
@@ -262,23 +262,23 @@ if not SECRET_KEY and DEBUG:
 RSA_PRIVATE_KEY = os.environ.get("RSA_PRIVATE_KEY", None)
 RSA_PRIVATE_PASSWORD = os.environ.get("RSA_PRIVATE_PASSWORD", None)
 JWT_MANAGER_PATH = os.environ.get(
-    "JWT_MANAGER_PATH", "saleor.core.jwt_manager.JWTManager"
+    "JWT_MANAGER_PATH", "pmtraders.core.jwt_manager.JWTManager"
 )
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "saleor.core.middleware.jwt_refresh_token_middleware",
+    "pmtraders.core.middleware.jwt_refresh_token_middleware",
 ]
 
 ENABLE_RESTRICT_WRITER_MIDDLEWARE = get_bool_from_env(
     "ENABLE_RESTRICT_WRITER_MIDDLEWARE", False
 )
 if ENABLE_RESTRICT_WRITER_MIDDLEWARE:
-    MIDDLEWARE = ["saleor.core.db.connection.log_writer_usage_middleware"] + MIDDLEWARE
+    MIDDLEWARE = ["pmtraders.core.db.connection.log_writer_usage_middleware"] + MIDDLEWARE
 
 # Restrict inexplicit writer DB usage in Celery tasks
-CELERY_RESTRICT_WRITER_METHOD = "saleor.core.db.connection.log_writer_usage"
+CELERY_RESTRICT_WRITER_METHOD = "pmtraders.core.db.connection.log_writer_usage"
 
 INSTALLED_APPS = [
     # External apps that need to go before django's
@@ -442,8 +442,8 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
-        "saleor": {"level": "DEBUG", "propagate": True},
-        "saleor.graphql.errors.handled": {
+        "pmtraders": {"level": "DEBUG", "propagate": True},
+        "pmtraders.graphql.errors.handled": {
             "handlers": ["default"],
             "level": "INFO",
             "propagate": False,
@@ -491,7 +491,7 @@ COUNTRIES_OVERRIDE = {
 
 MAX_USER_ADDRESSES = int(os.environ.get("MAX_USER_ADDRESSES", 100))
 
-TEST_RUNNER = "saleor.tests.runner.PytestTestRunner"
+TEST_RUNNER = "pmtraders.tests.runner.PytestTestRunner"
 
 
 PLAYGROUND_ENABLED = get_bool_from_env("PLAYGROUND_ENABLED", True)
@@ -563,19 +563,19 @@ elif GS_BUCKET_NAME:
     STORAGES["staticfiles"] = {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
 
 if AWS_MEDIA_BUCKET_NAME:
-    STORAGES["default"] = {"BACKEND": "saleor.core.storages.S3MediaStorage"}
+    STORAGES["default"] = {"BACKEND": "pmtraders.core.storages.S3MediaStorage"}
 elif GS_MEDIA_BUCKET_NAME:
-    STORAGES["default"] = {"BACKEND": "saleor.core.storages.GCSMediaStorage"}
+    STORAGES["default"] = {"BACKEND": "pmtraders.core.storages.GCSMediaStorage"}
 elif AZURE_CONTAINER:
-    STORAGES["default"] = {"BACKEND": "saleor.core.storages.AzureMediaStorage"}
+    STORAGES["default"] = {"BACKEND": "pmtraders.core.storages.AzureMediaStorage"}
 
 PRIVATE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 if AWS_MEDIA_PRIVATE_BUCKET_NAME:
-    PRIVATE_FILE_STORAGE = "saleor.core.storages.S3MediaPrivateStorage"
+    PRIVATE_FILE_STORAGE = "pmtraders.core.storages.S3MediaPrivateStorage"
 elif GS_MEDIA_PRIVATE_BUCKET_NAME:
-    PRIVATE_FILE_STORAGE = "saleor.core.storages.GCSMediaPrivateStorage"
+    PRIVATE_FILE_STORAGE = "pmtraders.core.storages.GCSMediaPrivateStorage"
 elif AZURE_CONTAINER_PRIVATE:
-    PRIVATE_FILE_STORAGE = "saleor.core.storages.AzureMediaPrivateStorage"
+    PRIVATE_FILE_STORAGE = "pmtraders.core.storages.AzureMediaPrivateStorage"
 
 PLACEHOLDER_IMAGES = {
     32: "images/placeholder32.png",
@@ -590,8 +590,8 @@ PLACEHOLDER_IMAGES = {
 
 
 AUTHENTICATION_BACKENDS = [
-    "saleor.core.auth_backend.JSONWebTokenBackend",
-    "saleor.core.auth_backend.PluginBackend",
+    "pmtraders.core.auth_backend.JSONWebTokenBackend",
+    "pmtraders.core.auth_backend.PluginBackend",
 ]
 
 # Expired checkouts settings - defines after what time checkouts will be deleted
@@ -646,80 +646,80 @@ BEAT_PRICE_RECALCULATION_SCHEDULE_EXPIRE_AFTER_SEC = BEAT_PRICE_RECALCULATION_SC
 # Note: if a Celery task triggered by a Celery beat entry has an expiration
 # @task(expires=...), the Celery beat scheduler entry should also define
 # the expiration value. This makes sure if the task or scheduling is wrapped
-# by custom code (e.g., a Saleor fork), the expiration is still present.
+# by custom code (e.g., a pmtraders fork), the expiration is still present.
 CELERY_BEAT_SCHEDULE = {
     "delete-empty-allocations": {
-        "task": "saleor.warehouse.tasks.delete_empty_allocations_task",
+        "task": "pmtraders.warehouse.tasks.delete_empty_allocations_task",
         "schedule": datetime.timedelta(days=1),
     },
     "deactivate-preorder-for-variants": {
-        "task": "saleor.product.tasks.deactivate_preorder_for_variants_task",
+        "task": "pmtraders.product.tasks.deactivate_preorder_for_variants_task",
         "schedule": datetime.timedelta(hours=1),
     },
     "delete-expired-reservations": {
-        "task": "saleor.warehouse.tasks.delete_expired_reservations_task",
+        "task": "pmtraders.warehouse.tasks.delete_expired_reservations_task",
         "schedule": datetime.timedelta(days=1),
     },
     "delete-expired-checkouts": {
-        "task": "saleor.checkout.tasks.delete_expired_checkouts",
+        "task": "pmtraders.checkout.tasks.delete_expired_checkouts",
         "schedule": crontab(hour=0, minute=0),
     },
     "delete_expired_orders": {
-        "task": "saleor.order.tasks.delete_expired_orders_task",
+        "task": "pmtraders.order.tasks.delete_expired_orders_task",
         "schedule": crontab(hour=2, minute=0),
     },
     "delete-outdated-event-data": {
-        "task": "saleor.core.tasks.delete_event_payloads_task",
+        "task": "pmtraders.core.tasks.delete_event_payloads_task",
         "schedule": datetime.timedelta(days=1),
     },
     "deactivate-expired-gift-cards": {
-        "task": "saleor.giftcard.tasks.deactivate_expired_cards_task",
+        "task": "pmtraders.giftcard.tasks.deactivate_expired_cards_task",
         "schedule": crontab(hour=0, minute=0),
     },
     "update-stocks-quantity-allocated": {
-        "task": "saleor.warehouse.tasks.update_stocks_quantity_allocated_task",
+        "task": "pmtraders.warehouse.tasks.update_stocks_quantity_allocated_task",
         "schedule": crontab(hour=0, minute=0),
     },
     "delete-old-export-files": {
-        "task": "saleor.csv.tasks.delete_old_export_files",
+        "task": "pmtraders.csv.tasks.delete_old_export_files",
         "schedule": crontab(hour=1, minute=0),
     },
     "handle-promotion-toggle": {
-        "task": "saleor.discount.tasks.handle_promotion_toggle",
+        "task": "pmtraders.discount.tasks.handle_promotion_toggle",
         "schedule": initiated_promotion_webhook_schedule,
     },
     "update-products-search-vectors": {
-        "task": "saleor.product.tasks.update_products_search_vector_task",
+        "task": "pmtraders.product.tasks.update_products_search_vector_task",
         "schedule": datetime.timedelta(seconds=BEAT_UPDATE_SEARCH_SEC),
         "options": {"expires": BEAT_UPDATE_SEARCH_EXPIRE_AFTER_SEC},
     },
     "update-gift-cards-search-vectors": {
-        "task": "saleor.giftcard.tasks.update_gift_cards_search_vector_task",
+        "task": "pmtraders.giftcard.tasks.update_gift_cards_search_vector_task",
         "schedule": datetime.timedelta(seconds=BEAT_UPDATE_SEARCH_SEC),
         "options": {"expires": BEAT_UPDATE_SEARCH_EXPIRE_AFTER_SEC},
     },
     "expire-orders": {
-        "task": "saleor.order.tasks.expire_orders_task",
+        "task": "pmtraders.order.tasks.expire_orders_task",
         "schedule": BEAT_EXPIRE_ORDERS_AFTER_TIMEDELTA,
     },
     "remove-apps-marked-as-removed": {
-        "task": "saleor.app.tasks.remove_apps_task",
+        "task": "pmtraders.app.tasks.remove_apps_task",
         "schedule": crontab(hour=3, minute=0),
     },
     "release-funds-for-abandoned-checkouts": {
-        "task": "saleor.payment.tasks.transaction_release_funds_for_checkout_task",
+        "task": "pmtraders.payment.tasks.transaction_release_funds_for_checkout_task",
         "schedule": datetime.timedelta(minutes=10),
     },
     "recalculate-promotion-rules": {
         "task": (
-            "saleor.product.tasks"
+            "pmtraders.product.tasks"
             ".update_variant_relations_for_active_promotion_rules_task"
         ),
         "schedule": datetime.timedelta(seconds=BEAT_PRICE_RECALCULATION_SCHEDULE),
         "options": {"expires": BEAT_PRICE_RECALCULATION_SCHEDULE_EXPIRE_AFTER_SEC},
     },
     "recalculate-discounted-price-for-products": {
-        "task": "saleor.product.tasks.recalculate_discounted_price_for_products_task",
+        "task": "pmtraders.product.tasks.recalculate_discounted_price_for_products_task",
         "schedule": datetime.timedelta(seconds=BEAT_PRICE_RECALCULATION_SCHEDULE),
         "options": {"expires": BEAT_PRICE_RECALCULATION_SCHEDULE_EXPIRE_AFTER_SEC},
     },
@@ -741,7 +741,7 @@ EVENT_DELIVERY_ATTEMPT_RESPONSE_SIZE_LIMIT = int(
 )
 # Time between marking app "to remove" and removing the app from the database.
 # App is not visible for the user after removing, but it still exists in the database.
-# Saleor needs time to process sending `APP_DELETED` webhook and possible retrying,
+# pmtraders needs time to process sending `APP_DELETED` webhook and possible retrying,
 # so we need to wait for some time before removing the App from the database.
 DELETE_APP_TTL = datetime.timedelta(
     seconds=parse(os.environ.get("DELETE_APP_TTL", "1 day"))
@@ -771,7 +771,7 @@ OBSERVABILITY_BUFFER_TIMEOUT = datetime.timedelta(
 )
 if OBSERVABILITY_ACTIVE:
     CELERY_BEAT_SCHEDULE["observability-reporter"] = {
-        "task": "saleor.webhook.transport.asynchronous.transport.observability_reporter_task",
+        "task": "pmtraders.webhook.transport.asynchronous.transport.observability_reporter_task",
         "schedule": OBSERVABILITY_REPORT_PERIOD,
         "options": {"expires": OBSERVABILITY_REPORT_PERIOD.total_seconds()},
     }
@@ -811,8 +811,8 @@ def SENTRY_INIT(dsn: str, sentry_opts: dict):
     overriden in separate settings file.
     """
 
-    SALEOR_DENYLIST = DEFAULT_DENYLIST + ["private_metadata"]
-    SALEOR_PII_DENYLIST = DEFAULT_PII_DENYLIST + [
+    pmtraders_DENYLIST = DEFAULT_DENYLIST + ["private_metadata"]
+    pmtraders_PII_DENYLIST = DEFAULT_PII_DENYLIST + [
         "first_name",
         "last_name",
         "email",
@@ -828,7 +828,7 @@ def SENTRY_INIT(dsn: str, sentry_opts: dict):
         release=__version__,
         send_default_pii=False,
         event_scrubber=EventScrubber(
-            denylist=SALEOR_DENYLIST, pii_denylist=SALEOR_PII_DENYLIST
+            denylist=pmtraders_DENYLIST, pii_denylist=pmtraders_PII_DENYLIST
         ),
         **sentry_opts,
     )
@@ -850,7 +850,7 @@ GRAPHQL_QUERY_MAX_COMPLEXITY = int(
 # Set FEDERATED_QUERY_MAX_ENTITIES=0 in env to disable (not recommended)
 FEDERATED_QUERY_MAX_ENTITIES = int(os.environ.get("FEDERATED_QUERY_MAX_ENTITIES", 100))
 
-# Temporarily disable plugins during migration - they contain many internal saleor imports
+# Temporarily disable plugins during migration - they contain many internal pmtraders imports
 BUILTIN_PLUGINS = [
     # "pmtraders.plugins.avatax.plugin.DeprecatedAvataxPlugin",
     # "pmtraders.plugins.webhook.plugin.WebhookPlugin",
@@ -1062,8 +1062,8 @@ warnings.filterwarnings("ignore", category=CacheKeyWarning)
 # Breaker board configuration
 BREAKER_BOARD_ENABLED = get_bool_from_env("BREAKER_BOARD_ENABLED", False)
 # Storage class string for the breaker board, for example:
-# "saleor.webhook.circuit_breaker.storage.RedisStorage"
-BREAKER_BOARD_STORAGE_CLASS = "saleor.webhook.circuit_breaker.storage.RedisStorage"
+# "pmtraders.webhook.circuit_breaker.storage.RedisStorage"
+BREAKER_BOARD_STORAGE_CLASS = "pmtraders.webhook.circuit_breaker.storage.RedisStorage"
 if BREAKER_BOARD_ENABLED and (CACHE_URL is None or not CACHE_URL.startswith("redis")):
     raise ImproperlyConfigured(
         "Redis storage cannot be used when Redis cache is not configured."
@@ -1078,8 +1078,8 @@ BREAKER_BOARD_DRY_RUN_SYNC_EVENTS = get_list(
     os.environ.get("BREAKER_BOARD_DRY_RUN_SYNC_EVENTS", "")
 )
 
-TELEMETRY_TRACER_CLASS = "saleor.core.telemetry.trace.Tracer"
-TELEMETRY_METER_CLASS = "saleor.core.telemetry.metric.Meter"
+TELEMETRY_TRACER_CLASS = "pmtraders.core.telemetry.trace.Tracer"
+TELEMETRY_METER_CLASS = "pmtraders.core.telemetry.metric.Meter"
 # Whether to raise or log exceptions for telemetry unit conversion errors
 # Disabled by default to prevent disruptions caused by unexpected unit conversion issues
 TELEMETRY_RAISE_UNIT_CONVERSION_ERRORS = False

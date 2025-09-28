@@ -4,7 +4,7 @@ from django.apps import apps as registry
 from django.db import migrations
 from django.db.models.signals import post_migrate
 
-from .tasks.saleor3_22 import populate_user_number_of_orders_task
+from .tasks.pmtraders3_22 import populate_user_number_of_orders_task
 
 
 def populate_user_number_of_orders(apps, _schema_editor):

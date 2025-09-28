@@ -96,7 +96,7 @@ ORDER_LINE_UPDATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_line_update_with_out_of_stock_webhook_for_two_lines_success_scenario(
     out_of_stock_mock,
     order_with_lines,
@@ -128,7 +128,7 @@ def test_order_line_update_with_out_of_stock_webhook_for_two_lines_success_scena
     out_of_stock_mock.assert_called_with(Stock.objects.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_line_update_with_out_of_stock_webhook_success_scenario(
     out_of_stock_mock,
     order_with_lines,
@@ -151,7 +151,7 @@ def test_order_line_update_with_out_of_stock_webhook_success_scenario(
     out_of_stock_mock.assert_called_once_with(Stock.objects.first())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_order_line_update_with_back_in_stock_webhook_fail_scenario(
     product_variant_back_in_stock_webhook_mock,
     order_with_lines,
@@ -174,7 +174,7 @@ def test_order_line_update_with_back_in_stock_webhook_fail_scenario(
     product_variant_back_in_stock_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_order_line_update_with_back_in_stock_webhook_called_once_success_scenario(
     back_in_stock_mock,
     order_with_lines,
@@ -200,7 +200,7 @@ def test_order_line_update_with_back_in_stock_webhook_called_once_success_scenar
     back_in_stock_mock.assert_called_once_with(first_allocated.stock)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_order_line_update_with_back_in_stock_webhook_called_twice_success_scenario(
     product_variant_back_in_stock_webhook_mock,
     order_with_lines,
@@ -233,8 +233,8 @@ def test_order_line_update_with_back_in_stock_webhook_called_twice_success_scena
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_update(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -293,8 +293,8 @@ def test_order_line_update(
     assert data["errors"][0]["field"] == "quantity"
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_update_no_allocation(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -370,8 +370,8 @@ def test_order_line_update_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_update_by_app(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -472,8 +472,8 @@ def test_order_line_update_without_sku(
     assert data["errors"][0]["field"] == "quantity"
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_invalid_order_when_updating_lines(
     order_update_webhook_mock,
     draft_order_update_webhook_mock,
@@ -632,14 +632,14 @@ def test_order_line_update_gift_promotion(
     ],
 )
 @patch(
-    "saleor.graphql.order.mutations.utils.call_order_event",
+    "pmtraders.graphql.order.mutations.utils.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_line_update_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -686,7 +686,7 @@ def test_order_line_update_triggers_webhooks(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

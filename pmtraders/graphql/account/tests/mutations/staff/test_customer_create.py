@@ -84,10 +84,10 @@ CUSTOMER_CREATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_metadata_updated")
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.plugins.manager.PluginsManager.account_set_password_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_metadata_updated")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.account_set_password_requested")
 def test_customer_create(
     mocked_account_set_password_requested,
     mocked_notify,
@@ -202,10 +202,10 @@ def test_customer_create(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.customer_metadata_updated")
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.plugins.manager.PluginsManager.account_set_password_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.customer_metadata_updated")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.account_set_password_requested")
 def test_customer_create_as_app(
     mocked_account_set_password_requested,
     mocked_notify,
@@ -325,8 +325,8 @@ def test_customer_create_as_app(
     )
 
 
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_customer_create_send_password_with_url(
     mocked_notify,
     mocked_generator,
@@ -513,8 +513,8 @@ def test_customer_create_with_non_unique_external_reference(
     assert error["message"] == "User with this External reference already exists."
 
 
-@patch("saleor.account.notifications.token_generator.make_token")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.account.notifications.token_generator.make_token")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_customer_create_webhook_event_triggered(
     mocked_trigger_webhooks_async,
     mocked_generator,
@@ -527,7 +527,7 @@ def test_customer_create_webhook_event_triggered(
     permission_manage_users,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     mocked_generator.return_value = "token"
     email = "api_user@example.com"
     address_data = convert_dict_keys_to_camel_case(address.as_data())
@@ -590,7 +590,7 @@ def test_customer_create_race_condition(
         User.objects.create(email=email_to_create)
 
     with race_condition.RunBefore(
-        "saleor.graphql.account.mutations.staff.customer_create.CustomerCreate._save",
+        "pmtraders.graphql.account.mutations.staff.customer_create.CustomerCreate._save",
         create_existing_customer,
     ):
         response = staff_api_client.post_graphql(

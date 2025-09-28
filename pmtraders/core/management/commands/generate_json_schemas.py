@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from ....webhook.response_schemas import COMBINED_SCHEMAS_TO_EXPORT, SCHEMAS_TO_EXPORT
 
-SCHEMA_OUTPUT_DIR = "saleor/json_schemas"
+SCHEMA_OUTPUT_DIR = "pmtraders/json_schemas"
 
 
 class Command(BaseCommand):

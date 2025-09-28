@@ -42,7 +42,7 @@ def test_should_login_before_email_confirmation_core_1510(
     )
     channel_slug = shop_data[0]["slug"]
 
-    test_email = "user@saleor.io"
+    test_email = "user@pmtraders.io"
     test_password = "Password!"
     redirect_url = "https://www.example.com"
 

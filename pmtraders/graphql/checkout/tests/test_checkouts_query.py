@@ -67,7 +67,7 @@ query CheckoutsQuery {
 """
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_query_checkouts_do_not_trigger_external_shipping_webhook_with_flat_rates(
     mocked_request,
     staff_api_client,
@@ -84,7 +84,7 @@ def test_query_checkouts_do_not_trigger_external_shipping_webhook_with_flat_rate
         in webhook.events.all().values_list("event_type", flat=True)
     )
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     checkout = checkout_with_delivery_method_for_external_shipping
     checkout.price_expiration = timezone.now()
     checkout.undiscounted_base_shipping_price_amount = Decimal(100)
@@ -123,7 +123,7 @@ def test_query_checkouts_do_not_trigger_external_shipping_webhook_with_flat_rate
     mocked_request.assert_not_called()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_query_checkouts_do_not_trigger_external_shipping_webhook_with_tax_app(
     mocked_request,
     staff_api_client,
@@ -140,7 +140,7 @@ def test_query_checkouts_do_not_trigger_external_shipping_webhook_with_tax_app(
         in webhook.events.all().values_list("event_type", flat=True)
     )
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     checkout = checkout_with_delivery_method_for_external_shipping
     checkout.price_expiration = timezone.now()
     checkout.undiscounted_base_shipping_price_amount = Decimal(100)
@@ -179,7 +179,7 @@ def test_query_checkouts_do_not_trigger_external_shipping_webhook_with_tax_app(
     mocked_request.assert_not_called()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_query_checkouts_do_not_trigger_exclude_shipping_webhooks_with_flat_rates(
     mocked_request,
     staff_api_client,
@@ -195,7 +195,7 @@ def test_query_checkouts_do_not_trigger_exclude_shipping_webhooks_with_flat_rate
         event_type=WebhookEventSyncType.CHECKOUT_FILTER_SHIPPING_METHODS
     )
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     checkout = checkout_with_delivery_method_for_external_shipping
     checkout.price_expiration = timezone.now()
     checkout.undiscounted_base_shipping_price_amount = Decimal(100)
@@ -234,7 +234,7 @@ def test_query_checkouts_do_not_trigger_exclude_shipping_webhooks_with_flat_rate
     mocked_request.assert_not_called()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_query_checkouts_do_not_trigger_exclude_shipping_webhooks_with_tax_app(
     mocked_request,
     staff_api_client,
@@ -250,7 +250,7 @@ def test_query_checkouts_do_not_trigger_exclude_shipping_webhooks_with_tax_app(
         event_type=WebhookEventSyncType.CHECKOUT_FILTER_SHIPPING_METHODS
     )
 
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     checkout = checkout_with_delivery_method_for_external_shipping
     checkout.price_expiration = timezone.now()
     checkout.undiscounted_base_shipping_price_amount = Decimal(100)

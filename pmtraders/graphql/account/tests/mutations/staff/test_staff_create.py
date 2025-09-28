@@ -63,7 +63,7 @@ STAFF_CREATE_MUTATION = """
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_staff_create(
     mocked_notify,
     staff_api_client,
@@ -144,7 +144,7 @@ def test_staff_create(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_promote_customer_to_staff_user(
     mocked_notify,
     staff_api_client,
@@ -199,8 +199,8 @@ def test_promote_customer_to_staff_user(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_staff_create_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -215,7 +215,7 @@ def test_staff_create_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     staff_user.user_permissions.add(permission_manage_users)
     email = "api_user@example.com"
@@ -293,7 +293,7 @@ def test_staff_create_app_no_permission(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_staff_create_out_of_scope_group(
     mocked_notify,
     staff_api_client,
@@ -398,7 +398,7 @@ def test_staff_create_out_of_scope_group(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_staff_create_send_password_with_url(
     mocked_notify, staff_api_client, media_root, permission_manage_staff, site_settings
 ):

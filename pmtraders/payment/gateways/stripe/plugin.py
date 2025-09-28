@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.http.request import split_domain_port
 
 from ....core.utils import get_domain
-from ....graphql.core import SaleorContext
+from ....graphql.core import pmtradersContext
 from ....graphql.core.enums import PluginErrorCode
 from ....plugins.base_plugin import BasePlugin, ConfigurationTypeField
 from ... import PaymentError, TransactionKind
@@ -80,7 +80,7 @@ class StripeGatewayPlugin(BasePlugin):
         },
         "automatic_payment_capture": {
             "type": ConfigurationTypeField.BOOLEAN,
-            "help_text": "Determines if Saleor should automatically capture payments.",
+            "help_text": "Determines if pmtraders should automatically capture payments.",
             "label": "Automatic payment capture",
         },
         "supported_currencies": {
@@ -129,7 +129,7 @@ class StripeGatewayPlugin(BasePlugin):
         )
 
     def webhook(
-        self, request: SaleorContext, path: str, previous_value
+        self, request: pmtradersContext, path: str, previous_value
     ) -> HttpResponse:
         config = self.config
         if not self.channel:
@@ -205,7 +205,7 @@ class StripeGatewayPlugin(BasePlugin):
         payment_method_id = data.get("payment_method_id") if data else None
 
         setup_future_usage = None
-        # DEPRECATED: reuse_source will be removed in Saleor 4.0
+        # DEPRECATED: reuse_source will be removed in pmtraders 4.0
         if payment_information.reuse_source:
             setup_future_usage = data.get("setup_future_usage") if data else None
 

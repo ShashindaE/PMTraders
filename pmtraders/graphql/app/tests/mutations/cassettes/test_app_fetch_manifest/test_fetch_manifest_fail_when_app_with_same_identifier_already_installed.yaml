@@ -8,17 +8,17 @@ interactions:
       - identity
       Connection:
       - keep-alive
-      Saleor-Schema-Version:
+      pmtraders-Schema-Version:
       - '3.19'
       User-Agent:
-      - Saleor/3.19
+      - pmtraders/3.19
     method: GET
     uri: http://localhost:3000/api/manifest
   response:
     body:
-      string: '{"about":"App connects with Avatax to dynamically calculate taxes","appUrl":"http://localhost:3000","author":"Saleor
-        Commerce","brand":{"logo":{"default":"http://localhost:3000/logo.png"}},"dataPrivacyUrl":"https://saleor.io/legal/privacy/","extensions":[],"homepageUrl":"https://github.com/saleor/apps","id":"saleor.app.avatax","name":"Avatax","permissions":["HANDLE_TAXES","MANAGE_ORDERS"],"requiredSaleorVersion":">=3.18
-        <4","supportUrl":"https://github.com/saleor/apps/discussions","tokenTargetUrl":"http://localhost:3000/api/register","version":"1.5.2","webhooks":[{"query":"subscription
+      string: '{"about":"App connects with Avatax to dynamically calculate taxes","appUrl":"http://localhost:3000","author":"pmtraders
+        Commerce","brand":{"logo":{"default":"http://localhost:3000/logo.png"}},"dataPrivacyUrl":"https://pmtraders.io/legal/privacy/","extensions":[],"homepageUrl":"https://github.com/pmtraders/apps","id":"pmtraders.app.avatax","name":"Avatax","permissions":["HANDLE_TAXES","MANAGE_ORDERS"],"requiredpmtradersVersion":">=3.18
+        <4","supportUrl":"https://github.com/pmtraders/apps/discussions","tokenTargetUrl":"http://localhost:3000/api/register","version":"1.5.2","webhooks":[{"query":"subscription
         CalculateTaxes { event { ...CalculateTaxesEvent }}fragment CalculateTaxesEvent
         on Event { __typename ...WebhookMetadata ... on CalculateTaxes { taxBase {
         ...TaxBase } recipient { privateMetadata { key value } } }}fragment WebhookMetadata

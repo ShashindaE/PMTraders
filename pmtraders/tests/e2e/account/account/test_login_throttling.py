@@ -20,8 +20,8 @@ from ..utils import account_register, raw_token_create
 
 @pytest.mark.e2e
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.account.throttling.get_client_ip")
-@patch("saleor.account.throttling.cache")
+@patch("pmtraders.account.throttling.get_client_ip")
+@patch("pmtraders.account.throttling.cache")
 def test_customer_should_not_be_able_to_perform_credential_guessing_attacks_core_1519(
     mocked_cache,
     mocked_get_ip,
@@ -62,7 +62,7 @@ def test_customer_should_not_be_able_to_perform_credential_guessing_attacks_core
         },
     )
     channel_slug = shop_data[0]["slug"]
-    user_email = "user1@saleor.io"
+    user_email = "user1@pmtraders.io"
     user_password = "Test1234!"
 
     ip = "123.123.123.123"

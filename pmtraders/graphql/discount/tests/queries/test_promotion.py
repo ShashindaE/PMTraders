@@ -216,7 +216,7 @@ def test_query_order_promotion_with_gift_rule(
 
 
 @patch(
-    "saleor.graphql.discount.types.promotions.GiftsByPromotionRuleIDLoader.batch_load"
+    "pmtraders.graphql.discount.types.promotions.GiftsByPromotionRuleIDLoader.batch_load"
 )
 def test_query_order_promotion_with_gift_rule_variant_removed_in_meantime(
     mock_batch_load,

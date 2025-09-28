@@ -15,9 +15,9 @@ from ...utils import WebhookResponse
 from ..transport import _send_webhook_request_sync
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_using_http")
-@patch("saleor.webhook.transport.synchronous.transport.webhooks_otel_trace")
-@patch("saleor.webhook.transport.synchronous.transport.attempt_update")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_using_http")
+@patch("pmtraders.webhook.transport.synchronous.transport.webhooks_otel_trace")
+@patch("pmtraders.webhook.transport.synchronous.transport.attempt_update")
 def test_send_webhook_request_sync_set_span_status_failed_invalid_json(
     mock_attempt_update,
     mock_webhooks_otel_trace,
@@ -44,9 +44,9 @@ def test_send_webhook_request_sync_set_span_status_failed_invalid_json(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_using_http")
-@patch("saleor.webhook.transport.synchronous.transport.webhooks_otel_trace")
-@patch("saleor.webhook.transport.synchronous.transport.attempt_update")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_using_http")
+@patch("pmtraders.webhook.transport.synchronous.transport.webhooks_otel_trace")
+@patch("pmtraders.webhook.transport.synchronous.transport.attempt_update")
 def test_send_webhook_request_sync_set_span_status_failed_error_response(
     mock_attempt_update,
     mock_webhooks_otel_trace,
@@ -73,7 +73,7 @@ def test_send_webhook_request_sync_set_span_status_failed_error_response(
     )
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_using_http")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_using_http")
 def test_send_webhook_request_sync_record_external_request(
     mock_send_webhook_using_http,
     webhook_response,
@@ -119,7 +119,7 @@ def test_send_webhook_request_sync_record_external_request(
     assert external_request_content_length.sum == payload_size
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_using_http")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_using_http")
 def test_send_webhook_request_sync_record_external_request_when_delivery_attempt_failed(
     mock_send_webhook_using_http,
     webhook_response_failed,
@@ -166,7 +166,7 @@ def test_send_webhook_request_sync_record_external_request_when_delivery_attempt
     assert external_request_content_length.sum == payload_size
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_using_http")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_using_http")
 def test_send_webhook_request_sync_record_external_request_with_invalid_json_response(
     mock_send_webhook_using_http,
     webhook_response,

@@ -13,7 +13,7 @@ from ....checkout.complete_checkout import complete_checkout
 from ....checkout.fetch import fetch_checkout_info, fetch_checkout_lines
 from ....checkout.models import Checkout
 from ....core.transactions import transaction_with_commit_on_errors
-from ....graphql.core import SaleorContext
+from ....graphql.core import pmtradersContext
 from ....order.actions import order_charged, order_refunded, order_voided
 from ....order.fetch import fetch_order_info
 from ....order.models import Order
@@ -49,7 +49,7 @@ logger = logging.getLogger(__name__)
 
 @transaction_with_commit_on_errors()
 def handle_webhook(
-    request: SaleorContext, gateway_config: "GatewayConfig", channel_slug: str
+    request: pmtradersContext, gateway_config: "GatewayConfig", channel_slug: str
 ):
     payload = request.body
     sig_header = request.headers["stripe-signature"]
@@ -57,9 +57,9 @@ def handle_webhook(
     endpoint_secret = gateway_config.connection_params.get("webhook_secret")
 
     if not endpoint_secret:
-        logger.warning("Missing webhook secret on Saleor side.")
+        logger.warning("Missing webhook secret on pmtraders side.")
         response = HttpResponse(status=500)
-        response.content = "Missing webhook secret on Saleor side."
+        response.content = "Missing webhook secret on pmtraders side."
         return response
 
     try:

@@ -177,8 +177,8 @@ mutation createVariant($input: ProductVariantCreateInput!) {
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_create_variant_with_name(
     updated_webhook_mock,
     created_webhook_mock,
@@ -261,8 +261,8 @@ def test_create_variant_with_name(
         assert rule.variants_dirty
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_create_variant_without_name(
     updated_webhook_mock,
     created_webhook_mock,
@@ -379,8 +379,8 @@ def test_create_variant_empty_product_id(
     assert error["code"] == ProductErrorCode.INVALID.name
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_create_variant_preorder(
     updated_webhook_mock,
     created_webhook_mock,
@@ -431,8 +431,8 @@ def test_create_variant_preorder(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_create_variant_no_required_attributes(
     updated_webhook_mock,
     created_webhook_mock,
@@ -487,7 +487,7 @@ def test_create_variant_no_required_attributes(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_file_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -561,7 +561,7 @@ def test_create_variant_with_file_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_boolean_attribute(
     created_webhook_mock,
     permission_manage_products,
@@ -635,7 +635,7 @@ def test_create_variant_with_boolean_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_file_attribute_new_value(
     created_webhook_mock,
     staff_api_client,
@@ -708,7 +708,7 @@ def test_create_variant_with_file_attribute_new_value(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_file_attribute_no_file_url_given(
     created_webhook_mock,
     staff_api_client,
@@ -777,7 +777,7 @@ def test_create_variant_with_file_attribute_no_file_url_given(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_page_reference_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -877,8 +877,8 @@ def test_create_variant_with_page_reference_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_page_reference_attribute_no_references_given(
     created_webhook_mock,
     updated_webhook_mock,
@@ -942,7 +942,7 @@ def test_create_variant_with_page_reference_attribute_no_references_given(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_product_reference_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -1047,8 +1047,8 @@ def test_create_variant_with_product_reference_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_product_reference_attribute_no_references_given(
     created_webhook_mock,
     updated_webhook_mock,
@@ -1112,7 +1112,7 @@ def test_create_variant_with_product_reference_attribute_no_references_given(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_variant_reference_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -1224,8 +1224,8 @@ def test_create_variant_with_variant_reference_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_variant_reference_attribute_no_references_given(
     created_webhook_mock,
     updated_webhook_mock,
@@ -1294,7 +1294,7 @@ def test_create_variant_with_variant_reference_attribute_no_references_given(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_category_reference_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -1406,7 +1406,7 @@ def test_create_variant_with_category_reference_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_collection_reference_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -1670,7 +1670,7 @@ def test_create_variant_with_reference_attributes_and_reference_types_defined(
     assert expected_variant_ref_assigned_attribute in assigned_attributes
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_single_reference_attributes(
     created_webhook_mock,
     staff_api_client,
@@ -1812,7 +1812,7 @@ def test_create_variant_with_single_reference_attributes(
     created_webhook_mock.assert_called_once_with(product.variants.get(pk=variant_pk))
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_numeric_attribute(
     created_webhook_mock,
     staff_api_client,
@@ -1888,7 +1888,7 @@ def test_create_variant_with_numeric_attribute(
     ).first()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_create_variant_with_numeric_attribute_not_numeric_value_given(
     updated_webhook_mock,
     staff_api_client,
@@ -2256,7 +2256,7 @@ def test_create_variant_with_reference_attributes_ref_not_in_available_choices(
     }
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_rich_text_attribute(
     created_webhook_mock,
     permission_manage_products,
@@ -2313,7 +2313,7 @@ def test_create_variant_with_rich_text_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_create_variant_with_plain_text_attribute(
     created_webhook_mock,
     permission_manage_products,
@@ -2374,7 +2374,7 @@ def test_create_variant_with_plain_text_attribute(
     created_webhook_mock.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 @freeze_time(datetime.datetime(2020, 5, 5, 5, 5, 5, tzinfo=datetime.UTC))
 def test_create_variant_with_date_attribute(
     created_webhook_mock,
@@ -2443,7 +2443,7 @@ def test_create_variant_with_date_attribute(
     created_webhook_mock.assert_called_once_with(variant)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 @freeze_time(datetime.datetime(2020, 5, 5, 5, 5, 5, tzinfo=datetime.UTC))
 def test_create_variant_with_date_time_attribute(
     created_webhook_mock,
@@ -2513,8 +2513,8 @@ def test_create_variant_with_date_time_attribute(
     created_webhook_mock.assert_called_once_with(variant)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_create_variant_with_empty_string_for_sku(
     updated_webhook_mock,
     created_webhook_mock,
@@ -2581,8 +2581,8 @@ def test_create_variant_with_empty_string_for_sku(
     updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_create_variant_without_sku(
     updated_webhook_mock,
     created_webhook_mock,

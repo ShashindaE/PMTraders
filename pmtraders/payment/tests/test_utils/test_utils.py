@@ -233,9 +233,9 @@ def test_get_channel_slug_from_payment_without_order(
     assert not get_channel_slug_from_payment(payment)
 
 
-@patch("saleor.payment.utils.update_payment_charge_status")
-@patch("saleor.payment.utils.get_channel_slug_from_payment")
-@patch("saleor.payment.gateway.payment_refund_or_void")
+@patch("pmtraders.payment.utils.update_payment_charge_status")
+@patch("pmtraders.payment.utils.get_channel_slug_from_payment")
+@patch("pmtraders.payment.gateway.payment_refund_or_void")
 def test_try_void_or_refund_inactive_payment_failed_transaction(
     refund_or_void_mock,
     get_channel_slug_from_payment_mock,
@@ -252,8 +252,8 @@ def test_try_void_or_refund_inactive_payment_failed_transaction(
     assert not refund_or_void_mock.called
 
 
-@patch("saleor.payment.utils.get_channel_slug_from_payment")
-@patch("saleor.payment.gateway.payment_refund_or_void")
+@patch("pmtraders.payment.utils.get_channel_slug_from_payment")
+@patch("pmtraders.payment.gateway.payment_refund_or_void")
 def test_try_void_or_refund_inactive_payment_transaction_success(
     refund_or_void_mock,
     get_channel_slug_from_payment_mock,
@@ -572,9 +572,9 @@ def test_create_transaction_event_from_request_updates_order_charge(
     assert order.search_vector
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_paid")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 @freeze_time("2018-05-31 12:00:01")
 def test_create_transaction_event_from_request_triggers_webhooks_when_fully_paid(
     mock_order_fully_paid,
@@ -620,9 +620,9 @@ def test_create_transaction_event_from_request_triggers_webhooks_when_fully_paid
     mock_order_paid.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_paid")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 @freeze_time("2018-05-31 12:00:01")
 def test_create_transaction_event_from_request_triggers_webhooks_when_partially_paid(
     mock_order_fully_paid,
@@ -668,9 +668,9 @@ def test_create_transaction_event_from_request_triggers_webhooks_when_partially_
     mock_order_paid.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 @freeze_time("2018-05-31 12:00:01")
 def test_create_transaction_event_from_request_triggers_webhooks_when_fully_refunded(
     mock_order_fully_refunded,
@@ -716,9 +716,9 @@ def test_create_transaction_event_from_request_triggers_webhooks_when_fully_refu
     mock_order_refunded.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 @freeze_time("2018-05-31 12:00:01")
 def test_create_transaction_event_from_request_triggers_webhooks_partially_refunded(
     mock_order_fully_refunded,
@@ -818,9 +818,9 @@ def test_create_transaction_event_from_request_and_webhook_response_full_event(
     assert event.type == event_type
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_create_transaction_event_from_request_when_paid(
     mocked_checkout_fully_paid,
     mocked_checkout_fully_authorized,
@@ -867,9 +867,9 @@ def test_create_transaction_event_from_request_when_paid(
 
 
 @patch.object(logger, "error")
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_create_transaction_event_from_request_when_authorized_logs_warnning(
     mocked_checkout_fully_paid,
     mocked_checkout_fully_authorized,
@@ -924,9 +924,9 @@ def test_create_transaction_event_from_request_when_authorized_logs_warnning(
     assert len(mocked_logger.call_args) == 2
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_create_transaction_event_from_request_when_paid_triggers_checkout_completion(
     mocked_checkout_fully_paid,
     mocked_checkout_fully_authorized,

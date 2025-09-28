@@ -41,8 +41,8 @@ def test_delete_menu_item(staff_api_client, menu_item, permission_manage_menus):
 
 
 @freeze_time("2022-05-12 12:00:00")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_menu_item_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -54,7 +54,7 @@ def test_delete_menu_item_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     menu_item_id = graphene.Node.to_global_id("MenuItem", menu_item.pk)
     variables = {"id": menu_item_id}

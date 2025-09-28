@@ -77,8 +77,8 @@ def test_event_map():
         NotifyEventType.SEND_GIFT_CARD,
     ],
 )
-@patch("saleor.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
-@patch("saleor.plugins.user_email.plugin.get_user_event_map")
+@patch("pmtraders.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
+@patch("pmtraders.plugins.user_email.plugin.get_user_event_map")
 def test_notify(
     mocked_get_event_map, mock_add_missing_configuration, event_type, user_email_plugin
 ):
@@ -102,8 +102,8 @@ def test_notify(
     mock_add_missing_configuration.assert_called_once_with(config)
 
 
-@patch("saleor.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
-@patch("saleor.plugins.user_email.plugin.get_user_event_map")
+@patch("pmtraders.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
+@patch("pmtraders.plugins.user_email.plugin.get_user_event_map")
 def test_notify_event_not_related(
     mocked_get_event_map,
     mock_add_missing_configuration,
@@ -129,8 +129,8 @@ def test_notify_event_not_related(
     mock_add_missing_configuration.assert_not_called()
 
 
-@patch("saleor.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
-@patch("saleor.plugins.user_email.plugin.get_user_event_map")
+@patch("pmtraders.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
+@patch("pmtraders.plugins.user_email.plugin.get_user_event_map")
 def test_notify_event_missing_handler(
     mocked_get_event_map,
     mock_add_missing_configuration,
@@ -156,8 +156,8 @@ def test_notify_event_missing_handler(
     mock_add_missing_configuration.assert_not_called()
 
 
-@patch("saleor.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
-@patch("saleor.plugins.user_email.plugin.get_user_event_map")
+@patch("pmtraders.plugins.user_email.plugin.UserEmailPlugin._add_missing_configuration")
+@patch("pmtraders.plugins.user_email.plugin.get_user_event_map")
 def test_notify_event_plugin_is_not_active(
     mocked_get_event_map,
     mock_add_missing_configuration,
@@ -344,7 +344,7 @@ def test_configuration_resolver_returns_email_template_value(
 def test_plugin_manager_doesnt_load_email_templates_from_db(
     user_email_plugin, user_email_template, settings
 ):
-    settings.PLUGINS = ["saleor.plugins.user_email.plugin.UserEmailPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.user_email.plugin.UserEmailPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.get_all_plugins()
     plugin = manager.all_plugins[0]

@@ -35,7 +35,7 @@ EXPORT_VOUCHER_CODES_MUTATION = """
 
 
 @patch(
-    "saleor.graphql.csv.mutations.export_voucher_codes.export_voucher_codes_task.delay"
+    "pmtraders.graphql.csv.mutations.export_voucher_codes.export_voucher_codes_task.delay"
 )
 def test_export_voucher_codes_by_voucher_id(
     export_voucher_codes_mock,
@@ -78,7 +78,7 @@ def test_export_voucher_codes_by_voucher_id(
 
 
 @patch(
-    "saleor.graphql.csv.mutations.export_voucher_codes.export_voucher_codes_task.delay"
+    "pmtraders.graphql.csv.mutations.export_voucher_codes.export_voucher_codes_task.delay"
 )
 def test_export_voucher_codes_by_voucher_code_ids(
     export_voucher_codes_mock,
@@ -124,7 +124,7 @@ def test_export_voucher_codes_by_voucher_code_ids(
 
 
 @patch(
-    "saleor.graphql.csv.mutations.export_voucher_codes.export_voucher_codes_task.delay"
+    "pmtraders.graphql.csv.mutations.export_voucher_codes.export_voucher_codes_task.delay"
 )
 def test_export_voucher_codes_by_app(
     export_voucher_codes_mock,
@@ -358,7 +358,7 @@ def test_export_voucher_codes_error_invalid_voucher_code_ids(
     assert error["code"] == ExportErrorCode.INVALID.name
 
 
-@patch("saleor.plugins.manager.PluginsManager.voucher_code_export_completed")
+@patch("pmtraders.plugins.manager.PluginsManager.voucher_code_export_completed")
 def test_export_voucher_webhooks(
     export_completed_webhook_mock,
     staff_api_client,

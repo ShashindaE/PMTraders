@@ -24,9 +24,9 @@ REFUND_QUERY = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_payment_refund_success(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -93,9 +93,9 @@ def test_payment_refund_success_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_payment_refund_success_by_app(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -133,9 +133,9 @@ def test_payment_refund_success_by_app(
     mock_order_fully_refunded.assert_called_once_with(payment.order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_payment_refund_with_invalid_argument(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -168,9 +168,9 @@ def test_payment_refund_with_invalid_argument(
     assert not mock_order_updated.called
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_payment_refund_error(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -188,7 +188,7 @@ def test_payment_refund_error(
     payment.save()
     payment_id = graphene.Node.to_global_id("Payment", payment.pk)
     variables = {"paymentId": payment_id, "amount": str(payment.total)}
-    monkeypatch.setattr("saleor.payment.gateways.dummy.dummy_success", lambda: False)
+    monkeypatch.setattr("pmtraders.payment.gateways.dummy.dummy_success", lambda: False)
 
     # when
     response = staff_api_client.post_graphql(REFUND_QUERY, variables)

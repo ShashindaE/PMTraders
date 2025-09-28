@@ -116,7 +116,7 @@ def test_cannot_fullfill_order_with_invalid_shipping_method_core_0203(
                 "firstName": "Jan",
                 "lastName": "Kowalski",
                 "phone": "+48123456787",
-                "companyName": "Saleor PL",
+                "companyName": "pmtraders PL",
                 "country": "PL",
                 "countryArea": "",
                 "city": "WROCLAW",

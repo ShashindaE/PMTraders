@@ -3570,7 +3570,7 @@ def test_order_bulk_create_validate_order_status(
         assert order["status"] == status.name.upper()
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_bulk_created")
+@patch("pmtraders.plugins.manager.PluginsManager.order_bulk_created")
 def test_order_bulk_create_webhook(
     mocked_order_bulk_created,
     staff_api_client,

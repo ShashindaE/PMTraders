@@ -10,10 +10,10 @@ from django.urls import reverse
 from requests.exceptions import SSLError
 
 from ....checkout.fetch import CheckoutInfo, CheckoutLineInfo
-from ....core.telemetry import saleor_attributes, tracer
+from ....core.telemetry import pmtraders_attributes, tracer
 from ....core.utils import build_absolute_uri
 from ....core.utils.url import prepare_url
-from ....graphql.core import SaleorContext
+from ....graphql.core import pmtradersContext
 from ....order.events import external_notification_event
 from ....plugins.base_plugin import BasePlugin, ConfigurationTypeField
 from ....plugins.error_codes import PluginErrorCode
@@ -121,14 +121,14 @@ class AdyenGatewayPlugin(BasePlugin):
             "help_text": (
                 "All authorized payments will be marked as captured. This should only"
                 " be enabled if Adyen is configured to auto-capture payments."
-                " Saleor doesn't support the delayed capture Adyen feature."
+                " pmtraders doesn't support the delayed capture Adyen feature."
             ),
             "label": "Assume all authorizations are automatically captured by Adyen",
         },
         "auto-capture": {
             "type": ConfigurationTypeField.BOOLEAN,
             "help_text": (
-                "If enabled, Saleor will automatically capture funds. If, disabled, the"
+                "If enabled, pmtraders will automatically capture funds. If, disabled, the"
                 " funds are blocked but need to be captured manually."
             ),
             "label": "Automatically capture funds when a payment is made",
@@ -163,7 +163,7 @@ class AdyenGatewayPlugin(BasePlugin):
         "enable-native-3d-secure": {
             "type": ConfigurationTypeField.BOOLEAN,
             "help_text": (
-                "Saleor uses 3D Secure redirect authentication by default. If you want"
+                "pmtraders uses 3D Secure redirect authentication by default. If you want"
                 " to use native 3D Secure authentication, enable this option. For more"
                 " details see Adyen documentation: native - "
                 "https://docs.adyen.com/checkout/3d-secure/native-3ds2, redirect"
@@ -243,7 +243,7 @@ class AdyenGatewayPlugin(BasePlugin):
         return urljoin(base_url, "webhooks")
 
     def webhook(
-        self, request: SaleorContext, path: str, previous_value
+        self, request: pmtradersContext, path: str, previous_value
     ) -> HttpResponse:
         """Handle a request received from Adyen.
 
@@ -253,7 +253,7 @@ class AdyenGatewayPlugin(BasePlugin):
             received notification.
             - additional actions, called when a user is redirected to an external page
             and after processing a payment is redirecting back to the storefront page.
-            The redirect request comes through the Saleor which calls Adyen API to
+            The redirect request comes through the pmtraders which calls Adyen API to
             validate the current status of payment.
         """
         if not self.channel:
@@ -263,7 +263,7 @@ class AdyenGatewayPlugin(BasePlugin):
             return handle_webhook(request, config)
         if path.startswith(ADDITIONAL_ACTION_PATH):
             with tracer.start_as_current_span("adyen.checkout.payment_details") as span:
-                span.set_attribute(saleor_attributes.COMPONENT, "payment")
+                span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
                 return handle_additional_actions(
                     request, self.adyen.checkout.payments_details, self.channel.slug
                 )
@@ -334,7 +334,7 @@ class AdyenGatewayPlugin(BasePlugin):
                 local_config.connection_params["merchant_account"],
             )
             with tracer.start_as_current_span("adyen.checkout.payment_methods") as span:
-                span.set_attribute(saleor_attributes.COMPONENT, "payment")
+                span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
                 response = api_call(request, self.adyen.checkout.payment_methods)
                 adyen_payment_methods = json.dumps(response.message)
                 config.append({"field": "config", "value": adyen_payment_methods})
@@ -362,7 +362,7 @@ class AdyenGatewayPlugin(BasePlugin):
         with tracer.start_as_current_span(
             "adyen.checkout.payment_methods_balance"
         ) as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             try:
                 result = api_call(
                     request_data,
@@ -431,7 +431,7 @@ class AdyenGatewayPlugin(BasePlugin):
             native_3d_secure=self.config.connection_params["enable_native_3d_secure"],
         )
         with tracer.start_as_current_span("adyen.checkout.payments") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             result = api_call(request_data, self.adyen.checkout.payments)
         result_code = self._normalize_response_field(result.message["resultCode"])
         is_success = result_code not in FAILED_STATUSES
@@ -522,7 +522,7 @@ class AdyenGatewayPlugin(BasePlugin):
             )
 
         with tracer.start_as_current_span("adyen.checkout.payment_details") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             result = api_call(additional_data, self.adyen.checkout.payments_details)
         result_code = self._normalize_response_field(result.message["resultCode"])
         is_success = result_code not in FAILED_STATUSES
@@ -535,7 +535,7 @@ class AdyenGatewayPlugin(BasePlugin):
             and self.order_auto_confirmation
             and not action_required
         ):
-            # For enabled auto_capture on Saleor side we need to proceed an additional
+            # For enabled auto_capture on pmtraders side we need to proceed an additional
             # action
             kind = TransactionKind.CAPTURE
             result = call_capture(
@@ -809,7 +809,7 @@ class AdyenGatewayPlugin(BasePlugin):
             token=payment_information.token,
         )
         with tracer.start_as_current_span("adyen.payment.cancel") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             result = api_call(request, self.adyen.payment.cancel)
 
         return GatewayResponse(

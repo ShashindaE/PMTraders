@@ -27,9 +27,9 @@ from opentelemetry.semconv.attributes import (
 from opentelemetry.trace import StatusCode
 from requests_hardened.ip_filter import InvalidIPAddress
 
-from .. import __version__ as saleor_version
+from .. import __version__ as pmtraders_version
 from ..core.exceptions import PermissionDenied
-from ..core.telemetry import Scope, SpanKind, saleor_attributes, tracer
+from ..core.telemetry import Scope, SpanKind, pmtraders_attributes, tracer
 from ..webhook import observability
 from .api import API_PATH, schema
 from .context import clear_context, get_context_value
@@ -165,8 +165,8 @@ class GraphQLView(View):
             ) as span,
             record_request_duration() as request_duration_attrs,
         ):
-            span.set_attribute(saleor_attributes.COMPONENT, "http")
-            span.set_attribute(saleor_attributes.OPERATION_NAME, "http")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "http")
+            span.set_attribute(pmtraders_attributes.OPERATION_NAME, "http")
             span.set_attribute(http_attributes.HTTP_REQUEST_METHOD, request.method)  # type: ignore[arg-type]
             span.set_attribute(
                 url_attributes.URL_FULL,
@@ -181,7 +181,7 @@ class GraphQLView(View):
                 user_agent_attributes.USER_AGENT_ORIGINAL,
                 request.headers.get("user-agent", ""),
             )
-            span.set_attribute(saleor_attributes.SPAN_TYPE, "web")
+            span.set_attribute(pmtraders_attributes.SPAN_TYPE, "web")
 
             response = self._handle_query(request)
             tracer.inject_context(response.headers)
@@ -270,8 +270,8 @@ class GraphQLView(View):
             ) as span,
             record_graphql_query_duration() as query_duration_attrs,
         ):
-            span.set_attribute(saleor_attributes.OPERATION_NAME, "graphql_query")
-            span.set_attribute(saleor_attributes.COMPONENT, "graphql")
+            span.set_attribute(pmtraders_attributes.OPERATION_NAME, "graphql_query")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "graphql")
 
             query, variables, operation_name = self.get_graphql_params(request, data)
             document, error = self.parse_query(query)
@@ -332,13 +332,13 @@ class GraphQLView(View):
                 )
 
             span.set_attribute(
-                saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER, operation_identifier
+                pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER, operation_identifier
             )
-            query_duration_attrs[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER] = (
+            query_duration_attrs[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER] = (
                 operation_identifier
             )
             span.set_attribute(
-                saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT,
+                pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT,
                 operation_fingerprint,
             )
 
@@ -347,7 +347,7 @@ class GraphQLView(View):
             )
             if source_service_name:
                 span.set_attribute(
-                    saleor_attributes.SALEOR_SOURCE_SERVICE_NAME, source_service_name
+                    pmtraders_attributes.pmtraders_SOURCE_SERVICE_NAME, source_service_name
                 )
 
             query_cost, cost_errors = validate_query_cost(
@@ -357,7 +357,7 @@ class GraphQLView(View):
                 COST_MAP,
                 settings.GRAPHQL_QUERY_MAX_COMPLEXITY,
             )
-            span.set_attribute(saleor_attributes.GRAPHQL_OPERATION_COST, query_cost)
+            span.set_attribute(pmtraders_attributes.GRAPHQL_OPERATION_COST, query_cost)
 
             if settings.GRAPHQL_QUERY_MAX_COMPLEXITY and cost_errors:
                 result = ExecutionResult(errors=cost_errors, invalid=True)
@@ -390,8 +390,8 @@ class GraphQLView(View):
 
             context = get_context_value(request)
             if app := getattr(request, "app", None):
-                span.set_attribute(saleor_attributes.SALEOR_APP_ID, app.id)
-                span.set_attribute(saleor_attributes.SALEOR_APP_NAME, app.name)
+                span.set_attribute(pmtraders_attributes.pmtraders_APP_ID, app.id)
+                span.set_attribute(pmtraders_attributes.pmtraders_APP_NAME, app.name)
 
             try:
                 response = None
@@ -565,9 +565,9 @@ def generate_cache_key(raw_query: str) -> str:
     hashed_query = hashlib.sha256(str(raw_query).encode("utf-8")).hexdigest()
 
     if settings.GRAPHQL_CACHE_SUFFIX:
-        return f"{saleor_version}-{hashed_query}-{settings.GRAPHQL_CACHE_SUFFIX}"
+        return f"{pmtraders_version}-{hashed_query}-{settings.GRAPHQL_CACHE_SUFFIX}"
 
-    return f"{saleor_version}-{hashed_query}"
+    return f"{pmtraders_version}-{hashed_query}"
 
 
 def set_query_cost_on_result(execution_result: ExecutionResult, query_cost):

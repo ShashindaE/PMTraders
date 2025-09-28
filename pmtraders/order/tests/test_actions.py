@@ -12,7 +12,7 @@ parametrize_order_statuses = [(status,) for status, _ in OrderStatus.CHOICES]
 
 
 @pytest.mark.parametrize("order_status", parametrize_order_statuses)
-@patch("saleor.order.actions.order_confirmed", wraps=order_confirmed)
+@patch("pmtraders.order.actions.order_confirmed", wraps=order_confirmed)
 def test_order_created_order_confirmed_with_turned_flag_on(
     mock_order_confirmed, order_status, order, customer_user, plugins_manager
 ):
@@ -43,7 +43,7 @@ def test_order_created_order_confirmed_with_turned_flag_on(
 
 
 @pytest.mark.parametrize("order_status", parametrize_order_statuses)
-@patch("saleor.order.actions.order_confirmed")
+@patch("pmtraders.order.actions.order_confirmed")
 def test_order_created_order_confirmed_with_turned_flag_off(
     mock_order_confirmed, order_status, order, customer_user, plugins_manager
 ):

@@ -13,21 +13,21 @@ interactions:
       - '110'
       Content-Type:
       - application/json
-      Saleor-Api-Url:
+      pmtraders-Api-Url:
       - https://example.com/graphql/
-      Saleor-Domain:
+      pmtraders-Domain:
       - example.com
-      Saleor-Event:
+      pmtraders-Event:
       - shipping_list_methods_for_checkout
-      Saleor-Signature:
+      pmtraders-Signature:
       - ''
       User-Agent:
-      - Saleor/3.19
-      X-Saleor-Domain:
+      - pmtraders/3.19
+      X-pmtraders-Domain:
       - mirumee.com
-      X-Saleor-Event:
+      X-pmtraders-Event:
       - shipping_list_methods_for_checkout
-      X-Saleor-Signature:
+      X-pmtraders-Signature:
       - ''
     method: POST
     uri: http://localhost:8080/
@@ -62,21 +62,21 @@ interactions:
       - '110'
       Content-Type:
       - application/json
-      Saleor-Api-Url:
+      pmtraders-Api-Url:
       - https://example.com/graphql/
-      Saleor-Domain:
+      pmtraders-Domain:
       - example.com
-      Saleor-Event:
+      pmtraders-Event:
       - shipping_list_methods_for_checkout
-      Saleor-Signature:
+      pmtraders-Signature:
       - ''
       User-Agent:
-      - Saleor/3.19
-      X-Saleor-Domain:
+      - pmtraders/3.19
+      X-pmtraders-Domain:
       - mirumee.com
-      X-Saleor-Event:
+      X-pmtraders-Event:
       - shipping_list_methods_for_checkout
-      X-Saleor-Signature:
+      X-pmtraders-Signature:
       - ''
     method: POST
     uri: http://localhost:8080/

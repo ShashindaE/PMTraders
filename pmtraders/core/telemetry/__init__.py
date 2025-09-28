@@ -38,21 +38,21 @@ def initialize_telemetry() -> None:
     from django.conf import settings
 
     # To avoid circular imports.
-    from ... import __version__ as saleor_version
+    from ... import __version__ as pmtraders_version
 
     tracer_cls = load_object(settings.TELEMETRY_TRACER_CLASS)
     if not issubclass(tracer_cls, Tracer):
         raise ValueError(
             "settings.TELEMETRY_TRACER_CLASS must point to a subclass of Tracer"
         )
-    tracer.initialize(tracer_cls, saleor_version)
+    tracer.initialize(tracer_cls, pmtraders_version)
 
     meter_cls = load_object(settings.TELEMETRY_METER_CLASS)
     if not issubclass(meter_cls, Meter):
         raise ValueError(
             "settings.TELEMETRY_METER_CLASS must point to a subclass of Meter"
         )
-    meter.initialize(meter_cls, saleor_version)
+    meter.initialize(meter_cls, pmtraders_version)
 
 
 def get_task_context(link_attributes: Attributes = None) -> TelemetryTaskContext:

@@ -71,7 +71,7 @@ class GiftCardEvent(ModelObjectType[models.GiftCardEvent]):
     date = DateTime(description="Date when event happened at in ISO 8601 format.")
     type = GiftCardEventsEnum(description="Gift card event type.")
     user = graphene.Field(
-        "saleor.graphql.account.types.User",
+        "pmtraders.graphql.account.types.User",
         description=(
             "User who performed the action. Requires one of the following "
             f"permissions: {AccountPermissions.MANAGE_USERS.name}, "
@@ -261,11 +261,11 @@ class GiftCard(ModelObjectType[models.GiftCard]):
         required=True, description="Date and time when gift card was created."
     )
     created_by = graphene.Field(
-        "saleor.graphql.account.types.User",
+        "pmtraders.graphql.account.types.User",
         description="The user who bought or issued a gift card.",
     )
     used_by = graphene.Field(
-        "saleor.graphql.account.types.User",
+        "pmtraders.graphql.account.types.User",
         description="The customer who used a gift card.",
         deprecation_reason=DEFAULT_DEPRECATION_REASON,
     )
@@ -294,7 +294,7 @@ class GiftCard(ModelObjectType[models.GiftCard]):
         ),
     )
     product = graphene.Field(
-        "saleor.graphql.product.types.products.Product",
+        "pmtraders.graphql.product.types.products.Product",
         description="Related gift card product.",
     )
     events = PermissionsField(
@@ -326,7 +326,7 @@ class GiftCard(ModelObjectType[models.GiftCard]):
 
     # DEPRECATED
     user = graphene.Field(
-        "saleor.graphql.account.types.User",
+        "pmtraders.graphql.account.types.User",
         description="The customer who bought a gift card.",
         deprecation_reason="Use `createdBy` field instead.",
     )

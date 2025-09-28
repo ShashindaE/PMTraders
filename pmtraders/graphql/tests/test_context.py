@@ -21,14 +21,14 @@ query orderById($id: ID!) {
 
 
 @mock.patch(
-    "saleor.plugins.tests.sample_plugins.SampleAuthorizationPlugin.authenticate_user"
+    "pmtraders.plugins.tests.sample_plugins.SampleAuthorizationPlugin.authenticate_user"
 )
 def test_user_is_cached_on_request(
     mocked_authenticate_user, api_client, order_with_lines, settings, staff_user
 ):
     """Test the edge case when user isn't cached due to multiple Promises waiting."""
     # given
-    settings.PLUGINS = ["saleor.plugins.tests.sample_plugins.SampleAuthorizationPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.tests.sample_plugins.SampleAuthorizationPlugin"]
     mocked_authenticate_user.return_value = staff_user
     order = order_with_lines
     order_id = graphene.Node.to_global_id("Order", order.id)

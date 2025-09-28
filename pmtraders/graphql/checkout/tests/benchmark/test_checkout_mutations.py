@@ -883,7 +883,7 @@ MUTATION_CHECKOUT_LINES_ADD = (
 
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_add_checkout_lines(
     mock_send_request,
     api_client,
@@ -896,7 +896,7 @@ def test_add_checkout_lines(
     shipping_app,
     settings,
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     mock_json_response = [
         {
             "id": "abcd",
@@ -956,7 +956,7 @@ def test_add_checkout_lines(
 
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_add_checkout_lines_with_external_shipping(
     mock_send_request,
     api_client,
@@ -971,7 +971,7 @@ def test_add_checkout_lines_with_external_shipping(
     settings,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "abcd"
     shipping_name = "Provider - Economy"
     shipping_price = Decimal(10)
@@ -1646,7 +1646,7 @@ def test_complete_checkout(api_client, checkout_with_charged_payment, count_quer
 
 @pytest.mark.django_db
 @pytest.mark.count_queries(autouse=False)
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_complete_checkout_with_out_of_stock_webhook(
     product_variant_out_of_stock_webhook_mock,
     api_client,

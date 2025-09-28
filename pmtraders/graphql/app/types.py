@@ -23,7 +23,7 @@ from ...webhook.circuit_breaker.breaker_board import (
     initialize_breaker_board,
 )
 from ..account.utils import is_owner_or_has_one_of_perms
-from ..core import ResolveInfo, SaleorContext
+from ..core import ResolveInfo, pmtradersContext
 from ..core.connection import CountableConnection
 from ..core.context import get_database_connection_name
 from ..core.dataloaders import DataLoader
@@ -74,7 +74,7 @@ breaker_board = initialize_breaker_board()
 MANIFEST_THUMBNAIL_MAX_SIZE = 512
 
 
-def has_required_permission(app: models.App, context: SaleorContext):
+def has_required_permission(app: models.App, context: pmtradersContext):
     requester = get_user_or_app_from_context(context)
     if not is_owner_or_has_one_of_perms(requester, app, AppPermission.MANAGE_APPS):
         raise PermissionDenied(
@@ -199,7 +199,7 @@ class AppExtensionPossibleOptions(graphene.Union):
 class AppExtension(AppManifestExtension, ModelObjectType[models.AppExtension]):
     id = graphene.GlobalID(required=True, description="The ID of the app extension.")
     app = graphene.Field(
-        "saleor.graphql.app.types.App",
+        "pmtraders.graphql.app.types.App",
         required=True,
         description="The app assigned to app extension.",
     )
@@ -327,13 +327,13 @@ class AppManifestWebhook(BaseObjectType):
         return root["targetUrl"]
 
 
-class AppManifestRequiredSaleorVersion(BaseObjectType):
+class AppManifestRequiredpmtradersVersion(BaseObjectType):
     constraint = graphene.String(
-        description="Required Saleor version as semver range.",
+        description="Required pmtraders version as semver range.",
         required=True,
     )
     satisfied = graphene.Boolean(
-        description="Informs if the Saleor version matches the required one.",
+        description="Informs if the pmtraders version matches the required one.",
         required=True,
     )
 
@@ -478,7 +478,7 @@ class Manifest(BaseObjectType):
     token_target_url = graphene.String(
         description=(
             "Endpoint used during process of app installation, [see installing an app.]"
-            "(https://docs.saleor.io/developer/extending/apps/installing-apps#installing-an-app)"
+            "(https://docs.pmtraders.io/developer/extending/apps/installing-apps#installing-an-app)"
         )
     )
     data_privacy = graphene.String(
@@ -494,9 +494,9 @@ class Manifest(BaseObjectType):
         AppManifestExtension,
         required=True,
         description=(
-            "List of extensions that will be mounted in Saleor's dashboard. "
+            "List of extensions that will be mounted in pmtraders's dashboard. "
             "For details, please [see the extension section.]"
-            "(https://docs.saleor.io/developer/extending/apps/extending-dashboard-with-apps#key-concepts)"
+            "(https://docs.pmtraders.io/developer/extending/apps/extending-dashboard-with-apps#key-concepts)"
         ),
     )
     webhooks = NonNullList(
@@ -509,9 +509,9 @@ class Manifest(BaseObjectType):
             "The audience that will be included in all JWT tokens for the app."
         )
     )
-    required_saleor_version = graphene.Field(
-        AppManifestRequiredSaleorVersion,
-        description="Determines the app's required Saleor version as semver range.",
+    required_pmtraders_version = graphene.Field(
+        AppManifestRequiredpmtradersVersion,
+        description="Determines the app's required pmtraders version as semver range.",
     )
     author = graphene.String(description="The App's author name.")
     brand = graphene.Field(

@@ -41,8 +41,8 @@ ORDER_FULFILL_MUTATION = """
 """
 
 
-@patch("saleor.order.actions.order_fulfilled", wraps=order_fulfilled)
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.order.actions.order_fulfilled", wraps=order_fulfilled)
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_order_fulfill_with_out_of_stock_webhook(
     product_variant_out_of_stock_webhooks,
     wrapped_order_fulfilled,
@@ -79,8 +79,8 @@ def test_order_fulfill_with_out_of_stock_webhook(
 
 
 @pytest.mark.parametrize("fulfillment_auto_approve", [True, False])
-@patch("saleor.plugins.manager.PluginsManager.tracking_number_updated")
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.plugins.manager.PluginsManager.tracking_number_updated")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill(
     mock_create_fulfillments,
     mocked_fulfillment_tracking_number_updated_event,
@@ -191,7 +191,7 @@ def test_order_fulfill_no_channel_access(
 
 @pytest.mark.parametrize("input_tracking_number", [None, "", "test_tracking_number"])
 @pytest.mark.parametrize("fulfillment_auto_approve", [True, False])
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_with_tracking_number(
     mock_create_fulfillments,
     fulfillment_auto_approve,
@@ -474,7 +474,7 @@ def test_order_fulfill_with_allow_stock_to_be_exceeded_flag_disabled_deleted_var
     assert order_lines[1].quantity_unfulfilled == 2
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_above_available_quantity(
     mock_create_fulfillments,
     staff_api_client,
@@ -526,7 +526,7 @@ def test_order_fulfill_above_available_quantity(
     mock_create_fulfillments.assert_not_called()
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_as_app(
     mock_create_fulfillments,
     app_api_client,
@@ -585,7 +585,7 @@ def test_order_fulfill_as_app(
     )
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_many_warehouses(
     mock_create_fulfillments,
     staff_api_client,
@@ -653,7 +653,7 @@ def test_order_fulfill_many_warehouses(
     )
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
 def test_order_fulfill_with_gift_cards(
     mock_send_notification,
     staff_api_client,
@@ -742,7 +742,7 @@ def test_order_fulfill_with_gift_cards(
     )
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
 def test_order_fulfill_with_gift_card_lines_waiting_for_approval(
     mock_send_notification,
     staff_api_client,
@@ -795,7 +795,7 @@ def test_order_fulfill_with_gift_card_lines_waiting_for_approval(
     mock_send_notification.assert_not_called()
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
 def test_order_fulfill_with_gift_cards_by_app(
     mock_send_notification,
     app_api_client,
@@ -834,7 +834,7 @@ def test_order_fulfill_with_gift_cards_by_app(
     mock_send_notification.assert_not_called()
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
 def test_order_fulfill_with_gift_cards_multiple_warehouses(
     mock_send_notification,
     app_api_client,
@@ -895,7 +895,7 @@ def test_order_fulfill_with_gift_cards_multiple_warehouses(
     mock_send_notification.assert_not_called()
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_without_notification(
     mock_create_fulfillments,
     staff_api_client,
@@ -946,7 +946,7 @@ def test_order_fulfill_without_notification(
     )
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_lines_with_empty_quantity(
     mock_create_fulfillments,
     staff_api_client,
@@ -1014,7 +1014,7 @@ def test_order_fulfill_lines_with_empty_quantity(
 
 
 @pytest.mark.parametrize("fulfillment_auto_approve", [True, False])
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_without_sku(
     mock_create_fulfillments,
     fulfillment_auto_approve,
@@ -1078,7 +1078,7 @@ def test_order_fulfill_without_sku(
     )
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_zero_quantity(
     mock_create_fulfillments,
     staff_api_client,
@@ -1152,7 +1152,7 @@ def test_order_fulfill_channel_without_shipping_zones(
     assert error["code"] == OrderErrorCode.INSUFFICIENT_STOCK.name
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_fulfilled_order(
     mock_create_fulfillments,
     staff_api_client,
@@ -1191,7 +1191,7 @@ def test_order_fulfill_fulfilled_order(
     mock_create_fulfillments.assert_not_called()
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_unpaid_order_and_disallow_unpaid(
     mock_create_fulfillments,
     staff_api_client,
@@ -1231,7 +1231,7 @@ def test_order_fulfill_unpaid_order_and_disallow_unpaid(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_fulfill.create_fulfillments", autospec=True
+    "pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments", autospec=True
 )
 def test_order_fulfill_warehouse_with_insufficient_stock_exception(
     mock_create_fulfillments,
@@ -1284,7 +1284,7 @@ def test_order_fulfill_warehouse_with_insufficient_stock_exception(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_fulfill.create_fulfillments", autospec=True
+    "pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments", autospec=True
 )
 def test_order_fulfill_warehouse_duplicated_warehouse_id(
     mock_create_fulfillments,
@@ -1327,7 +1327,7 @@ def test_order_fulfill_warehouse_duplicated_warehouse_id(
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_fulfill.create_fulfillments", autospec=True
+    "pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments", autospec=True
 )
 def test_order_fulfill_warehouse_duplicated_order_line_id(
     mock_create_fulfillments,
@@ -1370,7 +1370,7 @@ def test_order_fulfill_warehouse_duplicated_order_line_id(
     mock_create_fulfillments.assert_not_called()
 
 
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_preorder(
     mock_create_fulfillments,
     staff_api_client,
@@ -1452,7 +1452,7 @@ def test_order_fulfill_preorder_waiting_fulfillment(
     )
 
 
-@patch("saleor.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
+@patch("pmtraders.order.actions.send_fulfillment_confirmation_to_customer", autospec=True)
 def test_create_digital_fulfillment(
     mock_email_fulfillment,
     digital_content,
@@ -1502,7 +1502,7 @@ def test_create_digital_fulfillment(
     assert mock_email_fulfillment.call_count == 1
 
 
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_fulfill_tracking_number_updated_event_triggered(
     mocked_webhooks,
     any_webhook,
@@ -1517,7 +1517,7 @@ def test_order_fulfill_tracking_number_updated_event_triggered(
     settings,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     permission_group_manage_orders.user_set.add(staff_api_client.user)
     site_settings.fulfillment_auto_approve = True
     site_settings.save(update_fields=["fulfillment_auto_approve"])
@@ -1561,14 +1561,14 @@ def test_order_fulfill_tracking_number_updated_event_triggered(
 
 
 @patch(
-    "saleor.order.actions.call_order_events",
+    "pmtraders.order.actions.call_order_events",
     wraps=call_order_events,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_fulfill_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1652,7 +1652,7 @@ def test_order_fulfill_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -1693,7 +1693,7 @@ def test_order_fulfill_fulfilled_order_race_condition(
 
     # when
     with race_condition.RunBefore(
-        "saleor.order.actions.create_fulfillments", fulfill_line
+        "pmtraders.order.actions.create_fulfillments", fulfill_line
     ):
         response = staff_api_client.post_graphql(query, variables)
     content = get_graphql_content(response)
@@ -1708,7 +1708,7 @@ def test_order_fulfill_fulfilled_order_race_condition(
     assert not error["warehouse"]
 
 
-@patch("saleor.plugins.manager.PluginsManager.tracking_number_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.tracking_number_updated")
 @pytest.mark.django_db(transaction=True)
 def test_order_fulfill_order_in_proper_state_when_error_occur_when_sending_webhook(
     mocked_fulfillment_tracking_number_updated_event,

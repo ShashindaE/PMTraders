@@ -8,7 +8,7 @@ from ..transport.synchronous.transport import trigger_taxes_all_webhooks_sync
 from ..transport.taxes import parse_tax_data
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_not_trigger_sync_webhook_for_removed_app(
     mock_request,
     tax_app,

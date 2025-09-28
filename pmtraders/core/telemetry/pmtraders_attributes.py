@@ -1,6 +1,6 @@
 from typing import Final
 
-SALEOR_ENVIRONMENT_DOMAIN: Final = "saleor.environment.domain"
+PMTRADERS_ENVIRONMENT_DOMAIN: Final = "pmtraders.environment.domain"
 
 COMPONENT: Final = "component"
 SPAN_TYPE: Final = "span.type"
@@ -15,12 +15,12 @@ GRAPHQL_PARENT_TYPE: Final = "graphql.parent_type"
 GRAPHQL_RESOLVER_ROW_COUNT: Final = "graphql.resolver.row_count"
 
 # Http
-SALEOR_SOURCE_SERVICE_NAME: Final = "saleor.source.service.name"
+pmtraders_SOURCE_SERVICE_NAME: Final = "pmtraders.source.service.name"
 
 # Apps
-SALEOR_APP_ID: Final = "saleor.app.id"
-SALEOR_APP_NAME: Final = "saleor.app.name"
+pmtraders_APP_ID: Final = "pmtraders.app.id"
+pmtraders_APP_NAME: Final = "pmtraders.app.name"
 
 # Webhooks
-SALEOR_WEBHOOK_EXECUTION_MODE: Final = "saleor.webhook.execution_mode"
-SALEOR_WEBHOOK_PAYLOAD_SIZE: Final = "saleor.webhook.payload.size"
+pmtraders_WEBHOOK_EXECUTION_MODE: Final = "pmtraders.webhook.execution_mode"
+pmtraders_WEBHOOK_PAYLOAD_SIZE: Final = "pmtraders.webhook.payload.size"

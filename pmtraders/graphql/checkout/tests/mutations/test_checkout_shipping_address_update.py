@@ -96,12 +96,12 @@ MUTATION_CHECKOUT_SHIPPING_ADDRESS_WITH_METADATA_UPDATE = """
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "invalidate_checkout",
     wraps=invalidate_checkout,
 )
@@ -147,12 +147,12 @@ def test_checkout_shipping_address_with_metadata_update(
     ],
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "invalidate_checkout",
     wraps=invalidate_checkout,
 )
@@ -203,7 +203,7 @@ def test_checkout_shipping_address_when_variant_without_listing(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -252,7 +252,7 @@ def test_checkout_shipping_address_update_changes_checkout_country(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -299,7 +299,7 @@ def test_checkout_shipping_address_update_insufficient_stocks(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -342,7 +342,7 @@ def test_checkout_shipping_address_update_doesnt_raise_error(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -398,7 +398,7 @@ def test_checkout_shipping_address_update_with_reserved_stocks(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update."
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -561,7 +561,7 @@ def test_checkout_shipping_address_update_without_phone_country_prefix(
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
 )
 def test_checkout_shipping_address_update_exclude_shipping_method(
     mocked_webhook,
@@ -570,7 +570,7 @@ def test_checkout_shipping_address_update_exclude_shipping_method(
     graphql_address_data,
     settings,
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     checkout = checkout_with_items_and_shipping
     shipping_method = checkout.shipping_method
     assert shipping_method is not None
@@ -1128,14 +1128,14 @@ def test_checkout_shipping_address_skip_validation_by_app(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_shipping_address_update_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1184,7 +1184,7 @@ def test_checkout_shipping_address_update_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

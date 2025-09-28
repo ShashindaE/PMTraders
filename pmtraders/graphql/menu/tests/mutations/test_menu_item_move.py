@@ -81,8 +81,8 @@ def test_menu_reorder(staff_api_client, permission_manage_menus, menu_item_list)
     assert menu_data == expected_data
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_menu_reorder_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -94,7 +94,7 @@ def test_menu_reorder_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     menu_item_list = list(menu_item_list)
     menu_global_id = graphene.Node.to_global_id("Menu", menu_item_list[0].menu_id)

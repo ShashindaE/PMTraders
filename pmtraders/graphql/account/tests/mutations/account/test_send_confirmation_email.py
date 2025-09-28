@@ -30,7 +30,7 @@ SEND_CONFIRMATION_EMAIL_MUTATION = """
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_confirmation_email(
     mocked_notify,
     user_api_client,
@@ -81,7 +81,7 @@ def test_send_confirmation_email(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_confirmation_email_on_cooldown(
     mocked_notify, user_api_client, channel_PLN
 ):
@@ -137,7 +137,7 @@ def test_send_confirmation_email_after_cooldown(user_api_client, channel_PLN, se
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_confirmation_email_user_already_confirmed(
     mocked_notify, user_api_client, channel_PLN
 ):
@@ -165,7 +165,7 @@ def test_send_confirmation_email_user_already_confirmed(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 @override_settings(ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL=False)
 def test_send_confirmation_email_confirmation_disabled(
     mocked_notify, user_api_client, channel_PLN
@@ -197,7 +197,7 @@ def test_send_confirmation_email_confirmation_disabled(
     ENABLE_ACCOUNT_CONFIRMATION_BY_EMAIL=True,
     ALLOWED_CLIENT_HOSTS=["localhost"],
 )
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_confirmation_email_generates_valid_token(
     mocked_notify,
     user_api_client,

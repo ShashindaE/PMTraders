@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 T_ERRORS = dict[str, list[ValidationError]]
 
 
-class RequiredSaleorVersionSpec(NpmSpec):
+class RequiredpmtradersVersionSpec(NpmSpec):
     class Parser(NpmSpec.Parser):
         @classmethod
         def range(cls, operator, target):
@@ -122,7 +122,7 @@ def clean_manifest_url(manifest_url):
 
 
 def _clean_permissions(
-    required_permissions: list[str], saleor_permissions: Iterable[Permission]
+    required_permissions: list[str], pmtraders_permissions: Iterable[Permission]
 ) -> list[Permission]:
     missing_permissions = []
     all_permissions = {perm[0]: perm[1] for perm in get_permissions_enum_list()}
@@ -137,10 +137,10 @@ def _clean_permissions(
 
     permissions = [all_permissions[perm] for perm in required_permissions]
     permissions = split_permission_codename(permissions)
-    return [p for p in saleor_permissions if p.codename in permissions]
+    return [p for p in pmtraders_permissions if p.codename in permissions]
 
 
-def clean_manifest_data(manifest_data, raise_for_saleor_version=False):
+def clean_manifest_data(manifest_data, raise_for_pmtraders_version=False):
     errors: T_ERRORS = defaultdict(list)
 
     _validate_required_fields(manifest_data, errors)
@@ -157,11 +157,11 @@ def clean_manifest_data(manifest_data, raise_for_saleor_version=False):
         )
 
     try:
-        manifest_data["requiredSaleorVersion"] = _clean_required_saleor_version(
-            manifest_data.get("requiredSaleorVersion"), raise_for_saleor_version
+        manifest_data["requiredpmtradersVersion"] = _clean_required_pmtraders_version(
+            manifest_data.get("requiredpmtradersVersion"), raise_for_pmtraders_version
         )
     except ValidationError as e:
-        errors["requiredSaleorVersion"].append(e)
+        errors["requiredpmtradersVersion"].append(e)
 
     try:
         manifest_data["author"] = _clean_author(manifest_data.get("author"))
@@ -173,12 +173,12 @@ def clean_manifest_data(manifest_data, raise_for_saleor_version=False):
     except ValidationError as e:
         errors["brand"].append(e)
 
-    saleor_permissions = get_permissions().annotate(
+    pmtraders_permissions = get_permissions().annotate(
         formatted_codename=Concat("content_type__app_label", Value("."), "codename")
     )
     try:
         app_permissions = _clean_permissions(
-            manifest_data.get("permissions", []), saleor_permissions
+            manifest_data.get("permissions", []), pmtraders_permissions
         )
     except ValidationError as e:
         errors["permissions"].append(e)
@@ -440,23 +440,23 @@ def _parse_version(version_str: str) -> Version:
     return Version(version_str)
 
 
-def _clean_required_saleor_version(
+def _clean_required_pmtraders_version(
     required_version,
-    raise_for_saleor_version: bool,
-    saleor_version=__version__,
+    raise_for_pmtraders_version: bool,
+    pmtraders_version=__version__,
 ) -> dict | None:
     if not required_version:
         return None
     try:
-        spec = RequiredSaleorVersionSpec(required_version)
+        spec = RequiredpmtradersVersionSpec(required_version)
     except Exception as e:
-        msg = "Incorrect value for required Saleor version."
+        msg = "Incorrect value for required pmtraders version."
         raise ValidationError(msg, code=AppErrorCode.INVALID.value) from e
-    version = _parse_version(saleor_version)
+    version = _parse_version(pmtraders_version)
     satisfied = spec.match(version)
-    if raise_for_saleor_version and not satisfied:
-        msg = f"Saleor version {saleor_version} is not supported by the app."
-        raise ValidationError(msg, code=AppErrorCode.UNSUPPORTED_SALEOR_VERSION.value)
+    if raise_for_pmtraders_version and not satisfied:
+        msg = f"pmtraders version {pmtraders_version} is not supported by the app."
+        raise ValidationError(msg, code=AppErrorCode.UNSUPPORTED_pmtraders_VERSION.value)
     return {"constraint": required_version, "satisfied": satisfied}
 
 

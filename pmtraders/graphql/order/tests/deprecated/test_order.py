@@ -91,8 +91,8 @@ ORDER_LINE_DELETE_MUTATION = """
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_remove_by_old_line_id(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -149,8 +149,8 @@ ORDER_LINE_UPDATE_MUTATION = """
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_update_by_old_line_id(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -222,7 +222,7 @@ ORDER_FULFILL_QUERY = """
 
 
 @pytest.mark.parametrize("fulfillment_auto_approve", [True, False])
-@patch("saleor.graphql.order.mutations.order_fulfill.create_fulfillments")
+@patch("pmtraders.graphql.order.mutations.order_fulfill.create_fulfillments")
 def test_order_fulfill_old_line_id(
     mock_create_fulfillments,
     fulfillment_auto_approve,
@@ -319,7 +319,7 @@ mutation OrderFulfillmentRefundProducts(
 """
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_fulfillment_refund_products_order_lines_by_old_id(
     mocked_refund,
     staff_api_client,
@@ -428,7 +428,7 @@ mutation OrderFulfillmentReturnProducts(
 """
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_fulfillment_return_products_order_lines_by_old_line_id(
     mocked_refund,
     staff_api_client,
@@ -690,8 +690,8 @@ mutation OrderLineDiscountRemove($orderLineId: ID!){
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_unit")
-@patch("saleor.plugins.manager.PluginsManager.calculate_order_line_total")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_unit")
+@patch("pmtraders.plugins.manager.PluginsManager.calculate_order_line_total")
 def test_delete_discount_from_order_line_by_old_id(
     mocked_calculate_order_line_total,
     mocked_calculate_order_line_unit,

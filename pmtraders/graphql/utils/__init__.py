@@ -24,10 +24,10 @@ from ..core.utils import from_global_id_or_error
 from ..core.validators.query_cost import QueryCostError
 
 if TYPE_CHECKING:
-    from ..core import SaleorContext
+    from ..core import pmtradersContext
 
-unhandled_errors_logger = logging.getLogger("saleor.graphql.errors.unhandled")
-handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+unhandled_errors_logger = logging.getLogger("pmtraders.graphql.errors.unhandled")
+handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
 
 
 ERROR_COULD_NO_RESOLVE_GLOBAL_ID = (
@@ -49,9 +49,9 @@ ALLOWED_ERRORS = [
 ]
 
 AVAILABLE_SOURCE_SERVICE_NAMES_FOR_SPAN_TAG = {
-    "saleor.dashboard",
-    "saleor.dashboard.playground",
-    "saleor.playground",
+    "pmtraders.dashboard",
+    "pmtraders.dashboard.playground",
+    "pmtraders.playground",
 }
 
 INTERNAL_ERROR_MESSAGE = "Internal Server Error"
@@ -201,7 +201,7 @@ def format_permissions_for_display(permissions):
     return formatted_permissions
 
 
-def get_user_or_app_from_context(context: "SaleorContext") -> App | User | None:
+def get_user_or_app_from_context(context: "pmtradersContext") -> App | User | None:
     # order is important
     # app can be None but user if None then is passed as anonymous
     return context.app or context.user

@@ -79,7 +79,7 @@ third_url = "http://www.example.com/third/"
     ],
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 def test_trigger_webhooks_for_event_calls_expected_events(
     mock_request,
@@ -92,7 +92,7 @@ def test_trigger_webhooks_for_event_calls_expected_events(
     permission_manage_users,
     permission_manage_products,
 ):
-    """Confirm that Saleor executes only valid and allowed webhook events."""
+    """Confirm that pmtraders executes only valid and allowed webhook events."""
 
     app.permissions.add(permission_manage_orders)
     app.permissions.add(permission_manage_products)
@@ -133,8 +133,8 @@ def test_trigger_webhooks_for_event_calls_expected_events(
     assert urls_called == expected_target_urls
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -143,7 +143,7 @@ def test_order_created(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_created(order_with_lines)
     mocked_webhook_trigger.assert_called_once_with(
@@ -161,8 +161,8 @@ def test_order_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_confirmed(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -171,7 +171,7 @@ def test_order_confirmed(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_confirmed(order_with_lines)
 
@@ -190,8 +190,8 @@ def test_order_confirmed(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_draft_order_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -200,7 +200,7 @@ def test_draft_order_created(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.draft_order_created(order_with_lines)
 
@@ -219,8 +219,8 @@ def test_draft_order_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_draft_order_deleted(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -229,7 +229,7 @@ def test_draft_order_deleted(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.draft_order_deleted(order_with_lines)
 
@@ -248,8 +248,8 @@ def test_draft_order_deleted(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_draft_order_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -258,7 +258,7 @@ def test_draft_order_updated(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.draft_order_updated(order_with_lines)
 
@@ -277,8 +277,8 @@ def test_draft_order_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_customer_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -287,7 +287,7 @@ def test_customer_created(
     customer_user,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.customer_created(customer_user)
 
@@ -305,8 +305,8 @@ def test_customer_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_customer_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -315,7 +315,7 @@ def test_customer_updated(
     customer_user,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.customer_updated(customer_user)
 
@@ -333,8 +333,8 @@ def test_customer_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_customer_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -343,7 +343,7 @@ def test_customer_metadata_updated(
     customer_user,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.customer_metadata_updated(customer_user)
     mocked_webhook_trigger.assert_called_once_with(
@@ -361,8 +361,8 @@ def test_customer_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_fully_paid(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -371,7 +371,7 @@ def test_order_fully_paid(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_fully_paid(order_with_lines)
     mocked_webhook_trigger.assert_called_once_with(
@@ -389,8 +389,8 @@ def test_order_fully_paid(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_paid(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -400,7 +400,7 @@ def test_order_paid(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     # when
@@ -422,8 +422,8 @@ def test_order_paid(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_refunded(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -433,7 +433,7 @@ def test_order_refunded(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     # when
@@ -455,8 +455,8 @@ def test_order_refunded(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_fully_refunded(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -466,7 +466,7 @@ def test_order_fully_refunded(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     # when
@@ -488,8 +488,8 @@ def test_order_fully_refunded(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_collection_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -498,7 +498,7 @@ def test_collection_created(
     collection,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.collection_created(collection)
 
@@ -516,8 +516,8 @@ def test_collection_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_collection_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -526,7 +526,7 @@ def test_collection_updated(
     collection,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.collection_updated(collection)
 
@@ -544,8 +544,8 @@ def test_collection_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_collection_deleted(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -554,7 +554,7 @@ def test_collection_deleted(
     collection,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.collection_deleted(collection)
 
@@ -572,8 +572,8 @@ def test_collection_deleted(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_collection_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -582,7 +582,7 @@ def test_collection_metadata_updated(
     collection,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.collection_metadata_updated(collection)
 
@@ -601,8 +601,8 @@ def test_collection_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -611,7 +611,7 @@ def test_product_created(
     product,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_created(product)
 
@@ -629,8 +629,8 @@ def test_product_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -639,7 +639,7 @@ def test_product_updated(
     product,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_updated(product)
 
@@ -657,8 +657,8 @@ def test_product_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_deleted(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -667,7 +667,7 @@ def test_product_deleted(
     product,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     product = product
@@ -701,8 +701,8 @@ def test_product_deleted(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -711,7 +711,7 @@ def test_product_metadata_updated(
     product,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_metadata_updated(product)
 
@@ -730,8 +730,8 @@ def test_product_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_variant_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -740,7 +740,7 @@ def test_product_variant_created(
     variant,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_created(variant)
 
@@ -758,8 +758,8 @@ def test_product_variant_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_variant_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -768,7 +768,7 @@ def test_product_variant_updated(
     variant,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_updated(variant)
 
@@ -786,8 +786,8 @@ def test_product_variant_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_variant_deleted(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -796,7 +796,7 @@ def test_product_variant_deleted(
     variant,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_deleted(variant)
 
@@ -814,8 +814,8 @@ def test_product_variant_deleted(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_variant_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -824,7 +824,7 @@ def test_product_variant_metadata_updated(
     variant,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_metadata_updated(variant)
 
@@ -843,8 +843,8 @@ def test_product_variant_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_variant_out_of_stock(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -854,7 +854,7 @@ def test_product_variant_out_of_stock(
 ):
     variant = variant_with_many_stocks.stocks.first()
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_out_of_stock(variant)
 
@@ -873,8 +873,8 @@ def test_product_variant_out_of_stock(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_product_variant_back_in_stock(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -884,7 +884,7 @@ def test_product_variant_back_in_stock(
 ):
     variant = variant_with_many_stocks.stocks.first()
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_back_in_stock(variant)
 
@@ -904,8 +904,8 @@ def test_product_variant_back_in_stock(
 
 
 @freeze_time("2014-06-28 10:50")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_product_variant_stocks_updated(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -915,7 +915,7 @@ def test_product_variant_stocks_updated(
 ):
     stock = variant_with_many_stocks.stocks.first()
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.product_variant_stocks_updated([stock])
 
@@ -943,8 +943,8 @@ def test_product_variant_stocks_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -953,7 +953,7 @@ def test_order_updated(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_updated(order_with_lines)
 
@@ -972,8 +972,8 @@ def test_order_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_cancelled(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -982,7 +982,7 @@ def test_order_cancelled(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_cancelled(order_with_lines)
 
@@ -1001,8 +1001,8 @@ def test_order_cancelled(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_expired(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1011,7 +1011,7 @@ def test_order_expired(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_expired(order_with_lines)
 
@@ -1030,8 +1030,8 @@ def test_order_expired(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_order_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1040,7 +1040,7 @@ def test_order_metadata_updated(
     order_with_lines,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.order_metadata_updated(order_with_lines)
 
@@ -1059,8 +1059,8 @@ def test_order_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_checkout_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1069,7 +1069,7 @@ def test_checkout_created(
     checkout_with_items,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.checkout_created(checkout_with_items)
 
@@ -1206,8 +1206,8 @@ def test_checkout_payload_includes_order_promotion_discount(
     assert Decimal(data[0]["lines"][0]["base_price"]) == variant_price.amount
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_checkout_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1216,7 +1216,7 @@ def test_checkout_updated(
     checkout_with_items,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.checkout_updated(checkout_with_items)
 
@@ -1236,8 +1236,8 @@ def test_checkout_updated(
 
 
 @freeze_time("2014-06-28 10:50")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_checkout_fully_paid(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1247,7 +1247,7 @@ def test_checkout_fully_paid(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     # when
@@ -1270,8 +1270,8 @@ def test_checkout_fully_paid(
 
 
 @freeze_time("2014-06-28 10:50")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_checkout_fully_authorized(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1281,7 +1281,7 @@ def test_checkout_fully_authorized(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     # when
@@ -1303,8 +1303,8 @@ def test_checkout_fully_authorized(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_checkout_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1313,7 +1313,7 @@ def test_checkout_metadata_updated(
     checkout_with_items,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.checkout_metadata_updated(checkout_with_items)
 
@@ -1332,13 +1332,13 @@ def test_checkout_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_page_created(
     mocked_webhook_trigger, mocked_get_webhooks_for_event, any_webhook, settings, page
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.page_created(page)
 
@@ -1356,13 +1356,13 @@ def test_page_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_page_updated(
     mocked_webhook_trigger, mocked_get_webhooks_for_event, any_webhook, settings, page
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.page_updated(page)
 
@@ -1380,13 +1380,13 @@ def test_page_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_page_deleted(
     mocked_webhook_trigger, mocked_get_webhooks_for_event, any_webhook, settings, page
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     page_id = page.id
     page.delete()
@@ -1407,8 +1407,8 @@ def test_page_deleted(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_invoice_request(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1417,7 +1417,7 @@ def test_invoice_request(
     fulfilled_order,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     invoice = fulfilled_order.invoices.first()
     manager.invoice_request(fulfilled_order, invoice, invoice.number)
@@ -1436,8 +1436,8 @@ def test_invoice_request(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_invoice_delete(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1446,7 +1446,7 @@ def test_invoice_delete(
     fulfilled_order,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     invoice = fulfilled_order.invoices.first()
     manager.invoice_delete(invoice)
@@ -1465,8 +1465,8 @@ def test_invoice_delete(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_invoice_sent(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1475,7 +1475,7 @@ def test_invoice_sent(
     fulfilled_order,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     invoice = fulfilled_order.invoices.first()
     manager.invoice_sent(invoice, fulfilled_order.user.email)
@@ -1495,8 +1495,8 @@ def test_invoice_sent(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_fulfillment_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1505,7 +1505,7 @@ def test_fulfillment_metadata_updated(
     fulfillment,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.fulfillment_metadata_updated(fulfillment)
 
@@ -1524,8 +1524,8 @@ def test_fulfillment_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_gift_card_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1534,7 +1534,7 @@ def test_gift_card_metadata_updated(
     gift_card,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.gift_card_metadata_updated(gift_card)
 
@@ -1553,8 +1553,8 @@ def test_gift_card_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_voucher_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1563,7 +1563,7 @@ def test_voucher_metadata_updated(
     voucher,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.voucher_metadata_updated(voucher)
 
@@ -1582,8 +1582,8 @@ def test_voucher_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_shop_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1593,7 +1593,7 @@ def test_shop_metadata_updated(
     site_settings = SiteSettings.objects.first()
     assert site_settings
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.shop_metadata_updated(site_settings)
 
@@ -1612,8 +1612,8 @@ def test_shop_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_shipping_zone_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1622,7 +1622,7 @@ def test_shipping_zone_metadata_updated(
     shipping_zone,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.shipping_zone_metadata_updated(shipping_zone)
 
@@ -1641,8 +1641,8 @@ def test_shipping_zone_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_warehouse_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1651,7 +1651,7 @@ def test_warehouse_metadata_updated(
     warehouse,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.warehouse_metadata_updated(warehouse)
 
@@ -1670,8 +1670,8 @@ def test_warehouse_metadata_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_transaction_item_metadata_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1680,7 +1680,7 @@ def test_transaction_item_metadata_updated(
     transaction_item_created_by_app,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     manager.transaction_item_metadata_updated(transaction_item_created_by_app)
 
@@ -1700,8 +1700,8 @@ def test_transaction_item_metadata_updated(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_notify_user(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1711,7 +1711,7 @@ def test_notify_user(
     channel_USD,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(True, lambda: customer_user)
     timestamp = datetime.datetime(2020, 3, 18, 12, 0, tzinfo=datetime.UTC).isoformat()
 
@@ -1762,7 +1762,7 @@ def test_create_event_payload_reference_with_error(
     mocked_client_constructor = MagicMock(spec=boto3.client, return_value=mocked_client)
 
     monkeypatch.setattr(
-        "saleor.webhook.transport.utils.boto3.client",
+        "pmtraders.webhook.transport.utils.boto3.client",
         mocked_client_constructor,
     )
 
@@ -1794,8 +1794,8 @@ def test_create_event_payload_reference_with_error(
     assert payload.payload_file
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_sale_created(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1804,7 +1804,7 @@ def test_sale_created(
     promotion_converted_from_sale,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     promotion = promotion_converted_from_sale
@@ -1828,8 +1828,8 @@ def test_sale_created(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_sale_updated(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1839,7 +1839,7 @@ def test_sale_updated(
     product_list,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     promotion = promotion_converted_from_sale
@@ -1874,8 +1874,8 @@ def test_sale_updated(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_sale_deleted(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1884,7 +1884,7 @@ def test_sale_deleted(
     promotion_converted_from_sale,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     promotion = promotion_converted_from_sale
@@ -1907,8 +1907,8 @@ def test_sale_deleted(
 
 
 @freeze_time("2020-10-10 10:10")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_sale_toggle(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -1918,7 +1918,7 @@ def test_sale_toggle(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     promotion = promotion_converted_from_sale
@@ -1943,10 +1943,10 @@ def test_sale_toggle(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.send_webhook_request_async.apply_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.send_webhook_request_async.apply_async")
 def test_event_delivery_retry(mocked_webhook_send, event_delivery, settings):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
 
     # when
@@ -1956,20 +1956,20 @@ def test_event_delivery_retry(mocked_webhook_send, event_delivery, settings):
     mocked_webhook_send.assert_called_once_with(
         kwargs={"event_delivery_id": event_delivery.pk, "telemetry_context": ANY},
         queue=settings.WEBHOOK_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.attempt_update",
+    "pmtraders.webhook.transport.asynchronous.transport.attempt_update",
     wraps=attempt_update,
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
+    "pmtraders.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
 )
-@mock.patch("saleor.webhook.transport.asynchronous.transport.clear_successful_delivery")
+@mock.patch("pmtraders.webhook.transport.asynchronous.transport.clear_successful_delivery")
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_with_success_response(
     mocked_send_response,
@@ -2017,7 +2017,7 @@ def test_send_webhook_request_async_with_success_response(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_with_success_response_deletes_event_deliveries(
     mocked_send_response,
@@ -2038,7 +2038,7 @@ def test_send_webhook_request_async_with_success_response_deletes_event_deliveri
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_with_custom_headers(
     mocked_send_response,
@@ -2059,8 +2059,8 @@ def test_send_webhook_request_async_with_custom_headers(
     assert custom_headers in mocked_send_response.call_args[0]
 
 
-@mock.patch("saleor.webhook.observability.utils.report_event_delivery_attempt")
-@mock.patch("saleor.webhook.transport.utils.clear_successful_delivery")
+@mock.patch("pmtraders.webhook.observability.utils.report_event_delivery_attempt")
+@mock.patch("pmtraders.webhook.transport.utils.clear_successful_delivery")
 def test_send_webhook_request_async_when_webhook_is_disabled(
     mocked_clear_delivery, mocked_observability, event_delivery
 ):
@@ -2078,10 +2078,10 @@ def test_send_webhook_request_async_when_webhook_is_disabled(
     assert event_delivery.status == EventDeliveryStatus.FAILED
 
 
-@mock.patch("saleor.webhook.observability.utils.report_event_delivery_attempt")
-@mock.patch("saleor.webhook.transport.asynchronous.transport.clear_successful_delivery")
+@mock.patch("pmtraders.webhook.observability.utils.report_event_delivery_attempt")
+@mock.patch("pmtraders.webhook.transport.asynchronous.transport.clear_successful_delivery")
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.retry"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.retry"
 )
 def test_send_webhook_request_async_when_event_delivery_is_missing(
     mocked_retry, mocked_clear_delivery, mocked_observability
@@ -2103,8 +2103,8 @@ def test_send_webhook_request_async_when_event_delivery_is_missing(
 
 
 @freeze_time("1914-06-28 10:50")
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_transaction_request")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_transaction_request")
 def test_transaction_charge_requested(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -2119,7 +2119,7 @@ def test_transaction_charge_requested(
     any_webhook.save()
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     transaction = TransactionItem.objects.create(
         name="Credit card",
@@ -2154,8 +2154,8 @@ def test_transaction_charge_requested(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_transaction_request")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_transaction_request")
 def test_transaction_refund_requested(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -2170,7 +2170,7 @@ def test_transaction_refund_requested(
     any_webhook.save()
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     transaction = TransactionItem.objects.create(
         name="Credit card",
@@ -2207,8 +2207,8 @@ def test_transaction_refund_requested(
     )
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_transaction_request")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_transaction_request")
 def test_transaction_refund_requested_missing_app_owner_updated_refundable_for_checkout(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -2225,7 +2225,7 @@ def test_transaction_refund_requested_missing_app_owner_updated_refundable_for_c
     any_webhook.save()
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     transaction = TransactionItem.objects.create(
         name="Credit card",
@@ -2259,8 +2259,8 @@ def test_transaction_refund_requested_missing_app_owner_updated_refundable_for_c
     assert checkout.automatically_refundable is False
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_transaction_request")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_transaction_request")
 def test_transaction_cancel_requested_missing_app_owner_updated_refundable_for_checkout(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -2277,7 +2277,7 @@ def test_transaction_cancel_requested_missing_app_owner_updated_refundable_for_c
     any_webhook.save()
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     transaction = TransactionItem.objects.create(
         name="Credit card",
@@ -2311,8 +2311,8 @@ def test_transaction_cancel_requested_missing_app_owner_updated_refundable_for_c
     assert checkout.automatically_refundable is False
 
 
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_transaction_request")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_transaction_request")
 def test_transaction_cancelation_requested(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -2327,7 +2327,7 @@ def test_transaction_cancelation_requested(
     any_webhook.save()
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     manager = get_plugins_manager(allow_replica=False)
     transaction = TransactionItem.objects.create(
         name="Credit card",
@@ -2364,10 +2364,10 @@ def test_transaction_cancelation_requested(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
+    "pmtraders.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_when_delivery_attempt_failed(
     mocked_send_response,
@@ -2390,7 +2390,7 @@ def test_send_webhook_request_async_when_delivery_attempt_failed(
 
 @mock.patch.object(HTTPSession, "request", side_effect=RequestException)
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
+    "pmtraders.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
 )
 def test_send_webhook_request_async_with_request_exception(
     mocked_observability, mocked_post, event_delivery, webhook_response_failed
@@ -2420,13 +2420,13 @@ def test_send_webhook_request_async_with_request_exception(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.retry"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.retry"
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
+    "pmtraders.webhook.transport.asynchronous.transport.observability.report_event_delivery_attempt"
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_when_max_retries_exceeded(
     mocked_send_response,
@@ -2451,7 +2451,7 @@ def test_is_event_active(settings, webhook, permission_manage_orders):
     # given
     event = "invoice_request"
     expected_is_active = True
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook.app.permissions.add(permission_manage_orders)
     webhook.events.create(event_type=WebhookEventAsyncType.INVOICE_REQUESTED)
 
@@ -2464,10 +2464,10 @@ def test_is_event_active(settings, webhook, permission_manage_orders):
     assert is_active == expected_is_active
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@mock.patch("saleor.webhook.transport.synchronous.transport.get_webhooks_for_event")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.get_webhooks_for_event")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_trigger_webhook_sync_with_subscription_within_mutation_use_default_db(
     mocked_generate_payload,
@@ -2481,7 +2481,7 @@ def test_trigger_webhook_sync_with_subscription_within_mutation_use_default_db(
 ):
     # given
     webhook = subscription_calculate_taxes_for_order
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     mocked_get_webhooks_for_event.return_value = [webhook]
 
     order_discount = draft_order.discounts.create(
@@ -2511,11 +2511,11 @@ def test_trigger_webhook_sync_with_subscription_within_mutation_use_default_db(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async"
 )
-@mock.patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.asynchronous.transport.generate_payload_from_subscription"
 )
 def test_trigger_webhook_async_with_subscription_use_main_db(
     mocked_generate_payload,
@@ -2530,7 +2530,7 @@ def test_trigger_webhook_async_with_subscription_use_main_db(
 ):
     # given
     webhook = subscription_product_created_webhook
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     mocked_get_webhooks_for_event.return_value = [webhook]
 
     product_type_id = graphene.Node.to_global_id("ProductType", product_type.pk)

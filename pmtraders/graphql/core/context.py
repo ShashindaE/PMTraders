@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from .dataloaders import DataLoader
 
 
-class SaleorContext(HttpRequest):
+class pmtradersContext(HttpRequest):
     _cached_user: "User | None"
     decoded_auth_token: dict[str, Any] | None
     allow_replica: bool = True
@@ -29,24 +29,24 @@ class SaleorContext(HttpRequest):
         super().__init__(*args, **kwargs)
 
 
-def disallow_replica_in_context(context: SaleorContext) -> None:
+def disallow_replica_in_context(context: pmtradersContext) -> None:
     """Set information in context to use database replicas or not.
 
-    Part of the database read replicas in Saleor.
-    When Saleor builds a response for mutation `context` stores information
+    Part of the database read replicas in pmtraders.
+    When pmtraders builds a response for mutation `context` stores information
     `allow_replica=False`. That means that all data should be provided from
     the master database.
-    When Saleor builds a response for query, set `allow_replica`=True in `context`.
+    When pmtraders builds a response for query, set `allow_replica`=True in `context`.
     That means that all data should be provided from reading replica of the database.
     Database read replica couldn't be used to save any data.
     """
     context.allow_replica = False
 
 
-def get_database_connection_name(context: SaleorContext) -> str:
+def get_database_connection_name(context: pmtradersContext) -> str:
     """Retrieve connection name based on request context.
 
-    Part of the database read replicas in Saleor.
+    Part of the database read replicas in pmtraders.
     Return proper connection name based on `context`.
     For more info check `disallow_replica_in_context`
     Add `.using(connection_name)` to use connection name in QuerySet.
@@ -59,7 +59,7 @@ def get_database_connection_name(context: SaleorContext) -> str:
     return settings.DATABASE_CONNECTION_DEFAULT_NAME
 
 
-def setup_context_user(context: SaleorContext) -> None:
+def setup_context_user(context: pmtradersContext) -> None:
     if hasattr(context.user, "_wrapped") and (
         context.user._wrapped is empty or context.user._wrapped is None  # type: ignore[union-attr]
     ):

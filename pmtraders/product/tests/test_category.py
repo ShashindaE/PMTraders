@@ -44,8 +44,8 @@ def test_delete_categories(categories_tree_with_published_products):
         assert rule.variants_dirty
 
 
-@patch("saleor.product.utils.get_webhooks_for_event")
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.product.utils.get_webhooks_for_event")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_delete_categories_trigger_product_updated_webhook(
     product_updated_mock,
     mocked_get_webhooks_for_event,
@@ -56,7 +56,7 @@ def test_delete_categories_trigger_product_updated_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     parent = categories_tree_with_published_products
     child = parent.children.first()

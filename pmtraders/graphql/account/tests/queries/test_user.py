@@ -1320,7 +1320,7 @@ query User($id: ID, $channel: String!) {
 """
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.list_stored_payment_methods")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.list_stored_payment_methods")
 def test_query_customer_stored_payment_methods(
     mocked_list_stored_payment_methods,
     staff_api_client,

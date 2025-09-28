@@ -762,7 +762,7 @@ def test_increase_allocation_insufficient_stock(allocation):
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_increase_stock_with_back_in_stock_webhook_triggered_without_allocation(
     product_variant_back_in_stock_webhook,
     allocation,
@@ -1151,7 +1151,7 @@ def test_deallocate_stock_for_orders_with_multiple_allocations_from_the_same_sto
     assert second_allocation.quantity_allocated == 0
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_increase_stock_with_back_in_stock_webhook_not_triggered(
     product_variant_back_in_stock_webhook,
     allocation,
@@ -1170,7 +1170,7 @@ def test_increase_stock_with_back_in_stock_webhook_not_triggered(
     product_variant_back_in_stock_webhook.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_increase_stock_with_back_in_stock_webhook_not_triggered_with_allocation(
     product_variant_back_in_stock_webhook,
     allocation,
@@ -1189,7 +1189,7 @@ def test_increase_stock_with_back_in_stock_webhook_not_triggered_with_allocation
     product_variant_back_in_stock_webhook.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_decrease_stock_with_out_of_stock_webhook_triggered(
     product_variant_out_of_stock_webhook_mock,
     allocation,

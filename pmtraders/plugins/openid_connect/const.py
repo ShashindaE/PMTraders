@@ -1,1 +1,1 @@
-SALEOR_STAFF_PERMISSION = "saleor:staff"
+pmtraders_STAFF_PERMISSION = "pmtraders:staff"

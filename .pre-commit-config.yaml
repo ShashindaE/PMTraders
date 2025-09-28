@@ -75,5 +75,5 @@ repos:
       - id: gql-schema-check
         language: system
         name: Check GraphQL schema is up to date.
-        entry: sh -c "./manage.py get_graphql_schema | diff saleor/graphql/schema.graphql -"
+        entry: sh -c "./manage.py get_graphql_schema | diff pmtraders/graphql/schema.graphql -"
         stages: [pre-commit]

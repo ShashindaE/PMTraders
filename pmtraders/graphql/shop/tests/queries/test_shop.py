@@ -531,7 +531,7 @@ def test_query_available_external_authentications(
 ):
     # given
     monkeypatch.setattr(
-        "saleor.plugins.manager.PluginsManager.list_external_authentications",
+        "pmtraders.plugins.manager.PluginsManager.list_external_authentications",
         lambda self, active_only: external_auths,
     )
     query = AVAILABLE_EXTERNAL_AUTHENTICATIONS_QUERY

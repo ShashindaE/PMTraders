@@ -25,7 +25,7 @@ from ..notify_events import (
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_password_reset_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_password_reset_email_task.delay"
 )
 def test_send_account_password_reset_event(
     mocked_email_task, customer_user, user_email_plugin
@@ -37,7 +37,7 @@ def test_send_account_password_reset_event(
         "token": token,
         "reset_url": f"http://localhost:8000/redirect{token}",
         "domain": "localhost:8000",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
     }
     config = {"host": "localhost", "port": "1025"}
     handler = NotifyHandler(lambda: payload)
@@ -50,7 +50,7 @@ def test_send_account_password_reset_event(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_password_reset_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_password_reset_email_task.delay"
 )
 def test_send_account_password_reset_event_with_empty_template(
     mocked_email_task, customer_user, user_email_plugin
@@ -62,7 +62,7 @@ def test_send_account_password_reset_event_with_empty_template(
         "token": token,
         "reset_url": f"http://localhost:8000/redirect{token}",
         "domain": "localhost:8000",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
     }
     config = {"host": "localhost", "port": "1025"}
     handler = NotifyHandler(lambda: payload)
@@ -75,7 +75,7 @@ def test_send_account_password_reset_event_with_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_account_confirmation_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_account_confirmation_email_task.delay"
 )
 def test_send_account_confirmation(mocked_email_task, customer_user, user_email_plugin):
     token = "token123"
@@ -85,7 +85,7 @@ def test_send_account_confirmation(mocked_email_task, customer_user, user_email_
         "token": token,
         "confirm_url": f"http://localhost:8000/redirect{token}",
         "domain": "localhost:8000",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
     }
     config = {"host": "localhost", "port": "1025"}
     handler = NotifyHandler(lambda: payload)
@@ -98,7 +98,7 @@ def test_send_account_confirmation(mocked_email_task, customer_user, user_email_
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_account_confirmation_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_account_confirmation_email_task.delay"
 )
 def test_send_account_confirmation_with_empty_template(
     mocked_email_task, customer_user, user_email_plugin
@@ -110,7 +110,7 @@ def test_send_account_confirmation_with_empty_template(
         "token": token,
         "confirm_url": f"http://localhost:8000/redirect{token}",
         "domain": "localhost:8000",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
     }
     config = {"host": "localhost", "port": "1025"}
     handler = NotifyHandler(lambda: payload)
@@ -123,7 +123,7 @@ def test_send_account_confirmation_with_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_request_email_change_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_request_email_change_email_task.delay"
 )
 def test_send_account_change_email_request(
     mocked_email_task, customer_user, user_email_plugin
@@ -136,7 +136,7 @@ def test_send_account_change_email_request(
         "redirect_url": f"http://localhost:8000/redirect{token}",
         "old_email": "old.user@example.com",
         "new_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -150,7 +150,7 @@ def test_send_account_change_email_request(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_request_email_change_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_request_email_change_email_task.delay"
 )
 def test_send_account_change_email_request_empty_template(
     mocked_email_task, customer_user, user_email_plugin
@@ -163,7 +163,7 @@ def test_send_account_change_email_request_empty_template(
         "redirect_url": f"http://localhost:8000/redirect{token}",
         "old_email": "old.user@example.com",
         "new_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -177,7 +177,7 @@ def test_send_account_change_email_request_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_user_change_email_notification_task."
+    "pmtraders.plugins.user_email.notify_events.send_user_change_email_notification_task."
     "delay"
 )
 def test_send_account_change_email_confirm(
@@ -186,7 +186,7 @@ def test_send_account_change_email_confirm(
     payload = {
         "user": get_default_user_payload(customer_user),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -200,7 +200,7 @@ def test_send_account_change_email_confirm(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_user_change_email_notification_task."
+    "pmtraders.plugins.user_email.notify_events.send_user_change_email_notification_task."
     "delay"
 )
 def test_send_account_change_email_confirm_empty_template(
@@ -209,7 +209,7 @@ def test_send_account_change_email_confirm_empty_template(
     payload = {
         "user": get_default_user_payload(customer_user),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -223,7 +223,7 @@ def test_send_account_change_email_confirm_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events."
+    "pmtraders.plugins.user_email.notify_events."
     "send_account_delete_confirmation_email_task.delay"
 )
 def test_send_account_delete(mocked_email_task, customer_user, user_email_plugin):
@@ -233,7 +233,7 @@ def test_send_account_delete(mocked_email_task, customer_user, user_email_plugin
         "recipient_email": "user@example.com",
         "token": token,
         "delete_url": f"http://localhost:8000/redirect{token}",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -247,7 +247,7 @@ def test_send_account_delete(mocked_email_task, customer_user, user_email_plugin
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events."
+    "pmtraders.plugins.user_email.notify_events."
     "send_account_delete_confirmation_email_task.delay"
 )
 def test_send_account_delete_with_empty_template(
@@ -259,7 +259,7 @@ def test_send_account_delete_with_empty_template(
         "recipient_email": "user@example.com",
         "token": token,
         "delete_url": f"http://localhost:8000/redirect{token}",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -273,7 +273,7 @@ def test_send_account_delete_with_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_set_user_password_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_set_user_password_email_task.delay"
 )
 def test_send_account_set_customer_password(
     mocked_email_task, customer_user, user_email_plugin
@@ -284,7 +284,7 @@ def test_send_account_set_customer_password(
         "recipient_email": "user@example.com",
         "token": token,
         "password_set_url": f"http://localhost:8000/redirect{token}",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -298,7 +298,7 @@ def test_send_account_set_customer_password(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_set_user_password_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_set_user_password_email_task.delay"
 )
 def test_send_account_set_customer_password_empty_template(
     mocked_email_task, customer_user, user_email_plugin
@@ -309,7 +309,7 @@ def test_send_account_set_customer_password_empty_template(
         "recipient_email": "user@example.com",
         "token": token,
         "password_set_url": f"http://localhost:8000/redirect{token}",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -322,7 +322,7 @@ def test_send_account_set_customer_password_empty_template(
     assert not mocked_email_task.called
 
 
-@mock.patch("saleor.plugins.user_email.notify_events.send_invoice_email_task.delay")
+@mock.patch("pmtraders.plugins.user_email.notify_events.send_invoice_email_task.delay")
 def test_send_invoice(mocked_email_task, user_email_plugin):
     payload = {
         "invoice": {
@@ -331,7 +331,7 @@ def test_send_invoice(mocked_email_task, user_email_plugin):
             "download_url": "http://localhost:8000/download",
         },
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -344,7 +344,7 @@ def test_send_invoice(mocked_email_task, user_email_plugin):
     )
 
 
-@mock.patch("saleor.plugins.user_email.notify_events.send_invoice_email_task.delay")
+@mock.patch("pmtraders.plugins.user_email.notify_events.send_invoice_email_task.delay")
 def test_send_invoice_with_empty_template(mocked_email_task, user_email_plugin):
     payload = {
         "invoice": {
@@ -353,7 +353,7 @@ def test_send_invoice_with_empty_template(mocked_email_task, user_email_plugin):
             "download_url": "http://localhost:8000/download",
         },
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -367,13 +367,13 @@ def test_send_invoice_with_empty_template(mocked_email_task, user_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_confirmation_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_confirmation_email_task.delay"
 )
 def test_send_order_confirmation(mocked_email_task, order, user_email_plugin):
     payload = {
         "order": get_default_order_payload(order, "http://localhost:8000/redirect"),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -387,7 +387,7 @@ def test_send_order_confirmation(mocked_email_task, order, user_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_confirmation_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_confirmation_email_task.delay"
 )
 def test_send_order_confirmation_empty_template(
     mocked_email_task, order, user_email_plugin
@@ -395,7 +395,7 @@ def test_send_order_confirmation_empty_template(
     payload = {
         "order": get_default_order_payload(order, "http://localhost:8000/redirect"),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -409,7 +409,7 @@ def test_send_order_confirmation_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_fulfillment_confirmation_email_task."
+    "pmtraders.plugins.user_email.notify_events.send_fulfillment_confirmation_email_task."
     "delay"
 )
 def test_send_fulfillment_confirmation(
@@ -427,7 +427,7 @@ def test_send_fulfillment_confirmation(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_fulfillment_confirmation_email_task."
+    "pmtraders.plugins.user_email.notify_events.send_fulfillment_confirmation_email_task."
     "delay"
 )
 def test_send_fulfillment_confirmation_empty_template(
@@ -445,7 +445,7 @@ def test_send_fulfillment_confirmation_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_fulfillment_update_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_fulfillment_update_email_task.delay"
 )
 def test_send_fulfillment_update(
     mocked_email_task, order, fulfillment, user_email_plugin
@@ -462,7 +462,7 @@ def test_send_fulfillment_update(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_fulfillment_update_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_fulfillment_update_email_task.delay"
 )
 def test_send_fulfillment_update_empty_template(
     mocked_email_task, order, fulfillment, user_email_plugin
@@ -479,7 +479,7 @@ def test_send_fulfillment_update_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_payment_confirmation_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_payment_confirmation_email_task.delay"
 )
 def test_send_payment_confirmation(
     mocked_email_task, order, payment_dummy, user_email_plugin
@@ -495,7 +495,7 @@ def test_send_payment_confirmation(
             "captured_amount": payment_dummy.captured_amount,
             "currency": payment_dummy.currency,
         },
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -509,7 +509,7 @@ def test_send_payment_confirmation(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_payment_confirmation_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_payment_confirmation_email_task.delay"
 )
 def test_send_payment_confirmation_empty_template(
     mocked_email_task, order, payment_dummy, user_email_plugin
@@ -525,7 +525,7 @@ def test_send_payment_confirmation_empty_template(
             "captured_amount": payment_dummy.captured_amount,
             "currency": payment_dummy.currency,
         },
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -539,13 +539,13 @@ def test_send_payment_confirmation_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_canceled_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_canceled_email_task.delay"
 )
 def test_send_order_canceled(mocked_email_task, order, user_email_plugin):
     payload = {
         "order": get_default_order_payload(order, "http://localhost:8000/redirect"),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -559,7 +559,7 @@ def test_send_order_canceled(mocked_email_task, order, user_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_canceled_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_canceled_email_task.delay"
 )
 def test_send_order_canceled_empty_template(
     mocked_email_task, order, user_email_plugin
@@ -567,7 +567,7 @@ def test_send_order_canceled_empty_template(
     payload = {
         "order": get_default_order_payload(order, "http://localhost:8000/redirect"),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -581,7 +581,7 @@ def test_send_order_canceled_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_refund_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_refund_email_task.delay"
 )
 def test_send_order_refund(mocked_email_task, order, user_email_plugin):
     payload = {
@@ -589,7 +589,7 @@ def test_send_order_refund(mocked_email_task, order, user_email_plugin):
         "recipient_email": "user@example.com",
         "amount": order.total_gross_amount,
         "currency": order.currency,
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -603,7 +603,7 @@ def test_send_order_refund(mocked_email_task, order, user_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_refund_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_refund_email_task.delay"
 )
 def test_send_order_refund_with_empty_template(
     mocked_email_task, order, user_email_plugin
@@ -613,7 +613,7 @@ def test_send_order_refund_with_empty_template(
         "recipient_email": "user@example.com",
         "amount": order.total_gross_amount,
         "currency": order.currency,
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -627,13 +627,13 @@ def test_send_order_refund_with_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_confirmed_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_confirmed_email_task.delay"
 )
 def test_send_order_confirmed(mocked_email_task, order, user_email_plugin):
     payload = {
         "order": get_default_order_payload(order, "http://localhost:8000/redirect"),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}
@@ -647,7 +647,7 @@ def test_send_order_confirmed(mocked_email_task, order, user_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.user_email.notify_events.send_order_confirmed_email_task.delay"
+    "pmtraders.plugins.user_email.notify_events.send_order_confirmed_email_task.delay"
 )
 def test_send_order_confirmed_empty_template(
     mocked_email_task, order, user_email_plugin
@@ -655,7 +655,7 @@ def test_send_order_confirmed_empty_template(
     payload = {
         "order": get_default_order_payload(order, "http://localhost:8000/redirect"),
         "recipient_email": "user@example.com",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
         "domain": "localhost:8000",
     }
     config = {"host": "localhost", "port": "1025"}

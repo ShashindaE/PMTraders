@@ -1383,7 +1383,7 @@ def test_product_query_error_when_id_and_slug_provided(
     graphql_log_handler,
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
     variables = {
         "id": graphene.Node.to_global_id("Product", product.pk),
@@ -1395,7 +1395,7 @@ def test_product_query_error_when_id_and_slug_provided(
 
     # then
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
     content = get_graphql_content(response, ignore_errors=True)
     assert len(content["errors"]) == 1
@@ -1407,7 +1407,7 @@ def test_product_query_error_when_no_param(
     graphql_log_handler,
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
     variables = {}
 
@@ -1416,7 +1416,7 @@ def test_product_query_error_when_no_param(
 
     # then
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
     content = get_graphql_content(response, ignore_errors=True)
     assert len(content["errors"]) == 1

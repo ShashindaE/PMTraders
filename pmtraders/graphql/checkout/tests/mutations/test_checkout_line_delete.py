@@ -47,12 +47,12 @@ MUTATION_CHECKOUT_LINE_DELETE = """
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete."
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_line_delete(
@@ -98,12 +98,12 @@ def test_checkout_line_delete(
     ],
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete."
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_line_delete_when_variant_without_channel_listing(
@@ -160,12 +160,12 @@ def test_checkout_line_delete_when_variant_without_channel_listing(
     ],
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete."
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_line_delete_when_checkout_has_line_without_channel_listing(
@@ -331,14 +331,14 @@ def test_checkout_line_delete_non_removable_gift(user_api_client, checkout_line)
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_line_delete.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.checkout_line_delete.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_line_delete_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -401,7 +401,7 @@ def test_checkout_line_delete_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

@@ -33,7 +33,7 @@ WEBHOOK_TRIGGER_MUTATION = """
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_webhook_trigger_success(
     mock_send_webhook_using_scheme_method,
@@ -84,7 +84,7 @@ def test_webhook_trigger_success(
         assert not data["delivery"]["payload"]
 
 
-@mock.patch("saleor.webhook.transport.utils.send_webhook_using_scheme_method")
+@mock.patch("pmtraders.webhook.transport.utils.send_webhook_using_scheme_method")
 def test_webhook_trigger_type_not_supported(
     mock_send_webhook_using_scheme_method,
     async_subscription_webhooks_with_root_objects,
@@ -133,7 +133,7 @@ def test_webhook_trigger_type_not_supported(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_webhook_trigger_fail(
     mock_send_webhook_using_scheme_method,
@@ -357,10 +357,10 @@ def test_webhook_trigger_for_removed_app(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.generate_deferred_payloads.apply_async",
+    "pmtraders.webhook.transport.asynchronous.transport.generate_deferred_payloads.apply_async",
     wraps=generate_deferred_payloads.apply_async,
 )
 def test_webhook_trigger_for_deferred_payload(

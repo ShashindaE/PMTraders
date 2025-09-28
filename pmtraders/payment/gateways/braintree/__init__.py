@@ -2,7 +2,7 @@ import braintree as braintree_sdk
 from braintree.exceptions.braintree_error import BraintreeError
 from django.core.exceptions import ImproperlyConfigured
 
-from ....core.telemetry import saleor_attributes, tracer
+from ....core.telemetry import pmtraders_attributes, tracer
 from ... import TransactionKind
 from ...interface import (
     CustomerSource,
@@ -110,7 +110,7 @@ def get_client_token(
 ) -> str:
     gateway = get_braintree_gateway(**config.connection_params)
     with tracer.start_as_current_span("braintree.client_token.generate") as span:
-        span.set_attribute(saleor_attributes.COMPONENT, "payment")
+        span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
         parameters = create_token_params(config, token_config)
         return gateway.client_token.generate(parameters)
 
@@ -177,7 +177,7 @@ def transaction_for_new_customer(
     gateway = get_braintree_gateway(**config.connection_params)
 
     with tracer.start_as_current_span("braintree.transaction.sale") as span:
-        span.set_attribute(saleor_attributes.COMPONENT, "payment")
+        span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
         params = get_customer_data(payment_information)
         merchant_account_id = config.connection_params["merchant_account_id"]
         if merchant_account_id:
@@ -205,7 +205,7 @@ def transaction_for_existing_customer(
 ):
     gateway = get_braintree_gateway(**config.connection_params)
     with tracer.start_as_current_span("braintree.transaction.sale") as span:
-        span.set_attribute(saleor_attributes.COMPONENT, "payment")
+        span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
         params = get_customer_data(payment_information)
         merchant_account_id = config.connection_params["merchant_account_id"]
         if merchant_account_id:
@@ -231,7 +231,7 @@ def capture(payment_information: PaymentData, config: GatewayConfig) -> GatewayR
         with tracer.start_as_current_span(
             "braintree.transaction.submit_for_settlement"
         ) as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             result = gateway.transaction.submit_for_settlement(
                 transaction_id=payment_information.token,
                 amount=str(payment_information.amount),
@@ -261,7 +261,7 @@ def void(payment_information: PaymentData, config: GatewayConfig) -> GatewayResp
 
     try:
         with tracer.start_as_current_span("braintree.transaction.void") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             result = gateway.transaction.void(transaction_id=payment_information.token)
     except BraintreeError as exc:
         handle_braintree_error(exc)
@@ -288,7 +288,7 @@ def refund(payment_information: PaymentData, config: GatewayConfig) -> GatewayRe
 
     try:
         with tracer.start_as_current_span("braintree.transaction.refund") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "payment")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
             result = gateway.transaction.refund(
                 transaction_id=payment_information.token,
                 amount_or_options=str(payment_information.amount),
@@ -325,7 +325,7 @@ def list_client_sources(
 ) -> list[CustomerSource]:
     gateway = get_braintree_gateway(**config.connection_params)
     with tracer.start_as_current_span("braintree.customer.find") as span:
-        span.set_attribute(saleor_attributes.COMPONENT, "payment")
+        span.set_attribute(pmtraders_attributes.COMPONENT, "payment")
         customer = gateway.customer.find(customer_id)
     if not customer:
         return []

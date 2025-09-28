@@ -39,8 +39,8 @@ PROMOTION_RULE_TRANSLATE_MUTATION = """
 
 
 @freeze_time("2023-06-01 10:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_promotion_rule_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -53,7 +53,7 @@ def test_promotion_rule_create_translation(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     rule_id = graphene.Node.to_global_id("PromotionRule", promotion_rule.id)
 
     variables = {

@@ -38,7 +38,7 @@ def test_validate_plugin_configuration_invalid_credentials(
         NPAtobaraiGatewayPlugin.validate_plugin_configuration(plugin)
 
 
-@mock.patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@mock.patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_validate_plugin_configuration_missing_data(mocked_request, np_atobarai_plugin):
     # given
     plugin = np_atobarai_plugin(merchant_code=None, sp_code=None, terminal_id=None)
@@ -53,7 +53,7 @@ def test_validate_plugin_configuration_missing_data(mocked_request, np_atobarai_
     assert len(excinfo.value.error_dict) == 3
 
 
-@mock.patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@mock.patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_validate_plugin_configuration_invalid_shipping_company_code(
     mocked_request, np_atobarai_plugin
 ):
@@ -70,7 +70,7 @@ def test_validate_plugin_configuration_invalid_shipping_company_code(
     assert "shipping_company" in excinfo.value.error_dict
 
 
-@mock.patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@mock.patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_validate_plugin_configuration_inactive(mocked_request, np_atobarai_plugin):
     # given
     plugin = np_atobarai_plugin(active=False)

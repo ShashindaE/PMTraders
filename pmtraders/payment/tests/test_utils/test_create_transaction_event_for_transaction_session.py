@@ -17,8 +17,8 @@ from ...utils import (
 )
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 @freeze_time("2018-05-31 12:00:01")
 def test_create_transaction_event_from_request_triggers_webhooks_when_authorized(
     mock_order_fully_paid,
@@ -441,8 +441,8 @@ def test_create_transaction_event_for_transaction_session_missing_reference_with
         TransactionEventType.CHARGE_SUCCESS,
     ],
 )
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_create_transaction_event_for_transaction_session_call_webhook_order_updated(
     mock_order_fully_paid,
     mock_order_updated,
@@ -478,8 +478,8 @@ def test_create_transaction_event_for_transaction_session_call_webhook_order_upd
     mock_order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_create_transaction_event_for_transaction_session_call_webhook_for_fully_paid(
     mock_order_fully_paid,
     mock_order_updated,
@@ -914,9 +914,9 @@ def test_create_transaction_event_with_invalid_message(
     ) in (record.message for record in caplog.records)
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_create_transaction_event_from_session_when_authorized_triggers_checkout_completion(
     mocked_checkout_fully_authorized,
     mocked_checkout_fully_paid,

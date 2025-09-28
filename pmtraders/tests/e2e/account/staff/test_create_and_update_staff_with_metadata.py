@@ -21,7 +21,7 @@ def test_create_and_update_staff_with_metadata_core_1515(
     input_data = {
         "firstName": "Leo",
         "lastName": "Test",
-        "email": "new_staff@saleor.com",
+        "email": "new_staff@pmtraders.com",
         "isActive": True,
         "metadata": metadata,
         "privateMetadata": private_metadata,

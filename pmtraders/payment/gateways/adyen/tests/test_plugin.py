@@ -15,7 +15,7 @@ from ....models import Payment, Transaction
 from ....utils import create_payment_information, create_transaction
 
 
-@mock.patch("saleor.payment.gateways.adyen.plugin.api_call")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.api_call")
 def test_process_additional_action(
     mocked_api_call,
     dummy_payment_data,
@@ -103,7 +103,7 @@ def test_process_payment(
 
 
 @pytest.mark.vcr
-@mock.patch("saleor.payment.gateways.adyen.plugin.call_capture")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.call_capture")
 def test_process_payment_with_adyen_auto_capture(
     capture_mock,
     payment_adyen_for_checkout,
@@ -224,7 +224,7 @@ def test_process_payment_with_klarna(
     )
 
 
-@mock.patch("saleor.payment.gateways.adyen.plugin.api_call")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.api_call")
 def test_process_payment_additional_action(
     api_call_mock, payment_adyen_for_checkout, checkout_with_items, adyen_plugin
 ):
@@ -267,7 +267,7 @@ def test_process_payment_additional_action(
     )
 
 
-@mock.patch("saleor.payment.gateways.adyen.plugin.api_call")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.api_call")
 def test_process_payment_additional_action_payment_does_not_exists(
     api_call_mock, payment_adyen_for_checkout, checkout_with_items, adyen_plugin
 ):
@@ -301,7 +301,7 @@ def test_process_payment_additional_action_payment_does_not_exists(
     assert str(e.value) == "Payment cannot be performed. Payment does not exists."
 
 
-@mock.patch("saleor.payment.gateways.adyen.plugin.api_call")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.api_call")
 def test_process_payment_additional_action_checkout_does_not_exists(
     api_call_mock, payment_adyen_for_checkout, checkout_with_items, adyen_plugin
 ):
@@ -636,7 +636,7 @@ def test_validate_plugin_configuration_without_apple_cert(adyen_plugin):
     plugin.validate_plugin_configuration(plugin_configuration)
 
 
-@mock.patch("saleor.payment.gateways.adyen.plugin.api_call")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.api_call")
 def test_adyen_check_payment_balance(
     api_call_mock, adyen_plugin, adyen_check_balance_response
 ):
@@ -660,7 +660,7 @@ def test_adyen_check_payment_balance(
     assert result["balance"] == {"currency": "GBP", "value": 10000}
     api_call_mock.assert_called_once_with(
         {
-            "merchantAccount": "SaleorECOM",
+            "merchantAccount": "pmtradersECOM",
             "paymentMethod": {
                 "type": "givex",
                 "number": "1234567910",
@@ -673,7 +673,7 @@ def test_adyen_check_payment_balance(
     )
 
 
-@mock.patch("saleor.payment.gateways.adyen.plugin.api_call")
+@mock.patch("pmtraders.payment.gateways.adyen.plugin.api_call")
 def test_adyen_check_payment_balance_adyen_raises_error(api_call_mock, adyen_plugin):
     api_call_mock.return_value = Adyen.AdyenError("Error")
     plugin = adyen_plugin()
@@ -693,7 +693,7 @@ def test_adyen_check_payment_balance_adyen_raises_error(api_call_mock, adyen_plu
     assert result == "Error"
     api_call_mock.assert_called_once_with(
         {
-            "merchantAccount": "SaleorECOM",
+            "merchantAccount": "pmtradersECOM",
             "paymentMethod": {
                 "type": "givex",
                 "number": "1234567910",

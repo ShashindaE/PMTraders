@@ -1528,7 +1528,7 @@ def test_fetch_order_prices_order_promotion_discount_race_condition(
         calculations.fetch_order_prices_if_expired(order, plugins_manager, None, True)
 
     with race_condition.RunBefore(
-        "saleor.discount.utils.promotion._handle_order_promotion",
+        "pmtraders.discount.utils.promotion._handle_order_promotion",
         call_before_creating_order_promotion_line_discount,
     ):
         calculations.fetch_order_prices_if_expired(order, plugins_manager, None, True)

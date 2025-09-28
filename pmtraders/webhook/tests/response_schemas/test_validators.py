@@ -1,6 +1,6 @@
 import pytest
 
-from saleor.webhook.response_schemas.utils.validators import lower_values
+from pmtraders.webhook.response_schemas.utils.validators import lower_values
 
 
 @pytest.mark.parametrize(

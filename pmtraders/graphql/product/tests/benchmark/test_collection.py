@@ -202,7 +202,7 @@ def test_create_collection(
             }
         }
     """
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     product_ids = [
         graphene.Node.to_global_id("Product", product.pk)
         for product in product_list_with_many_channels
@@ -247,7 +247,7 @@ def test_delete_collection(
         }
     """
     collection = collection_with_products[0].collections.first()
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     collection_id = graphene.Node.to_global_id("Collection", collection.id)
 
     variables = {
@@ -289,7 +289,7 @@ def test_collection_add_products(
             }
         }
     """
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     collection_id = graphene.Node.to_global_id("Collection", collection.id)
     product_ids = [
@@ -330,7 +330,7 @@ def test_remove_products_from_collection(
             }
         }
     """
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     collection = collection_with_products[0].collections.first()
     collection_id = graphene.Node.to_global_id("Collection", collection.id)
@@ -370,7 +370,7 @@ def test_collection_bulk_delete(
     """
     for collection in collection_list:
         collection.products.add(*product_list)
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variables = {
         "ids": [
             graphene.Node.to_global_id("Collection", collection.id)
@@ -445,11 +445,11 @@ def test_collections_for_federation_query_count(
 
 
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
     2,
 )
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
     2,
 )
 @pytest.mark.parametrize(
@@ -466,11 +466,11 @@ def test_collection_batching_not_even(mutation_class):
 
 
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
     2,
 )
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
     2,
 )
 @pytest.mark.parametrize(
@@ -487,11 +487,11 @@ def test_collection_batching_even(mutation_class):
 
 
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
     2,
 )
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
     2,
 )
 @pytest.mark.parametrize(
@@ -508,11 +508,11 @@ def test_collection_batching_smaller_than_batch_size(mutation_class):
 
 
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_delete.PRODUCTS_BATCH_SIZE",
     2,
 )
 @patch(
-    "saleor.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
+    "pmtraders.graphql.product.mutations.collection.collection_create.PRODUCTS_BATCH_SIZE",
     2,
 )
 @pytest.mark.parametrize(

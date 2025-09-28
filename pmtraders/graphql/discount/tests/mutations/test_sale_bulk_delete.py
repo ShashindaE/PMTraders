@@ -20,8 +20,8 @@ SALE_BULK_DELETE_MUTATION = """
     """
 
 
-@mock.patch("saleor.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
-@mock.patch("saleor.plugins.manager.PluginsManager.sale_deleted")
+@mock.patch("pmtraders.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.sale_deleted")
 def test_delete_sales(
     deleted_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -46,7 +46,7 @@ def test_delete_sales(
 
     promotion_list = promotion_converted_from_sale_list
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variables = {
         "ids": [
             graphene.Node.to_global_id("Sale", promotion.old_sale_id)
@@ -74,8 +74,8 @@ def test_delete_sales(
     assert deleted_webhook_mock.call_count == len(promotion_list)
 
 
-@mock.patch("saleor.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_sales_triggers_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -87,7 +87,7 @@ def test_delete_sales_triggers_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     promotion_list = promotion_converted_from_sale_list
 
     variables = {
@@ -109,8 +109,8 @@ def test_delete_sales_triggers_webhook(
     assert mocked_webhook_trigger.call_count == 3
 
 
-@mock.patch("saleor.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_delete_sales_with_variants_triggers_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -149,7 +149,7 @@ def test_delete_sales_with_variants_triggers_webhook(
     PromotionRule.objects.bulk_update(rules, fields=["catalogue_predicate"])
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variables = {
         "ids": [
             graphene.Node.to_global_id("Sale", promotion.old_sale_id)
@@ -168,8 +168,8 @@ def test_delete_sales_with_variants_triggers_webhook(
     assert mocked_webhook_trigger.call_count == 3
 
 
-@mock.patch("saleor.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
-@mock.patch("saleor.plugins.manager.PluginsManager.sale_deleted")
+@mock.patch("pmtraders.graphql.discount.mutations.bulk_mutations.get_webhooks_for_event")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.sale_deleted")
 def test_delete_sales_with_promotion_ids(
     deleted_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -193,7 +193,7 @@ def test_delete_sales_with_promotion_ids(
     )
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     variables = {
         "ids": [
             graphene.Node.to_global_id("Promotion", promotion.id)

@@ -62,7 +62,7 @@ def test_unlogged_customer_unable_to_buy_product_without_shipping_option_CORE_01
         e2e_not_logged_api_client,
         lines,
         channel_slug,
-        email="jon.doe@saleor.io",
+        email="jon.doe@pmtraders.io",
     )
     checkout_id = checkout_data["id"]
     checkout_shipping_required = checkout_data["isShippingRequired"]

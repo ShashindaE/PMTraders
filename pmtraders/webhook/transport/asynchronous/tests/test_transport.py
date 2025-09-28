@@ -14,7 +14,7 @@ from ..transport import send_webhook_request_async
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_set_span_status_failed(
     mock_send_webhook_using_scheme_method,
@@ -38,7 +38,7 @@ def test_send_webhook_request_async_set_span_status_failed(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_record_external_request(
     mock_send_webhook_using_scheme_method,
@@ -85,7 +85,7 @@ def test_send_webhook_request_async_record_external_request(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_record_external_request_when_delivery_attempt_failed(
     mock_send_webhook_using_scheme_method,
@@ -133,7 +133,7 @@ def test_send_webhook_request_async_record_external_request_when_delivery_attemp
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhook_request_async_record_external_request_with_unknown_webhook_scheme(
     mock_send_webhook_using_scheme_method,
@@ -180,7 +180,7 @@ def test_send_webhook_request_async_record_external_request_with_unknown_webhook
     assert external_request_content_length.sum == payload_size
 
 
-@patch("saleor.webhook.transport.asynchronous.transport.webhooks_otel_trace")
+@patch("pmtraders.webhook.transport.asynchronous.transport.webhooks_otel_trace")
 def test_send_webhook_request_async_fails_when_exception_raised_by_webhooks_otel_trace(
     mock_webhooks_otel_trace,
     event_delivery,

@@ -29,7 +29,7 @@ def test_middleware_dont_generate_sql_requests(client, settings, assert_num_quer
 
 def test_jwt_middleware(client, admin_user):
     # We should't base on `wsgi_request` attribute to check if user is authenticated.
-    # Saleor is ASGI app, also request could be changed after response is returned.
+    # pmtraders is ASGI app, also request could be changed after response is returned.
     user_details_query = """
         {
           me {
@@ -358,7 +358,7 @@ def test_from_global_id_or_error_wth_type(product):
 
 
 @mock.patch(
-    "saleor.graphql.order.schema.create_connection_slice_for_sync_webhook_control_context"
+    "pmtraders.graphql.order.schema.create_connection_slice_for_sync_webhook_control_context"
 )
 def test_query_allow_replica(
     mocked_resolver, staff_api_client, order, permission_manage_orders

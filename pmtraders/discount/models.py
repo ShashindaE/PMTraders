@@ -545,7 +545,7 @@ class OrderLineDiscount(BaseDiscount):
         null=True,
         on_delete=models.CASCADE,
     )
-    # Saleor in version 3.19 and below, doesn't have any unique constraint applied on
+    # pmtraders in version 3.19 and below, doesn't have any unique constraint applied on
     # discounts for checkout/order. To not have an impact on existing DB objects,
     # the new field `unique_type` will be used for new discount records.
     # This will ensure that we always apply a single specific discount type.
@@ -597,7 +597,7 @@ class CheckoutLineDiscount(BaseDiscount):
         null=True,
         on_delete=models.CASCADE,
     )
-    # Saleor in version 3.19 and below, doesn't have any unique constraint applied on
+    # pmtraders in version 3.19 and below, doesn't have any unique constraint applied on
     # discounts for checkout/order. To not have an impact on existing DB objects,
     # the new field `unique_type` will be used for new discount records.
     # This will ensure that we always apply a single specific discount type.

@@ -37,7 +37,7 @@ def tax_checkout_webhooks(tax_app):
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_tax_webhook_sync(
     mock_request,
     tax_app,
@@ -67,7 +67,7 @@ def test_trigger_tax_webhook_sync(
     assert tax_data == parse_tax_data(tax_data_response, lines_count)
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_tax_webhook_sync_multiple_webhooks_first(
     mock_request,
     tax_checkout_webhooks,
@@ -94,7 +94,7 @@ def test_trigger_tax_webhook_sync_multiple_webhooks_first(
     assert tax_data == parse_tax_data(tax_data_response, lines_count)
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_tax_webhook_sync_multiple_webhooks_last(
     mock_request,
     tax_checkout_webhooks,
@@ -125,7 +125,7 @@ def test_trigger_tax_webhook_sync_multiple_webhooks_last(
     assert tax_data == parse_tax_data(tax_data_response, lines_count)
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_tax_webhook_sync_invalid_webhooks(
     mock_request,
     tax_checkout_webhooks,

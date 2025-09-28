@@ -37,7 +37,7 @@ def test_validate_default_email_configuration_bad_email(
     assert e.value.args[0]["sender_address"].code == PluginErrorCode.INVALID.value
 
 
-@patch("saleor.plugins.email_common.validate_email_config")
+@patch("pmtraders.plugins.email_common.validate_email_config")
 def test_validate_default_email_configuration_correct_email(
     mock_email_config, plugin_configuration, email_configuration
 ):
@@ -45,7 +45,7 @@ def test_validate_default_email_configuration_correct_email(
     validate_default_email_configuration(plugin_configuration, email_configuration)
 
 
-@patch("saleor.plugins.email_common.validate_email_config")
+@patch("pmtraders.plugins.email_common.validate_email_config")
 def test_validate_default_email_configuration_backend_raises(
     validate_email_config_mock, plugin_configuration, email_configuration
 ):
@@ -160,10 +160,10 @@ def test_get_plain_text_message_for_email(html_message, expected_output):
 
 
 @patch(
-    "saleor.plugins.email_common.get_plain_text_message_for_email",
+    "pmtraders.plugins.email_common.get_plain_text_message_for_email",
     wraps=get_plain_text_message_for_email,
 )
-@patch("saleor.plugins.email_common.send_mail")
+@patch("pmtraders.plugins.email_common.send_mail")
 def test_send_email(mocked_send_mail, mocked_get_plain_text):
     # given
     sender_address = "dummy@localhost.com"

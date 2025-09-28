@@ -51,8 +51,8 @@ def test_staff_delete(staff_api_client, permission_manage_staff):
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_staff_delete_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -63,7 +63,7 @@ def test_staff_delete_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     staff_user = User.objects.create(email="staffuser@example.com", is_staff=True)
     user_id = graphene.Node.to_global_id("User", staff_user.id)
     variables = {"id": user_id}
@@ -99,7 +99,7 @@ def test_staff_delete_trigger_webhook(
     )
 
 
-@patch("saleor.account.signals.delete_from_storage_task.delay")
+@patch("pmtraders.account.signals.delete_from_storage_task.delay")
 def test_staff_delete_with_avatar(
     delete_from_storage_task_mock,
     staff_api_client,

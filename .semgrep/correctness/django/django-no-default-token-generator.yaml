@@ -6,15 +6,15 @@ rules:
     message: The default Django's token generator class shouldn't be used directly,
       instead it should select it based on `settings.TOKEN_GENERATOR_CLASS`.
       Replace `from django.contrib.auth.tokens import default_token_generator`
-      by `from saleor.core.tokens import token_generator`
+      by `from pmtraders.core.tokens import token_generator`
     metadata:
       category: correctness
       technology:
-        - django 
+        - django
     languages:
       - python
     severity: ERROR
     pattern: |
       from django.contrib.auth.tokens import $X
     fix:
-      from saleor.core.tokens import token_generator
+      from pmtraders.core.tokens import token_generator

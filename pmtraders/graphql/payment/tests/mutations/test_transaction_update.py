@@ -2691,9 +2691,9 @@ def test_transaction_update_for_checkout_updates_payment_statuses(
     assert checkout_with_prices.authorize_status == CheckoutAuthorizeStatus.PARTIAL
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_update_for_checkout_fully_paid(
     mocked_checkout_fully_authorized,
     mocked_checkout_fully_paid,
@@ -2747,8 +2747,8 @@ def test_transaction_update_for_checkout_fully_paid(
     mocked_automatic_checkout_completion_task.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_update_for_checkout_fully_paid_automatic_completion(
     mocked_checkout_fully_authorized,
     mocked_checkout_fully_paid,
@@ -2809,9 +2809,9 @@ def test_transaction_update_for_checkout_fully_paid_automatic_completion(
     mocked_checkout_fully_authorized.assert_called_once_with(checkout, webhooks=set())
 
 
-@patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_update_for_checkout_fully_authorized(
     mocked_checkout_fully_authorized,
     mocked_checkout_fully_paid,
@@ -2865,8 +2865,8 @@ def test_transaction_update_for_checkout_fully_authorized(
     mocked_automatic_checkout_completion_task.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
 def test_transaction_update_for_checkout_fully_authorized_automatic_completion(
     mocked_checkout_fully_authorized,
     mocked_checkout_fully_paid,
@@ -2988,9 +2988,9 @@ def test_transaction_update_doesnt_accept_old_id_for_new_transactions(
         (False, OrderStatus.UNCONFIRMED),
     ],
 )
-@patch("saleor.plugins.manager.PluginsManager.order_paid")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_transaction_update_for_order_triggers_webhooks_when_fully_paid(
     mock_order_fully_paid,
     mock_order_updated,
@@ -3046,9 +3046,9 @@ def test_transaction_update_for_order_triggers_webhooks_when_fully_paid(
     "auto_order_confirmation",
     [True, False],
 )
-@patch("saleor.plugins.manager.PluginsManager.order_paid")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_transaction_update_for_draft_order_triggers_webhooks_when_fully_paid(
     mock_order_fully_paid,
     mock_order_updated,
@@ -3099,9 +3099,9 @@ def test_transaction_update_for_draft_order_triggers_webhooks_when_fully_paid(
     mock_order_paid.assert_called_once_with(order, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_paid")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_transaction_update_for_order_triggers_webhook_when_partially_paid(
     mock_order_fully_paid,
     mock_order_updated,
@@ -3148,8 +3148,8 @@ def test_transaction_update_for_order_triggers_webhook_when_partially_paid(
     mock_order_paid.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_paid")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_paid")
 def test_transaction_update_for_order_triggers_webhook_when_authorized(
     mock_order_fully_paid,
     mock_order_updated,
@@ -3194,9 +3194,9 @@ def test_transaction_update_for_order_triggers_webhook_when_authorized(
     mock_order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_transaction_update_for_order_triggers_webhooks_when_fully_refunded(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -3240,9 +3240,9 @@ def test_transaction_update_for_order_triggers_webhooks_when_fully_refunded(
     mock_order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_refunded")
-@patch("saleor.plugins.manager.PluginsManager.order_fully_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_refunded")
+@patch("pmtraders.plugins.manager.PluginsManager.order_fully_refunded")
 def test_transaction_update_for_order_triggers_webhook_when_partially_refunded(
     mock_order_fully_refunded,
     mock_order_refunded,
@@ -3772,7 +3772,7 @@ def test_transaction_update_with_invalid_other_payment_method_details(
 # Test wrapped by `transaction=True` to ensure that `selector_for_update` is called in a database transaction.
 @pytest.mark.django_db(transaction=True)
 @patch(
-    "saleor.payment.utils.get_order_and_transaction_item_locked_for_update",
+    "pmtraders.payment.utils.get_order_and_transaction_item_locked_for_update",
     wraps=get_order_and_transaction_item_locked_for_update,
 )
 def test_lock_order_during_updating_order_amounts(
@@ -3822,7 +3822,7 @@ def test_lock_order_during_updating_order_amounts(
 # Test wrapped by `transaction=True` to ensure that `selector_for_update` is called in a database transaction.
 @pytest.mark.django_db(transaction=True)
 @patch(
-    "saleor.payment.utils.get_checkout_and_transaction_item_locked_for_update",
+    "pmtraders.payment.utils.get_checkout_and_transaction_item_locked_for_update",
     wraps=get_checkout_and_transaction_item_locked_for_update,
 )
 def test_lock_checkout_during_updating_checkout_amounts(
@@ -3918,7 +3918,7 @@ def test_transaction_update_checkout_completed_race_condition(
         )
 
     with race_condition.RunBefore(
-        "saleor.graphql.payment.mutations.transaction.transaction_update.recalculate_transaction_amounts",
+        "pmtraders.graphql.payment.mutations.transaction.transaction_update.recalculate_transaction_amounts",
         complete_checkout,
     ):
         app_api_client.post_graphql(

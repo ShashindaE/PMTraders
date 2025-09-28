@@ -7,7 +7,7 @@ from ...core.middleware import Requestor
 from ...plugins.manager import PluginsManager, get_plugins_manager
 from ...plugins.models import EmailTemplate
 from ..app.dataloaders import get_app_promise
-from ..core import SaleorContext
+from ..core import pmtradersContext
 from ..core.dataloaders import DataLoader
 
 
@@ -41,13 +41,13 @@ class AnonymousPluginManagerLoader(DataLoader[None, PluginsManager]):
 
     def batch_load(self, keys):
         # When modify this code, modify also code
-        # in `saleor.core.auth_backend.PluginBackend.authenticate`
+        # in `pmtraders.core.auth_backend.PluginBackend.authenticate`
 
         allow_replica = getattr(self.context, "allow_replica", True)
         return [get_plugins_manager(allow_replica, None) for key in keys]
 
 
-def plugin_manager_promise(context: SaleorContext, app) -> Promise[PluginsManager]:
+def plugin_manager_promise(context: pmtradersContext, app) -> Promise[PluginsManager]:
     user = context.user
     requestor = app or user
     if requestor is None:
@@ -55,7 +55,7 @@ def plugin_manager_promise(context: SaleorContext, app) -> Promise[PluginsManage
     return PluginManagerByRequestorDataloader(context).load(requestor)
 
 
-def get_plugin_manager_promise(context: SaleorContext) -> Promise[PluginsManager]:
+def get_plugin_manager_promise(context: pmtradersContext) -> Promise[PluginsManager]:
     app = get_app_promise(context).get()
     return plugin_manager_promise(context, app)
 

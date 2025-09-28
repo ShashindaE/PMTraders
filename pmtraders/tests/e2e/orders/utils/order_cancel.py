@@ -1,4 +1,4 @@
-from saleor.graphql.tests.utils import get_graphql_content
+from pmtraders.graphql.tests.utils import get_graphql_content
 
 ORDER_CANCEL_MUTATION = """
 mutation OrderCancel($id: ID!) {

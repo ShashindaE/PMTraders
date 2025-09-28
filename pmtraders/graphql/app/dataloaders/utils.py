@@ -6,18 +6,18 @@ from promise import Promise
 from ....app.models import App
 from ....core.auth import get_token_from_request
 from ....core.utils.lazyobjects import unwrap_lazy
-from ...core import SaleorContext
+from ...core import pmtradersContext
 from .app import AppByTokenLoader
 
 
-def promise_app(context: SaleorContext) -> Promise[App | None]:
+def promise_app(context: pmtradersContext) -> Promise[App | None]:
     auth_token = get_token_from_request(context)
     if not auth_token or len(auth_token) != 30:
         return Promise.resolve(None)
     return AppByTokenLoader(context).load(auth_token)
 
 
-def get_app_promise(context: SaleorContext) -> Promise[App | None]:
+def get_app_promise(context: pmtradersContext) -> Promise[App | None]:
     if hasattr(context, "app"):
         app = context.app
         if isinstance(app, LazyObject):

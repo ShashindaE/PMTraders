@@ -41,10 +41,10 @@ ORDER_CAPTURE_MUTATION = """
 
 
 @patch(
-    "saleor.graphql.order.mutations.order_capture.order_charged", wraps=order_charged
+    "pmtraders.graphql.order.mutations.order_capture.order_charged", wraps=order_charged
 )
-@patch("saleor.giftcard.utils.fulfill_non_shippable_gift_cards")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.giftcard.utils.fulfill_non_shippable_gift_cards")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_order_capture(
     mocked_notify,
     fulfill_non_shippable_gift_cards_mock,
@@ -172,17 +172,17 @@ def test_order_capture_by_app(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @override_settings(
     PLUGINS=[
-        "saleor.plugins.webhook.plugin.WebhookPlugin",
-        "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
+        "pmtraders.plugins.webhook.plugin.WebhookPlugin",
+        "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
     ]
 )
 def test_order_capture_triggers_webhooks(
@@ -251,7 +251,7 @@ def test_order_capture_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],

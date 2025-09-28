@@ -20,8 +20,8 @@ services:
       - pmtraders-network
 
   dashboard:
-    # Using original Saleor dashboard for now - we'll switch to PMTraders dashboard later
-    image: ghcr.io/saleor/saleor-dashboard:3.20.5
+    # Using original pmtraders dashboard for now - we'll switch to PMTraders dashboard later
+    image: ghcr.io/pmtraders/pmtraders-dashboard:3.20.5
     # Option 1: Build from your GitHub repository (requires local clone)
     # build:
     #   context: ../PMTraders-dashboard  # Path to your local dashboard repo

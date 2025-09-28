@@ -1,5 +1,5 @@
-from saleor.attribute import AttributeType
-from saleor.attribute.models import Attribute, AttributeValue
+from pmtraders.attribute import AttributeType
+from pmtraders.attribute.models import Attribute, AttributeValue
 
 
 def test_attribute_value_setting_up_max_sort_order():

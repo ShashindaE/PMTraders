@@ -25,8 +25,8 @@ ACCOUNT_REQUEST_DELETION_MUTATION = """
 """
 
 
-@patch("saleor.account.notifications.account_delete_token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.account.notifications.account_delete_token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_deletion(
     mocked_notify, mocked_token, user_api_client, channel_PLN, site_settings
 ):
@@ -66,8 +66,8 @@ def test_account_request_deletion(
     assert called_kwargs["channel_slug"] == channel_PLN.slug
 
 
-@patch("saleor.account.notifications.account_delete_token_generator.make_token")
-@patch("saleor.plugins.manager.PluginsManager.account_delete_requested")
+@patch("pmtraders.account.notifications.account_delete_token_generator.make_token")
+@patch("pmtraders.plugins.manager.PluginsManager.account_delete_requested")
 def test_account_request_deletion_send_account_delete_requested_event(
     account_delete_requested_mock,
     mocked_token,
@@ -97,7 +97,7 @@ def test_account_request_deletion_send_account_delete_requested_event(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_deletion_token_validation(
     mocked_notify, user_api_client, channel_PLN, site_settings
 ):
@@ -137,7 +137,7 @@ def test_account_request_deletion_token_validation(
     assert called_kwargs["channel_slug"] == channel_PLN.slug
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_deletion_anonymous_user(mocked_notify, api_client):
     variables = {"redirectUrl": "https://www.example.com"}
     response = api_client.post_graphql(ACCOUNT_REQUEST_DELETION_MUTATION, variables)
@@ -145,7 +145,7 @@ def test_account_request_deletion_anonymous_user(mocked_notify, api_client):
     mocked_notify.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_deletion_storefront_hosts_not_allowed(
     mocked_notify, user_api_client
 ):
@@ -165,7 +165,7 @@ def test_account_request_deletion_storefront_hosts_not_allowed(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_deletion_all_storefront_hosts_allowed(
     mocked_notify, user_api_client, settings, channel_PLN, site_settings
 ):
@@ -211,7 +211,7 @@ def test_account_request_deletion_all_storefront_hosts_allowed(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_request_deletion_subdomain(
     mocked_notify, user_api_client, settings, channel_PLN, site_settings
 ):

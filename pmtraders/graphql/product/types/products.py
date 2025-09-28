@@ -906,7 +906,7 @@ class Product(ChannelContextType[models.Product]):
         lambda: ProductType, required=True, description="Type of the product."
     )
     slug = graphene.String(required=True, description="Slug of the product.")
-    category = graphene.Field("saleor.graphql.product.types.categories.Category")
+    category = graphene.Field("pmtraders.graphql.product.types.categories.Category")
     created = DateTime(
         required=True, description="The date and time when the product was created."
     )
@@ -1054,7 +1054,7 @@ class Product(ChannelContextType[models.Product]):
         deprecation_reason="Use the `media` field instead.",
     )
     collections = NonNullList(
-        "saleor.graphql.product.types.collections.Collection",
+        "pmtraders.graphql.product.types.collections.Collection",
         description=(
             "List of collections for the product. Requires the following permissions "
             "to include the unpublished items: "

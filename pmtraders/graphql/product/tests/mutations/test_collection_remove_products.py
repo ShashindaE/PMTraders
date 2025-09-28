@@ -50,7 +50,7 @@ def test_remove_products_from_collection(
         assert rule.variants_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_remove_products_from_collection_trigger_product_updated_webhook(
     product_updated_mock,
     staff_api_client,

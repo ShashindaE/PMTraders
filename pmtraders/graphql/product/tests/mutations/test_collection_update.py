@@ -15,8 +15,8 @@ from ....tests.utils import (
 )
 
 
-@patch("saleor.plugins.manager.PluginsManager.collection_updated")
-@patch("saleor.plugins.manager.PluginsManager.collection_created")
+@patch("pmtraders.plugins.manager.PluginsManager.collection_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.collection_created")
 def test_update_collection(
     created_webhook_mock,
     updated_webhook_mock,
@@ -175,7 +175,7 @@ MUTATION_UPDATE_COLLECTION_WITH_BACKGROUND_IMAGE = """
     }"""
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_update_collection_with_background_image(
     delete_from_storage_task_mock,
     staff_api_client,
@@ -232,7 +232,7 @@ def test_update_collection_with_background_image(
     delete_from_storage_task_mock.assert_called_once_with(img_path)
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_update_collection_invalid_background_image_content_type(
     delete_from_storage_task_mock,
     staff_api_client,
@@ -278,7 +278,7 @@ def test_update_collection_invalid_background_image_content_type(
     delete_from_storage_task_mock.assert_not_called()
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_update_collection_invalid_background_image(
     delete_from_storage_task_mock,
     monkeypatch,
@@ -294,7 +294,7 @@ def test_update_collection_invalid_background_image(
     error_msg = "Test syntax error"
     image_file_mock = Mock(side_effect=SyntaxError(error_msg))
     monkeypatch.setattr(
-        "saleor.graphql.core.validators.file.Image.open", image_file_mock
+        "pmtraders.graphql.core.validators.file.Image.open", image_file_mock
     )
 
     size = 128

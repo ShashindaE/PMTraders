@@ -61,7 +61,7 @@ def test_checkout_complete_not_save_cc_address_in_customer_address_book_CORE_013
     shipping_address = {
         "firstName": "John",
         "lastName": "Muller",
-        "companyName": "Saleor Commerce CZ",
+        "companyName": "pmtraders Commerce CZ",
         "streetAddress1": "Sluneční 1396",
         "streetAddress2": "",
         "postalCode": "74784",

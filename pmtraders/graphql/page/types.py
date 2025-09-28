@@ -191,7 +191,7 @@ class Page(ChannelContextType[models.Page]):
         deprecation_reason="Use `assignedAttribute` field instead.",
     )
     assigned_attribute = graphene.Field(
-        "saleor.graphql.attribute.types.AssignedAttribute",
+        "pmtraders.graphql.attribute.types.AssignedAttribute",
         slug=graphene.Argument(
             graphene.String,
             description="Slug of the attribute",
@@ -201,7 +201,7 @@ class Page(ChannelContextType[models.Page]):
         + ADDED_IN_322,
     )
     assigned_attributes = NonNullList(
-        "saleor.graphql.attribute.types.AssignedAttribute",
+        "pmtraders.graphql.attribute.types.AssignedAttribute",
         required=True,
         description="List of attributes assigned to this page." + ADDED_IN_322,
         limit=PositiveInt(

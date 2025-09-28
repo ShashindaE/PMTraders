@@ -80,7 +80,7 @@ def test_install_app_created_app(
     mocked_get.assert_called_once_with(
         "GET",
         app_installation.manifest_url,
-        headers={"Saleor-Schema-Version": schema_version},
+        headers={"pmtraders-Schema-Version": schema_version},
         timeout=ANY,
         allow_redirects=False,
     )
@@ -89,11 +89,11 @@ def test_install_app_created_app(
         app_manifest["tokenTargetUrl"],
         headers={
             "Content-Type": "application/json",
-            # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-            "X-Saleor-Domain": "example.com",
-            "Saleor-Domain": "example.com",
-            "Saleor-Api-Url": "https://example.com/graphql/",
-            "Saleor-Schema-Version": schema_version,
+            # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+            "X-pmtraders-Domain": "example.com",
+            "pmtraders-Domain": "example.com",
+            "pmtraders-Api-Url": "https://example.com/graphql/",
+            "pmtraders-Schema-Version": schema_version,
         },
         json={"auth_token": ANY},
         allow_redirects=False,
@@ -113,7 +113,7 @@ def test_install_app_created_app_with_audience(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     app, _ = install_app(app_installation, activate=True)
@@ -122,15 +122,15 @@ def test_install_app_created_app_with_audience(
     assert app.audience == audience
 
 
-def test_install_app_with_required_saleor_version(
+def test_install_app_with_required_pmtraders_version(
     app_manifest, app_installation, monkeypatch
 ):
     # given
-    app_manifest["requiredSaleorVersion"] = f"^{__version__}"
+    app_manifest["requiredpmtradersVersion"] = f"^{__version__}"
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     app, _ = install_app(app_installation, activate=True)
@@ -139,24 +139,24 @@ def test_install_app_with_required_saleor_version(
     assert App.objects.get().id == app.id
 
 
-def test_install_app_when_saleor_version_unsupported(
+def test_install_app_when_pmtraders_version_unsupported(
     app_manifest, app_installation, monkeypatch
 ):
     # given
-    app_manifest["requiredSaleorVersion"] = "<3.11"
+    app_manifest["requiredpmtradersVersion"] = "<3.11"
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     with pytest.raises(ValidationError) as validation_error:
         install_app(app_installation, activate=True)
 
     # then
-    errors = validation_error.value.error_dict["requiredSaleorVersion"]
+    errors = validation_error.value.error_dict["requiredpmtradersVersion"]
     assert len(errors) == 1
-    assert errors[0].code == AppErrorCode.UNSUPPORTED_SALEOR_VERSION.value
+    assert errors[0].code == AppErrorCode.UNSUPPORTED_pmtraders_VERSION.value
 
 
 def test_install_app_with_author(app_manifest, app_installation, monkeypatch):
@@ -165,7 +165,7 @@ def test_install_app_with_author(app_manifest, app_installation, monkeypatch):
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     app, _ = install_app(app_installation, activate=True)
@@ -181,7 +181,7 @@ def test_install_app_with_empty_author(app_manifest, app_installation, monkeypat
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     with pytest.raises(ValidationError) as validation_error:
@@ -200,10 +200,10 @@ def test_install_app_with_brand_data(app_manifest, app_installation, monkeypatch
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
     mocked_fetch_brand_data_task = Mock()
     monkeypatch.setattr(
-        "saleor.app.installation_utils.fetch_brand_data_task.delay",
+        "pmtraders.app.installation_utils.fetch_brand_data_task.delay",
         mocked_fetch_brand_data_task,
     )
 
@@ -217,8 +217,8 @@ def test_install_app_with_brand_data(app_manifest, app_installation, monkeypatch
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_install_app_created_app_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -231,14 +231,14 @@ def test_install_app_created_app_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     app_manifest["permissions"] = ["MANAGE_PRODUCTS"]
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set([permission_manage_products])
 
@@ -289,7 +289,7 @@ def test_install_app_with_extension(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set(
         [permission_manage_products, permission_manage_orders]
@@ -337,7 +337,7 @@ def test_install_app_with_extension_widget(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set(
         [permission_manage_products, permission_manage_orders]
@@ -389,7 +389,7 @@ def test_install_app_extension_permission_out_of_scope(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when & then
     with pytest.raises(ValidationError):
@@ -421,7 +421,7 @@ def test_install_app_with_extension_new_tab_target(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set([permission_manage_products])
 
@@ -465,7 +465,7 @@ def test_install_app_with_extension_new_tab_target_post_url_non_https(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set([permission_manage_products])
 
@@ -504,7 +504,7 @@ def test_install_app_with_extension_new_tab_target_post_url_other_than_app(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set([permission_manage_products])
 
@@ -545,7 +545,7 @@ def test_install_app_extension_incorrect_url(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when & then
     with pytest.raises(ValidationError):
@@ -576,7 +576,7 @@ def test_install_app_extension_invalid_permission(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when & then
     with pytest.raises(ValidationError):
@@ -616,7 +616,7 @@ def test_install_app_extension_incorrect_values(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when & then
     with pytest.raises(ValidationError):
@@ -655,7 +655,7 @@ def test_install_app_extension_incorrect_options(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when & then
     with pytest.raises(ValidationError):
@@ -688,7 +688,7 @@ def test_install_app_with_extension_post_method(
     mocked_get_response.json.return_value = app_manifest
 
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     app_installation.permissions.set([permission_manage_products])
 
@@ -718,7 +718,7 @@ def test_install_app_with_webhook(
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     app, _ = install_app(app_installation, activate=True)
@@ -768,7 +768,7 @@ def test_install_app_with_webhook_is_active(
     mocked_get_response = Mock()
     mocked_get_response.json.return_value = app_manifest
     monkeypatch.setattr(HTTPSession, "request", Mock(return_value=mocked_get_response))
-    monkeypatch.setattr("saleor.app.installation_utils.send_app_token", Mock())
+    monkeypatch.setattr("pmtraders.app.installation_utils.send_app_token", Mock())
 
     # when
     app, _ = install_app(app_installation, activate=True)
@@ -893,7 +893,7 @@ def image_response_mock():
     return mock_response
 
 
-@patch("saleor.app.installation_utils.validate_icon_image")
+@patch("pmtraders.app.installation_utils.validate_icon_image")
 @patch.object(HTTPSession, "request")
 def test_fetch_icon_image(
     mock_get_request, mock_validate_icon_image, image_response_mock
@@ -916,7 +916,7 @@ def test_fetch_icon_image(
     assert image_file.name.endswith(image_file_format)
 
 
-@patch("saleor.app.installation_utils.validate_icon_image")
+@patch("pmtraders.app.installation_utils.validate_icon_image")
 @patch.object(HTTPSession, "request")
 def test_fetch_icon_image_invalid_type(
     mock_get_request, mock_validate_icon_image, image_response_mock
@@ -965,7 +965,7 @@ def test_fetch_icon_image_network_error(mock_get_request):
 
 
 @pytest.mark.parametrize("app_object", ["app", "app_installation"])
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task(
     mock_fetch_icon_image, app_object, app_installation, app, media_root
 ):
@@ -994,7 +994,7 @@ def test_fetch_brand_data_task(
         assert bool(app.brand_logo_default) is False
 
 
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task_terminated(
     mock_fetch_icon_image, app_installation, app, media_root
 ):
@@ -1003,7 +1003,7 @@ def test_fetch_brand_data_task_terminated(
     mock_fetch_icon_image.assert_not_called()
 
 
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task_for_removed_app(
     mock_fetch_icon_image, removed_app, media_root
 ):
@@ -1011,7 +1011,7 @@ def test_fetch_brand_data_task_for_removed_app(
     mock_fetch_icon_image.assert_not_called()
 
 
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task_terminated_when_brand_data_fetched(
     mock_fetch_icon_image, app_installation, app, media_root
 ):
@@ -1021,7 +1021,7 @@ def test_fetch_brand_data_task_terminated_when_brand_data_fetched(
     mock_fetch_icon_image.assert_not_called()
 
 
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task_retry(
     mock_fetch_icon_image, app_installation, app, media_root
 ):
@@ -1036,7 +1036,7 @@ def test_fetch_brand_data_task_retry(
         )
 
 
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task_saving_brand_data(
     mock_fetch_icon_image, app_installation, app, media_root
 ):
@@ -1062,9 +1062,9 @@ def test_fetch_brand_data_task_saving_brand_data(
     assert app.brand_logo_default.read() == fake_img_content
 
 
-@patch("saleor.app.installation_utils.AppInstallation.save", side_effect=DatabaseError)
-@patch("saleor.app.installation_utils.default_storage.delete")
-@patch("saleor.app.installation_utils.fetch_icon_image")
+@patch("pmtraders.app.installation_utils.AppInstallation.save", side_effect=DatabaseError)
+@patch("pmtraders.app.installation_utils.default_storage.delete")
+@patch("pmtraders.app.installation_utils.fetch_icon_image")
 def test_fetch_brand_data_task_saving_deleted_object(
     mock_fetch_icon_image,
     mock_storage_delete,

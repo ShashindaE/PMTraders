@@ -101,7 +101,7 @@ def update_variants_names(product_type_pk: int, saved_attributes_ids: list[int])
 @app.task
 @allow_writer()
 def update_products_discounted_prices_of_promotion_task(promotion_pk: UUID):
-    # FIXME: Should be removed in Saleor 3.21
+    # FIXME: Should be removed in pmtraders 3.21
 
     # In case of triggering this task by old server worker, mark promotion
     # as dirty. The reclacultion will happen in the background
@@ -222,7 +222,7 @@ def update_products_discounted_prices_for_promotion_task(
     *,
     rule_ids: list[UUID] | None = None,
 ):
-    # FIXME: Should be removed in Saleor 3.21
+    # FIXME: Should be removed in pmtraders 3.21
 
     # In case of triggered the task by old server worker, mark all active promotions as
     # dirty. This will make the same re-calculation as the old task.
@@ -265,7 +265,7 @@ def recalculate_discounted_price_for_products_task():
 @app.task
 @allow_writer()
 def update_discounted_prices_task(product_ids: Iterable[int]):
-    # FIXME: Should be removed in Saleor 3.21
+    # FIXME: Should be removed in pmtraders 3.21
 
     # in case triggering the task by old server worker, we will just mark the products
     # as dirty. The recalculation will happen in the background.

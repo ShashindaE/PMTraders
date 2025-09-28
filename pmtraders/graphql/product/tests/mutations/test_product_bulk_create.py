@@ -374,7 +374,7 @@ def test_product_bulk_create_with_no_slug_and_name_with_unslugify_characters(
     assert len(products) == 2
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_created")
 def test_product_bulk_create_send_product_created_webhook(
     created_webhook_mock,
     staff_api_client,
@@ -906,7 +906,7 @@ def test_product_bulk_create_with_media_invalid_media_type(
     assert len(error_2) == 1
 
 
-@patch("saleor.graphql.core.validators.file.Image.open")
+@patch("pmtraders.graphql.core.validators.file.Image.open")
 def test_product_bulk_create_with_media_image_with_invalid_exif(
     mocked_image_open,
     staff_api_client,
@@ -1077,11 +1077,11 @@ def test_product_bulk_create_with_media_with_media_url(
 
 
 @patch(
-    "saleor.graphql.core.validators.file.is_supported_image_mimetype",
+    "pmtraders.graphql.core.validators.file.is_supported_image_mimetype",
     return_value=False,
 )
 @patch(
-    "saleor.graphql.core.validators.file.HTTPClient",
+    "pmtraders.graphql.core.validators.file.HTTPClient",
 )
 def test_product_bulk_create_with_media_with_media_url_invalid_image_type(
     mocked_http_client,
@@ -2137,10 +2137,10 @@ def test_product_bulk_create_with_variants_with_duplicated_sku(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations.product_bulk_create.get_webhooks_for_event"
+    "pmtraders.graphql.product.bulk_mutations.product_bulk_create.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_created")
 def test_product_bulk_create_with_variants_send_product_variant_created_event(
     product_created_webhook_mock,
     variant_created_webhook_mock,
@@ -2157,7 +2157,7 @@ def test_product_bulk_create_with_variants_send_product_variant_created_event(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     description_json = json.dumps(description_json)
     product_type_id = graphene.Node.to_global_id("ProductType", product_type.pk)
@@ -2454,10 +2454,10 @@ def test_product_bulk_create_with_variants_and_invalid_stock(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations.product_bulk_create.get_webhooks_for_event"
+    "pmtraders.graphql.product.bulk_mutations.product_bulk_create.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
 def test_product_bulk_create_with_variants_and_channel_listings(
     product_variant_created_mock,
     product_created_mock,
@@ -2474,7 +2474,7 @@ def test_product_bulk_create_with_variants_and_channel_listings(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     # given
     description_json = json.dumps(description_json)
     product_type_id = graphene.Node.to_global_id("ProductType", product_type.pk)

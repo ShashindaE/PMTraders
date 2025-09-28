@@ -187,7 +187,7 @@ def test_get_filename_from_url_with_short_name_is_not_trimmed():
     assert len(result.split("_")[0]) < FILE_NAME_MAX_LENGTH
 
 
-@patch("saleor.thumbnail.utils.secrets.token_hex")
+@patch("pmtraders.thumbnail.utils.secrets.token_hex")
 def test_get_filename_from_url_with_query_params(mock_token_hex):
     # given
     token_hex = 1234
@@ -201,7 +201,7 @@ def test_get_filename_from_url_with_query_params(mock_token_hex):
     assert result == f"image_{token_hex}.jpg"
 
 
-@patch("saleor.thumbnail.utils.secrets.token_hex")
+@patch("pmtraders.thumbnail.utils.secrets.token_hex")
 def test_get_filename_from_url_with_query_params_path(mock_token_hex):
     # given
     token_hex = 1234

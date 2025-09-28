@@ -113,8 +113,8 @@ def test_product_variant_update_with_new_attributes(
     assert expected_assigned_choice_attribute in assigned_attributes
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_product_variant_by_id(
     product_variant_updated_webhook_mock,
     product_variant_created_webhook_mock,
@@ -269,8 +269,8 @@ UPDATE_VARIANT_BY_SKU = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_product_variant_by_sku(
     product_variant_updated_webhook_mock,
     product_variant_created_webhook_mock,
@@ -371,8 +371,8 @@ UPDATE_VARIANT_BY_EXTERNAL_REFERENCE = """
     """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_product_variant_by_external_reference(
     product_variant_updated_webhook_mock,
     product_variant_created_webhook_mock,
@@ -634,8 +634,8 @@ def test_update_product_variant_without_sku_keep_it_empty(
     assert variant.sku is None
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_created")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_product_variant_change_sku_to_empty_string(
     product_variant_updated_webhook_mock,
     product_variant_created_webhook_mock,
@@ -1051,7 +1051,7 @@ def test_update_product_variant_with_value_that_matching_existing_name(
     assert expected_second_assigned_choice_attribute in assigned_attributes
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_boolean_attribute(
     product_variant_updated,
     permission_manage_products,
@@ -1119,7 +1119,7 @@ def test_update_variant_with_boolean_attribute(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_swatch_attribute_new_value_created(
     product_variant_updated,
     permission_manage_products,
@@ -1181,7 +1181,7 @@ def test_update_variant_with_swatch_attribute_new_value_created(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_swatch_attribute_existing_value(
     product_variant_updated,
     permission_manage_products,
@@ -1244,7 +1244,7 @@ def test_update_variant_with_swatch_attribute_existing_value(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_swatch_attribute_use_values(
     product_variant_updated,
     permission_manage_products,
@@ -1303,7 +1303,7 @@ def test_update_variant_with_swatch_attribute_use_values(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_swatch_attribute_no_values_given(
     product_variant_updated,
     permission_manage_products,
@@ -1352,7 +1352,7 @@ def test_update_variant_with_swatch_attribute_no_values_given(
     assert expected_assigned_attribute in assigned_attributes
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_rich_text_attribute(
     product_variant_updated,
     permission_manage_products,
@@ -1407,7 +1407,7 @@ def test_update_variant_with_rich_text_attribute(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_plain_text_attribute(
     product_variant_updated,
     permission_manage_products,
@@ -1466,7 +1466,7 @@ def test_update_variant_with_plain_text_attribute(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_plain_text_attribute_value_required(
     product_variant_updated,
     permission_manage_products,
@@ -1582,7 +1582,7 @@ def test_update_variant_with_required_plain_text_attribute_no_value(
     assert errors[0]["field"] == "attributes"
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_date_attribute(
     product_variant_updated,
     permission_manage_products,
@@ -1650,7 +1650,7 @@ def test_update_variant_with_date_attribute(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_with_date_time_attribute(
     product_variant_updated,
     permission_manage_products,
@@ -1720,7 +1720,7 @@ def test_update_variant_with_date_time_attribute(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_removes_numeric_attribute_value(
     product_variant_updated,
     permission_manage_products,
@@ -1774,7 +1774,7 @@ def test_update_variant_removes_numeric_attribute_value(
     product_variant_updated.assert_called_once_with(product.variants.last())
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_update_variant_adds_numeric_attribute(
     product_variant_updated,
     permission_manage_products,
@@ -3161,8 +3161,8 @@ UPDATE_METADATA_QUERY = """
     """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_metadata_updated")
 def test_update_product_variant_with_metadata(
     product_variant_metadata_updated_webhook_mock,
     product_variant_updated_webhook_mock,
@@ -3214,8 +3214,8 @@ def test_update_product_variant_with_metadata(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_metadata_updated")
 def test_update_product_variant_with_no_metadata_and_no_event(
     product_variant_metadata_updated_webhook_mock,
     product_variant_updated_webhook_mock,
@@ -3257,8 +3257,8 @@ def test_update_product_variant_with_no_metadata_and_no_event(
     product_variant_metadata_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_metadata_updated")
 def test_update_product_variant_with_existing_metadata_and_no_event(
     product_variant_metadata_updated_webhook_mock,
     product_variant_updated_webhook_mock,
@@ -3311,8 +3311,8 @@ def test_update_product_variant_with_existing_metadata_and_no_event(
     product_variant_metadata_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_metadata_updated")
 def test_update_product_variant_with_existing_metadata_and_no_event_when_write_the_same(
     product_variant_metadata_updated_webhook_mock,
     product_variant_updated_webhook_mock,
@@ -3369,8 +3369,8 @@ def test_update_product_variant_with_existing_metadata_and_no_event_when_write_t
     product_variant_metadata_updated_webhook_mock.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_metadata_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_metadata_updated")
 def test_update_product_variant_with_existing_metadata_and_event_when_write_different_value(
     product_variant_metadata_updated_webhook_mock,
     product_variant_updated_webhook_mock,
@@ -3437,10 +3437,10 @@ mutation ProductVariantUpdate($id: ID!, $input: ProductVariantInput!) {
 
 
 @patch(
-    "saleor.graphql.product.mutations.product_variant.ProductVariantUpdate.call_event"
+    "pmtraders.graphql.product.mutations.product_variant.ProductVariantUpdate.call_event"
 )
 @patch(
-    "saleor.graphql.product.mutations.product_variant.ProductVariantUpdate._save_variant_instance"
+    "pmtraders.graphql.product.mutations.product_variant.ProductVariantUpdate._save_variant_instance"
 )
 def test_update_product_variant_nothing_changed(
     save_variant_mock,
@@ -3519,10 +3519,10 @@ def test_update_product_variant_nothing_changed(
 
 
 @patch(
-    "saleor.graphql.product.mutations.product_variant.ProductVariantUpdate.call_event"
+    "pmtraders.graphql.product.mutations.product_variant.ProductVariantUpdate.call_event"
 )
 @patch(
-    "saleor.graphql.product.mutations.product_variant.ProductVariantUpdate._save_variant_instance"
+    "pmtraders.graphql.product.mutations.product_variant.ProductVariantUpdate._save_variant_instance"
 )
 def test_update_product_variant_emit_event(
     save_variant_mock,

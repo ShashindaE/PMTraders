@@ -9,7 +9,7 @@ from .... import ChargeStatus, PaymentError, TransactionKind, gateway
 @pytest.fixture(autouse=True)
 def setup_dummy_gateway(settings):
     settings.PLUGINS = [
-        "saleor.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin"
+        "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin"
     ]
     return settings
 
@@ -57,7 +57,7 @@ def test_authorize_failed(is_active, charge_status, payment_dummy):
 
 
 def test_authorize_gateway_error(payment_dummy, monkeypatch):
-    monkeypatch.setattr("saleor.payment.gateways.dummy.dummy_success", lambda: False)
+    monkeypatch.setattr("pmtraders.payment.gateways.dummy.dummy_success", lambda: False)
     with pytest.raises(PaymentError):
         gateway.authorize(
             payment=payment_dummy,
@@ -111,7 +111,7 @@ def test_void_failed(is_active, charge_status, payment_dummy):
 
 
 def test_void_gateway_error(payment_txn_preauth, monkeypatch):
-    monkeypatch.setattr("saleor.payment.gateways.dummy.dummy_success", lambda: False)
+    monkeypatch.setattr("pmtraders.payment.gateways.dummy.dummy_success", lambda: False)
     with pytest.raises(PaymentError):
         gateway.void(
             payment=payment_txn_preauth,
@@ -166,7 +166,7 @@ def test_capture_failed(
 
 
 def test_capture_gateway_error(payment_txn_preauth, monkeypatch):
-    monkeypatch.setattr("saleor.payment.gateways.dummy.dummy_success", lambda: False)
+    monkeypatch.setattr("pmtraders.payment.gateways.dummy.dummy_success", lambda: False)
     with pytest.raises(PaymentError):
         gateway.capture(
             payment=payment_txn_preauth,
@@ -244,7 +244,7 @@ def test_refund_failed(
 
 
 def test_refund_gateway_error(payment_txn_captured, monkeypatch):
-    monkeypatch.setattr("saleor.payment.gateways.dummy.dummy_success", lambda: False)
+    monkeypatch.setattr("pmtraders.payment.gateways.dummy.dummy_success", lambda: False)
     payment = payment_txn_captured
     payment.charge_status = ChargeStatus.FULLY_CHARGED
     payment.captured_amount = Decimal("80.00")

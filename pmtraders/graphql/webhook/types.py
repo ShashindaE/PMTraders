@@ -172,7 +172,7 @@ class Webhook(ModelObjectType[models.Webhook]):
         required=True,
     )
     app = graphene.Field(
-        "saleor.graphql.app.types.App",
+        "pmtraders.graphql.app.types.App",
         required=True,
         description="The app associated with Webhook.",
     )
@@ -188,7 +188,7 @@ class Webhook(ModelObjectType[models.Webhook]):
     )
     secret_key = graphene.String(
         description="Used to create a hash signature for each payload.",
-        deprecation_reason="As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.",
+        deprecation_reason="As of pmtraders 3.5, webhook payloads default to signing using a verifiable JWS.",
     )
     subscription_query = graphene.String(
         description="Used to define payloads for specific events."

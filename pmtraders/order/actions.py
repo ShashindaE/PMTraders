@@ -1515,7 +1515,7 @@ def __get_shipping_refund_amount(
     refund_amount: Decimal | None,
     shipping_price: Decimal,
 ) -> Decimal | None:
-    # We set shipping refund amount only when refund amount is calculated by Saleor
+    # We set shipping refund amount only when refund amount is calculated by pmtraders
     shipping_refund_amount = None
     if refund_shipping_costs and refund_amount is None:
         shipping_refund_amount = shipping_price

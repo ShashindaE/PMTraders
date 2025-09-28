@@ -29,11 +29,11 @@ def similar_customers_with_orders(order, customer_user, customer_user2, channel_
 
 
 @patch(
-    "saleor.graphql.order.filters._filter_customer_by_email_first_or_last_name",
+    "pmtraders.graphql.order.filters._filter_customer_by_email_first_or_last_name",
     wraps=_filter_customer_by_email_first_or_last_name,
 )
 @patch(
-    "saleor.graphql.order.filters._filter_by_customer_full_name",
+    "pmtraders.graphql.order.filters._filter_by_customer_full_name",
     wraps=_filter_by_customer_full_name,
 )
 def test_filter_customer_by_email(
@@ -57,11 +57,11 @@ def test_filter_customer_by_email(
 
 
 @patch(
-    "saleor.graphql.order.filters._filter_customer_by_email_first_or_last_name",
+    "pmtraders.graphql.order.filters._filter_customer_by_email_first_or_last_name",
     wraps=_filter_customer_by_email_first_or_last_name,
 )
 @patch(
-    "saleor.graphql.order.filters._filter_by_customer_full_name",
+    "pmtraders.graphql.order.filters._filter_by_customer_full_name",
     wraps=_filter_by_customer_full_name,
 )
 def test_filter_customer_by_first_name(
@@ -86,11 +86,11 @@ def test_filter_customer_by_first_name(
 
 
 @patch(
-    "saleor.graphql.order.filters._filter_customer_by_email_first_or_last_name",
+    "pmtraders.graphql.order.filters._filter_customer_by_email_first_or_last_name",
     wraps=_filter_customer_by_email_first_or_last_name,
 )
 @patch(
-    "saleor.graphql.order.filters._filter_by_customer_full_name",
+    "pmtraders.graphql.order.filters._filter_by_customer_full_name",
     wraps=_filter_by_customer_full_name,
 )
 def test_filter_customer_by_last_name(
@@ -115,11 +115,11 @@ def test_filter_customer_by_last_name(
 
 
 @patch(
-    "saleor.graphql.order.filters._filter_customer_by_email_first_or_last_name",
+    "pmtraders.graphql.order.filters._filter_customer_by_email_first_or_last_name",
     wraps=_filter_customer_by_email_first_or_last_name,
 )
 @patch(
-    "saleor.graphql.order.filters._filter_by_customer_full_name",
+    "pmtraders.graphql.order.filters._filter_by_customer_full_name",
     wraps=_filter_by_customer_full_name,
 )
 def test_filter_customer_by_full_name_first_last_name(
@@ -143,11 +143,11 @@ def test_filter_customer_by_full_name_first_last_name(
 
 
 @patch(
-    "saleor.graphql.order.filters._filter_customer_by_email_first_or_last_name",
+    "pmtraders.graphql.order.filters._filter_customer_by_email_first_or_last_name",
     wraps=_filter_customer_by_email_first_or_last_name,
 )
 @patch(
-    "saleor.graphql.order.filters._filter_by_customer_full_name",
+    "pmtraders.graphql.order.filters._filter_by_customer_full_name",
     wraps=_filter_by_customer_full_name,
 )
 def test_filter_customer_by_full_name_last_first_name(
@@ -171,11 +171,11 @@ def test_filter_customer_by_full_name_last_first_name(
 
 
 @patch(
-    "saleor.graphql.order.filters._filter_customer_by_email_first_or_last_name",
+    "pmtraders.graphql.order.filters._filter_customer_by_email_first_or_last_name",
     wraps=_filter_customer_by_email_first_or_last_name,
 )
 @patch(
-    "saleor.graphql.order.filters._filter_by_customer_full_name",
+    "pmtraders.graphql.order.filters._filter_by_customer_full_name",
     wraps=_filter_by_customer_full_name,
 )
 def test_filter_customer_by_email_domain(

@@ -23,7 +23,7 @@ from ...core.utils import build_absolute_uri, get_domain
 from ...core.utils.json_serializer import CustomJsonEncoder
 from ...core.utils.text import safe_truncate
 from ...csv.notifications import get_default_export_payload
-from ...graphql.core.context import SaleorContext
+from ...graphql.core.context import pmtradersContext
 from ...graphql.webhook.subscription_payload import (
     generate_payload_promise_from_subscription,
     initialize_request,
@@ -3130,7 +3130,7 @@ class WebhookPlugin(BasePlugin):
         response_gateway: dict[str, "PaymentGatewayData"],
         amount: Decimal,
         source_object: Union["Order", "Checkout"],
-        request: SaleorContext,
+        request: pmtradersContext,
         pregenerated_subscription_payloads: dict | None = None,
     ):
         if pregenerated_subscription_payloads is None:
@@ -3578,7 +3578,7 @@ class WebhookPlugin(BasePlugin):
                 pregenerated_subscription_payloads=pregenerated_subscription_payloads,
             )
         # This is deprecated flow, kept to maintain backward compatibility.
-        # In Saleor 4.0 `tax_app_identifier` should be required and the flow should
+        # In pmtraders 4.0 `tax_app_identifier` should be required and the flow should
         # be dropped.
         return trigger_taxes_all_webhooks_sync(
             event_type,
@@ -3606,7 +3606,7 @@ class WebhookPlugin(BasePlugin):
                 order,
             )
         # This is deprecated flow, kept to maintain backward compatibility.
-        # In Saleor 4.0 `tax_app_identifier` should be required and the flow should
+        # In pmtraders 4.0 `tax_app_identifier` should be required and the flow should
         # be dropped.
         return trigger_taxes_all_webhooks_sync(
             WebhookEventSyncType.ORDER_CALCULATE_TAXES,

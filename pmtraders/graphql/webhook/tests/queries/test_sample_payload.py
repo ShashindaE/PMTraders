@@ -12,7 +12,7 @@ SAMPLE_PAYLOAD_QUERY = """
 """
 
 
-@patch("saleor.graphql.webhook.resolvers.payloads.generate_sample_payload")
+@patch("pmtraders.graphql.webhook.resolvers.payloads.generate_sample_payload")
 @pytest.mark.parametrize(
     ("event_type", "has_access"),
     [
@@ -54,7 +54,7 @@ def test_sample_payload_query_by_app(
         mock_generate_sample_payload.assert_called_with(event_type.value)
 
 
-@patch("saleor.graphql.webhook.resolvers.payloads.generate_sample_payload")
+@patch("pmtraders.graphql.webhook.resolvers.payloads.generate_sample_payload")
 @pytest.mark.parametrize(
     ("event_type", "has_access"),
     [

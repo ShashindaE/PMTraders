@@ -104,8 +104,8 @@ def test_order_from_checkout_with_inactive_channel(
 
 
 @pytest.mark.integration
-@patch("saleor.order.calculations._recalculate_with_plugins")
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.order.calculations._recalculate_with_plugins")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_order_from_checkout(
     order_confirmed_mock,
     recalculate_with_plugins_mock,
@@ -362,7 +362,7 @@ def test_order_from_checkout_auto_confirm_flag(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_order_from_checkout_with_metadata(
     order_confirmed_mock,
     app_api_client,
@@ -437,7 +437,7 @@ def test_order_from_checkout_with_metadata(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_order_from_checkout_with_metadata_checkout_without_metadata(
     order_confirmed_mock,
     app_api_client,
@@ -533,8 +533,8 @@ def test_order_from_checkout_by_app_with_missing_permission(
     assert_no_permission(response)
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_order_from_checkout_gift_card_bought(
     order_confirmed_mock,
     send_notification_mock,
@@ -742,8 +742,8 @@ def test_order_from_checkout_with_variant_without_price(
     assert errors[0]["variants"] == [variant_id]
 
 
-@patch("saleor.order.calculations._recalculate_with_plugins")
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.order.calculations._recalculate_with_plugins")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_order_from_checkout_requires_confirmation(
     order_confirmed_mock,
     recalculate_with_plugins_mock,
@@ -2173,7 +2173,7 @@ def test_order_from_checkout_raises_invalid_shipping_method_when_warehouse_disab
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_order_from_draft_create_with_preorder_variant(
     order_confirmed_mock,
     site_settings,
@@ -2663,7 +2663,7 @@ def test_order_from_draft_create_0_total_value_from_giftcard(
 
 
 @patch(
-    "saleor.checkout.calculations._get_taxes_for_checkout",
+    "pmtraders.checkout.calculations._get_taxes_for_checkout",
     side_effect=TaxDataError("Invalid data"),
 )
 def test_order_from_checkout_tax_error(

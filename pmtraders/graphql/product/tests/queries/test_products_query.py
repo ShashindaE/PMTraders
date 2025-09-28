@@ -1415,7 +1415,7 @@ def test_search_product_sort_by_attribute_returns_correct_cursor(
     cursor = content["data"]["products"]["pageInfo"]["endCursor"]
     cursor_data = from_global_cursor(cursor)
 
-    # Ref saleor.product.managers.ProductsQueryset.sort_by_attribute
+    # Ref pmtraders.product.managers.ProductsQueryset.sort_by_attribute
     # First field stores the flag to determine if product has assigned attribute values
     # Second is the list of attribute values as string
     assert ["0", attr_value.name, product.name] == cursor_data

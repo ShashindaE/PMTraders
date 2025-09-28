@@ -63,7 +63,7 @@ def test_checkout_complete_order_already_exists(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete(
     order_confirmed_mock,
     site_settings,
@@ -228,7 +228,7 @@ def test_checkout_complete_order_already_exists_for_token_as_input(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_for_token_as_input(
     order_confirmed_mock,
     site_settings,

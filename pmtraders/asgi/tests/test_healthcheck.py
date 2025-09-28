@@ -1,7 +1,7 @@
 from unittest import mock
 
-from saleor.asgi import health_check
-from saleor.asgi.tests.asgi_test_utils import (
+from pmtraders.asgi import health_check
+from pmtraders.asgi.tests.asgi_test_utils import (
     DummyASGIApplication,
     create_asgi_scope_websocket_proto,
 )

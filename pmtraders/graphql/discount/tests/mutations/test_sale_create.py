@@ -40,8 +40,8 @@ SALE_CREATE_MUTATION = """
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_created")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_created")
 def test_create_sale(
     created_webhook_mock,
     sale_toggle_mock,
@@ -104,8 +104,8 @@ def test_create_sale(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_created")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_created")
 def test_create_sale_only_start_date(
     created_webhook_mock,
     sale_toggle_mock,
@@ -185,8 +185,8 @@ def test_create_sale_with_end_date_before_startdate(
     assert errors[0]["code"] == DiscountErrorCode.INVALID.name
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_created")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_created")
 def test_create_sale_start_date_and_end_date_before_current_date(
     created_webhook_mock,
     sale_toggle_mock,
@@ -237,8 +237,8 @@ def test_create_sale_start_date_and_end_date_before_current_date(
         assert rule.variants_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_created")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_created")
 def test_create_sale_start_date_and_end_date_after_current_date(
     created_webhook_mock,
     sale_toggle_mock,
@@ -290,8 +290,8 @@ def test_create_sale_start_date_and_end_date_after_current_date(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.plugins.manager.PluginsManager.sale_toggle")
-@patch("saleor.plugins.manager.PluginsManager.sale_created")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_toggle")
+@patch("pmtraders.plugins.manager.PluginsManager.sale_created")
 def test_create_sale_empty_predicate(
     created_webhook_mock,
     sale_toggle_mock,

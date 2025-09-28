@@ -22,8 +22,8 @@ ACCOUNT_DELETE_MUTATION = """
 """
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
-@patch("saleor.plugins.manager.PluginsManager.account_deleted")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.plugins.manager.PluginsManager.account_deleted")
 @freeze_time("2018-05-31 12:00:01")
 def test_account_delete(
     mocked_account_deleted,
@@ -144,7 +144,7 @@ def test_account_delete_other_customer_token(user_api_client):
     assert User.objects.filter(pk=other_user.id).exists()
 
 
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 @freeze_time("2018-05-31 12:00:01")
 def test_account_delete_webhook_event_triggered(
     mocked_trigger_webhooks_async,
@@ -153,7 +153,7 @@ def test_account_delete_webhook_event_triggered(
     subscription_account_deleted_webhook,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     user = user_api_client.user
     user.last_login = timezone.now()

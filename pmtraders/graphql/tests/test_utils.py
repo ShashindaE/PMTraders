@@ -342,10 +342,10 @@ def test_check_if_query_contains_only_schema_with_introspection():
 @pytest.mark.parametrize(
     ("header_source", "expected_result"),
     [
-        ("saleor.DASHBOARD", "saleor.dashboard"),
-        ("SALEOR.dashboard", "saleor.dashboard"),
-        ("saleor.dashboard.PLAYGROUND", "saleor.dashboard.playground"),
-        ("saleor.PLAYGROUND", "saleor.playground"),
+        ("pmtraders.DASHBOARD", "pmtraders.dashboard"),
+        ("pmtraders.dashboard", "pmtraders.dashboard"),
+        ("pmtraders.dashboard.PLAYGROUND", "pmtraders.dashboard.playground"),
+        ("pmtraders.PLAYGROUND", "pmtraders.playground"),
         ("incorrect-value", "unknown_service"),
         (None, "unknown_service"),
     ],

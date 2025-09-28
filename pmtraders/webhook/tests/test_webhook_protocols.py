@@ -35,7 +35,7 @@ def test_trigger_webhooks_with_aws_sqs(
     mocked_client_constructor = MagicMock(spec=boto3.client, return_value=mocked_client)
 
     monkeypatch.setattr(
-        "saleor.webhook.transport.utils.boto3.client",
+        "pmtraders.webhook.transport.utils.boto3.client",
         mocked_client_constructor,
     )
 
@@ -68,8 +68,8 @@ def test_trigger_webhooks_with_aws_sqs(
     expected_call_args = {
         "QueueUrl": f"https://sqs.us-east-1.amazonaws.com/account_id/{queue_name}",
         "MessageAttributes": {
-            "SaleorDomain": {"DataType": "String", "StringValue": "example.com"},
-            "SaleorApiUrl": {
+            "pmtradersDomain": {"DataType": "String", "StringValue": "example.com"},
+            "pmtradersApiUrl": {
                 "DataType": "String",
                 "StringValue": "https://example.com/graphql/",
             },
@@ -104,7 +104,7 @@ def test_trigger_webhooks_with_aws_sqs_and_secret_key(
     mocked_client_constructor = MagicMock(spec=boto3.client, return_value=mocked_client)
 
     monkeypatch.setattr(
-        "saleor.webhook.transport.utils.boto3.client",
+        "pmtraders.webhook.transport.utils.boto3.client",
         mocked_client_constructor,
     )
 
@@ -140,8 +140,8 @@ def test_trigger_webhooks_with_aws_sqs_and_secret_key(
     mocked_client.send_message.assert_called_once_with(
         QueueUrl="https://sqs.us-east-1.amazonaws.com/account_id/queue_name",
         MessageAttributes={
-            "SaleorDomain": {"DataType": "String", "StringValue": "example.com"},
-            "SaleorApiUrl": {
+            "pmtradersDomain": {"DataType": "String", "StringValue": "example.com"},
+            "pmtradersApiUrl": {
                 "DataType": "String",
                 "StringValue": "https://example.com/graphql/",
             },
@@ -167,11 +167,11 @@ def test_trigger_webhooks_with_google_pub_sub(
     mocked_publisher = MagicMock(spec=PublisherClient)
     mocked_publisher.publish.return_value.result = mocked_future_result
     monkeypatch.setattr(
-        "saleor.webhook.transport.utils.pubsub_v1.PublisherClient",
+        "pmtraders.webhook.transport.utils.pubsub_v1.PublisherClient",
         lambda: mocked_publisher,
     )
     webhook.app.permissions.add(permission_manage_orders)
-    webhook.target_url = "gcpubsub://cloud.google.com/projects/saleor/topics/test"
+    webhook.target_url = "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"
     webhook.save()
     expected_data = serialize("json", [order_with_lines])
     expected_signature = signature_for_payload(expected_data.encode("utf-8"), None)
@@ -189,16 +189,16 @@ def test_trigger_webhooks_with_google_pub_sub(
         timeout=settings.WEBHOOK_WAITING_FOR_RESPONSE_TIMEOUT
     )
     mocked_publisher.publish.assert_called_once_with(
-        "projects/saleor/topics/test",
+        "projects/pmtraders/topics/test",
         expected_data.encode("utf-8"),
-        saleorDomain="example.com",
-        saleorApiUrl="https://example.com/graphql/",
+        pmtradersDomain="example.com",
+        pmtradersApiUrl="https://example.com/graphql/",
         eventType=WebhookEventAsyncType.ORDER_CREATED,
         signature=expected_signature,
     )
 
 
-@patch("saleor.webhook.transport.asynchronous.transport.handle_webhook_retry")
+@patch("pmtraders.webhook.transport.asynchronous.transport.handle_webhook_retry")
 def test_trigger_webhooks_with_google_pub_sub_when_timout_error_raised(
     mocked_retry,
     webhook,
@@ -216,11 +216,11 @@ def test_trigger_webhooks_with_google_pub_sub_when_timout_error_raised(
     mocked_publisher = MagicMock(spec=PublisherClient)
     mocked_publisher.publish.return_value.result = mocked_future_result
     monkeypatch.setattr(
-        "saleor.webhook.transport.utils.pubsub_v1.PublisherClient",
+        "pmtraders.webhook.transport.utils.pubsub_v1.PublisherClient",
         lambda: mocked_publisher,
     )
     webhook.app.permissions.add(permission_manage_orders)
-    webhook.target_url = "gcpubsub://cloud.google.com/projects/saleor/topics/test"
+    webhook.target_url = "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"
     webhook.save()
     expected_data = serialize("json", [order_with_lines])
     expected_signature = signature_for_payload(expected_data.encode("utf-8"), None)
@@ -242,10 +242,10 @@ def test_trigger_webhooks_with_google_pub_sub_when_timout_error_raised(
         timeout=settings.WEBHOOK_WAITING_FOR_RESPONSE_TIMEOUT
     )
     mocked_publisher.publish.assert_called_once_with(
-        "projects/saleor/topics/test",
+        "projects/pmtraders/topics/test",
         expected_data.encode("utf-8"),
-        saleorDomain="example.com",
-        saleorApiUrl="https://example.com/graphql/",
+        pmtradersDomain="example.com",
+        pmtradersApiUrl="https://example.com/graphql/",
         eventType=WebhookEventAsyncType.ORDER_CREATED,
         signature=expected_signature,
     )
@@ -262,11 +262,11 @@ def test_trigger_webhooks_with_google_pub_sub_and_secret_key(
     mocked_publisher = MagicMock(spec=PublisherClient)
     mocked_publisher.publish.return_value.result.return_value = "message_id"
     monkeypatch.setattr(
-        "saleor.webhook.transport.utils.pubsub_v1.PublisherClient",
+        "pmtraders.webhook.transport.utils.pubsub_v1.PublisherClient",
         lambda: mocked_publisher,
     )
     webhook.app.permissions.add(permission_manage_orders)
-    webhook.target_url = "gcpubsub://cloud.google.com/projects/saleor/topics/test"
+    webhook.target_url = "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"
     webhook.secret_key = "secret_key"
     webhook.save()
 
@@ -282,10 +282,10 @@ def test_trigger_webhooks_with_google_pub_sub_and_secret_key(
         allow_replica=False,
     )
     mocked_publisher.publish.assert_called_once_with(
-        "projects/saleor/topics/test",
+        "projects/pmtraders/topics/test",
         message.encode("utf-8"),
-        saleorDomain="example.com",
-        saleorApiUrl="https://example.com/graphql/",
+        pmtradersDomain="example.com",
+        pmtradersApiUrl="https://example.com/graphql/",
         eventType=WebhookEventAsyncType.ORDER_CREATED,
         signature=expected_signature,
     )
@@ -326,14 +326,14 @@ def test_trigger_webhooks_with_http(
 
     expected_headers = {
         "Content-Type": "application/json",
-        # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-        "X-Saleor-Event": "order_created",
-        "X-Saleor-Domain": "example.com",
-        "X-Saleor-Signature": expected_signature,
-        "Saleor-Event": "order_created",
-        "Saleor-Domain": "example.com",
-        "Saleor-Signature": expected_signature,
-        "Saleor-Api-Url": "https://example.com/graphql/",
+        # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+        "X-pmtraders-Event": "order_created",
+        "X-pmtraders-Domain": "example.com",
+        "X-pmtraders-Signature": expected_signature,
+        "pmtraders-Event": "order_created",
+        "pmtraders-Domain": "example.com",
+        "pmtraders-Signature": expected_signature,
+        "pmtraders-Api-Url": "https://example.com/graphql/",
     }
 
     mock_request.assert_called_once_with(
@@ -375,14 +375,14 @@ def test_trigger_webhooks_with_http_and_secret_key(
     )
     expected_headers = {
         "Content-Type": "application/json",
-        # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-        "X-Saleor-Event": "order_created",
-        "X-Saleor-Domain": "example.com",
-        "X-Saleor-Signature": expected_signature,
-        "Saleor-Event": "order_created",
-        "Saleor-Domain": "example.com",
-        "Saleor-Signature": expected_signature,
-        "Saleor-Api-Url": "https://example.com/graphql/",
+        # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+        "X-pmtraders-Event": "order_created",
+        "X-pmtraders-Domain": "example.com",
+        "X-pmtraders-Signature": expected_signature,
+        "pmtraders-Event": "order_created",
+        "pmtraders-Domain": "example.com",
+        "pmtraders-Signature": expected_signature,
+        "pmtraders-Api-Url": "https://example.com/graphql/",
     }
 
     mock_request.assert_called_once_with(
@@ -422,14 +422,14 @@ def test_trigger_webhooks_with_http_and_secret_key_as_empty_string(
     expected_signature = signature_for_payload(expected_data.encode("utf-8"), "")
     expected_headers = {
         "Content-Type": "application/json",
-        # X- headers will be deprecated in Saleor 4.0, proper headers are without X-
-        "X-Saleor-Event": "order_created",
-        "X-Saleor-Domain": "example.com",
-        "X-Saleor-Signature": expected_signature,
-        "Saleor-Event": "order_created",
-        "Saleor-Domain": "example.com",
-        "Saleor-Signature": expected_signature,
-        "Saleor-Api-Url": "https://example.com/graphql/",
+        # X- headers will be deprecated in pmtraders 4.0, proper headers are without X-
+        "X-pmtraders-Event": "order_created",
+        "X-pmtraders-Domain": "example.com",
+        "X-pmtraders-Signature": expected_signature,
+        "pmtraders-Event": "order_created",
+        "pmtraders-Domain": "example.com",
+        "pmtraders-Signature": expected_signature,
+        "pmtraders-Api-Url": "https://example.com/graphql/",
     }
 
     signature_headers = jwt.get_unverified_header(expected_signature)
@@ -462,13 +462,13 @@ def test_trigger_webhooks_with_http_and_custom_headers(
     expected_signature = signature_for_payload(expected_data.encode("utf-8"), "")
     expected_headers = {
         "Content-Type": "application/json",
-        "X-Saleor-Event": "order_created",
-        "X-Saleor-Domain": "example.com",
-        "X-Saleor-Signature": expected_signature,
-        "Saleor-Event": "order_created",
-        "Saleor-Domain": "example.com",
-        "Saleor-Signature": expected_signature,
-        "Saleor-Api-Url": "https://example.com/graphql/",
+        "X-pmtraders-Event": "order_created",
+        "X-pmtraders-Domain": "example.com",
+        "X-pmtraders-Signature": expected_signature,
+        "pmtraders-Event": "order_created",
+        "pmtraders-Domain": "example.com",
+        "pmtraders-Signature": expected_signature,
+        "pmtraders-Api-Url": "https://example.com/graphql/",
         "X-Key": "Value",
         "Authorization-Key": "Value",
     }
@@ -489,7 +489,7 @@ def test_trigger_webhooks_with_http_and_custom_headers(
 @pytest.mark.parametrize(
     ("expected_queue_name", "target_url"),
     [
-        ("PUBSUB_QUEUE", "gcpubsub://cloud.google.com/projects/saleor/topics/test"),
+        ("PUBSUB_QUEUE", "gcpubsub://cloud.google.com/projects/pmtraders/topics/test"),
         (
             "SQS_QUEUE",
             "awssqs://key:secret@sqs.us-east-2.amazonaws.com/xxxx/myqueue.fifo",
@@ -498,7 +498,7 @@ def test_trigger_webhooks_with_http_and_custom_headers(
     ],
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 def test_trigger_webhooks_async_pick_up_queue_based_on_protocol(
     mock_async_apply,
@@ -536,5 +536,5 @@ def test_trigger_webhooks_async_pick_up_queue_based_on_protocol(
     mock_async_apply.assert_called_once_with(
         kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
         queue=expected_queue_name,
-        MessageGroupId="example.com:saleor.app.test",
+        MessageGroupId="example.com:pmtraders.app.test",
     )

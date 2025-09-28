@@ -28,7 +28,7 @@ DELETE_COLLECTION_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.collection_deleted")
+@patch("pmtraders.plugins.manager.PluginsManager.collection_deleted")
 def test_delete_collection(
     deleted_webhook_mock,
     staff_api_client,
@@ -59,7 +59,7 @@ def test_delete_collection(
         assert rule.variants_dirty is True
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_delete_collection_with_background_image(
     delete_from_storage_task_mock,
     staff_api_client,
@@ -94,7 +94,7 @@ def test_delete_collection_with_background_image(
     assert delete_from_storage_task_mock.call_count == 3
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_delete_collection_trigger_product_updated_webhook(
     product_updated_mock,
     staff_api_client,

@@ -60,7 +60,7 @@ def test_refund_payment_no_order(np_atobarai_plugin, np_payment_data, payment_du
         plugin.refund_payment(payment_data, None)
 
 
-@patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_refund_payment_no_psp_reference_payment_not_created(
     mocked_request, np_atobarai_plugin, np_payment_data, payment_dummy
 ):
@@ -109,7 +109,7 @@ def test_refund_payment_np_errors(
     assert gateway_response.error
 
 
-@patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_refund_payment_no_payment(
     _mocked_request, np_atobarai_plugin, np_payment_data, payment_dummy
 ):
@@ -161,7 +161,7 @@ def test_refund_payment_partial_refund_change_transaction(
     assert gateway_response.is_success
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.change_transaction")
+@patch("pmtraders.payment.gateways.np_atobarai.api.change_transaction")
 @patch.object(HTTPSession, "request")
 def test_refund_payment_partial_refund_reregister_transaction(
     mocked_request,
@@ -232,7 +232,7 @@ def test_report_fulfillment(mocked_request, config, fulfillment, payment_dummy):
     assert not already_captured
 
 
-@patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_report_fulfillment_invalid_shipping_company_code(
     mocked_request, config, fulfillment, payment_dummy
 ):
@@ -261,7 +261,7 @@ def test_report_fulfillment_invalid_shipping_company_code(
     assert errors == [f"FR#{SHIPPING_COMPANY_CODE_INVALID}"]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_report_fulfillment_no_psp_reference(
     _mocked_request, config, fulfillment, payment_dummy
 ):
@@ -275,7 +275,7 @@ def test_report_fulfillment_no_psp_reference(
     assert errors == [f"FR#{NO_PSP_REFERENCE}"]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api_helpers.requests.request")
+@patch("pmtraders.payment.gateways.np_atobarai.api_helpers.requests.request")
 def test_report_fulfillment_no_tracking_number(
     _mocked_request, config, fulfillment, payment_dummy
 ):
@@ -378,8 +378,8 @@ def payment_np(payment_dummy):
     return payment_dummy
 
 
-@patch("saleor.payment.gateways.np_atobarai.notify_dashboard")
-@patch("saleor.payment.gateways.np_atobarai.api.report_fulfillment")
+@patch("pmtraders.payment.gateways.np_atobarai.notify_dashboard")
+@patch("pmtraders.payment.gateways.np_atobarai.api.report_fulfillment")
 def test_tracking_number_updated(
     mocked_report_fulfillment,
     mocked_notify_dashboard,
@@ -406,8 +406,8 @@ def test_tracking_number_updated(
     assert not caplog.record_tuples
 
 
-@patch("saleor.payment.gateways.np_atobarai.notify_dashboard")
-@patch("saleor.payment.gateways.np_atobarai.api.report_fulfillment")
+@patch("pmtraders.payment.gateways.np_atobarai.notify_dashboard")
+@patch("pmtraders.payment.gateways.np_atobarai.api.report_fulfillment")
 def test_tracking_number_updated_errors(
     mocked_report_fulfillment,
     mocked_notify_dashboard,
@@ -441,8 +441,8 @@ def test_tracking_number_updated_errors(
     )
 
 
-@patch("saleor.payment.gateways.np_atobarai.notify_dashboard")
-@patch("saleor.payment.gateways.np_atobarai.api.report_fulfillment")
+@patch("pmtraders.payment.gateways.np_atobarai.notify_dashboard")
+@patch("pmtraders.payment.gateways.np_atobarai.api.report_fulfillment")
 def test_tracking_number_updated_already_captured(
     mocked_report_fulfillment,
     mocked_notify_dashboard,
@@ -475,8 +475,8 @@ def test_tracking_number_updated_already_captured(
     )
 
 
-@patch("saleor.payment.gateways.np_atobarai.notify_dashboard")
-@patch("saleor.payment.gateways.np_atobarai.api.report_fulfillment")
+@patch("pmtraders.payment.gateways.np_atobarai.notify_dashboard")
+@patch("pmtraders.payment.gateways.np_atobarai.api.report_fulfillment")
 def test_tracking_number_updated_no_payments(
     _mocked_report_fulfillment,
     mocked_notify_dashboard,
@@ -531,7 +531,7 @@ def test_change_transaction_success(
     assert payment_response.raw_response == response_value
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
 @patch.object(HTTPSession, "request")
 def test_change_transaction_pending(
     mocked_request, mocked_cancel, config, payment_dummy, np_payment_data
@@ -615,9 +615,9 @@ def test_change_transaction_failed(
     assert payment_response.raw_response == response_value
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.report")
-@patch("saleor.payment.gateways.np_atobarai.api.register")
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.report")
+@patch("pmtraders.payment.gateways.np_atobarai.api.register")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
 def test_reregister_transaction_success(
     mocked_cancel,
     mocked_register,
@@ -702,7 +702,7 @@ def test_reregister_transaction_no_psp_reference(payment_dummy, np_payment_data)
     assert payment_response.errors == [f"TR#{NO_PSP_REFERENCE}"]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
 def test_reregister_transaction_cancel_error(
     mocked_cancel, config, payment_dummy, np_payment_data
 ):
@@ -723,9 +723,9 @@ def test_reregister_transaction_cancel_error(
     assert payment_response.errors == [f"TC#{code}" for code in error_codes]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.report")
-@patch("saleor.payment.gateways.np_atobarai.api.register")
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.report")
+@patch("pmtraders.payment.gateways.np_atobarai.api.register")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
 def test_reregister_transaction_report_error(
     mocked_cancel,
     mocked_register,
@@ -768,8 +768,8 @@ def test_reregister_transaction_report_error(
     assert payment_response.errors == [f"FR#{code}" for code in error_codes]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.register")
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.register")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
 def test_reregister_transaction_general_error(
     mocked_cancel,
     mocked_register,
@@ -795,8 +795,8 @@ def test_reregister_transaction_general_error(
     assert payment_response.errors == [f"TR#{code}" for code in error_codes]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
-@patch("saleor.payment.gateways.np_atobarai.api.register")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.register")
 def test_register_transaction_pending(
     mocked_register, mocked_cancel, config, np_payment_data
 ):
@@ -823,8 +823,8 @@ def test_register_transaction_pending(
     assert payment_response.errors == [f"TR#{e}" for e in errors]
 
 
-@patch("saleor.payment.gateways.np_atobarai.api.cancel")
-@patch("saleor.payment.gateways.np_atobarai.api.register")
+@patch("pmtraders.payment.gateways.np_atobarai.api.cancel")
+@patch("pmtraders.payment.gateways.np_atobarai.api.register")
 def test_register_transaction_pending_unrecoverable(
     mocked_register, mocked_cancel, config, np_payment_data, caplog
 ):

@@ -34,7 +34,7 @@ def fetch_kwargs(checkout_with_items, plugins_manager):
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.generate_deferred_payloads.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.generate_deferred_payloads.apply_async"
 )
 def test_call_trigger_webhook_async_deferred_payload(
     mocked_generate_deferred_payloads,
@@ -74,7 +74,7 @@ def test_call_trigger_webhook_async_deferred_payload(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 def test_generate_deferred_payload(
     mocked_send_webhook_request_async,
@@ -162,10 +162,10 @@ def test_generate_deferred_payload_model_pk_does_not_exist(
 
 
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
 @mock.patch(
-    "saleor.webhook.transport.asynchronous.transport.generate_deferred_payloads.apply_async",
+    "pmtraders.webhook.transport.asynchronous.transport.generate_deferred_payloads.apply_async",
     wraps=generate_deferred_payloads.apply_async,
 )
 def test_pass_queue_to_send_webhook_request_async(

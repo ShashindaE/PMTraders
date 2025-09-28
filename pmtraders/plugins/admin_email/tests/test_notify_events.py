@@ -13,7 +13,7 @@ from ..notify_events import (
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events.send_staff_password_reset_email_task."
+    "pmtraders.plugins.admin_email.notify_events.send_staff_password_reset_email_task."
     "delay"
 )
 def test_send_account_password_reset_event(
@@ -26,7 +26,7 @@ def test_send_account_password_reset_event(
         "token": token,
         "reset_url": f"http://localhost:8000/redirect{token}",
         "domain": "localhost:8000",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
     }
     config = {"host": "localhost", "port": "1025"}
     handler = NotifyHandler(lambda: payload)
@@ -39,7 +39,7 @@ def test_send_account_password_reset_event(
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events.send_staff_password_reset_email_task."
+    "pmtraders.plugins.admin_email.notify_events.send_staff_password_reset_email_task."
     "delay"
 )
 def test_send_account_password_reset_event_empty_template(
@@ -52,7 +52,7 @@ def test_send_account_password_reset_event_empty_template(
         "token": token,
         "reset_url": f"http://localhost:8000/redirect{token}",
         "domain": "localhost:8000",
-        "site_name": "Saleor",
+        "site_name": "pmtraders",
     }
     config = {"host": "localhost", "port": "1025"}
     handler = NotifyHandler(lambda: payload)
@@ -65,7 +65,7 @@ def test_send_account_password_reset_event_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events.send_set_staff_password_email_task.delay"
+    "pmtraders.plugins.admin_email.notify_events.send_set_staff_password_email_task.delay"
 )
 def test_send_set_staff_password_email(mocked_email_task, admin_email_plugin):
     payload = {
@@ -84,7 +84,7 @@ def test_send_set_staff_password_email(mocked_email_task, admin_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events.send_set_staff_password_email_task.delay"
+    "pmtraders.plugins.admin_email.notify_events.send_set_staff_password_email_task.delay"
 )
 def test_send_set_staff_password_email_empty_template(
     mocked_email_task, admin_email_plugin
@@ -105,7 +105,7 @@ def test_send_set_staff_password_email_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events."
+    "pmtraders.plugins.admin_email.notify_events."
     "send_email_with_link_to_download_file_task.delay"
 )
 def test_send_csv_export_success(mocked_email_task, admin_email_plugin):
@@ -124,7 +124,7 @@ def test_send_csv_export_success(mocked_email_task, admin_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events."
+    "pmtraders.plugins.admin_email.notify_events."
     "send_email_with_link_to_download_file_task.delay"
 )
 def test_send_csv_product_export_success_empty_template(
@@ -145,7 +145,7 @@ def test_send_csv_product_export_success_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events."
+    "pmtraders.plugins.admin_email.notify_events."
     "send_staff_order_confirmation_email_task.delay"
 )
 def test_send_staff_order_confirmation(mocked_email_task, order, admin_email_plugin):
@@ -165,7 +165,7 @@ def test_send_staff_order_confirmation(mocked_email_task, order, admin_email_plu
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events."
+    "pmtraders.plugins.admin_email.notify_events."
     "send_staff_order_confirmation_email_task.delay"
 )
 def test_send_staff_order_confirmation_empty_template(
@@ -187,7 +187,7 @@ def test_send_staff_order_confirmation_empty_template(
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events.send_export_failed_email_task.delay"
+    "pmtraders.plugins.admin_email.notify_events.send_export_failed_email_task.delay"
 )
 def test_send_csv_export_failed(mocked_email_task, admin_email_plugin):
     payload = {
@@ -204,7 +204,7 @@ def test_send_csv_export_failed(mocked_email_task, admin_email_plugin):
 
 
 @mock.patch(
-    "saleor.plugins.admin_email.notify_events.send_export_failed_email_task.delay"
+    "pmtraders.plugins.admin_email.notify_events.send_export_failed_email_task.delay"
 )
 def test_send_csv_export_failed_empty_template(mocked_email_task, admin_email_plugin):
     payload = {

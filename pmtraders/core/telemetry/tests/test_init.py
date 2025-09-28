@@ -8,7 +8,7 @@ class Invalid:
 
 
 def test_initialize_telemetry_invalid_tracer_class(settings):
-    settings.TELEMETRY_TRACER_CLASS = "saleor.core.telemetry.tests.test_init.Invalid"
+    settings.TELEMETRY_TRACER_CLASS = "pmtraders.core.telemetry.tests.test_init.Invalid"
 
     with pytest.raises(
         ValueError,
@@ -18,7 +18,7 @@ def test_initialize_telemetry_invalid_tracer_class(settings):
 
 
 def test_initialize_telemetry_invalid_meter_class(settings):
-    settings.TELEMETRY_METER_CLASS = "saleor.core.telemetry.tests.test_init.Invalid"
+    settings.TELEMETRY_METER_CLASS = "pmtraders.core.telemetry.tests.test_init.Invalid"
 
     with pytest.raises(
         ValueError,

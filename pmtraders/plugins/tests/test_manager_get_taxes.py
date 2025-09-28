@@ -16,7 +16,7 @@ def sample_none_data(obj):
     ("plugins", "expected_tax_data"),
     [
         ([], sample_none_data),
-        (["saleor.plugins.tests.sample_plugins.PluginSample"], sample_tax_data),
+        (["pmtraders.plugins.tests.sample_plugins.PluginSample"], sample_tax_data),
     ],
 )
 def test_manager_get_taxes_for_checkout(
@@ -40,7 +40,7 @@ def test_manager_get_taxes_for_checkout(
 
 
 @patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_checkout",
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_checkout",
     side_effect=TaxDataError("test error"),
 )
 def test_manager_get_taxes_for_checkout_raises_error(
@@ -52,7 +52,7 @@ def test_manager_get_taxes_for_checkout_raises_error(
     manager = get_plugins_manager(allow_replica=False)
     checkout_info = fetch_checkout_info(checkout, lines, manager)
     app_identifier = None
-    plugins = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    plugins = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     # when & then
     with pytest.raises(TaxDataError):
@@ -86,18 +86,18 @@ def test_manager_get_taxes_for_checkout_raises_no_active_plugin(
     [
         # first plugin that raises an error
         [
-            "saleor.plugins.webhook.plugin.WebhookPlugin",
-            "saleor.plugins.tests.sample_plugins.PluginSample",
+            "pmtraders.plugins.webhook.plugin.WebhookPlugin",
+            "pmtraders.plugins.tests.sample_plugins.PluginSample",
         ],
         # as a second plugin that raises an error
         [
-            "saleor.plugins.tests.sample_plugins.PluginSample",
-            "saleor.plugins.webhook.plugin.WebhookPlugin",
+            "pmtraders.plugins.tests.sample_plugins.PluginSample",
+            "pmtraders.plugins.webhook.plugin.WebhookPlugin",
         ],
     ],
 )
 @patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_checkout",
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_checkout",
     side_effect=TaxDataError("test error"),
 )
 def test_manager_get_taxes_for_checkout_multiple_plugins(
@@ -124,7 +124,7 @@ def test_manager_get_taxes_for_checkout_multiple_plugins(
     ("plugins", "expected_tax_data"),
     [
         ([], sample_none_data),
-        (["saleor.plugins.tests.sample_plugins.PluginSample"], sample_tax_data),
+        (["pmtraders.plugins.tests.sample_plugins.PluginSample"], sample_tax_data),
     ],
 )
 def test_manager_get_taxes_for_order(
@@ -145,7 +145,7 @@ def test_manager_get_taxes_for_order(
 
 
 @patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_order",
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_order",
     side_effect=TaxDataError("test error"),
 )
 def test_manager_get_taxes_for_order_raises_error(
@@ -154,7 +154,7 @@ def test_manager_get_taxes_for_order_raises_error(
 ):
     # given
     app_identifier = None
-    plugins = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    plugins = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     # when & then
     with pytest.raises(TaxDataError):
@@ -181,18 +181,18 @@ def test_manager_get_taxes_for_order_raises_no_active_plugin(
     [
         # first plugin that raises an error
         [
-            "saleor.plugins.webhook.plugin.WebhookPlugin",
-            "saleor.plugins.tests.sample_plugins.PluginSample",
+            "pmtraders.plugins.webhook.plugin.WebhookPlugin",
+            "pmtraders.plugins.tests.sample_plugins.PluginSample",
         ],
         # as a second plugin that raises an error
         [
-            "saleor.plugins.tests.sample_plugins.PluginSample",
-            "saleor.plugins.webhook.plugin.WebhookPlugin",
+            "pmtraders.plugins.tests.sample_plugins.PluginSample",
+            "pmtraders.plugins.webhook.plugin.WebhookPlugin",
         ],
     ],
 )
 @patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_order",
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.get_taxes_for_order",
     side_effect=TaxDataError("test error"),
 )
 def test_manager_get_taxes_for_order_multiple_plugins(

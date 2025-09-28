@@ -188,10 +188,10 @@ def test_gift_card_bulk_activate_expired_cards(
 
 
 @mock.patch(
-    "saleor.graphql.giftcard.bulk_mutations."
+    "pmtraders.graphql.giftcard.bulk_mutations."
     "gift_card_bulk_activate.get_webhooks_for_event"
 )
-@mock.patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@mock.patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_gift_card_bulk_activate_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -204,7 +204,7 @@ def test_gift_card_bulk_activate_trigger_webhook(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     gift_card.is_active = False
     gift_card_expiry_date.is_active = False

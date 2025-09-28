@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.test import override_settings
 from graphql.execution.base import ExecutionResult
 
-from .... import __version__ as saleor_version
+from .... import __version__ as pmtraders_version
 from ....graphql.api import backend, schema
 from ....graphql.utils import INTERNAL_ERROR_MESSAGE
 from ...tests.fixtures import API_PATH
@@ -146,7 +146,7 @@ def test_graphql_execution_exception(monkeypatch, api_client):
     def mocked_execute(*args, **kwargs):
         raise OSError("Spanish inquisition")
 
-    monkeypatch.setattr("saleor.graphql.api.execute", mocked_execute)
+    monkeypatch.setattr("pmtraders.graphql.api.execute", mocked_execute)
     response = api_client.post_graphql("{ shop { name }}")
     assert response.status_code == 400
     content = get_graphql_content_from_response(response)
@@ -157,7 +157,7 @@ def test_invalid_query_graphql_errors_are_logged_in_another_logger(
     api_client, graphql_log_handler
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
 
     # when
@@ -166,7 +166,7 @@ def test_invalid_query_graphql_errors_are_logged_in_another_logger(
     # then
     assert response.status_code == 400
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
 
 
@@ -174,7 +174,7 @@ def test_invalid_syntax_graphql_errors_are_logged_in_another_logger(
     api_client, graphql_log_handler
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
 
     # when
@@ -183,7 +183,7 @@ def test_invalid_syntax_graphql_errors_are_logged_in_another_logger(
     # then
     assert response.status_code == 400
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLSyntaxError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLSyntaxError"
     ]
 
 
@@ -191,7 +191,7 @@ def test_permission_denied_query_graphql_errors_are_logged_in_another_logger(
     api_client, graphql_log_handler
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
 
     # when
@@ -210,7 +210,7 @@ def test_permission_denied_query_graphql_errors_are_logged_in_another_logger(
     # then
     assert response.status_code == 200
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].PermissionDenied"
+        "pmtraders.graphql.errors.handled[DEBUG].PermissionDenied"
     ]
 
 
@@ -233,7 +233,7 @@ def test_validation_errors_query_do_not_get_logged(
     assert graphql_log_handler.messages == []
 
 
-@mock.patch("saleor.graphql.product.schema.resolve_collection_by_id")
+@mock.patch("pmtraders.graphql.product.schema.resolve_collection_by_id")
 def test_unexpected_exceptions_are_logged_in_their_own_logger(
     mocked_resolve_collection_by_id,
     staff_api_client,
@@ -264,7 +264,7 @@ def test_unexpected_exceptions_are_logged_in_their_own_logger(
 
     assert response.status_code == 200
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.unhandled[ERROR].NotImplementedError"
+        "pmtraders.graphql.errors.unhandled[ERROR].NotImplementedError"
     ]
 
 
@@ -276,7 +276,7 @@ def test_query_contains_not_only_schema_raise_error(
     other_query, api_client, graphql_log_handler
 ):
     # given
-    handled_errors_logger = logging.getLogger("saleor.graphql.errors.handled")
+    handled_errors_logger = logging.getLogger("pmtraders.graphql.errors.handled")
     handled_errors_logger.setLevel(logging.DEBUG)
     query = """
         query IntrospectionQuery {
@@ -295,7 +295,7 @@ def test_query_contains_not_only_schema_raise_error(
     # then
     assert response.status_code == 400
     assert graphql_log_handler.messages == [
-        "saleor.graphql.errors.handled[DEBUG].GraphQLError"
+        "pmtraders.graphql.errors.handled[DEBUG].GraphQLError"
     ]
 
 
@@ -312,8 +312,8 @@ query IntrospectionQuery {
 INTROSPECTION_RESULT = {"__schema": {"queryType": {"name": "Query"}}}
 
 
-@mock.patch("saleor.graphql.views.cache.set")
-@mock.patch("saleor.graphql.views.cache.get")
+@mock.patch("pmtraders.graphql.views.cache.set")
+@mock.patch("pmtraders.graphql.views.cache.get")
 @override_settings(DEBUG=False, OBSERVABILITY_REPORT_ALL_API_CALLS=False)
 def test_introspection_query_is_cached(cache_get_mock, cache_set_mock, api_client):
     cache_get_mock.return_value = None
@@ -327,8 +327,8 @@ def test_introspection_query_is_cached(cache_get_mock, cache_set_mock, api_clien
     )
 
 
-@mock.patch("saleor.graphql.views.cache.set")
-@mock.patch("saleor.graphql.views.cache.get")
+@mock.patch("pmtraders.graphql.views.cache.set")
+@mock.patch("pmtraders.graphql.views.cache.get")
 @override_settings(DEBUG=False, OBSERVABILITY_REPORT_ALL_API_CALLS=False)
 def test_introspection_query_is_cached_only_once(
     cache_get_mock, cache_set_mock, api_client
@@ -342,8 +342,8 @@ def test_introspection_query_is_cached_only_once(
     cache_set_mock.assert_not_called()
 
 
-@mock.patch("saleor.graphql.views.cache.set")
-@mock.patch("saleor.graphql.views.cache.get")
+@mock.patch("pmtraders.graphql.views.cache.set")
+@mock.patch("pmtraders.graphql.views.cache.get")
 @override_settings(DEBUG=True, OBSERVABILITY_REPORT_ALL_API_CALLS=False)
 def test_introspection_query_is_not_cached_in_debug_mode(
     cache_get_mock, cache_set_mock, api_client
@@ -355,9 +355,9 @@ def test_introspection_query_is_not_cached_in_debug_mode(
     cache_set_mock.assert_not_called()
 
 
-def test_generate_cache_key_use_saleor_version():
+def test_generate_cache_key_use_pmtraders_version():
     cache_key = generate_cache_key(INTROSPECTION_QUERY)
-    assert saleor_version in cache_key
+    assert pmtraders_version in cache_key
 
 
 def test_graphql_view_clears_context(rf, staff_user, product, channel_USD):
@@ -390,7 +390,7 @@ def test_graphql_view_clears_context(rf, staff_user, product, channel_USD):
         ("http://some_custom_domain.com", "http://some_custom_domain.com"),
     ],
 )
-@patch("saleor.graphql.views.render", wraps=render)
+@patch("pmtraders.graphql.views.render", wraps=render)
 def test_playground_is_rendered_with_proper_api_url_if_public_url_is_set(
     mocked_render, rf, settings, public_url, expected_url_base
 ):

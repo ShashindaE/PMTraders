@@ -24,7 +24,7 @@ class Invoice(ModelObjectType[models.Invoice]):
     message = graphene.String(description="Message associated with an invoice.")
     url = graphene.String(description="URL to view/download an invoice.")
     order = graphene.Field(
-        "saleor.graphql.order.types.Order",
+        "pmtraders.graphql.order.types.Order",
         description="Order related to the invoice.",
     )
 

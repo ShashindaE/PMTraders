@@ -9,7 +9,7 @@ from .....webhook.tests.subscription_webhooks import subscription_queries
 @pytest.fixture
 def payment_app(db, permission_manage_payments):
     app = App.objects.create(
-        name="Payment App", is_active=True, identifier="saleor.payment.test.app"
+        name="Payment App", is_active=True, identifier="pmtraders.payment.test.app"
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -31,7 +31,7 @@ def payment_app(db, permission_manage_payments):
 @pytest.fixture
 def payment_app_with_subscription_webhooks(db, permission_manage_payments):
     app = App.objects.create(
-        name="Payment App", is_active=True, identifier="saleor.payment.test.app"
+        name="Payment App", is_active=True, identifier="pmtraders.payment.test.app"
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -56,7 +56,7 @@ def list_stored_payment_methods_app(db, permission_manage_payments):
     app = App.objects.create(
         name="List payment methods app",
         is_active=True,
-        identifier="saleor.payment.app.list.stored.method",
+        identifier="pmtraders.payment.app.list.stored.method",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -77,7 +77,7 @@ def stored_payment_method_request_delete_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Payment method request delete",
         is_active=True,
-        identifier="saleor.payment.app.payment.method.request.delete",
+        identifier="pmtraders.payment.app.payment.method.request.delete",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -98,7 +98,7 @@ def payment_gateway_initialize_tokenization_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Payment method request delete",
         is_active=True,
-        identifier="saleor.payment.app.payment.gateway.initialize.tokenization",
+        identifier="pmtraders.payment.app.payment.gateway.initialize.tokenization",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -119,7 +119,7 @@ def payment_method_initialize_tokenization_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Payment method initialize tokenization",
         is_active=True,
-        identifier="saleor.payment.app.payment.method.initialize.tokenization",
+        identifier="pmtraders.payment.app.payment.method.initialize.tokenization",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -140,7 +140,7 @@ def payment_method_process_tokenization_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Payment method process tokenization",
         is_active=True,
-        identifier="saleor.payment.app.payment.method.process.tokenization",
+        identifier="pmtraders.payment.app.payment.method.process.tokenization",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -161,7 +161,7 @@ def payment_gateway_initialize_session_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Payment gateway initialize session",
         is_active=True,
-        identifier="saleor.payment.app.payment.gateway.initialize.session",
+        identifier="pmtraders.payment.app.payment.gateway.initialize.session",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -182,7 +182,7 @@ def transaction_process_session_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Transaction process session",
         is_active=True,
-        identifier="saleor.payment.app.transaction.process.session",
+        identifier="pmtraders.payment.app.transaction.process.session",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)
@@ -252,7 +252,7 @@ def transaction_initialize_session_app(db, permission_manage_payments):
     app = App.objects.create(
         name="Transaction initialize session",
         is_active=True,
-        identifier="saleor.payment.app.transaction.initialize.session",
+        identifier="pmtraders.payment.app.transaction.initialize.session",
     )
     app.tokens.create(name="Default")
     app.permissions.add(permission_manage_payments)

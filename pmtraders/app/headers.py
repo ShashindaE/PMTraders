@@ -1,12 +1,12 @@
 class AppHeaders:
-    DOMAIN = "Saleor-Domain"
-    EVENT_TYPE = "Saleor-Event"
-    SIGNATURE = "Saleor-Signature"
-    API_URL = "Saleor-Api-Url"
-    SCHEMA_VERSION = "Saleor-Schema-Version"
+    DOMAIN = "pmtraders-Domain"
+    EVENT_TYPE = "pmtraders-Event"
+    SIGNATURE = "pmtraders-Signature"
+    API_URL = "pmtraders-Api-Url"
+    SCHEMA_VERSION = "pmtraders-Schema-Version"
 
 
 class DeprecatedAppHeaders:
-    DOMAIN = "X-Saleor-Domain"
-    EVENT_TYPE = "X-Saleor-Event"
-    SIGNATURE = "X-Saleor-Signature"
+    DOMAIN = "X-pmtraders-Domain"
+    EVENT_TYPE = "X-pmtraders-Event"
+    SIGNATURE = "X-pmtraders-Signature"

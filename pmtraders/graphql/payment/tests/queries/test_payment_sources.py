@@ -93,7 +93,7 @@ def test_list_payment_sources(
         metadata=metadata,
     )
     mock_get_source_list = mocker.patch(
-        "saleor.graphql.account.resolvers.gateway.list_payment_sources",
+        "pmtraders.graphql.account.resolvers.gateway.list_payment_sources",
         return_value=[source],
         autospec=True,
     )
@@ -126,7 +126,7 @@ def test_stored_payment_sources_restriction(
     card = PaymentMethodInfo(last_4="5678", exp_year=2020, exp_month=12, name="JohnDoe")
     source = CustomerSource(id="test1", gateway="dummy", credit_card_info=card)
     mocker.patch(
-        "saleor.graphql.account.resolvers.gateway.list_payment_sources",
+        "pmtraders.graphql.account.resolvers.gateway.list_payment_sources",
         return_value=[source],
         autospec=True,
     )

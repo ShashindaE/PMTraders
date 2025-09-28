@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 
 DEFAULT_EMAIL_TEMPLATES_PATH = os.path.join(
-    settings.PROJECT_ROOT, "saleor/plugins/admin_email/default_email_templates"
+    settings.PROJECT_ROOT, "pmtraders/plugins/admin_email/default_email_templates"
 )
 
 STAFF_ORDER_CONFIRMATION_TEMPLATE_FIELD = "staff_order_confirmation_template"
@@ -35,10 +35,10 @@ STAFF_PASSWORD_RESET_SUBJECT_FIELD = "staff_password_reset_subject"
 
 
 STAFF_ORDER_CONFIRMATION_DEFAULT_SUBJECT = "Order {{ order.number }} details"
-SET_STAFF_PASSWORD_DEFAULT_SUBJECT = "You’re invited to join Saleor"
+SET_STAFF_PASSWORD_DEFAULT_SUBJECT = "You’re invited to join pmtraders"
 CSV_EXPORT_SUCCESS_DEFAULT_SUBJECT = "Your exported {{ data_type }} data is ready"
 CSV_EXPORT_FAILED_DEFAULT_SUBJECT = "Exporting {{ data_type }} data failed"
-STAFF_PASSWORD_RESET_DEFAULT_SUBJECT = "Reset your Saleor password"
+STAFF_PASSWORD_RESET_DEFAULT_SUBJECT = "Reset your pmtraders password"
 
 
 PLUGIN_ID = "mirumee.notifications.admin_email"

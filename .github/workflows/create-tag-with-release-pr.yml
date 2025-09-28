@@ -22,7 +22,7 @@ jobs:
         env:
           VERSION: ${{ steps.set-version.outputs.VERSION }}
         run: |
-          latest=$(gh api --jq .name /repos/saleor/saleor/releases/latest)
+          latest=$(gh api --jq .name /repos/pmtraders/pmtraders/releases/latest)
           if [ "$VERSION" \> "$latest" ]
           then
             echo "IS_LATEST=true" >> $GITHUB_OUTPUT
@@ -81,4 +81,4 @@ jobs:
               '
           )
 
-          gh api /repos/saleor/saleor-multitenant/dispatches --input - <<< "$payload"
+          gh api /repos/pmtraders/pmtraders-multitenant/dispatches --input - <<< "$payload"

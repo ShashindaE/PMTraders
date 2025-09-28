@@ -35,7 +35,7 @@ DELETE_PRODUCT_MUTATION = """
 """
 
 
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_delete_product(
     mocked_recalculate_orders_task,
     staff_api_client,
@@ -57,8 +57,8 @@ def test_delete_product(
     mocked_recalculate_orders_task.assert_not_called()
 
 
-@patch("saleor.product.signals.delete_from_storage_task.delay")
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.product.signals.delete_from_storage_task.delay")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_delete_product_with_image(
     mocked_recalculate_orders_task,
     delete_from_storage_task_mock,
@@ -104,9 +104,9 @@ def test_delete_product_with_image(
     mocked_recalculate_orders_task.assert_not_called()
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_delete_product_trigger_webhook(
     mocked_recalculate_orders_task,
     mocked_webhook_trigger,
@@ -118,7 +118,7 @@ def test_delete_product_trigger_webhook(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     query = DELETE_PRODUCT_MUTATION
     node_id = graphene.Node.to_global_id("Product", product.id)
@@ -147,7 +147,7 @@ def test_delete_product_trigger_webhook(
     mocked_recalculate_orders_task.assert_not_called()
 
 
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_delete_product_with_file_attribute(
     mocked_recalculate_orders_task,
     staff_api_client,
@@ -210,7 +210,7 @@ def test_delete_product_removes_checkout_lines(
     assert node_id == data["product"]["id"]
 
 
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_delete_product_variant_in_draft_order(
     mocked_recalculate_orders_task,
     staff_api_client,
@@ -439,7 +439,7 @@ DELETE_PRODUCT_BY_EXTERNAL_REFERENCE = """
 """
 
 
-@patch("saleor.order.tasks.recalculate_orders_task.delay")
+@patch("pmtraders.order.tasks.recalculate_orders_task.delay")
 def test_delete_product_by_external_reference(
     mocked_recalculate_orders_task,
     staff_api_client,

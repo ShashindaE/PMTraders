@@ -7,7 +7,7 @@ on:
 jobs:
   run:
     name: Run migrations performance test
-    if: ${{ (((github.event.action == 'labeled') && (github.event.label.name == 'migrations perf test')) || ((github.event.action == 'opened') && contains(github.event.pull_request.labels.*.name, 'migrations perf test')) && github.repository == 'saleor/saleor') }}
+    if: ${{ (((github.event.action == 'labeled') && (github.event.label.name == 'migrations perf test')) || ((github.event.action == 'opened') && contains(github.event.pull_request.labels.*.name, 'migrations perf test')) && github.repository == 'pmtraders/pmtraders') }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write # needed by aws-actions/configure-aws-credentials
@@ -28,7 +28,7 @@ jobs:
           access_key_id: ${{ env.AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           account_id: ${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}
-          repo: saleor-testenvs
+          repo: pmtraders-testenvs
           region: ${{ vars.AWS_TESTENVS_REGION }}
           tags: ${{ env.GITHUB_HEAD_REF_SLUG_URL }},${{ github.sha }}
 
@@ -48,7 +48,7 @@ jobs:
             {
               "action": "${{ github.event.action }}",
               "label": "${{ env.GITHUB_HEAD_REF_SLUG_URL }}",
-              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/saleor-testenvs:${{ github.sha }}",
+              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/pmtraders-testenvs:${{ github.sha }}",
               "pr_id": "${{ env.PULL_ID }}",
               "commit_hash": "${{ github.sha }}"
             }
@@ -56,7 +56,7 @@ jobs:
 
   cleanup:
     name: Cleanup after migrations performance test
-    if: ${{ (((github.event.action == 'unlabeled') && (github.event.label.name == 'migrations perf test')) || ((github.event.action == 'closed') && contains(github.event.pull_request.labels.*.name, 'migrations perf test')) && github.repository == 'saleor/saleor') }}
+    if: ${{ (((github.event.action == 'unlabeled') && (github.event.label.name == 'migrations perf test')) || ((github.event.action == 'closed') && contains(github.event.pull_request.labels.*.name, 'migrations perf test')) && github.repository == 'pmtraders/pmtraders') }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write # needed by aws-actions/configure-aws-credentials
@@ -87,7 +87,7 @@ jobs:
             {
               "action": "${{ github.event.action }}",
               "label": "${{ env.GITHUB_HEAD_REF_SLUG_URL }}",
-              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/saleor-testenvs:${{ github.sha }}",
+              "image": "${{ secrets.AWS_TESTENVS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_TESTENVS_REGION }}.amazonaws.com/pmtraders-testenvs:${{ github.sha }}",
               "pr_id": "${{ env.PULL_ID }}",
               "commit_hash": "${{ github.sha }}"
             }

@@ -1548,7 +1548,7 @@ def test_fetch_order_prices_entire_order_voucher_no_tax_data_tax_app(
     voucher,
     tax_configuration_tax_app,
 ):
-    """Test if for empty tax data, Saleor apply correctly net values."""
+    """Test if for empty tax data, pmtraders apply correctly net values."""
     # given
     order = order_with_lines
     order.status = OrderStatus.DRAFT

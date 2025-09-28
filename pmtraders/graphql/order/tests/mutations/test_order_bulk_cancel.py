@@ -22,7 +22,7 @@ mutation CancelManyOrders($ids: [ID!]!) {
 
 
 @patch(
-    "saleor.graphql.order.bulk_mutations.order_bulk_cancel.cancel_order",
+    "pmtraders.graphql.order.bulk_mutations.order_bulk_cancel.cancel_order",
     wraps=cancel_order,
 )
 def test_order_bulk_cancel(
@@ -38,7 +38,7 @@ def test_order_bulk_cancel(
     webhook_event_map = get_webhooks_for_multiple_events(
         WEBHOOK_EVENTS_FOR_ORDER_CANCELED
     )
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     permission_group_manage_orders.user_set.add(staff_api_client.user)
     orders = order_list
@@ -94,7 +94,7 @@ def test_order_bulk_cancel_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_order_bulk_cancel_with_back_in_stock_webhook(
     product_variant_back_in_stock_webhook_mock,
     staff_api_client,
@@ -115,7 +115,7 @@ def test_order_bulk_cancel_with_back_in_stock_webhook(
 
 
 @patch(
-    "saleor.graphql.order.bulk_mutations.order_bulk_cancel.cancel_order",
+    "pmtraders.graphql.order.bulk_mutations.order_bulk_cancel.cancel_order",
     wraps=cancel_order,
 )
 def test_order_bulk_cancel_as_app(
@@ -132,7 +132,7 @@ def test_order_bulk_cancel_as_app(
     webhook_event_map = get_webhooks_for_multiple_events(
         WEBHOOK_EVENTS_FOR_ORDER_CANCELED
     )
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     orders = order_list
     orders.append(fulfilled_order_with_all_cancelled_fulfillments)
@@ -164,7 +164,7 @@ def test_order_bulk_cancel_as_app(
 
 
 @patch(
-    "saleor.graphql.order.bulk_mutations.order_bulk_cancel.cancel_order",
+    "pmtraders.graphql.order.bulk_mutations.order_bulk_cancel.cancel_order",
     wraps=cancel_order,
 )
 def test_order_bulk_cancel_without_sku(
@@ -181,7 +181,7 @@ def test_order_bulk_cancel_without_sku(
     webhook_event_map = get_webhooks_for_multiple_events(
         WEBHOOK_EVENTS_FOR_ORDER_CANCELED
     )
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     permission_group_manage_orders.user_set.add(staff_api_client.user)
     ProductVariant.objects.update(sku=None)

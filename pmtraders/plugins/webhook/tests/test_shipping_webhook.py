@@ -66,10 +66,10 @@ query Checkout($id: ID){
 """
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
+    "pmtraders.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
 )
 def test_excluded_shipping_methods_for_order(
     mocked_payload,
@@ -143,10 +143,10 @@ def test_excluded_shipping_methods_for_order(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
+    "pmtraders.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
 )
 def test_multiple_app_with_excluded_shipping_methods_for_order(
     mocked_payload,
@@ -264,10 +264,10 @@ def test_multiple_app_with_excluded_shipping_methods_for_order(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
+    "pmtraders.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
 )
 def test_multiple_webhooks_on_the_same_app_with_excluded_shipping_methods_for_order(
     mocked_payload,
@@ -477,7 +477,7 @@ def test_parse_excluded_shipping_methods_response_invalid(
 
 
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
 )
 def test_order_shipping_methods(
     mocked_webhook,
@@ -489,7 +489,7 @@ def test_order_shipping_methods(
     # given
     order_with_lines.status = OrderStatus.UNCONFIRMED
     order_with_lines.save(update_fields=["status"])
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook_reason = "spanish-inquisition"
     excluded_shipping_method_id = order_with_lines.shipping_method.id
     mocked_webhook.return_value = [
@@ -512,7 +512,7 @@ def test_order_shipping_methods(
 
 
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
 )
 def test_draft_order_shipping_methods(
     mocked_webhook,
@@ -524,7 +524,7 @@ def test_draft_order_shipping_methods(
     # given
     order_with_lines.status = OrderStatus.DRAFT
     order_with_lines.save(update_fields=["status"])
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook_reason = "spanish-inquisition"
     excluded_shipping_method_id = order_with_lines.shipping_method.id
     mocked_webhook.return_value = [
@@ -560,7 +560,7 @@ def test_draft_order_shipping_methods(
     ],
 )
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
 )
 def test_order_shipping_methods_skips_sync_webhook_for_non_editable_statuses(
     mocked_webhook,
@@ -573,7 +573,7 @@ def test_order_shipping_methods_skips_sync_webhook_for_non_editable_statuses(
     # given
     order_with_lines.status = order_status
     order_with_lines.save(update_fields=["status"])
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     permission_group_manage_orders.user_set.add(staff_api_client.user)
 
@@ -598,7 +598,7 @@ def test_order_shipping_methods_skips_sync_webhook_for_non_editable_statuses(
     [(lambda s: [ExcludedShippingMethod(s.id, "")], 0), (lambda s: [], 1)],
 )
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_order"
 )
 def test_order_available_shipping_methods(
     mocked_webhook,
@@ -610,7 +610,7 @@ def test_order_available_shipping_methods(
     expected_count,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     order_with_lines.status = OrderStatus.UNCONFIRMED
     order_with_lines.save(update_fields=["status"])
     shipping_method = order_with_lines.shipping_method
@@ -633,7 +633,7 @@ def test_order_available_shipping_methods(
 
 
 @mock.patch(
-    "saleor.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.webhook.plugin.WebhookPlugin.excluded_shipping_methods_for_checkout"
 )
 def test_checkout_shipping_methods(
     mocked_webhook,
@@ -643,7 +643,7 @@ def test_checkout_shipping_methods(
     settings,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook_reason = "spanish-inquisition"
     excluded_shipping_method_id = checkout_ready_to_complete.shipping_method.id
     mocked_webhook.return_value = [
@@ -674,7 +674,7 @@ def test_checkout_shipping_methods(
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
 )
 def test_checkout_available_shipping_methods(
     mocked_webhook,
@@ -684,7 +684,7 @@ def test_checkout_available_shipping_methods(
     settings,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook_reason = "spanish-inquisition"
 
     excluded_shipping_method_id = checkout_ready_to_complete.shipping_method.id
@@ -706,7 +706,7 @@ def test_checkout_available_shipping_methods(
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
+    "pmtraders.plugins.manager.PluginsManager.excluded_shipping_methods_for_checkout"
 )
 def test_checkout_shipping_methods_webhook_called_once(
     mocked_webhook,
@@ -729,7 +729,7 @@ def test_checkout_shipping_methods_webhook_called_once(
     assert len(checkout_data["shippingMethods"]) == 2
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_trigger_webhook_sync(mock_request, shipping_app):
     data = '{"key": "value"}'
     webhook = shipping_app.webhooks.first()
@@ -740,10 +740,10 @@ def test_trigger_webhook_sync(mock_request, shipping_app):
     assert not EventDelivery.objects.exists()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 def test_excluded_shipping_methods_for_checkout_webhook_without_pregenerated_payload(
@@ -821,14 +821,14 @@ def test_excluded_shipping_methods_for_checkout_webhook_without_pregenerated_pay
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_excluded_shipping_methods_for_checkout_webhook_with_subscription_base_pregenerated_payload(
     mocked_subscription_payload,
@@ -910,7 +910,7 @@ def test_excluded_shipping_methods_for_checkout_webhook_with_subscription_base_p
     mocked_subscription_payload.assert_not_called()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_excluded_shipping_methods_for_checkout(
     mocked_webhook,
     webhook_plugin,
@@ -955,10 +955,10 @@ def test_excluded_shipping_methods_for_checkout(
     mocked_webhook.assert_called_once()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 def test_multiple_app_with_excluded_shipping_methods_for_checkout(
@@ -1078,10 +1078,10 @@ def test_multiple_app_with_excluded_shipping_methods_for_checkout(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 def test_multiple_webhooks_on_the_same_app_with_excluded_shipping_methods_for_checkout(
@@ -1263,10 +1263,10 @@ def test_generate_excluded_shipping_methods_for_checkout_payload(
     assert "channel" in json_payload["checkout"]
 
 
-@mock.patch("saleor.webhook.transport.shipping.parse_excluded_shipping_methods")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@mock.patch("pmtraders.webhook.transport.shipping.parse_excluded_shipping_methods")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.webhook.transport.shipping.get_excluded_shipping_methods_from_response"
+    "pmtraders.webhook.transport.shipping.get_excluded_shipping_methods_from_response"
 )
 def test_get_excluded_shipping_methods_or_fetch_invalid_response_type(
     mocked_get_excluded,

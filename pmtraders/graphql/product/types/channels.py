@@ -99,7 +99,7 @@ class ProductChannelListing(ModelObjectType[models.ProductChannelListing]):
         )
     )
     pricing = graphene.Field(
-        "saleor.graphql.product.types.products.ProductPricingInfo",
+        "pmtraders.graphql.product.types.products.ProductPricingInfo",
         address=graphene.Argument(
             account_types.AddressInput,
             description=(

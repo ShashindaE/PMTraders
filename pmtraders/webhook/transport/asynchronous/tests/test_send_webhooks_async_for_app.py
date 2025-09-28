@@ -8,10 +8,10 @@ from ..transport import (
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
 )
 def test_send_webhooks_async_for_app(
     mock_send_webhooks_async_for_app_apply_async,
@@ -39,7 +39,7 @@ def test_send_webhooks_async_for_app(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhooks_async_for_app_no_deliveries(
     mock_send_webhook_using_scheme_method, app
@@ -55,7 +55,7 @@ def test_send_webhooks_async_for_app_no_deliveries(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 def test_send_webhooks_async_for_app_doesnt_pick_failed(
     mock_send_webhook_using_scheme_method, app, event_delivery
@@ -73,10 +73,10 @@ def test_send_webhooks_async_for_app_doesnt_pick_failed(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
 )
 def test_send_webhooks_async_for_app_no_payload(
     mock_send_webhooks_async_for_app_apply_async,
@@ -108,10 +108,10 @@ def test_send_webhooks_async_for_app_no_payload(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
 )
 def test_send_webhooks_async_for_app_failed_status(
     mock_send_webhooks_async_for_app_apply_async,
@@ -143,10 +143,10 @@ def test_send_webhooks_async_for_app_failed_status(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
 )
 def test_send_multiple_webhooks_async_for_app(
     mock_send_webhooks_async_for_app_apply_async,
@@ -174,10 +174,10 @@ def test_send_multiple_webhooks_async_for_app(
 
 
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhooks_async_for_app.apply_async"
 )
 def test_send_webhooks_async_for_app_last_retry_failed(
     mock_send_webhooks_async_for_app_apply_async,

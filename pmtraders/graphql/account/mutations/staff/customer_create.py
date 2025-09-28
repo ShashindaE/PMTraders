@@ -69,7 +69,7 @@ class CustomerCreate(BaseCustomerCreate):
         This limitation comes from the Base/Model mutation. We can solve this e.g. by
         returning actual instance from save()
 
-        https://linear.app/saleor/issue/EXT-2162
+        https://linear.app/pmtraders/issue/EXT-2162
         """
         with transaction.atomic():
             try:

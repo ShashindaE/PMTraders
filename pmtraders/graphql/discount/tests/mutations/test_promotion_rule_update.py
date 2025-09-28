@@ -52,7 +52,7 @@ PROMOTION_RULE_UPDATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_rule_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_rule_updated")
 def test_promotion_rule_update_by_staff_user(
     promotion_rule_updated_mock,
     staff_api_client,

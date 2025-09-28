@@ -44,7 +44,7 @@ def webhook_stored_payment_method_request_delete_response():
     }
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_with_static_payload(
     mock_request,
     customer_user,
@@ -97,7 +97,7 @@ def test_stored_payment_method_request_delete_with_static_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_with_subscription_payload(
     mock_request,
     customer_user,
@@ -154,7 +154,7 @@ def test_stored_payment_method_request_delete_with_subscription_payload(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_failure_from_app(
     mock_request,
     customer_user,
@@ -212,7 +212,7 @@ def test_stored_payment_method_request_delete_failure_from_app(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_missing_response_from_webhook(
     mock_request,
     customer_user,
@@ -261,7 +261,7 @@ def test_stored_payment_method_request_delete_missing_response_from_webhook(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_incorrect_result_response_from_webhook(
     mock_request,
     customer_user,
@@ -312,7 +312,7 @@ def test_stored_payment_method_request_delete_incorrect_result_response_from_web
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_missing_result_in_response_from_webhook(
     mock_request,
     customer_user,
@@ -359,10 +359,10 @@ def test_stored_payment_method_request_delete_missing_result_in_response_from_we
     assert response.error == "Missing value for field: result. Input: {}."
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.delete")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.delete")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_stored_payment_method_request_delete_invalidates_cache_for_app(
     mocked_request,
     mocked_cache_get,

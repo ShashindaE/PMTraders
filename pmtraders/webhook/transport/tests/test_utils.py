@@ -23,7 +23,7 @@ from ..utils import (
 
 @pytest.fixture
 def mocked_boto3_client_constructor():
-    with patch("saleor.webhook.transport.utils.boto3.client") as mocked_constructor:
+    with patch("pmtraders.webhook.transport.utils.boto3.client") as mocked_constructor:
         yield mocked_constructor
 
 
@@ -166,8 +166,8 @@ def test_send_webhook_using_aws_sqs(
     expected_call_args = {
         "QueueUrl": expected_queue_url,
         "MessageAttributes": {
-            "SaleorDomain": {"DataType": "String", "StringValue": domain},
-            "SaleorApiUrl": {
+            "pmtradersDomain": {"DataType": "String", "StringValue": domain},
+            "pmtradersApiUrl": {
                 "DataType": "String",
                 "StringValue": f"https://{domain}/graphql/",
             },

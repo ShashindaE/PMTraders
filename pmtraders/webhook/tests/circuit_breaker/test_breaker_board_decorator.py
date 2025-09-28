@@ -26,7 +26,7 @@ def test_breaker_board(
 
     # when
     with patch(
-        "saleor.webhook.transport.synchronous.transport.send_webhook_request_sync",
+        "pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync",
         new=Mock(return_value=expected_data),
     ):
         response_data = transport.trigger_webhook_sync(
@@ -53,7 +53,7 @@ def test_breaker_board_trip(settings, breaker_storage, app_with_webhook):
 
     # when
     with patch(
-        "saleor.webhook.transport.synchronous.transport.send_webhook_request_sync",
+        "pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync",
         new=Mock(return_value=None),
     ):
         response_data = transport.trigger_webhook_sync(
@@ -77,7 +77,7 @@ def test_breaker_board_enter_half_open(settings, breaker_storage, app_with_webho
 
     # when
     with patch(
-        "saleor.webhook.transport.synchronous.transport.send_webhook_request_sync",
+        "pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync",
         new=Mock(return_value=expected_data),
     ):
         response_data = transport.trigger_webhook_sync(
@@ -101,7 +101,7 @@ def test_breaker_board_closes_on_half_open(settings, breaker_storage, app_with_w
 
     # when
     with patch(
-        "saleor.webhook.transport.synchronous.transport.send_webhook_request_sync",
+        "pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync",
         new=Mock(return_value=expected_data),
     ):
         response_data = transport.trigger_webhook_sync(
@@ -127,7 +127,7 @@ def test_breaker_board_closes_stays_half_open_below_threshold(
 
     # when
     with patch(
-        "saleor.webhook.transport.synchronous.transport.send_webhook_request_sync",
+        "pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync",
         new=Mock(return_value=expected_data),
     ):
         response_data = transport.trigger_webhook_sync(
@@ -158,7 +158,7 @@ def test_breaker_board_reopens_on_half_open(
 
     # when
     with patch(
-        "saleor.webhook.transport.synchronous.transport.send_webhook_request_sync",
+        "pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync",
         new=Mock(return_value=None),
     ):
         response_data = transport.trigger_webhook_sync(

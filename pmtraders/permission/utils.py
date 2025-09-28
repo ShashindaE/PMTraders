@@ -14,7 +14,7 @@ def all_permissions_required(context, permissions: Iterable[BasePermissionEnum])
 
     The `context` parameter is the Context instance associated with the request.
 
-    All required Saleor's permissions must be fulfilled.
+    All required pmtraders's permissions must be fulfilled.
     If authorization filter provided, at least one of them must be fulfilled.
     """
     if not permissions:
@@ -52,7 +52,7 @@ def _get_result_of_permissions_checks(
     permissions = [p for p in permissions if not isinstance(p, AuthorizationFilters)]
 
     # TODO: move this function from graphql to core
-    from saleor.graphql.utils import get_user_or_app_from_context
+    from pmtraders.graphql.utils import get_user_or_app_from_context
 
     requestor = get_user_or_app_from_context(context)
 

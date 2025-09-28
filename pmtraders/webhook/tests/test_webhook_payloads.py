@@ -120,8 +120,8 @@ def payment_for_payload(payment_txn_captured):
 
 
 @freeze_time()
-@mock.patch("saleor.webhook.payloads.generate_order_lines_payload")
-@mock.patch("saleor.webhook.payloads.generate_fulfillment_lines_payload")
+@mock.patch("pmtraders.webhook.payloads.generate_order_lines_payload")
+@mock.patch("pmtraders.webhook.payloads.generate_fulfillment_lines_payload")
 def test_generate_order_payload(
     mocked_fulfillment_lines,
     mocked_order_lines,
@@ -305,7 +305,7 @@ def test_generate_order_payload(
 
 @freeze_time()
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
-@mock.patch("saleor.webhook.payloads._generate_order_lines_payload_for_tax_calculation")
+@mock.patch("pmtraders.webhook.payloads._generate_order_lines_payload_for_tax_calculation")
 def test_generate_order_payload_for_tax_calculation(
     mocked_order_lines,
     order_for_payload,
@@ -382,7 +382,7 @@ def test_generate_order_payload_for_tax_calculation(
 
 @freeze_time()
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
-@mock.patch("saleor.webhook.payloads._generate_order_lines_payload_for_tax_calculation")
+@mock.patch("pmtraders.webhook.payloads._generate_order_lines_payload_for_tax_calculation")
 def test_generate_order_payload_for_tax_calculation_entire_order_voucher(
     mocked_order_lines, order_for_payload, prices_entered_with_tax, voucher
 ):
@@ -462,7 +462,7 @@ def test_generate_order_payload_for_tax_calculation_entire_order_voucher(
 
 @freeze_time()
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
-@mock.patch("saleor.webhook.payloads._generate_order_lines_payload_for_tax_calculation")
+@mock.patch("pmtraders.webhook.payloads._generate_order_lines_payload_for_tax_calculation")
 def test_generate_order_payload_for_tax_calculation_line_level_voucher_excluded(
     mocked_order_lines, order_for_payload, prices_entered_with_tax, voucher
 ):
@@ -499,8 +499,8 @@ def test_generate_order_payload_for_tax_calculation_line_level_voucher_excluded(
 
 
 @freeze_time()
-@mock.patch("saleor.webhook.payloads.generate_order_lines_payload")
-@mock.patch("saleor.webhook.payloads.generate_fulfillment_lines_payload")
+@mock.patch("pmtraders.webhook.payloads.generate_order_lines_payload")
+@mock.patch("pmtraders.webhook.payloads.generate_fulfillment_lines_payload")
 def test_generate_order_payload_no_user_email_but_user_set(
     mocked_fulfillment_lines,
     mocked_order_lines,
@@ -1793,7 +1793,7 @@ def test_generate_sale_toggle_payload(promotion_converted_from_sale):
     assert graphene.Node.to_global_id("Sale", promotion.old_sale_id) == payload["id"]
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
 def test_generate_checkout_payload_for_tax_calculation_entire_order_voucher(
     mocked_serialize_checkout_lines_for_tax_calculation,
@@ -1889,7 +1889,7 @@ def test_generate_checkout_payload_for_tax_calculation_entire_order_voucher(
     )
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
 def test_generate_checkout_payload_for_tax_calculation_specific_product_voucher(
     mocked_serialize_checkout_lines_for_tax_calculation,
@@ -1986,7 +1986,7 @@ def test_generate_checkout_payload_for_tax_calculation_specific_product_voucher(
     )
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
 def test_generate_checkout_payload_for_tax_calculation_shipping_voucher(
     mocked_serialize_checkout_lines_for_tax_calculation,
@@ -2086,7 +2086,7 @@ def test_generate_checkout_payload_for_tax_calculation_shipping_voucher(
     )
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
 def test_generate_checkout_payload_for_tax_calculation_order_discount(
     mocked_serialize_checkout_lines_for_tax_calculation,
@@ -2194,7 +2194,7 @@ def test_generate_checkout_payload_for_tax_calculation_order_discount(
     )
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
 def test_generate_checkout_payload_for_tax_calculation_gift_promotion(
     mocked_serialize_checkout_lines_for_tax_calculation,
@@ -2283,7 +2283,7 @@ def test_generate_checkout_payload_for_tax_calculation_gift_promotion(
     )
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 def test_generate_checkout_payload_for_tax_calculation_digital_checkout(
     mocked_serialize_checkout_lines_for_tax_calculation,
     mocked_fetch_checkout,
@@ -2360,7 +2360,7 @@ def test_generate_checkout_payload_for_tax_calculation_digital_checkout(
     )
 
 
-@patch("saleor.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
+@patch("pmtraders.webhook.payloads.serialize_checkout_lines_for_tax_calculation")
 @pytest.mark.parametrize("prices_entered_with_tax", [True, False])
 def test_generate_checkout_payload_for_tax_calculation_no_discount(
     mocked_serialize_checkout_lines_for_tax_calculation,
@@ -2561,7 +2561,7 @@ def test_generate_checkout_payload(
     }
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_generate_excluded_shipping_methods_for_order(mocked_fetch, order):
     shipping_method = ShippingMethodData(
         id="123",

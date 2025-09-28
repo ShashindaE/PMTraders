@@ -53,7 +53,7 @@ def test_set_password(user_api_client, customer_user):
 
 @freeze_time("2018-05-31 12:00:01")
 @patch(
-    "saleor.graphql.account.mutations.authentication.set_password.match_orders_with_new_user"
+    "pmtraders.graphql.account.mutations.authentication.set_password.match_orders_with_new_user"
 )
 def test_set_password_confirm_user_and_match_orders(
     match_orders_with_new_user_mock, user_api_client, customer_user

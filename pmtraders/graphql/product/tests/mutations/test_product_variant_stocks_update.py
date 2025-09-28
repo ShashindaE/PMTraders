@@ -248,11 +248,11 @@ def test_update_or_create_variant_stocks(variant, warehouses):
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_update_or_create_variant_stocks_when_stock_out_of_quantity(
     back_in_stock_webhook_trigger,
     stocks_updated_webhook_trigger,
@@ -265,7 +265,7 @@ def test_update_or_create_variant_stocks_when_stock_out_of_quantity(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     stock = Stock.objects.create(
         product_variant=variant,
         warehouse=warehouses[0],
@@ -309,12 +309,12 @@ def test_update_or_create_variant_stocks_empty_stocks_data(variant, warehouses):
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_update_or_create_variant_with_back_in_stock_webhooks_only_success(
     product_variant_stock_out_of_stock_webhook,
     product_variant_back_in_stock_webhook,
@@ -333,7 +333,7 @@ def test_update_or_create_variant_with_back_in_stock_webhooks_only_success(
         ]
     )
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     plugins = get_plugins_manager(allow_replica=False)
     stocks_data = [
         {"quantity": 10, "warehouse": "123"},
@@ -358,12 +358,12 @@ def test_update_or_create_variant_with_back_in_stock_webhooks_only_success(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_update_or_create_variant_with_back_in_stock_webhooks_only_failed(
     product_variant_stock_out_of_stock_webhook,
     product_variant_back_in_stock_webhook,
@@ -383,7 +383,7 @@ def test_update_or_create_variant_with_back_in_stock_webhooks_only_failed(
     )
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     plugins = get_plugins_manager(allow_replica=False)
     stocks_data = [
         {"quantity": 0, "warehouse": "123"},
@@ -409,12 +409,12 @@ def test_update_or_create_variant_with_back_in_stock_webhooks_only_failed(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_update_or_create_variant_with_back_in_stock_webhooks_with_allocations(
     product_variant_stock_out_of_stock_webhook,
     product_variant_back_in_stock_webhook,
@@ -433,7 +433,7 @@ def test_update_or_create_variant_with_back_in_stock_webhooks_with_allocations(
 
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     plugins = get_plugins_manager(allow_replica=False)
     stock.quantity_allocated = stock_quantity
     stock.save(update_fields=["quantity_allocated"])
@@ -457,12 +457,12 @@ def test_update_or_create_variant_with_back_in_stock_webhooks_with_allocations(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_update_or_create_variant_with_out_of_stock_webhooks_with_allocations(
     product_variant_stock_out_of_stock_webhook,
     product_variant_back_in_stock_webhook,
@@ -481,7 +481,7 @@ def test_update_or_create_variant_with_out_of_stock_webhooks_with_allocations(
 
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     plugins = get_plugins_manager(allow_replica=False)
     stock.quantity_allocated = stock_quantity - 1
     stock.save(update_fields=["quantity_allocated"])
@@ -505,12 +505,12 @@ def test_update_or_create_variant_with_out_of_stock_webhooks_with_allocations(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_stocks_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_stocks_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_stocks_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_update_or_create_variant_stocks_with_out_of_stock_webhook_only(
     product_variant_stock_out_of_stock_webhook,
     product_variant_back_in_stock_webhook,
@@ -530,7 +530,7 @@ def test_update_or_create_variant_stocks_with_out_of_stock_webhook_only(
     )
 
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     plugins = get_plugins_manager(allow_replica=False)
 

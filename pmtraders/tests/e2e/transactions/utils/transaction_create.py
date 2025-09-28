@@ -39,7 +39,7 @@ def create_transaction(
     currency="USD",
     amount_charged=None,
     amount_authorized=None,
-    external_url="https://saleor.io/payment-id/123",
+    external_url="https://pmtraders.io/payment-id/123",
 ):
     if not available_actions:
         available_actions = []

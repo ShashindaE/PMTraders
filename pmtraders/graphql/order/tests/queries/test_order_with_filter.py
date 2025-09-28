@@ -1409,12 +1409,12 @@ def test_order_query_with_filter_search_and_search_on_top_level(
     variables = {
         "search": "test",
         "filter": {
-            "search": "Saleor",
+            "search": "pmtraders",
         },
     }
     permission_group_manage_orders.user_set.add(staff_api_client.user)
 
-    customer_user.first_name = "Search test Saleor"
+    customer_user.first_name = "Search test pmtraders"
     customer_user.save()
     for order in orders[:2]:
         order.search_vector = FlatConcatSearchVector(

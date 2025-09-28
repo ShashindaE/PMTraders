@@ -1,4 +1,4 @@
-from saleor.graphql.tests.utils import get_graphql_content
+from pmtraders.graphql.tests.utils import get_graphql_content
 
 ORDER_LINE_DELETE_MUTATION = """
 mutation orderLineDelete($lineId: ID!) {

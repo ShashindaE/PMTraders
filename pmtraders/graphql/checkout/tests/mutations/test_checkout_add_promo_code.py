@@ -167,7 +167,7 @@ def test_checkout_add_already_applied_voucher_for_entire_order(
     assert checkout_data["discount"]["amount"] == net.amount
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_add_voucher_code_by_token_with_external_shipment(
     mock_send_request,
     api_client,
@@ -178,7 +178,7 @@ def test_checkout_add_voucher_code_by_token_with_external_shipment(
     settings,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     response_method_id = "abcd"
     shipping_name = "Provider - Economy"
     shipping_price = Decimal(10)
@@ -248,7 +248,7 @@ def test_checkout_add_voucher_code_with_display_gross_prices(
     voucher_channel_listing.save()
 
     monkeypatch.setattr(
-        "saleor.checkout.utils.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.utils.base_calculations.base_checkout_subtotal",
         lambda *args: Money(100, "USD"),
     )
 
@@ -282,7 +282,7 @@ def test_checkout_add_voucher_code_without_display_gross_prices(
     voucher_channel_listing.save()
 
     monkeypatch.setattr(
-        "saleor.checkout.utils.base_calculations.base_checkout_subtotal",
+        "pmtraders.checkout.utils.base_calculations.base_checkout_subtotal",
         lambda *args: Money(95, "USD"),
     )
 
@@ -412,7 +412,7 @@ def test_checkout_add_collection_voucher_code_checkout_with_promotion_collection
         Collection.objects.all().delete()
 
     with race_condition.RunAfter(
-        "saleor.graphql.product.dataloaders.products.CollectionsByProductIdLoader"
+        "pmtraders.graphql.product.dataloaders.products.CollectionsByProductIdLoader"
         ".batch_load",
         delete_collections,
     ):
@@ -1367,14 +1367,14 @@ def test_with_active_problems_flow(
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_add_promo_code.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.checkout_add_promo_code.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_add_voucher_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1425,7 +1425,7 @@ def test_checkout_add_voucher_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.CHECKOUT_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

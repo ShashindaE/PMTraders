@@ -316,7 +316,7 @@ def test_variant_channel_listing_update_by_sku(
     assert channel_pln_data["channel"]["slug"] == channel_PLN.slug
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_variant_channel_listing_update_trigger_webhook_product_variant_updated(
     mock_product_variant_updated,
     staff_api_client,

@@ -16,7 +16,7 @@ from ...checkout.fetch import fetch_checkout_lines
 from ...checkout.utils import log_address_if_validation_skipped_for_checkout
 from ...core.prices import MAXIMUM_PRICE
 from ...core.taxes import TaxDataErrorMessage, TaxError, TaxType, zero_taxed_money
-from ...core.telemetry import saleor_attributes, tracer
+from ...core.telemetry import pmtraders_attributes, tracer
 from ...order import base_calculations as order_base_calculation
 from ...order.interface import OrderTaxedPricesData
 from ...product.models import ProductType
@@ -113,7 +113,7 @@ class DeprecatedAvataxPlugin(BasePlugin):
         },
         "Use sandbox": {
             "type": ConfigurationTypeField.BOOLEAN,
-            "help_text": "Determines if Saleor should use Avatax sandbox API.",
+            "help_text": "Determines if pmtraders should use Avatax sandbox API.",
             "label": "Use sandbox",
         },
         "Company name": {
@@ -350,7 +350,7 @@ class DeprecatedAvataxPlugin(BasePlugin):
             get_api_url(self.config.use_sandbox), "transactions/createoradjust"
         )
         with tracer.start_as_current_span("avatax.transactions.crateoradjust") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "tax")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "tax")
             response = api_post_request(transaction_url, data, self.config)
         if not response or "error" in response:
             msg = response.get("error", {}).get("message", "")
@@ -852,7 +852,7 @@ class DeprecatedAvataxPlugin(BasePlugin):
                         logger.warning(
                             "taxableAmounts from line.details[] are different than "
                             "line.taxableAmount. Returning the rate calculated by "
-                            "Saleor. For %s:%s",
+                            "pmtraders. For %s:%s",
                             related_object_type,
                             related_object_id,
                             extra={
@@ -909,7 +909,7 @@ class DeprecatedAvataxPlugin(BasePlugin):
         }
         url = urljoin(get_api_url(conf["Use sandbox"]), "utilities/ping")
         with tracer.start_as_current_span("avatax.utilities.ping") as span:
-            span.set_attribute(saleor_attributes.COMPONENT, "tax")
+            span.set_attribute(pmtraders_attributes.COMPONENT, "tax")
             response = api_get_request(
                 url,
                 username_or_account=conf["Username or account"],

@@ -43,9 +43,9 @@ from ..webhooks import (
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_for_checkout(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -89,9 +89,9 @@ def test_handle_successful_payment_intent_for_checkout(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_handle_successful_payment_intent_for_checkout_inactive_payment(
     refund_mock,
     wrapped_checkout_complete,
@@ -128,8 +128,8 @@ def test_handle_successful_payment_intent_for_checkout_inactive_payment(
     assert not wrapped_checkout_complete.called
 
 
-@patch("saleor.payment.gateway.refund")
-@patch("saleor.checkout.complete_checkout._get_order_data")
+@patch("pmtraders.payment.gateway.refund")
+@patch("pmtraders.checkout.complete_checkout._get_order_data")
 def test_handle_successful_payment_intent_when_order_creation_raises_exception(
     order_data_mock,
     refund_mock,
@@ -168,9 +168,9 @@ def test_handle_successful_payment_intent_when_order_creation_raises_exception(
     [({f"key{i}": f"value{i}" for i in range(5)}, True), ({}, False)],
 )
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_with_metadata(
     wrapped_update_payment_method,
     _wrapped_checkout_complete,
@@ -212,9 +212,9 @@ def test_handle_successful_payment_intent_with_metadata(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_for_order(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -236,9 +236,9 @@ def test_handle_successful_payment_intent_for_order(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_for_order_with_auth_payment(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -271,9 +271,9 @@ def test_handle_successful_payment_intent_for_order_with_auth_payment(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_for_order_with_pending_payment(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -310,10 +310,10 @@ def test_handle_successful_payment_intent_for_order_with_pending_payment(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._process_payment_with_checkout",
+    "pmtraders.payment.gateways.stripe.webhooks._process_payment_with_checkout",
     wraps=_process_payment_with_checkout,
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_different_checkout_channel_slug(
     _wrapped_update_payment_method,
     wrapped_process_payment_with_checkout,
@@ -356,8 +356,8 @@ def test_handle_successful_payment_intent_different_checkout_channel_slug(
 
 
 @pytest.mark.parametrize("called", [True, False])
-@patch("saleor.payment.gateways.stripe.webhooks.order_charged", wraps=order_charged)
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.order_charged", wraps=order_charged)
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_different_order_channel_slug(
     _wrapped_update_payment_method,
     wrapped_order_charged,
@@ -385,10 +385,10 @@ def test_handle_successful_payment_intent_different_order_channel_slug(
     assert wrapped_order_charged.called == called
 
 
-@patch("saleor.checkout.complete_checkout.gateway.payment_refund_or_void")
-@patch("saleor.checkout.complete_checkout.gateway.process_payment")
-@patch("saleor.payment.gateways.stripe.webhooks.order_charged", wraps=order_charged)
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.checkout.complete_checkout.gateway.payment_refund_or_void")
+@patch("pmtraders.checkout.complete_checkout.gateway.process_payment")
+@patch("pmtraders.payment.gateways.stripe.webhooks.order_charged", wraps=order_charged)
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_checkout_with_voucher_ongoing_completing(
     _wrapped_update_payment_method,
     wrapped_order_charged,
@@ -453,7 +453,7 @@ def test_handle_successful_payment_intent_checkout_with_voucher_ongoing_completi
         handle_successful_payment_intent(payment_intent, plugin.config, channel.slug)
 
     with race_condition.RunAfter(
-        "saleor.checkout.complete_checkout._process_payment", call_webhook_success_event
+        "pmtraders.checkout.complete_checkout._process_payment", call_webhook_success_event
     ):
         order_from_checkout, action_required, _ = complete_checkout(
             checkout_info=checkout_info,
@@ -474,9 +474,9 @@ def test_handle_successful_payment_intent_checkout_with_voucher_ongoing_completi
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_authorized_payment_intent_for_checkout(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -521,7 +521,7 @@ def test_handle_authorized_payment_intent_for_checkout(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
 def test_handle_authorized_payment_intent_for_checkout_with_payment_details(
     wrapped_checkout_complete,
@@ -565,7 +565,7 @@ def test_handle_authorized_payment_intent_for_checkout_with_payment_details(
     assert transaction.token == intent.id
 
 
-@patch("saleor.payment.gateway.void")
+@patch("pmtraders.payment.gateway.void")
 def test_handle_authorized_payment_intent_for_checkout_inactive_payment(
     void_mock,
     inactive_payment_stripe_for_checkout,
@@ -595,8 +595,8 @@ def test_handle_authorized_payment_intent_for_checkout_inactive_payment(
     assert void_mock.called
 
 
-@patch("saleor.checkout.complete_checkout._get_order_data")
-@patch("saleor.payment.gateway.void")
+@patch("pmtraders.checkout.complete_checkout._get_order_data")
+@patch("pmtraders.payment.gateway.void")
 def test_handle_authorized_payment_intent_when_order_creation_raises_exception(
     void_mock,
     order_data_mock,
@@ -632,9 +632,9 @@ def test_handle_authorized_payment_intent_when_order_creation_raises_exception(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_authorized_payment_intent_for_order(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -655,9 +655,9 @@ def test_handle_authorized_payment_intent_for_order(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_authorized_payment_intent_for_processing_order_payment(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -682,9 +682,9 @@ def test_handle_authorized_payment_intent_for_processing_order_payment(
     ("metadata", "called"), [({"key": "value"}, True), ({}, False)]
 )
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_authorized_payment_intent_with_metadata(
     wrapped_update_payment_method,
     _wrapped_checkout_complete,
@@ -725,10 +725,10 @@ def test_handle_authorized_payment_intent_with_metadata(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
+    "pmtraders.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
     wraps=_update_payment_with_new_transaction,
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_authorized_payment_intent_different_order_channel_slug(
     _wrapped_update_payment_method,
     wrapped_update_payment_with_new_transaction,
@@ -761,10 +761,10 @@ def test_handle_authorized_payment_intent_different_order_channel_slug(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._process_payment_with_checkout",
+    "pmtraders.payment.gateways.stripe.webhooks._process_payment_with_checkout",
     wraps=_process_payment_with_checkout,
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_authorized_payment_intent_different_checkout_channel_slug(
     _wrapped_update_payment_method,
     wrapped_process_payment_with_checkout,
@@ -803,7 +803,7 @@ def test_handle_authorized_payment_intent_different_checkout_channel_slug(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
 def test_handle_processing_payment_intent_for_order(
     wrapped_checkout_complete,
@@ -824,7 +824,7 @@ def test_handle_processing_payment_intent_for_order(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
 def test_handle_processing_payment_intent_for_checkout(
     wrapped_checkout_complete,
@@ -863,7 +863,7 @@ def test_handle_processing_payment_intent_for_checkout(
 
 
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
 def test_handle_processing_payment_intent_for_checkout_inactive_payment(
     wrapped_checkout_complete,
@@ -895,9 +895,9 @@ def test_handle_processing_payment_intent_for_checkout_inactive_payment(
     assert not wrapped_checkout_complete.called
 
 
-@patch("saleor.checkout.complete_checkout._get_order_data")
-@patch("saleor.payment.gateway.void")
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.checkout.complete_checkout._get_order_data")
+@patch("pmtraders.payment.gateway.void")
+@patch("pmtraders.payment.gateway.refund")
 def test_handle_processing_payment_intent_when_order_creation_raises_exception(
     refund_mock,
     void_mock,
@@ -938,7 +938,7 @@ def test_handle_processing_payment_intent_when_order_creation_raises_exception(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._process_payment_with_checkout",
+    "pmtraders.payment.gateways.stripe.webhooks._process_payment_with_checkout",
     wraps=_process_payment_with_checkout,
 )
 def test_handle_processing_payment_intent_different_order_channel_slug(
@@ -968,7 +968,7 @@ def test_handle_processing_payment_intent_different_order_channel_slug(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._process_payment_with_checkout",
+    "pmtraders.payment.gateways.stripe.webhooks._process_payment_with_checkout",
     wraps=_process_payment_with_checkout,
 )
 def test_handle_processing_payment_intent_different_checkout_channel_slug(
@@ -1070,10 +1070,10 @@ def test_handle_failed_payment_intent_for_order(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
+    "pmtraders.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
     wraps=_update_payment_with_new_transaction,
 )
-@patch("saleor.payment.gateways.stripe.webhooks.order_voided", wraps=order_voided)
+@patch("pmtraders.payment.gateways.stripe.webhooks.order_voided", wraps=order_voided)
 def test_handle_failed_payment_intent_different_order_channel_slug(
     wrapped_update_payment_with_new_transaction,
     wrapped_order_voided,
@@ -1112,9 +1112,9 @@ def test_handle_failed_payment_intent_different_order_channel_slug(
 
 
 @pytest.mark.parametrize("called", [True, False])
-@patch("saleor.payment.gateways.stripe.webhooks.order_voided", wraps=order_voided)
+@patch("pmtraders.payment.gateways.stripe.webhooks.order_voided", wraps=order_voided)
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
+    "pmtraders.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
     wraps=_update_payment_with_new_transaction,
 )
 def test_handle_failed_payment_intent_different_checkout_channel_slug(
@@ -1261,7 +1261,7 @@ def test_handle_refund_already_processed(
     assert payment.captured_amount == payment.total - Decimal(10)
 
 
-@patch("saleor.payment.gateways.stripe.webhooks.stripe.Charge.retrieve")
+@patch("pmtraders.payment.gateways.stripe.webhooks.stripe.Charge.retrieve")
 def test_handle_refund_missing_refunds(
     charge_retrieve, stripe_plugin, payment_stripe_for_order, channel_USD
 ):
@@ -1307,11 +1307,11 @@ def test_handle_refund_missing_refunds(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
+    "pmtraders.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
     wraps=_update_payment_with_new_transaction,
 )
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.order_refunded",
+    "pmtraders.payment.gateways.stripe.webhooks.order_refunded",
     wraps=order_refunded,
 )
 def test_handle_refund_different_order_channel_slug(
@@ -1359,11 +1359,11 @@ def test_handle_refund_different_order_channel_slug(
 
 @pytest.mark.parametrize("called", [True, False])
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.order_refunded",
+    "pmtraders.payment.gateways.stripe.webhooks.order_refunded",
     wraps=order_refunded,
 )
 @patch(
-    "saleor.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
+    "pmtraders.payment.gateways.stripe.webhooks._update_payment_with_new_transaction",
     wraps=_update_payment_with_new_transaction,
 )
 def test_handle_refund_different_checkout_channel_slug(
@@ -1419,7 +1419,7 @@ def test_handle_refund_different_checkout_channel_slug(
         (WEBHOOK_CANCELED_EVENT, "handle_failed_payment_intent"),
     ],
 )
-@patch("saleor.payment.gateways.stripe.stripe_api.stripe.Webhook.construct_event")
+@patch("pmtraders.payment.gateways.stripe.stripe_api.stripe.Webhook.construct_event")
 def test_handle_webhook_events(
     mocked_webhook_event, webhook_type, fun_to_mock, stripe_plugin, rf, channel_USD
 ):
@@ -1442,7 +1442,7 @@ def test_handle_webhook_events(
 
     plugin = stripe_plugin()
 
-    with patch(f"saleor.payment.gateways.stripe.webhooks.{fun_to_mock}") as mocked_fun:
+    with patch(f"pmtraders.payment.gateways.stripe.webhooks.{fun_to_mock}") as mocked_fun:
         plugin.webhook(request, "/webhooks/", None)
         mocked_fun.assert_called_once_with(
             event.data.object, plugin.config, channel_USD.slug
@@ -1487,8 +1487,8 @@ def test_handle_webhook_events_when_secret_is_missing(stripe_plugin, rf):
     assert response.status_code == 500
 
 
-@patch("saleor.payment.gateway.refund")
-@patch("saleor.checkout.complete_checkout._get_order_data")
+@patch("pmtraders.payment.gateway.refund")
+@patch("pmtraders.checkout.complete_checkout._get_order_data")
 def test_finalize_checkout_not_created_order_payment_refund(
     order_data_mock,
     refund_mock,
@@ -1516,7 +1516,7 @@ def test_finalize_checkout_not_created_order_payment_refund(
     assert refund_mock.called
 
 
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.payment.gateway.refund")
 def test_finalize_checkout_not_created_checkout_variant_unavailable_order_refund(
     refund_mock,
     stripe_plugin,
@@ -1552,8 +1552,8 @@ def test_finalize_checkout_not_created_checkout_variant_unavailable_order_refund
     assert refund_mock.called
 
 
-@patch("saleor.payment.gateway.void")
-@patch("saleor.checkout.complete_checkout._get_order_data")
+@patch("pmtraders.payment.gateway.void")
+@patch("pmtraders.checkout.complete_checkout._get_order_data")
 def test_finalize_checkout_not_created_order_payment_void(
     order_data_mock,
     void_mock,
@@ -1581,7 +1581,7 @@ def test_finalize_checkout_not_created_order_payment_void(
     assert void_mock.called
 
 
-@patch("saleor.payment.gateway.void")
+@patch("pmtraders.payment.gateway.void")
 def test_finalize_checkout_not_created_checkout_variant_unavailable_order_payment_void(
     void_mock,
     stripe_plugin,
@@ -1648,11 +1648,11 @@ def test_update_payment_method_details_from_intent_payment_info_exists(
     assert payment.payment_method_type == "card"
 
 
-@patch("saleor.payment.gateways.stripe.plugin.retrieve_payment_intent")
+@patch("pmtraders.payment.gateways.stripe.plugin.retrieve_payment_intent")
 @patch(
-    "saleor.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
+    "pmtraders.payment.gateways.stripe.webhooks.complete_checkout", wraps=complete_checkout
 )
-@patch("saleor.payment.gateways.stripe.webhooks.update_payment_method")
+@patch("pmtraders.payment.gateways.stripe.webhooks.update_payment_method")
 def test_handle_successful_payment_intent_for_checkout_when_already_processing_checkout(
     _wrapped_update_payment_method,
     wrapped_checkout_complete,
@@ -1699,7 +1699,7 @@ def test_handle_successful_payment_intent_for_checkout_when_already_processing_c
         )
 
     with race_condition.RunAfter(
-        "saleor.checkout.complete_checkout._process_payment",
+        "pmtraders.checkout.complete_checkout._process_payment",
         call_webhook_notification,
     ):
         with django_capture_on_commit_callbacks(execute=True):

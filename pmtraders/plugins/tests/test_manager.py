@@ -51,7 +51,7 @@ from ..tests.sample_plugins import (
 
 
 def test_get_plugins_manager(settings):
-    plugin_path = "saleor.plugins.tests.sample_plugins.PluginSample"
+    plugin_path = "pmtraders.plugins.tests.sample_plugins.PluginSample"
     settings.PLUGINS = [plugin_path]
     manager = get_plugins_manager(allow_replica=False)
     manager.get_all_plugins()
@@ -63,8 +63,8 @@ def test_manager_with_default_configuration_for_channel_plugins(
     settings, channel_USD, channel_PLN
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.ChannelPluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.ChannelPluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = get_plugins_manager(allow_replica=False)
     manager.get_all_plugins()
@@ -89,7 +89,7 @@ def test_manager_with_channel_plugins(
     settings, channel_USD, channel_PLN, channel_plugin_configurations
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.ChannelPluginSample",
+        "pmtraders.plugins.tests.sample_plugins.ChannelPluginSample",
     ]
     manager = get_plugins_manager(allow_replica=False)
     manager.get_all_plugins()
@@ -111,8 +111,8 @@ def test_manager_get_plugins_with_channel_slug(
     settings, channel_USD, plugin_configuration, inactive_plugin_configuration
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = get_plugins_manager(allow_replica=False)
 
@@ -125,8 +125,8 @@ def test_manager_get_active_plugins_with_channel_slug(
     settings, channel_USD, plugin_configuration, inactive_plugin_configuration
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = get_plugins_manager(allow_replica=False)
 
@@ -140,8 +140,8 @@ def test_manager_get_plugins_without_channel_slug(
     settings, channel_USD, plugin_configuration, inactive_plugin_configuration
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = get_plugins_manager(allow_replica=False)
 
@@ -154,8 +154,8 @@ def test_manager_get_active_plugins_without_channel_slug(
     settings, channel_USD, plugin_configuration, inactive_plugin_configuration
 ):
     settings.PLUGINS = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = get_plugins_manager(allow_replica=False)
 
@@ -167,7 +167,7 @@ def test_manager_get_active_plugins_without_channel_slug(
 
 @pytest.mark.parametrize(
     ("plugins", "total_amount"),
-    [(["saleor.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "15.0")],
+    [(["pmtraders.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "15.0")],
 )
 def test_manager_calculates_checkout_total(
     checkout_with_item_on_promotion, plugins, total_amount
@@ -189,7 +189,7 @@ def test_manager_calculates_checkout_total(
 
 @pytest.mark.parametrize(
     ("plugins", "subtotal_amount"),
-    [(["saleor.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "15.0")],
+    [(["pmtraders.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "15.0")],
 )
 def test_manager_calculates_checkout_subtotal(
     checkout_with_item_on_promotion, plugins, subtotal_amount
@@ -213,7 +213,7 @@ def test_manager_calculates_checkout_subtotal(
 
 @pytest.mark.parametrize(
     ("plugins", "shipping_amount"),
-    [(["saleor.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "0.0")],
+    [(["pmtraders.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "0.0")],
 )
 def test_manager_calculates_checkout_shipping(
     checkout_with_item, plugins, shipping_amount
@@ -234,7 +234,7 @@ def test_manager_calculates_checkout_shipping(
 
 @pytest.mark.parametrize(
     ("plugins", "shipping_amount"),
-    [(["saleor.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "10.0")],
+    [(["pmtraders.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "10.0")],
 )
 def test_manager_calculates_order_shipping(order_with_lines, plugins, shipping_amount):
     currency = order_with_lines.total.currency
@@ -251,7 +251,7 @@ def test_manager_calculates_order_shipping(order_with_lines, plugins, shipping_a
 
 @pytest.mark.parametrize(
     ("plugins", "amount"),
-    [(["saleor.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "15.0")],
+    [(["pmtraders.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "15.0")],
 )
 def test_manager_calculates_checkout_line_total(
     checkout_with_item_on_promotion, plugins, amount
@@ -280,7 +280,7 @@ def test_manager_calculates_checkout_line_total(
 
 @pytest.mark.parametrize(
     "plugins",
-    [["saleor.plugins.tests.sample_plugins.PluginSample"], []],
+    [["pmtraders.plugins.tests.sample_plugins.PluginSample"], []],
 )
 def test_manager_calculates_order_line_total(order_line, plugins):
     currency = order_line.order.currency
@@ -308,7 +308,7 @@ def test_manager_calculates_order_line_total(order_line, plugins):
 
 
 def test_manager_get_checkout_line_tax_rate_sample_plugin(checkout_with_item):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     unit_price = TaxedMoney(Money(12, "USD"), Money(15, "USD"))
 
     manager = get_plugins_manager(allow_replica=False)
@@ -354,7 +354,7 @@ def test_manager_get_order_line_tax_rate_sample_plugin(order_with_lines):
     order = order_with_lines
     line = order.lines.first()
     product = Product.objects.get(name=line.product_name)
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     unit_price = TaxedMoney(Money(12, "USD"), Money(15, "USD"))
     tax_rate = PluginsManager(plugins=plugins).get_order_line_tax_rate(
         order,
@@ -390,7 +390,7 @@ def test_manager_get_order_line_tax_rate_no_plugins(
 
 
 def test_manager_get_checkout_shipping_tax_rate_sample_plugin(checkout_with_item):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     shipping_price = TaxedMoney(Money(12, "USD"), Money(14, "USD"))
 
     manager = get_plugins_manager(allow_replica=False)
@@ -431,7 +431,7 @@ def test_manager_get_checkout_shipping_tax_rate_no_plugins(
 
 def test_manager_get_order_shipping_tax_rate_sample_plugin(order_with_lines):
     order = order_with_lines
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     shipping_price = TaxedMoney(Money(12, "USD"), Money(14, "USD"))
     tax_rate = PluginsManager(plugins=plugins).get_order_shipping_tax_rate(
         order,
@@ -462,7 +462,7 @@ def test_manager_get_order_shipping_tax_rate_no_plugins(
     ("plugins", "total_line_price", "quantity"),
     [
         (
-            ["saleor.plugins.tests.sample_plugins.PluginSample"],
+            ["pmtraders.plugins.tests.sample_plugins.PluginSample"],
             TaxedMoney(
                 net=Money(amount=10, currency="USD"),
                 gross=Money(amount=10, currency="USD"),
@@ -505,7 +505,7 @@ def test_manager_calculates_checkout_line_unit_price(
 
 @pytest.mark.parametrize(
     ("plugins", "amount"),
-    [(["saleor.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "12.30")],
+    [(["pmtraders.plugins.tests.sample_plugins.PluginSample"], "1.0"), ([], "12.30")],
 )
 def test_manager_calculates_order_line(order_line, plugins, amount):
     variant = order_line.variant
@@ -526,7 +526,7 @@ def test_manager_calculates_order_line(order_line, plugins, amount):
     ("plugins", "tax_rate_list"),
     [
         (
-            ["saleor.plugins.tests.sample_plugins.PluginSample"],
+            ["pmtraders.plugins.tests.sample_plugins.PluginSample"],
             [TaxType(code="123", description="abc")],
         ),
         ([], []),
@@ -537,7 +537,7 @@ def test_manager_uses_get_tax_rate_choices(plugins, tax_rate_list):
 
 
 def test_manager_sale_created(promotion_converted_from_sale):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     promotion = promotion_converted_from_sale
     predicate = promotion.rules.first().catalogue_predicate
@@ -551,7 +551,7 @@ def test_manager_sale_created(promotion_converted_from_sale):
 
 
 def test_manager_sale_updated(promotion_converted_from_sale):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     promotion = promotion_converted_from_sale
     predicate = promotion.rules.first().catalogue_predicate
@@ -571,7 +571,7 @@ def test_manager_sale_updated(promotion_converted_from_sale):
 
 
 def test_manager_sale_deleted(promotion_converted_from_sale):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     promotion = promotion_converted_from_sale
     predicate = promotion.rules.first().catalogue_predicate
@@ -586,7 +586,7 @@ def test_manager_sale_deleted(promotion_converted_from_sale):
 
 
 def test_manager_sale_toggle(promotion_converted_from_sale):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     promotion = promotion_converted_from_sale
     predicate = promotion.rules.first().catalogue_predicate
@@ -602,8 +602,8 @@ def test_manager_sale_toggle(promotion_converted_from_sale):
 
 def test_manager_get_plugin_configuration(plugin_configuration):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
@@ -614,7 +614,7 @@ def test_manager_get_plugin_configuration(plugin_configuration):
 
 
 def test_manager_save_plugin_configuration(plugin_configuration):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = PluginsManager(plugins=plugins)
     manager.save_plugin_configuration(PluginSample.PLUGIN_ID, None, {"active": False})
     plugin_configuration.refresh_from_db()
@@ -638,7 +638,7 @@ def test_plugin_updates_configuration_shape(
     )
 
     manager = PluginsManager(
-        plugins=["saleor.plugins.tests.sample_plugins.PluginSample"]
+        plugins=["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     )
     plugin = manager.get_plugin(PluginSample.PLUGIN_ID)
 
@@ -660,7 +660,7 @@ def test_plugin_add_new_configuration(
     config_structure = {"Foo": new_config_structure}
     monkeypatch.setattr(PluginInactive, "CONFIG_STRUCTURE", config_structure)
     manager = PluginsManager(
-        plugins=["saleor.plugins.tests.sample_plugins.PluginInactive"]
+        plugins=["pmtraders.plugins.tests.sample_plugins.PluginInactive"]
     )
     plugin = manager.get_plugin(PluginInactive.PLUGIN_ID)
     assert len(plugin.configuration) == 1
@@ -675,9 +675,9 @@ def test_manager_serve_list_of_payment_gateways(channel_USD):
         currencies=ActivePaymentGateway.SUPPORTED_CURRENCIES,
     )
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.ActivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.InactivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.ActivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.InactivePaymentGateway",
     ]
     manager = PluginsManager(plugins=plugins)
     assert manager.list_payment_gateways() == [expected_gateway]
@@ -700,8 +700,8 @@ def test_manager_serve_list_all_payment_gateways(channel_USD):
     ]
 
     plugins = [
-        "saleor.plugins.tests.sample_plugins.ActivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.InactivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.ActivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.InactivePaymentGateway",
     ]
     manager = PluginsManager(plugins=plugins)
     assert manager.list_payment_gateways(active_only=False) == expected_gateways
@@ -718,9 +718,9 @@ def test_manager_serve_list_all_payment_gateways_specified_currency(channel_USD)
     ]
 
     plugins = [
-        "saleor.plugins.tests.sample_plugins.ActivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.InactivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.ActiveDummyPaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.ActivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.InactivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.ActiveDummyPaymentGateway",
     ]
     manager = PluginsManager(plugins=plugins)
     assert (
@@ -748,9 +748,9 @@ def test_manager_serve_list_all_payment_gateways_specified_currency_two_gateways
     ]
 
     plugins = [
-        "saleor.plugins.tests.sample_plugins.ActivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.InactivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.ActiveDummyPaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.ActivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.InactivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.ActiveDummyPaymentGateway",
     ]
     manager = PluginsManager(plugins=plugins)
     assert (
@@ -761,8 +761,8 @@ def test_manager_serve_list_all_payment_gateways_specified_currency_two_gateways
 
 def test_manager_webhook(rf):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
     plugin_path = "/webhook/paid"
@@ -776,7 +776,7 @@ def test_manager_webhook(rf):
 
 def test_manager_webhook_plugin_doesnt_have_webhook_support(rf):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -789,8 +789,8 @@ def test_manager_webhook_plugin_doesnt_have_webhook_support(rf):
 
 def test_manager_inncorrect_plugin(rf):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
     plugin_path = "/webhook/paid"
@@ -802,8 +802,8 @@ def test_manager_inncorrect_plugin(rf):
 
 def test_manager_external_authentication(rf):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
 
@@ -815,8 +815,8 @@ def test_manager_external_authentication(rf):
 
 def test_manager_external_refresh(rf):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
     response = manager.external_refresh(
@@ -831,8 +831,8 @@ def test_manager_external_refresh(rf):
 
 def test_manager_external_obtain_access_tokens(rf):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
     response = manager.external_obtain_access_tokens(
@@ -847,8 +847,8 @@ def test_manager_external_obtain_access_tokens(rf):
 
 def test_manager_authenticate_user(rf, admin_user):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
     user = manager.authenticate_user(rf.request())
@@ -857,8 +857,8 @@ def test_manager_authenticate_user(rf, admin_user):
 
 def test_manager_external_logout(rf, admin_user):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
     response = manager.external_logout(PluginSample.PLUGIN_ID, {}, rf.request())
@@ -867,8 +867,8 @@ def test_manager_external_logout(rf, admin_user):
 
 def test_manager_external_verify(rf, admin_user):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
     user, response_data = manager.external_verify(
@@ -880,9 +880,9 @@ def test_manager_external_verify(rf, admin_user):
 
 def test_list_external_authentications(channel_USD):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.ActivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.ActivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
     external_auths = manager.list_external_authentications(active_only=False)
@@ -899,9 +899,9 @@ def test_list_external_authentications(channel_USD):
 
 def test_list_external_authentications_active_only(channel_USD):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
-        "saleor.plugins.tests.sample_plugins.ActivePaymentGateway",
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.ActivePaymentGateway",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -949,7 +949,7 @@ def test_run_method_on_plugins_value_overridden_by_plugin_method(
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_single_plugin"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_single_plugin"
 )
 def test_run_method_on_plugins_only_on_active_ones(
     mocked_method, channel_USD, all_plugins_manager
@@ -979,7 +979,7 @@ def test_run_method_on_plugins_only_on_active_ones(
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_single_plugin"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_single_plugin"
 )
 def test_run_method_on_plugins_only_for_given_channel(
     mocked_run_on_single_plugin, plugins_manager, channel_USD, channel_PLN
@@ -1055,14 +1055,14 @@ def test_run_method_on_single_plugin_valid_response(plugins_manager):
 
 
 def test_run_check_payment_balance(channel_USD):
-    plugins = ["saleor.plugins.tests.sample_plugins.ActiveDummyPaymentGateway"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.ActiveDummyPaymentGateway"]
 
     manager = PluginsManager(plugins=plugins)
     assert manager.check_payment_balance({}, "main") == {"test_response": "success"}
 
 
 def test_run_check_payment_balance_not_implemented(channel_USD):
-    plugins = ["saleor.plugins.tests.sample_plugins.ActivePlugin"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.ActivePlugin"]
 
     manager = PluginsManager(plugins=plugins)
     assert not manager.check_payment_balance({}, "main")
@@ -1076,7 +1076,7 @@ def test_create_plugin_manager_initializes_requestor_lazily(channel_USD):
     user_mock.return_value.id = "some id"
     user_mock.return_value.name = "some name"
 
-    plugins = ["saleor.plugins.tests.sample_plugins.ActivePlugin"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.ActivePlugin"]
 
     manager = PluginsManager(
         plugins=plugins, requestor_getter=partial(fake_request_getter, user_mock)
@@ -1093,23 +1093,23 @@ def test_create_plugin_manager_initializes_requestor_lazily(channel_USD):
 
 
 def test_manager_delivery_retry(event_delivery):
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     manager = PluginsManager(plugins=plugins)
     delivery_retry = manager.event_delivery_retry(event_delivery=event_delivery)
     assert delivery_retry
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_single_plugin"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_single_plugin"
 )
-@mock.patch("saleor.plugins.manager.base_calculations.checkout_total")
+@mock.patch("pmtraders.plugins.manager.base_calculations.checkout_total")
 def test_calculate_checkout_total_zero_default_value(
     mocked_base_checkout_total,
     mocked_run_method,
     checkout_with_item,
 ):
     # given
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
     currency = checkout_with_item.currency
     mocked_base_checkout_total.return_value = zero_money(currency)
     manager = PluginsManager(plugins=plugins)
@@ -1126,7 +1126,7 @@ def test_calculate_checkout_total_zero_default_value(
 
 def test_manager_is_event_active_for_any_plugin_with_inactive_plugin(channel_USD):
     # given
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginInactive"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginInactive"]
 
     manager = PluginsManager(plugins=plugins)
 
@@ -1139,8 +1139,8 @@ def test_manager_is_event_active_for_any_plugin_with_inactive_plugin(channel_USD
 def test_manager_is_event_active_for_any_plugin(channel_USD):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1154,8 +1154,8 @@ def test_manager_is_event_active_for_any_plugin(channel_USD):
 def test_manager_payment_gateway_initialize_session(channel_USD, checkout):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1177,8 +1177,8 @@ def test_manager_transaction_initialize_session(
 ):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1219,8 +1219,8 @@ def test_manager_transaction_process_session(
 ):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1256,12 +1256,12 @@ def test_manager_transaction_process_session(
     assert isinstance(response, TransactionSessionResult)
 
 
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.checkout_fully_paid")
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.checkout_fully_paid")
 def test_checkout_fully_paid(mocked_sample_method, checkout, webhook):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1276,12 +1276,12 @@ def test_checkout_fully_paid(mocked_sample_method, checkout, webhook):
     )
 
 
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.checkout_fully_authorized")
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.checkout_fully_authorized")
 def test_checkout_fully_authorized(mocked_sample_method, checkout, webhook):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1296,12 +1296,12 @@ def test_checkout_fully_authorized(mocked_sample_method, checkout, webhook):
     )
 
 
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.order_fully_refunded")
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.order_fully_refunded")
 def test_order_fully_refunded(mocked_sample_method, order, webhook):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1315,12 +1315,12 @@ def test_order_fully_refunded(mocked_sample_method, order, webhook):
     )
 
 
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.order_refunded")
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.order_refunded")
 def test_order_refunded(mocked_sample_method, order, webhook):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1335,12 +1335,12 @@ def test_order_refunded(mocked_sample_method, order, webhook):
     )
 
 
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.order_paid")
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.order_paid")
 def test_order_paid(mocked_sample_method, order, webhook):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1355,7 +1355,7 @@ def test_order_paid(mocked_sample_method, order, webhook):
     )
 
 
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.list_stored_payment_methods")
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.list_stored_payment_methods")
 def test_list_stored_payment_methods(
     mocked_list_stored_payment_methods, channel_USD, customer_user
 ):
@@ -1366,8 +1366,8 @@ def test_list_stored_payment_methods(
     )
 
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
 
@@ -1379,15 +1379,15 @@ def test_list_stored_payment_methods(
 
 
 @patch(
-    "saleor.plugins.tests.sample_plugins.PluginSample.stored_payment_method_request_delete"
+    "pmtraders.plugins.tests.sample_plugins.PluginSample.stored_payment_method_request_delete"
 )
 def test_stored_payment_method_request_delete(
     mocked_stored_payment_method_request_delete, customer_user, channel_USD
 ):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
     request_delete_data = StoredPaymentMethodRequestDeleteData(
@@ -1409,7 +1409,7 @@ def test_stored_payment_method_request_delete(
 
 
 @patch(
-    "saleor.plugins.tests.sample_plugins.PluginSample."
+    "pmtraders.plugins.tests.sample_plugins.PluginSample."
     "payment_gateway_initialize_tokenization"
 )
 def test_payment_gateway_initialize_tokenization(
@@ -1417,8 +1417,8 @@ def test_payment_gateway_initialize_tokenization(
 ):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
     request_data = PaymentGatewayInitializeTokenizationRequestData(
@@ -1443,7 +1443,7 @@ def test_payment_gateway_initialize_tokenization(
 
 
 @patch(
-    "saleor.plugins.tests.sample_plugins.PluginSample."
+    "pmtraders.plugins.tests.sample_plugins.PluginSample."
     "payment_method_initialize_tokenization"
 )
 def test_payment_method_initialize_tokenization(
@@ -1451,8 +1451,8 @@ def test_payment_method_initialize_tokenization(
 ):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
     request_data = PaymentMethodInitializeTokenizationRequestData(
@@ -1478,7 +1478,7 @@ def test_payment_method_initialize_tokenization(
 
 
 @patch(
-    "saleor.plugins.tests.sample_plugins.PluginSample."
+    "pmtraders.plugins.tests.sample_plugins.PluginSample."
     "payment_method_process_tokenization"
 )
 def test_payment_method_process_tokenization(
@@ -1486,8 +1486,8 @@ def test_payment_method_process_tokenization(
 ):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
-        "saleor.plugins.tests.sample_plugins.PluginInactive",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginInactive",
     ]
     manager = PluginsManager(plugins=plugins)
 
@@ -1524,7 +1524,7 @@ def test_payment_method_process_tokenization(
 def test_plugin_manager_database(allow_replica, expected_connection_name):
     # given
     manager = PluginsManager(
-        ["saleor.plugins.tests.sample_plugins.PluginSample"],
+        ["pmtraders.plugins.tests.sample_plugins.PluginSample"],
         allow_replica=allow_replica,
     )
 
@@ -1539,7 +1539,7 @@ def test_plugin_manager_database(allow_replica, expected_connection_name):
 def test_loaded_all_channels(channel_USD, channel_PLN, django_assert_num_queries):
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
 
@@ -1556,13 +1556,13 @@ def test_loaded_all_channels(channel_USD, channel_PLN, django_assert_num_queries
 def test_get_plugin_invalid_channel():
     # given
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
     manager = PluginsManager(plugins=plugins)
 
     # when
     plugin = manager.get_plugin(
-        "saleor.plugins.tests.sample_plugins.PluginSample", channel_slug="invalid"
+        "pmtraders.plugins.tests.sample_plugins.PluginSample", channel_slug="invalid"
     )
 
     # then
@@ -1573,12 +1573,12 @@ def test_get_plugin_invalid_channel():
     ("plugins", "calls"),
     [
         ([], 0),
-        (["saleor.plugins.tests.sample_plugins.PluginInactive"], 0),
-        (["saleor.plugins.tests.sample_plugins.PluginSample"], 1),
+        (["pmtraders.plugins.tests.sample_plugins.PluginInactive"], 0),
+        (["pmtraders.plugins.tests.sample_plugins.PluginSample"], 1),
         (
             [
-                "saleor.plugins.tests.sample_plugins.PluginInactive",
-                "saleor.plugins.tests.sample_plugins.PluginSample",
+                "pmtraders.plugins.tests.sample_plugins.PluginInactive",
+                "pmtraders.plugins.tests.sample_plugins.PluginSample",
             ],
             1,
         ),
@@ -1610,7 +1610,7 @@ def test_manager_skips_external_shipping_with_different_currency_than_checkout_c
     checkout_with_item,
 ):
     # given
-    plugins = ["saleor.plugins.tests.sample_plugins.PluginSample"]
+    plugins = ["pmtraders.plugins.tests.sample_plugins.PluginSample"]
 
     # when
     shipping_methods = PluginsManager(
@@ -1626,13 +1626,13 @@ def test_manager_skips_external_shipping_with_different_currency_than_checkout_c
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
 )
 def test_excluded_shipping_methods_for_checkout_run_webhook_on_existing_shipping_methods(
     mock__run_method_on_plugins, channel_USD, checkout
 ):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1658,13 +1658,13 @@ def test_excluded_shipping_methods_for_checkout_run_webhook_on_existing_shipping
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
 )
 def test_excluded_shipping_methods_for_checkout_dont_run_webhook_on_missing_shipping_methods(
     mock__run_method_on_plugins, channel_USD, checkout
 ):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1685,13 +1685,13 @@ def test_excluded_shipping_methods_for_checkout_dont_run_webhook_on_missing_ship
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
 )
 def test_excluded_shipping_methods_for_order_run_webhook_on_existing_shipping_methods(
     mock__run_method_on_plugins, draft_order
 ):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
 
     manager = PluginsManager(plugins=plugins)
@@ -1715,13 +1715,13 @@ def test_excluded_shipping_methods_for_order_run_webhook_on_existing_shipping_me
 
 
 @mock.patch(
-    "saleor.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
+    "pmtraders.plugins.manager.PluginsManager._PluginsManager__run_method_on_plugins"
 )
 def test_excluded_shipping_methods_for_order_dont_run_webhook_on_missing_shipping_methods(
     mock__run_method_on_plugins, draft_order
 ):
     plugins = [
-        "saleor.plugins.tests.sample_plugins.PluginSample",
+        "pmtraders.plugins.tests.sample_plugins.PluginSample",
     ]
 
     manager = PluginsManager(plugins=plugins)

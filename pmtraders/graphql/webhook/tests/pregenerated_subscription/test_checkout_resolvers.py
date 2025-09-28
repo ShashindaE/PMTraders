@@ -22,10 +22,10 @@ TAX_DATA_RESPONSE = {
 }
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_total_price_use_pregenerated_payload(
     mock_generate_payload,
@@ -70,10 +70,10 @@ def test_checkout_total_price_use_pregenerated_payload(
     assert content["data"]["checkout"]["totalPrice"]["gross"]["amount"] == 20
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_subtotal_price_use_pregenerated_payload(
     mock_generate_payload,
@@ -118,10 +118,10 @@ def test_checkout_subtotal_price_use_pregenerated_payload(
     assert content["data"]["checkout"]["subtotalPrice"]["gross"]["amount"] == 10
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_total_balance_use_pregenerated_payload(
     mock_generate_payload,
@@ -160,10 +160,10 @@ def test_checkout_total_balance_use_pregenerated_payload(
     assert content["data"]["checkout"]["totalBalance"]["amount"] == -20
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_shipping_price_use_pregenerated_payload(
     mock_generate_payload,
@@ -211,10 +211,10 @@ def test_checkout_shipping_price_use_pregenerated_payload(
     assert content["data"]["checkout"]["shippingPrice"]["gross"]["amount"] == 10
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_authorize_status_use_pregenerated_payload(
     mock_generate_payload,
@@ -250,10 +250,10 @@ def test_checkout_authorize_status_use_pregenerated_payload(
     assert content["data"]["checkout"]["id"] == checkout_global_id
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_charge_status_use_pregenerated_payload(
     mock_generate_payload,
@@ -289,10 +289,10 @@ def test_checkout_charge_status_use_pregenerated_payload(
     assert content["data"]["checkout"]["id"] == checkout_global_id
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_line_unit_price_use_pregenerated_payload(
     mock_generate_payload,
@@ -349,10 +349,10 @@ def test_checkout_line_unit_price_use_pregenerated_payload(
     mock_request.assert_called_once()
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_checkout_line_total_price_use_pregenerated_payload(
     mock_generate_payload,
@@ -403,10 +403,10 @@ def test_checkout_line_total_price_use_pregenerated_payload(
     mock_request.assert_called_once()
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_shipping_methods_use_pregenerated_payload(
     mock_generate_payload,
@@ -476,10 +476,10 @@ def test_shipping_methods_use_pregenerated_payload(
     mock_generate_payload.assert_not_called()
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_available_shipping_methods_use_pregenerated_payload(
     mock_generate_payload,
@@ -539,11 +539,11 @@ def test_available_shipping_methods_use_pregenerated_payload(
     mock_generate_payload.assert_not_called()
 
 
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@mock.patch("saleor.webhook.transport.synchronous.transport.trigger_webhook_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.trigger_webhook_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_shipping_methods_and_taxes_use_pregenerated_payload(
     mock_generate_payload,
@@ -691,7 +691,7 @@ CHECKOUTS_QUERY = """
 
 
 @mock.patch(
-    "saleor.graphql.checkout.types.PregeneratedCheckoutTaxPayloadsByCheckoutTokenLoader"
+    "pmtraders.graphql.checkout.types.PregeneratedCheckoutTaxPayloadsByCheckoutTokenLoader"
 )
 def test_pregegenerated_tax_payload_is_skipped_for_bulk_queries(
     mocked_pregenerated_payload,
@@ -721,7 +721,7 @@ def test_pregegenerated_tax_payload_is_skipped_for_bulk_queries(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.types."
+    "pmtraders.graphql.checkout.types."
     "PregeneratedCheckoutFilterShippingMethodPayloadsByCheckoutTokenLoader"
 )
 def test_pregegenerated_exclude_shipping_payload_is_skipped_for_bulk_queries(

@@ -2485,14 +2485,14 @@ def test_draft_order_update_replace_entire_order_voucher_with_shipping_voucher(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_draft_order_update_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -2554,7 +2554,7 @@ def test_draft_order_update_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -2581,14 +2581,14 @@ def test_draft_order_update_triggers_webhooks(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_draft_order_update_triggers_webhooks_when_tax_webhook_not_needed(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -2642,7 +2642,7 @@ def test_draft_order_update_triggers_webhooks_when_tax_webhook_not_needed(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery
@@ -3175,13 +3175,13 @@ def test_draft_order_update_with_voucher_apply_once_per_order_and_manual_line_di
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.update_order_search_vector",
+    "pmtraders.graphql.order.mutations.draft_order_update.update_order_search_vector",
 )
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_draft_order_update_nothing_changed(
     wrapped_call_order_event,
     mocked_update_order_search_vector,
@@ -3261,11 +3261,11 @@ def test_draft_order_update_with_language_code(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.DraftOrderUpdate._save_order_instance"
+    "pmtraders.graphql.order.mutations.draft_order_update.DraftOrderUpdate._save_order_instance"
 )
 def test_draft_order_update_no_changes(
     save_order_mock,
@@ -3360,11 +3360,11 @@ def test_draft_order_update_no_changes(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.DraftOrderUpdate._save_order_instance"
+    "pmtraders.graphql.order.mutations.draft_order_update.DraftOrderUpdate._save_order_instance"
 )
 def test_draft_order_update_emit_events(
     save_order_mock,
@@ -3466,7 +3466,7 @@ def test_draft_order_update_emit_events(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
 def test_draft_order_update_address_not_changed_save_flag_changed(
@@ -3529,7 +3529,7 @@ def test_draft_order_update_address_not_changed_save_flag_changed(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
 def test_draft_order_update_address_not_set(
@@ -3571,7 +3571,7 @@ def test_draft_order_update_address_not_set(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_update.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_update.call_order_event",
     wraps=call_order_event,
 )
 def test_draft_order_update_same_shipping_method_no_shipping_price_set(

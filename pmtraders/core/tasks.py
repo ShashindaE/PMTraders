@@ -25,8 +25,8 @@ class RestrictWriterDBTask(Task):
     for tests).
 
     The `CELERY_RESTRICT_WRITER_METHOD` setting should point to one of the following:
-    - `saleor.core.db.connection.log_writer_usage` - logs a warning
-    - `saleor.core.db.connection.restrict_writer` - raises an exception
+    - `pmtraders.core.db.connection.log_writer_usage` - logs a warning
+    - `pmtraders.core.db.connection.restrict_writer` - raises an exception
     """
 
     def __call__(self, *args, **kwargs):

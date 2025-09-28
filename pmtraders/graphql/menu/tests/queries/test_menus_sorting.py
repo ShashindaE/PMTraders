@@ -19,7 +19,7 @@ QUERY_MENU_WITH_SORT = """
 @pytest.mark.parametrize(
     ("menu_sort", "result_order"),
     [
-        # We have "footer" and "navbar" from default saleor configuration
+        # We have "footer" and "navbar" from default pmtraders configuration
         ({"field": "NAME", "direction": "ASC"}, ["footer", "menu1", "navbar"]),
         ({"field": "NAME", "direction": "DESC"}, ["navbar", "menu1", "footer"]),
         ({"field": "ITEMS_COUNT", "direction": "ASC"}, ["footer", "navbar", "menu1"]),

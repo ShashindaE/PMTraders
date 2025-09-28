@@ -183,7 +183,7 @@ def _remove_anonymized_checkout_data(checkout_data: dict) -> dict:
 )
 def test_generate_sample_checkout_payload(user_checkouts):
     with mock.patch(
-        "saleor.webhook.payloads._get_sample_object", return_value=user_checkouts
+        "pmtraders.webhook.payloads._get_sample_object", return_value=user_checkouts
     ):
         checkout = user_checkouts
         payload = generate_sample_payload(WebhookEventAsyncType.CHECKOUT_UPDATED)

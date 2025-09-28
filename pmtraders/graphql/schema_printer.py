@@ -23,7 +23,7 @@ from graphql.type.directives import DEFAULT_DEPRECATION_REASON, GraphQLDirective
 from graphql.type.schema import GraphQLSchema
 from graphql.utils.ast_from_value import ast_from_value
 
-from saleor.graphql.core.descriptions import DEPRECATED_IN_3X_INPUT
+from pmtraders.graphql.core.descriptions import DEPRECATED_IN_3X_INPUT
 
 __all__ = ["print_schema", "print_introspection_schema", "print_type"]
 

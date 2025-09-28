@@ -18,7 +18,7 @@ def test_should_bulk_update_customers_metadata_core_1513(
     # Step 1 - Create customers
     customer_ids = []
     for i in range(5):
-        customer_input = {"email": f"test_{i + 1}@saleor.io"}
+        customer_input = {"email": f"test_{i + 1}@pmtraders.io"}
         user_data = create_customer(e2e_staff_api_client, customer_input)
         user_id = user_data["id"]
         customer_ids.append(user_id)

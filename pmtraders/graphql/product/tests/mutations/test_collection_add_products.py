@@ -56,7 +56,7 @@ def test_add_products_to_collection(
         assert rule.variants_dirty is True
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_add_products_to_collection_trigger_product_updated_webhook(
     product_updated_mock,
     staff_api_client,

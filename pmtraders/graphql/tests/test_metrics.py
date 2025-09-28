@@ -6,7 +6,7 @@ from django.test import override_settings
 from opentelemetry.semconv._incubating.attributes import graphql_attributes
 from opentelemetry.semconv.attributes import error_attributes
 
-from ...core.telemetry import Unit, saleor_attributes
+from ...core.telemetry import Unit, pmtraders_attributes
 from ...graphql.api import backend, schema
 from ..metrics import (
     METRIC_GRAPHQL_QUERY_COST,
@@ -20,7 +20,7 @@ from ..metrics import (
 from ..views import GraphQLView
 
 
-@patch("saleor.graphql.metrics.meter")
+@patch("pmtraders.graphql.metrics.meter")
 def test_record_graphql_query_count(mock_meter):
     # when
     record_graphql_query_count(
@@ -34,12 +34,12 @@ def test_record_graphql_query_count(mock_meter):
         Unit.REQUEST,
         attributes={
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "query",
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "identifier",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "identifier",
         },
     )
 
 
-@patch("saleor.graphql.metrics.meter")
+@patch("pmtraders.graphql.metrics.meter")
 def test_record_graphql_query_duration(mock_meter):
     # given
     mock_context_manager = object()
@@ -51,7 +51,7 @@ def test_record_graphql_query_duration(mock_meter):
     # then
     call_attributes = {
         graphql_attributes.GRAPHQL_OPERATION_TYPE: "",
-        saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
+        pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
     }
     mock_meter.record_duration.assert_any_call(
         METRIC_GRAPHQL_QUERY_DURATION, attributes=call_attributes
@@ -59,7 +59,7 @@ def test_record_graphql_query_duration(mock_meter):
     assert result == mock_context_manager
 
 
-@patch("saleor.graphql.metrics.meter")
+@patch("pmtraders.graphql.metrics.meter")
 def test_graphql_query_record_metrics(mock_meter, rf, channel_USD, product_list):
     # given
     request = rf.post(
@@ -77,33 +77,33 @@ def test_graphql_query_record_metrics(mock_meter, rf, channel_USD, product_list)
     view(request)
 
     # then
-    # check that saleor.graphql.operation.count is recorded
+    # check that pmtraders.graphql.operation.count is recorded
     mock_meter.record.assert_any_call(
         METRIC_GRAPHQL_QUERY_COUNT,
         1,
         Unit.REQUEST,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "products",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "products",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "query",
         },
     )
 
-    # check that saleor.graphql.operation.cost is recorded
+    # check that pmtraders.graphql.operation.cost is recorded
     mock_meter.record.assert_any_call(
         METRIC_GRAPHQL_QUERY_COST,
         5,
         Unit.COST,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "products",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "products",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "query",
         },
     )
 
-    # check that saleor.graphql.operation.duration is recorded and has correct attributes
+    # check that pmtraders.graphql.operation.duration is recorded and has correct attributes
     mock_meter.record_duration.assert_any_call(
         METRIC_GRAPHQL_QUERY_DURATION,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "",
         },
     )
@@ -141,7 +141,7 @@ def test_graphql_query_record_metrics(mock_meter, rf, channel_USD, product_list)
         ),
     ],
 )
-@patch("saleor.graphql.metrics.meter")
+@patch("pmtraders.graphql.metrics.meter")
 def test_graphql_query_record_metrics_invalid_query(
     mock_meter,
     data,
@@ -168,7 +168,7 @@ def test_graphql_query_record_metrics_invalid_query(
         1,
         Unit.REQUEST,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier,
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier,
             graphql_attributes.GRAPHQL_OPERATION_TYPE: operation_type,
             error_attributes.ERROR_TYPE: error_type,
         },
@@ -179,7 +179,7 @@ def test_graphql_query_record_metrics_invalid_query(
         1,
         Unit.COST,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier,
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: operation_identifier,
             graphql_attributes.GRAPHQL_OPERATION_TYPE: operation_type,
             error_attributes.ERROR_TYPE: error_type,
         },
@@ -188,7 +188,7 @@ def test_graphql_query_record_metrics_invalid_query(
     mock_meter.record_duration.assert_any_call(
         METRIC_GRAPHQL_QUERY_DURATION,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "",
         },
     )
@@ -203,13 +203,13 @@ def test_graphql_query_record_metrics_invalid_query(
         )
     if operation_identifier:
         assert (
-            call(saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER, operation_identifier)
+            call(pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER, operation_identifier)
             in mock_meter.record_duration().__enter__().__setitem__.call_args_list
         )
 
 
 @override_settings(GRAPHQL_QUERY_MAX_COMPLEXITY=1)
-@patch("saleor.graphql.metrics.meter")
+@patch("pmtraders.graphql.metrics.meter")
 def test_graphql_query_record_metrics_cost_exceeded(
     mock_meter,
     api_client,
@@ -238,13 +238,13 @@ def test_graphql_query_record_metrics_cost_exceeded(
     api_client.post_graphql(query, variables)
 
     # then
-    # check that saleor.graphql.operation.count is recorded
+    # check that pmtraders.graphql.operation.count is recorded
     mock_meter.record.assert_any_call(
         METRIC_GRAPHQL_QUERY_COUNT,
         1,
         Unit.REQUEST,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "productVariant",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "productVariant",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "query",
             error_attributes.ERROR_TYPE: "QueryCostError",
         },
@@ -255,17 +255,17 @@ def test_graphql_query_record_metrics_cost_exceeded(
         20,
         Unit.COST,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "productVariant",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "productVariant",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "query",
             error_attributes.ERROR_TYPE: "QueryCostError",
         },
     )
 
-    # check that saleor.graphql.operation.duration is recorded and has correct attributes
+    # check that pmtraders.graphql.operation.duration is recorded and has correct attributes
     mock_meter.record_duration.assert_any_call(
         METRIC_GRAPHQL_QUERY_DURATION,
         attributes={
-            saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
+            pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER: "",
             graphql_attributes.GRAPHQL_OPERATION_TYPE: "",
         },
     )
@@ -278,12 +278,12 @@ def test_graphql_query_record_metrics_cost_exceeded(
         in mock_meter.record_duration().__enter__().__setitem__.call_args_list
     )
     assert (
-        call(saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER, "productVariant")
+        call(pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER, "productVariant")
         in mock_meter.record_duration().__enter__().__setitem__.call_args_list
     )
 
 
-@patch("saleor.graphql.metrics.meter")
+@patch("pmtraders.graphql.metrics.meter")
 def test_graphql_view_record_http_metrics(mock_meter, rf, channel_USD, product_list):
     # given
     request = rf.post(
@@ -301,7 +301,7 @@ def test_graphql_view_record_http_metrics(mock_meter, rf, channel_USD, product_l
     view(request)
 
     # then
-    # check that saleor.request.count is recorded
+    # check that pmtraders.request.count is recorded
     mock_meter.record.assert_any_call(
         METRIC_REQUEST_COUNT,
         1,
@@ -309,15 +309,15 @@ def test_graphql_view_record_http_metrics(mock_meter, rf, channel_USD, product_l
         attributes={},
     )
 
-    # check that saleor.request.duration is recorded
+    # check that pmtraders.request.duration is recorded
     mock_meter.record_duration.assert_any_call(
         METRIC_REQUEST_DURATION,
         attributes={},
     )
 
 
-@patch("saleor.graphql.metrics.meter")
-@patch("saleor.graphql.views.GraphQLView._handle_query")
+@patch("pmtraders.graphql.metrics.meter")
+@patch("pmtraders.graphql.views.GraphQLView._handle_query")
 def test_graphql_view_record_http_metrics_error_type(mock_handle_query, mock_meter, rf):
     # given
     mock_handle_query.return_value = MagicMock(status_code=500)
@@ -334,7 +334,7 @@ def test_graphql_view_record_http_metrics_error_type(mock_handle_query, mock_met
     view(request)
 
     # then
-    # check that saleor.request.count is recorded
+    # check that pmtraders.request.count is recorded
     mock_meter.record.assert_any_call(
         METRIC_REQUEST_COUNT,
         1,
@@ -342,7 +342,7 @@ def test_graphql_view_record_http_metrics_error_type(mock_handle_query, mock_met
         attributes={error_attributes.ERROR_TYPE: "500"},
     )
 
-    # check that saleor.request.duration is recorded
+    # check that pmtraders.request.duration is recorded
     mock_meter.record_duration.assert_any_call(
         METRIC_REQUEST_DURATION,
         attributes={},

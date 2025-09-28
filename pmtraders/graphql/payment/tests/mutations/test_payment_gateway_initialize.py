@@ -45,7 +45,7 @@ mutation PaymentGatewayInitialize(
 """
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_checkout_without_payment_gateways(
     mocked_initialize, user_api_client, checkout_with_prices, plugins_manager
 ):
@@ -115,7 +115,7 @@ def test_for_checkout_transactions_limit_on_gateway_initialize(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_order_without_payment_gateways(
     mocked_initialize,
     user_api_client,
@@ -150,7 +150,7 @@ def test_for_order_without_payment_gateways(
     mocked_initialize.assert_called_once_with(order.total.gross.amount, [], order)
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_checkout_with_payment_gateways(
     mocked_initialize, user_api_client, checkout_with_prices, plugins_manager
 ):
@@ -202,7 +202,7 @@ def test_for_checkout_with_payment_gateways(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_order_with_payment_gateways(
     mocked_initialize,
     user_api_client,
@@ -251,7 +251,7 @@ def test_for_order_with_payment_gateways(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_checkout_with_payment_gateways_and_amount(
     mocked_initialize,
     user_api_client,
@@ -302,7 +302,7 @@ def test_for_checkout_with_payment_gateways_and_amount(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_order_with_payment_gateways_and_amount(
     mocked_initialize,
     user_api_client,
@@ -351,7 +351,7 @@ def test_for_order_with_payment_gateways_and_amount(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_checkout_with_payment_gateways_returns_error(
     mocked_initialize,
     user_api_client,
@@ -410,7 +410,7 @@ def test_for_checkout_with_payment_gateways_returns_error(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_order_with_payment_gateways_returns_error(
     mocked_initialize,
     user_api_client,
@@ -468,7 +468,7 @@ def test_for_order_with_payment_gateways_returns_error(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_checkout_with_missing_payment_gateway(
     mocked_initialize,
     user_api_client,
@@ -525,7 +525,7 @@ def test_for_checkout_with_missing_payment_gateway(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_order_with_missing_payment_gateway(
     mocked_initialize,
     user_api_client,
@@ -581,7 +581,7 @@ def test_for_order_with_missing_payment_gateway(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_checkout_with_multiple_payment_gateways(
     mocked_initialize,
     user_api_client,
@@ -687,7 +687,7 @@ def test_for_checkout_with_multiple_payment_gateways(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_for_order_with_multiple_payment_gateways(
     mocked_initialize,
     user_api_client,
@@ -793,7 +793,7 @@ def test_for_order_with_multiple_payment_gateways(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.payment_gateway_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.payment_gateway_initialize_session")
 def test_with_payment_gateways_and_amount_with_lot_of_decimal_places(
     mocked_initialize,
     user_api_client,
@@ -842,8 +842,8 @@ def test_with_payment_gateways_and_amount_with_lot_of_decimal_places(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_for_checkout_with_shipping_app(
     mocked_send_webhook_request_sync,
     user_api_client,
@@ -942,9 +942,9 @@ def test_for_checkout_with_shipping_app(
     assert gateway_session_initialize_delivery.payload.get_payload()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @override_settings(
-    PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"],
+    PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"],
     CHECKOUT_PRICES_TTL=datetime.timedelta(0),
 )
 def test_for_checkout_with_tax_app(
@@ -1024,8 +1024,8 @@ def test_for_checkout_with_tax_app(
         assert delivery.payload.get_payload()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_for_order_with_tax_app(
     mocked_send_webhook_request_sync,
     user_api_client,

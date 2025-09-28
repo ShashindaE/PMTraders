@@ -17,14 +17,14 @@ from ...core.jwt import (
     get_user_from_payload,
     jwt_decode,
 )
-from ...graphql.core import SaleorContext
+from ...graphql.core import pmtradersContext
 from ...permission.enums import get_permissions_codename, get_permissions_from_names
 from ..base_plugin import BasePlugin, ConfigurationTypeField, ExternalAccessTokens
 from ..error_codes import PluginErrorCode
 from ..models import PluginConfiguration
 from . import PLUGIN_ID
 from .client import OAuth2Client
-from .const import SALEOR_STAFF_PERMISSION
+from .const import pmtraders_STAFF_PERMISSION
 from .dataclasses import OpenIDConnectConfig
 from .exceptions import AuthenticationError
 from .utils import (
@@ -35,8 +35,8 @@ from .utils import (
     get_incorrect_fields,
     get_or_create_user_from_payload,
     get_parsed_id_token,
-    get_saleor_permission_names,
-    get_saleor_permissions_qs_from_scope,
+    get_pmtraders_permission_names,
+    get_pmtraders_permissions_qs_from_scope,
     get_staff_user_domains,
     get_user_from_oauth_access_token,
     get_user_from_token,
@@ -132,7 +132,7 @@ class OpenIDConnectPlugin(BasePlugin):
         "audience": {
             "type": ConfigurationTypeField.STRING,
             "help_text": (
-                "The OAuth resource identifier. If provided, Saleor will define "
+                "The OAuth resource identifier. If provided, pmtraders will define "
                 "audience for each authorization request."
             ),
             "label": "Audience",
@@ -142,8 +142,8 @@ class OpenIDConnectPlugin(BasePlugin):
             "help_text": (
                 "Use OAuth scope permissions to grant a logged-in user access to "
                 "protected resources. Your OAuth provider needs to have defined "
-                "Saleor's permission scopes in format saleor:<saleor-perm>. Check"
-                " Saleor docs for more details."
+                "pmtraders's permission scopes in format pmtraders:<pmtraders-perm>. Check"
+                " pmtraders docs for more details."
             ),
             "label": "Use OAuth scope permissions",
         },
@@ -187,7 +187,7 @@ class OpenIDConnectPlugin(BasePlugin):
         )
 
         # Determine, if we have defined all fields required to use OAuth access token
-        # as Saleor's authorization token.
+        # as pmtraders's authorization token.
         self.use_oauth_access_token = bool(
             self.config.user_info_url and self.config.json_web_key_set_url
         )
@@ -221,8 +221,8 @@ class OpenIDConnectPlugin(BasePlugin):
     def _get_oauth_session(self):
         scope = "openid profile email"
         if self.config.use_scope_permissions:
-            permissions = [f"saleor:{perm}" for perm in get_permissions_codename()]
-            permissions.append(SALEOR_STAFF_PERMISSION)
+            permissions = [f"pmtraders:{perm}" for perm in get_permissions_codename()]
+            permissions.append(pmtraders_STAFF_PERMISSION)
             scope_permissions = " ".join(permissions)
             scope += f" {scope_permissions}"
         if self.config.enable_refresh_token:
@@ -236,13 +236,13 @@ class OpenIDConnectPlugin(BasePlugin):
     def _use_scope_permissions(self, user, scope):
         user_permissions = []
         if scope:
-            permissions = get_saleor_permissions_qs_from_scope(scope)
-            user_permissions = get_saleor_permission_names(permissions)
+            permissions = get_pmtraders_permissions_qs_from_scope(scope)
+            user_permissions = get_pmtraders_permission_names(permissions)
             user.effective_permissions = permissions
         return user_permissions
 
     def external_obtain_access_tokens(
-        self, data: dict, request: SaleorContext, previous_value
+        self, data: dict, request: pmtradersContext, previous_value
     ) -> ExternalAccessTokens:
         if not self.active:
             return previous_value
@@ -311,7 +311,7 @@ class OpenIDConnectPlugin(BasePlugin):
             scope = token_data.get("scope")
             user_permissions = self._use_scope_permissions(user, scope)
 
-            is_staff_in_scope = SALEOR_STAFF_PERMISSION in scope
+            is_staff_in_scope = pmtraders_STAFF_PERMISSION in scope
             is_staff_user = is_staff_in_scope or user_permissions or is_staff_user_email
             if is_staff_user:
                 assign_staff_to_default_group_and_update_permissions(
@@ -341,7 +341,7 @@ class OpenIDConnectPlugin(BasePlugin):
         return email_domain in staff_user_domains
 
     def external_authentication_url(
-        self, data: dict, request: SaleorContext, previous_value
+        self, data: dict, request: pmtradersContext, previous_value
     ) -> dict:
         if not self.active:
             return previous_value
@@ -371,7 +371,7 @@ class OpenIDConnectPlugin(BasePlugin):
         return {"authorizationUrl": uri}
 
     def external_refresh(
-        self, data: dict, request: SaleorContext, previous_value
+        self, data: dict, request: pmtradersContext, previous_value
     ) -> ExternalAccessTokens:
         if not self.active:
             return previous_value
@@ -392,12 +392,12 @@ class OpenIDConnectPlugin(BasePlugin):
 
         validate_refresh_token(refresh_token, data)
         refresh_token = cast(str, refresh_token)
-        saleor_refresh_token = jwt_decode(refresh_token)
+        pmtraders_refresh_token = jwt_decode(refresh_token)
         token_endpoint = self.config.token_url
         try:
             token_data = self.oauth.refresh_token(
                 token_endpoint,
-                refresh_token=saleor_refresh_token[OAUTH_TOKEN_REFRESH_FIELD],
+                refresh_token=pmtraders_refresh_token[OAUTH_TOKEN_REFRESH_FIELD],
             )
         except (AuthlibBaseError, HTTPError) as e:
             logger.warning("Unable to refresh the token.", exc_info=True)
@@ -438,14 +438,14 @@ class OpenIDConnectPlugin(BasePlugin):
         """Update user permissions based on scope and user groups' permissions."""
         permissions = get_user_groups_permissions(user)
         if use_scope_permissions and scope:
-            permissions |= get_saleor_permissions_qs_from_scope(scope)
+            permissions |= get_pmtraders_permissions_qs_from_scope(scope)
         user.effective_permissions = permissions
         user_permissions = (
-            get_saleor_permission_names(permissions) if permissions else []
+            get_pmtraders_permission_names(permissions) if permissions else []
         )
         return user_permissions
 
-    def external_logout(self, data: dict, request: SaleorContext, previous_value):
+    def external_logout(self, data: dict, request: pmtradersContext, previous_value):
         if not self.active:
             return previous_value
 
@@ -461,7 +461,7 @@ class OpenIDConnectPlugin(BasePlugin):
         return {"logoutUrl": req.url}
 
     def external_verify(
-        self, data: dict, request: SaleorContext, previous_value
+        self, data: dict, request: pmtradersContext, previous_value
     ) -> tuple[User | None, dict]:
         if not self.active:
             return previous_value
@@ -492,7 +492,7 @@ class OpenIDConnectPlugin(BasePlugin):
             )
         return user, payload
 
-    def authenticate_user(self, request: SaleorContext, previous_value) -> User | None:
+    def authenticate_user(self, request: pmtradersContext, previous_value) -> User | None:
         if not self.active:
             return previous_value
         token = get_token_from_request(request)

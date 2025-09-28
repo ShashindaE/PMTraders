@@ -44,16 +44,16 @@ ORDER_CONFIRM_MUTATION = """
 """
 
 
-@patch("saleor.order.actions.handle_fully_paid_order", wraps=handle_fully_paid_order)
+@patch("pmtraders.order.actions.handle_fully_paid_order", wraps=handle_fully_paid_order)
 @patch(
-    "saleor.graphql.order.mutations.order_confirm.order_confirmed",
+    "pmtraders.graphql.order.mutations.order_confirm.order_confirmed",
     wraps=order_confirmed,
 )
 @patch(
-    "saleor.graphql.order.mutations.order_confirm.order_charged", wraps=order_charged
+    "pmtraders.graphql.order.mutations.order_confirm.order_charged", wraps=order_charged
 )
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.payment.gateway.capture")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.payment.gateway.capture")
 def test_order_confirm(
     capture_mock,
     mocked_notify,
@@ -197,8 +197,8 @@ def test_order_confirm(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.payment.gateway.capture")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.payment.gateway.capture")
 def test_order_confirm_without_sku(
     capture_mock,
     mocked_notify,
@@ -302,7 +302,7 @@ def test_order_confirm_no_products_in_order(
     assert errors[0]["code"] == OrderErrorCode.INVALID.name
 
 
-@patch("saleor.payment.gateway.capture")
+@patch("pmtraders.payment.gateway.capture")
 def test_order_confirm_wont_call_capture_for_non_active_payment(
     capture_mock,
     staff_api_client,
@@ -398,16 +398,16 @@ def test_order_confirm_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.order.actions.handle_fully_paid_order", wraps=handle_fully_paid_order)
+@patch("pmtraders.order.actions.handle_fully_paid_order", wraps=handle_fully_paid_order)
 @patch(
-    "saleor.graphql.order.mutations.order_confirm.order_confirmed",
+    "pmtraders.graphql.order.mutations.order_confirm.order_confirmed",
     wraps=order_confirmed,
 )
 @patch(
-    "saleor.graphql.order.mutations.order_confirm.order_charged", wraps=order_charged
+    "pmtraders.graphql.order.mutations.order_confirm.order_charged", wraps=order_charged
 )
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.payment.gateway.capture")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.payment.gateway.capture")
 def test_order_confirm_by_app(
     capture_mock,
     mocked_notify,
@@ -551,9 +551,9 @@ def test_order_confirm_by_app(
     )
 
 
-@patch("saleor.order.actions.handle_fully_paid_order")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.payment.gateway.capture")
+@patch("pmtraders.order.actions.handle_fully_paid_order")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.payment.gateway.capture")
 def test_order_confirm_skip_address_validation(
     capture_mock,
     mocked_notify,
@@ -605,15 +605,15 @@ def test_order_confirm_skip_address_validation(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@patch("saleor.payment.gateway.capture")
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@patch("pmtraders.payment.gateway.capture")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_confirm_triggers_webhooks(
     capture_mock,
     mocked_send_webhook_request_async,
@@ -691,7 +691,7 @@ def test_order_confirm_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],

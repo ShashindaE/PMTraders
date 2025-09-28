@@ -81,7 +81,7 @@ def test_updating_the_address_without_the_save_flag_esnures_that_the_address_is_
     new_shipping_address = {
         "firstName": "John",
         "lastName": "Muller",
-        "companyName": "Saleor Commerce USA",
+        "companyName": "pmtraders Commerce USA",
         "streetAddress1": "2595 Shinn Street",
         "streetAddress2": "",
         "postalCode": "10281",

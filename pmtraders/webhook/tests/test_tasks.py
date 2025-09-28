@@ -36,7 +36,7 @@ def mocked_webhook_response():
 
 @freeze_time("2022-06-11 12:50")
 @mock.patch(
-    "saleor.webhook.transport.synchronous."
+    "pmtraders.webhook.transport.synchronous."
     "transport.handle_transaction_request_task.delay"
 )
 def test_trigger_transaction_request(
@@ -95,7 +95,7 @@ def test_trigger_transaction_request(
 
 @freeze_time("2022-06-11 12:50")
 @mock.patch(
-    "saleor.webhook.transport.synchronous."
+    "pmtraders.webhook.transport.synchronous."
     "transport.handle_transaction_request_task.delay"
 )
 def test_trigger_transaction_request_with_webhook_subscription(
@@ -179,7 +179,7 @@ def test_trigger_transaction_request_with_webhook_subscription(
 
 @freeze_time("2022-06-11 12:50")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.handle_transaction_request_task.delay"
+    "pmtraders.webhook.transport.synchronous.transport.handle_transaction_request_task.delay"
 )
 def test_trigger_transaction_request_missing_app_owner_updates_refundable_checkout(
     mocked_task,
@@ -248,7 +248,7 @@ def test_trigger_transaction_request_missing_app_owner_updates_refundable_checko
 
 @freeze_time("2022-06-11 12:50")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.handle_transaction_request_task.delay"
+    "pmtraders.webhook.transport.synchronous.transport.handle_transaction_request_task.delay"
 )
 def test_trigger_transaction_request_missing_webhook_updates_refundable_checkout(
     mocked_task,
@@ -294,7 +294,7 @@ def test_trigger_transaction_request_missing_webhook_updates_refundable_checkout
 
 @freeze_time("2022-06-11 12:50")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.handle_transaction_request_task.delay"
+    "pmtraders.webhook.transport.synchronous.transport.handle_transaction_request_task.delay"
 )
 def test_trigger_transaction_request_incorrect_subscription_updates_refundable_checkout(
     mocked_task,
@@ -496,7 +496,7 @@ def test_handle_transaction_request_task_with_only_psp_reference(
 
 @pytest.mark.parametrize("status_code", [500, 501, 510])
 @freeze_time("2022-06-11 12:50")
-@mock.patch("saleor.webhook.transport.synchronous.transport.handle_webhook_retry")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.handle_webhook_retry")
 @mock.patch.object(HTTPSession, "request")
 def test_handle_transaction_request_task_with_server_error(
     mocked_post_request,
@@ -912,7 +912,7 @@ def test_handle_transaction_request_task_with_only_required_fields_for_result_ev
 
 @freeze_time("2022-06-11 12:50")
 @mock.patch(
-    "saleor.payment.utils.recalculate_transaction_amounts",
+    "pmtraders.payment.utils.recalculate_transaction_amounts",
     wraps=recalculate_transaction_amounts,
 )
 @mock.patch.object(HTTPSession, "request")

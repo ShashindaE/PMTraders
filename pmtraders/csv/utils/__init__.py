@@ -10,7 +10,7 @@ class ProductExportFields:
             "product type": "product_type__name",
             # charge taxes are deprecated, and do not return any value. In case of
             # requesting them, the headers number needs to match to the size of the row
-            "charge taxes": "",  # deprecated; remove in Saleor 4.0
+            "charge taxes": "",  # deprecated; remove in pmtraders 4.0
             "product weight": "product_weight",
             "variant id": "variants__id",
             "variant sku": "variants__sku",

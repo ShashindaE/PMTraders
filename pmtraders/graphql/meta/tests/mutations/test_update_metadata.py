@@ -123,7 +123,7 @@ def test_meta_mutations_handle_validation_errors(staff_api_client):
     invalid_id = "6QjoLs5LIqb3At7hVKKcUlqXceKkFK"
     variables = {
         "id": invalid_id,
-        "input": [{"key": "year", "value": "of-saleor"}],
+        "input": [{"key": "year", "value": "of-pmtraders"}],
     }
 
     # when
@@ -138,7 +138,7 @@ def test_meta_mutations_handle_validation_errors(staff_api_client):
     assert errors[0]["code"] == MetadataErrorCode.INVALID.name
 
 
-@patch("saleor.graphql.meta.extra_methods.call_checkout_events")
+@patch("pmtraders.graphql.meta.extra_methods.call_checkout_events")
 def test_base_metadata_mutation_handles_errors_from_extra_action(
     mock_call_checkout_events, api_client, checkout
 ):
@@ -191,7 +191,7 @@ def test_update_public_metadata_for_item_on_deleted_instance(api_client, checkou
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.meta.mutations.update_metadata.update_metadata",
+        "pmtraders.graphql.meta.mutations.update_metadata.update_metadata",
         delete_checkout_object,
     ):
         response = execute_update_public_metadata_for_item(
@@ -263,7 +263,7 @@ def test_update_public_metadata_race_condition(api_client, checkout):
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.meta.mutations.update_metadata.update_metadata",
+        "pmtraders.graphql.meta.mutations.update_metadata.update_metadata",
         update_metadata,
     ):
         # update without using postgresql `concat` operation to

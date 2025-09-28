@@ -141,7 +141,7 @@ def test_product_channel_listing_update_as_staff_user(
 
 
 @freeze_time("2023-11-13T14:53:59.655366")
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
 def test_product_channel_listing_update_trigger_webhook_product_updated(
     mock_product_updated,
     staff_api_client,

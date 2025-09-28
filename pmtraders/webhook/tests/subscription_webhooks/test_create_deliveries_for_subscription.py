@@ -2943,7 +2943,7 @@ def test_create_deliveries_for_subscriptions_unsubscribable_event(
     assert len(deliveries) == 0
 
 
-@patch("saleor.graphql.webhook.subscription_payload.get_default_backend")
+@patch("pmtraders.graphql.webhook.subscription_payload.get_default_backend")
 @patch.object(logger, "info")
 def test_create_deliveries_for_subscriptions_document_executed_with_error(
     mocked_task_logger,

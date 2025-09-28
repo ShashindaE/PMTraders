@@ -11,8 +11,8 @@ from ..fetch import OrderLineInfo
 from ..models import FulfillmentLine
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.payment.gateway.refund")
 def test_create_refund_fulfillment_only_order_lines(
     mocked_refund,
     mocked_order_updated,
@@ -85,8 +85,8 @@ def test_create_refund_fulfillment_only_order_lines(
     mocked_order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.payment.gateway.refund")
 def test_create_refund_fulfillment_included_shipping_costs(
     mocked_refund,
     mocked_order_updated,
@@ -151,8 +151,8 @@ def test_create_refund_fulfillment_included_shipping_costs(
     mocked_order_updated.assert_called_once_with(order_with_lines, webhooks=set())
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.payment.gateway.refund")
 def test_create_refund_fulfillment_only_fulfillment_lines(
     mocked_refund,
     mocked_order_updated,
@@ -212,8 +212,8 @@ def test_create_refund_fulfillment_only_fulfillment_lines(
     assert returned_fulfillemnt.shipping_refund_amount is None
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
-@patch("saleor.payment.gateway.refund")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.payment.gateway.refund")
 def test_create_refund_fulfillment_custom_amount(
     mocked_refund,
     mocked_order_updated,

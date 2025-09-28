@@ -93,7 +93,7 @@ def test_add_private_metadata_for_channel_USD(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.channel_metadata_updated")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.channel_metadata_updated")
 def test_channel_update_metadata_trigger_webhook_when_metadata_changed(
     mock_channel_metadata_updated,
     staff_api_client,
@@ -124,7 +124,7 @@ def test_channel_update_metadata_trigger_webhook_when_metadata_changed(
     mock_channel_metadata_updated.assert_called_once_with(channel_USD)
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.channel_metadata_updated")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.channel_metadata_updated")
 def test_channel_update_metadata_does_not_trigger_webhook_when_metadata_unchanged(
     mock_channel_metadata_updated,
     staff_api_client,

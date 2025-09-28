@@ -16,7 +16,7 @@ def create_active_customer(
     e2e_staff_api_client,
 ):
     customer_input = {
-        "email": "user@saleor.io",
+        "email": "user@pmtraders.io",
         "isActive": True,
     }
 

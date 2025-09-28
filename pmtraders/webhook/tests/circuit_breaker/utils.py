@@ -1,4 +1,4 @@
-from saleor.webhook.circuit_breaker.breaker_board import BreakerBoard
+from pmtraders.webhook.circuit_breaker.breaker_board import BreakerBoard
 
 
 def create_breaker_board(

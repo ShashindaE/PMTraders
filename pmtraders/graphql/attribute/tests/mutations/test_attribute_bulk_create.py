@@ -100,7 +100,7 @@ def test_attribute_bulk_create_with_base_data(
     assert data["results"][1]["attribute"]["name"] == attribute_2_name
 
 
-@patch("saleor.plugins.manager.PluginsManager.attribute_created")
+@patch("pmtraders.plugins.manager.PluginsManager.attribute_created")
 def test_attribute_bulk_create_trigger_webhook(
     created_webhook_mock,
     staff_api_client,
@@ -725,7 +725,7 @@ def test_attribute_bulk_create_with_reference_types(
     )
 
 
-@patch("saleor.graphql.attribute.mutations.mixins.REFERENCE_TYPES_LIMIT", 1)
+@patch("pmtraders.graphql.attribute.mutations.mixins.REFERENCE_TYPES_LIMIT", 1)
 def test_attribute_bulk_create_with_invalid_reference_types(
     staff_api_client,
     permission_manage_product_types_and_attributes,

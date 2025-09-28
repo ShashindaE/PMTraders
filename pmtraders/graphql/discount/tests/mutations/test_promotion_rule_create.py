@@ -54,7 +54,7 @@ PROMOTION_RULE_CREATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_rule_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_rule_created")
 def test_promotion_rule_create_by_staff_user(
     promotion_rule_created_mock,
     staff_api_client,
@@ -1004,7 +1004,7 @@ def test_promotion_rule_create_events(
     assert events[0]["ruleId"] == data["promotionRule"]["id"]
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_rule_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_rule_created")
 def test_promotion_rule_create_serializable_decimal_in_predicate(
     promotion_rule_created_mock,
     staff_api_client,
@@ -1303,7 +1303,7 @@ def test_promotion_rule_create_reward_type_with_catalogue_predicate(
     assert promotion.rules.count() == rules_count
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_rule_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_rule_created")
 def test_promotion_rule_create_order_predicate(
     promotion_rule_created_mock,
     staff_api_client,
@@ -1586,7 +1586,7 @@ def test_promotion_rule_create_exceeds_gifts_number_limit(
     assert promotion.rules.count() == rules_count
 
 
-@patch("saleor.plugins.manager.PluginsManager.promotion_rule_created")
+@patch("pmtraders.plugins.manager.PluginsManager.promotion_rule_created")
 def test_promotion_rule_create_gift_promotion(
     promotion_rule_created_mock,
     staff_api_client,

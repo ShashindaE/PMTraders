@@ -235,7 +235,7 @@ def test_clean_image_file_issue_with_file_opening(monkeypatch):
     error_msg = "Test syntax error"
     image_file_mock = Mock(side_effect=SyntaxError(error_msg))
     monkeypatch.setattr(
-        "saleor.graphql.core.validators.file.Image.open", image_file_mock
+        "pmtraders.graphql.core.validators.file.Image.open", image_file_mock
     )
     img = SimpleUploadedFile("product.jpg", img_data.getvalue(), "image/jpeg")
 
@@ -257,7 +257,7 @@ def test_clean_image_file_exif_validation_raising_error(monkeypatch):
     error_msg = "Test syntax error"
     image_file_mock = Mock(side_effect=SyntaxError(error_msg))
     monkeypatch.setattr(
-        "saleor.graphql.core.validators.file._validate_image_exif", image_file_mock
+        "pmtraders.graphql.core.validators.file._validate_image_exif", image_file_mock
     )
     img = SimpleUploadedFile("product.jpg", img_data.getvalue(), "image/jpeg")
 
@@ -269,7 +269,7 @@ def test_clean_image_file_exif_validation_raising_error(monkeypatch):
     assert error_msg in exc.value.args[0][field].message
 
 
-@patch("saleor.thumbnail.utils.magic.from_buffer")
+@patch("pmtraders.thumbnail.utils.magic.from_buffer")
 def test_clean_image_file_invalid_image_mime_type(from_buffer_mock):
     # given
     img_data = BytesIO()

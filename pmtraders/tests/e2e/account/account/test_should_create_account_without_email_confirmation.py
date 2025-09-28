@@ -41,7 +41,7 @@ def test_should_create_account_without_email_confirmation_core_1502(
     )
 
     channel_slug = shop_data[0]["slug"]
-    test_email = "new-user@saleor.io"
+    test_email = "new-user@pmtraders.io"
     test_password = "password!"
     redirect_url = "https://www.example.com"
 

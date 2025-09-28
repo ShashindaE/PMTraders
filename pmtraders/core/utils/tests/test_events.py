@@ -161,7 +161,7 @@ def test_webhook_async_event_requires_sync_webhooks_to_trigger_missing_event_in_
         )
 
 
-@patch("saleor.plugins.manager.PluginsManager.checkout_created")
+@patch("pmtraders.plugins.manager.PluginsManager.checkout_created")
 def test_call_event_including_protected_events(
     mocked_checkout_created,
     checkout_with_items,

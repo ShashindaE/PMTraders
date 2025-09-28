@@ -1,7 +1,7 @@
 import graphene
 
-from saleor.checkout.actions import call_checkout_event
-from saleor.webhook.event_types import WebhookEventAsyncType
+from pmtraders.checkout.actions import call_checkout_event
+from pmtraders.webhook.event_types import WebhookEventAsyncType
 
 from ...core import ResolveInfo
 from ...core.context import SyncWebhookControlContext

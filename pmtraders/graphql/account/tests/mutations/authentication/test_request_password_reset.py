@@ -29,8 +29,8 @@ REQUEST_PASSWORD_RESET_MUTATION = """
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.plugins.manager.PluginsManager.account_set_password_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.account_set_password_requested")
 def test_account_reset_password(
     mocked_account_set_password_requested,
     mocked_notify,
@@ -85,7 +85,7 @@ def test_account_reset_password(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_on_cooldown(
     mocked_notify, api_client, customer_user, channel_PLN
 ):
@@ -136,7 +136,7 @@ def test_account_reset_password_after_cooldown(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_with_upper_case_email(
     mocked_notify,
     api_client,
@@ -183,7 +183,7 @@ def test_account_reset_password_with_upper_case_email(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_request_password_reset_email_for_staff(
     mocked_notify,
     api_client,
@@ -229,7 +229,7 @@ def test_request_password_reset_email_for_staff(
     assert called_kwargs["channel_slug"] == channel_USD.slug
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_invalid_email(mocked_notify, api_client, channel_USD):
     # given
     variables = {
@@ -248,7 +248,7 @@ def test_account_reset_password_invalid_email(mocked_notify, api_client, channel
     mocked_notify.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_user_is_inactive(
     mocked_notify, api_client, customer_user, channel_USD
 ):
@@ -273,7 +273,7 @@ def test_account_reset_password_user_is_inactive(
     mocked_notify.assert_not_called()
 
 
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_storefront_hosts_not_allowed(
     mocked_notify, api_client, customer_user, channel_USD
 ):
@@ -296,7 +296,7 @@ def test_account_reset_password_storefront_hosts_not_allowed(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_all_storefront_hosts_allowed(
     mocked_notify,
     api_client,
@@ -345,7 +345,7 @@ def test_account_reset_password_all_storefront_hosts_allowed(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_account_reset_password_subdomain(
     mocked_notify, api_client, customer_user, settings, channel_PLN, site_settings
 ):
@@ -388,7 +388,7 @@ def test_account_reset_password_subdomain(
     assert called_kwargs["channel_slug"] == channel_PLN.slug
 
 
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_account_reset_password_event_triggered(
     mocked_trigger_webhooks_async,
     settings,
@@ -398,7 +398,7 @@ def test_account_reset_password_event_triggered(
     subscription_account_set_password_requested_webhook,
 ):
     # given
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     redirect_url = "https://www.example.com"
 
     variables = {
@@ -415,8 +415,8 @@ def test_account_reset_password_event_triggered(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.plugins.manager.PluginsManager.account_set_password_requested")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.account_set_password_requested")
 def test_account_reset_password_for_not_confirmed_user(
     mocked_account_set_password_requested,
     mocked_notify,
@@ -475,9 +475,9 @@ def test_account_reset_password_for_not_confirmed_user(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.plugins.manager.PluginsManager.account_set_password_requested")
-@patch("saleor.account.tasks.logger.warning")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.account_set_password_requested")
+@patch("pmtraders.account.tasks.logger.warning")
 def test_account_reset_password_no_channel_provided_multiple_channels(
     mocked_logger_warning,
     mocked_account_set_password_requested,
@@ -537,9 +537,9 @@ def test_account_reset_password_no_channel_provided_multiple_channels(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@patch("saleor.plugins.manager.PluginsManager.notify")
-@patch("saleor.plugins.manager.PluginsManager.account_set_password_requested")
-@patch("saleor.account.tasks.logger.warning")
+@patch("pmtraders.plugins.manager.PluginsManager.notify")
+@patch("pmtraders.plugins.manager.PluginsManager.account_set_password_requested")
+@patch("pmtraders.account.tasks.logger.warning")
 def test_account_reset_password_no_channel_provided_one_channel(
     mocked_logger_warning,
     mocked_account_set_password_requested,

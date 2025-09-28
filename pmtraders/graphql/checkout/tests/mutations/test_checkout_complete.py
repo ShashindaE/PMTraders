@@ -386,8 +386,8 @@ def test_checkout_complete_0_total_value_from_giftcard(
 
 
 @freeze_time()
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_complete_fails_with_invalid_tax_app(
     mock_request,
     user_api_client,
@@ -439,8 +439,8 @@ def test_checkout_complete_fails_with_invalid_tax_app(
 
 
 @freeze_time()
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_complete_calls_correct_tax_app(
     mock_request,
     user_api_client,
@@ -493,9 +493,9 @@ def test_checkout_complete_calls_correct_tax_app(
 
 @freeze_time()
 @mock.patch(
-    "saleor.plugins.tests.sample_plugins.PluginSample.calculate_checkout_line_total"
+    "pmtraders.plugins.tests.sample_plugins.PluginSample.calculate_checkout_line_total"
 )
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_checkout_complete_calls_failing_plugin(
     mock_calculate_checkout_line_total,
     user_api_client,
@@ -552,8 +552,8 @@ def test_checkout_complete_calls_failing_plugin(
 
 
 @freeze_time()
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_complete_calls_correct_force_tax_calculation_when_tax_error_was_saved(
     mock_request,
     user_api_client,

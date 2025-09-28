@@ -61,10 +61,10 @@ def admin_email_plugin(settings):
         staff_password_reset_template=DEFAULT_EMAIL_VALUE,
         staff_password_reset_subject=STAFF_PASSWORD_RESET_DEFAULT_SUBJECT,
     ):
-        settings.PLUGINS = ["saleor.plugins.admin_email.plugin.AdminEmailPlugin"]
+        settings.PLUGINS = ["pmtraders.plugins.admin_email.plugin.AdminEmailPlugin"]
         manager = get_plugins_manager(allow_replica=False)
         with patch(
-            "saleor.plugins.admin_email.plugin.validate_default_email_configuration"
+            "pmtraders.plugins.admin_email.plugin.validate_default_email_configuration"
         ):
             manager.save_plugin_configuration(
                 AdminEmailPlugin.PLUGIN_ID,
@@ -161,7 +161,7 @@ def default_admin_email_plugin(settings):
         settings.EMAIL_USE_TLS = email_config.get("EMAIL_USE_TLS", False)
         settings.EMAIL_USE_SSL = email_config.get("EMAIL_USE_SSL", False)
 
-        settings.PLUGINS = ["saleor.plugins.admin_email.plugin.AdminEmailPlugin"]
+        settings.PLUGINS = ["pmtraders.plugins.admin_email.plugin.AdminEmailPlugin"]
         manager = get_plugins_manager(allow_replica=False)
         manager.get_all_plugins()
         return manager.global_plugins[0]

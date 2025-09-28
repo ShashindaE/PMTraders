@@ -1,7 +1,7 @@
 import pytest
 
-from saleor.channel import MarkAsPaidStrategy
-from saleor.checkout.complete_checkout import complete_checkout
+from pmtraders.channel import MarkAsPaidStrategy
+from pmtraders.checkout.complete_checkout import complete_checkout
 
 from ...plugins.manager import get_plugins_manager
 from ..fetch import fetch_checkout_info, fetch_checkout_lines

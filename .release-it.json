@@ -18,7 +18,7 @@
           "path": "tool.poetry.version"
         },
         {
-          "file": "./saleor/__init__.py",
+          "file": "./pmtraders/__init__.py",
           "type": "text/plain"
         }
       ]

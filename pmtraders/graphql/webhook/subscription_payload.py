@@ -16,7 +16,7 @@ from ...app.models import App
 from ...core.exceptions import PermissionDenied
 from ...core.utils import get_domain
 from ...webhook.models import Webhook
-from ..core import SaleorContext
+from ..core import pmtradersContext
 from ..core.dataloaders import DataLoader
 from ..utils import format_error
 
@@ -30,7 +30,7 @@ def initialize_request(
     event_type: str | None = None,
     request_time: datetime.datetime | None = None,
     dataloaders: dict | None = None,
-) -> SaleorContext:
+) -> pmtradersContext:
     """Prepare a request object for webhook subscription.
 
     It creates a dummy request object.
@@ -39,7 +39,7 @@ def initialize_request(
     """
     if dataloaders is None:
         dataloaders = {}
-    request = SaleorContext(dataloaders=dataloaders)
+    request = pmtradersContext(dataloaders=dataloaders)
     request.path = "/graphql/"
     request.path_info = "/graphql/"
     request.method = "GET"
@@ -82,7 +82,7 @@ def generate_payload_promise_from_subscription(
     event_type: str,
     subscribable_object,
     subscription_query: str,
-    request: SaleorContext,
+    request: pmtradersContext,
     app: App | None = None,
 ) -> Promise[dict[str, Any] | None]:
     """Generate webhook payload from subscription query.
@@ -166,7 +166,7 @@ def generate_payload_from_subscription(
     event_type: str,
     subscribable_object,
     subscription_query: str,
-    request: SaleorContext,
+    request: pmtradersContext,
     app: App | None = None,
 ) -> dict[str, Any] | None:
     """Generate webhook payload from subscription query.

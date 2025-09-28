@@ -9,7 +9,7 @@ def site_settings(db, settings) -> SiteSettings:
     """Create a site and matching site settings.
 
     This fixture is autouse because django.contrib.sites.models.Site and
-    saleor.site.models.SiteSettings have a one-to-one relationship and a site
+    pmtraders.site.models.SiteSettings have a one-to-one relationship and a site
     should never exist without a matching settings object.
     """
     site = Site.objects.get_or_create(name="example.com", domain="example.com")[0]

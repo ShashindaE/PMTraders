@@ -1,6 +1,6 @@
 # Changelog
 
-All notable, unreleased changes to this project will be documented in this file. For the released changes, please visit the [Releases](https://github.com/saleor/saleor/releases) page.
+All notable, unreleased changes to this project will be documented in this file. For the released changes, please visit the [Releases](https://github.com/pmtraders/pmtraders/releases) page.
 
 # 3.22.0 [Unreleased]
 
@@ -60,7 +60,7 @@ All notable, unreleased changes to this project will be documented in this file.
   - The content of customer note
   - The order external reference
 - Extend sorting options. You can now sort orders by their status.
-- Add support for payment method details in the Transaction API. The payment method details associated with a transaction can now be persisted on the Saleor side. See [docs](https://docs.saleor.io/developer/payments/transactions#via-transaction-mutations) to learn more.
+- Add support for payment method details in the Transaction API. The payment method details associated with a transaction can now be persisted on the pmtraders side. See [docs](https://docs.pmtraders.io/developer/payments/transactions#via-transaction-mutations) to learn more.
 - You can now filter and search customers using the new `where` and `search` fields on the `customers` query.
   - Use `where` to define complex conditions with `AND`/`OR` logic and operators like `eq`, `oneOf`, `range`.
   - Use `search` to perform full-text search across relevant fields.
@@ -102,31 +102,31 @@ Like `reference`, the `single-reference` type can target entities defined in the
   - You can now define `referenceTypes` on an `Attribute` to limit reference choices. Use `productType` for product and product variant references, and page types for page references.
 
 ### Webhooks
-- Transaction webhooks responsible for processing payments can now return payment method details`, which will be associated with the corresponding transaction. See [docs](https://docs.saleor.io/developer/extending/webhooks/synchronous-events/transaction#response-4) to learn more.
+- Transaction webhooks responsible for processing payments can now return payment method details`, which will be associated with the corresponding transaction. See [docs](https://docs.pmtraders.io/developer/extending/webhooks/synchronous-events/transaction#response-4) to learn more.
 
 ### Other changes
-- Add JSON schemas for synchronous webhooks, now available in `saleor/json_schemas.py`. These schemas define the expected structure of webhook responses sent back to Saleor, enabling improved validation and tooling support for integrations. This change helps ensure that responses from webhook consumers meet Saleor’s expectations and can be reliably processed.
+- Add JSON schemas for synchronous webhooks, now available in `pmtraders/json_schemas.py`. These schemas define the expected structure of webhook responses sent back to pmtraders, enabling improved validation and tooling support for integrations. This change helps ensure that responses from webhook consumers meet pmtraders’s expectations and can be reliably processed.
 
 - deps: upgraded urllib3 from v1.x to v2.x
 - Fix PAGE_DELETE webhook to include pageType in payload - #17697 by @Jennyyyy0212 and @CherineCho2016
-- Stripe Plugin has been deprecated. It will be removed in the future. Please use [the Stripe App](https://docs.saleor.io/developer/app-store/apps/stripe/overview) instead
+- Stripe Plugin has been deprecated. It will be removed in the future. Please use [the Stripe App](https://docs.pmtraders.io/developer/app-store/apps/stripe/overview) instead
 - App Extensions: Added new allowed extension target: NEW_TAB. Once handled in the Dashboard, an extension will be able to open a link in new tab
 - App Extensions: New mount points for Dashboard categories, collections, gift cards, draft orders, discounts, vouchers, pages, pages types and menus
-- App Extensions: Now mount point types have been added, meant to be used as widgets. Additionally, a new target `WIDGET` has been added. For `NEW_TAB` and `WIDGET` targets, new field `options`. See [docs](https://docs.saleor.io/developer/extending/apps/extending-dashboard-with-apps) to learn more
+- App Extensions: Now mount point types have been added, meant to be used as widgets. Additionally, a new target `WIDGET` has been added. For `NEW_TAB` and `WIDGET` targets, new field `options`. See [docs](https://docs.pmtraders.io/developer/extending/apps/extending-dashboard-with-apps) to learn more
 - Changed logging settings of failed requests to reduce logs amount in production:
 
   - Downgraded the "A query had an error" log from INFO to DEBUG level.
   - Increased the `django.request` logger's level to ERROR, to reduce the number of WARNING logs for failed GraphQL or 404 requests.
 
-  Previously, a failed GraphQL request (up to Saleor 3.21) would generate the following logs:
+  Previously, a failed GraphQL request (up to pmtraders 3.21) would generate the following logs:
 
   ```
-  2025-06-06 13:26:06,104 INFO saleor.graphql.errors.handled A query had an error [PID:21676:ThreadPoolExecutor-5_0]
+  2025-06-06 13:26:06,104 INFO pmtraders.graphql.errors.handled A query had an error [PID:21676:ThreadPoolExecutor-5_0]
   2025-06-06 13:26:06,107 WARNING django.request Bad Request: /graphql/ [PID:21676:ThreadPoolExecutor-6_0]
   INFO:     127.0.0.1:63244 - "POST /graphql/ HTTP/1.1" 400 Bad Request
   ```
 
-  Starting from Saleor 3.22, the same request logs only the HTTP-level message:
+  Starting from pmtraders 3.22, the same request logs only the HTTP-level message:
 
   ```
   INFO:     127.0.0.1:63345 - "POST /graphql/ HTTP/1.1" 400 Bad Request
@@ -150,11 +150,11 @@ Following plugins are now marked as deprecated:
 
 | Plugin Name | Plugin ID | Possible replacements |
 |-------------|-----------|-------------|
-| Braintree | `mirumee.payments.braintree` | [JusPay Hyperswitch App](https://docs.hyperswitch.io/explore-hyperswitch/e-commerce-platform-plugins/saleor-app) or [Custom App](https://docs.saleor.io/developer/extending/apps/overview) |
-| Razorpay | `mirumee.payments.razorpay` | [JusPay Hyperswitch App](https://docs.hyperswitch.io/explore-hyperswitch/e-commerce-platform-plugins/saleor-app) or [Custom App](https://docs.saleor.io/developer/extending/apps/overview) |
-| Sendgrid | `mirumee.notifications.sendgrid_email` | [Saleor SMTP App](https://apps.saleor.io/apps/smtp) |
-| Dummy | `mirumee.payments.dummy` | [Saleor Dummy Payment App](https://github.com/saleor/dummy-payment-app) |
-| DummyCreditCard | `mirumee.payments.dummy_credit_card` | [Saleor Dummy Payment App](https://github.com/saleor/dummy-payment-app) |
-| Avalara | `mirumee.taxes.avalara` | [Saleor Avalara AvaTax App](https://apps.saleor.io/apps/avatax) |
+| Braintree | `mirumee.payments.braintree` | [JusPay Hyperswitch App](https://docs.hyperswitch.io/explore-hyperswitch/e-commerce-platform-plugins/pmtraders-app) or [Custom App](https://docs.pmtraders.io/developer/extending/apps/overview) |
+| Razorpay | `mirumee.payments.razorpay` | [JusPay Hyperswitch App](https://docs.hyperswitch.io/explore-hyperswitch/e-commerce-platform-plugins/pmtraders-app) or [Custom App](https://docs.pmtraders.io/developer/extending/apps/overview) |
+| Sendgrid | `mirumee.notifications.sendgrid_email` | [pmtraders SMTP App](https://apps.pmtraders.io/apps/smtp) |
+| Dummy | `mirumee.payments.dummy` | [pmtraders Dummy Payment App](https://github.com/pmtraders/dummy-payment-app) |
+| DummyCreditCard | `mirumee.payments.dummy_credit_card` | [pmtraders Dummy Payment App](https://github.com/pmtraders/dummy-payment-app) |
+| Avalara | `mirumee.taxes.avalara` | [pmtraders Avalara AvaTax App](https://apps.pmtraders.io/apps/avatax) |
 
-We plan to remove deprecated plugins in the future versions of Saleor.
+We plan to remove deprecated plugins in the future versions of pmtraders.

@@ -3,7 +3,7 @@ from django.apps import apps as registry
 from django.db import migrations, models
 from django.db.models.signals import post_migrate
 
-import saleor.core.utils.json_serializer
+import pmtraders.core.utils.json_serializer
 
 
 def update_groups_with_manage_pages_with_new_permission(apps, schema_editor):
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=saleor.core.utils.json_serializer.CustomJsonEncoder,
+                        encoder=pmtraders.core.utils.json_serializer.CustomJsonEncoder,
                         null=True,
                     ),
                 ),

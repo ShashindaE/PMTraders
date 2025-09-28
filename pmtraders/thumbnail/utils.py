@@ -174,7 +174,7 @@ class ProcessedImage:
         if hasattr(image, "_getexif"):
             try:
                 # validation of the exif data was added in separate PR:
-                # https://github.com/saleor/saleor/pull/11224, it means that there is a
+                # https://github.com/pmtraders/pmtraders/pull/11224, it means that there is a
                 # possibility that we could have the file with corrupted exif data.
                 # exif data is only used to apply some optional action on the image,
                 # but without it, we are still able to create a thumbnail.

@@ -2,12 +2,12 @@ from unittest.mock import MagicMock, patch
 
 from opentelemetry.trace import INVALID_SPAN, Span, SpanKind
 
-from .. import saleor_attributes, tracer
+from .. import pmtraders_attributes, tracer
 from ..trace import Tracer, TracerProxy
 from ..utils import Scope
 
 
-@patch("saleor.core.telemetry.trace.get_tracer")
+@patch("pmtraders.core.telemetry.trace.get_tracer")
 def test_tracer_initialization(mock_get_tracer):
     # given
     instrumentation_version = "1.0.0"
@@ -21,7 +21,7 @@ def test_tracer_initialization(mock_get_tracer):
     mock_get_tracer.assert_any_call(Scope.SERVICE.value, instrumentation_version, None)
 
 
-@patch("saleor.core.telemetry.trace.get_tracer")
+@patch("pmtraders.core.telemetry.trace.get_tracer")
 def test_tracer_start_as_current_span(mock_get_tracer):
     # given
     mock_core_tracer = MagicMock()
@@ -57,7 +57,7 @@ def test_tracer_start_as_current_span(mock_get_tracer):
         assert span == mock_span
 
 
-@patch("saleor.core.telemetry.trace.get_tracer")
+@patch("pmtraders.core.telemetry.trace.get_tracer")
 def test_tracer_start_span(mock_get_tracer):
     # given
     mock_core_tracer = MagicMock()
@@ -88,7 +88,7 @@ def test_tracer_start_span(mock_get_tracer):
     assert service_span == mock_service_span
 
 
-@patch("saleor.core.telemetry.trace.get_current_span")
+@patch("pmtraders.core.telemetry.trace.get_current_span")
 def test_tracer_get_current_span(mock_get_current_span):
     # given
     mock_span = MagicMock()
@@ -103,7 +103,7 @@ def test_tracer_get_current_span(mock_get_current_span):
     assert span == mock_span
 
 
-@patch("saleor.core.telemetry.trace.logger.warning")
+@patch("pmtraders.core.telemetry.trace.logger.warning")
 def test_tracer_proxy_initialize(mock_warning):
     # given
     tracer_proxy = TracerProxy()
@@ -250,7 +250,7 @@ def test_span_set_operation_name(get_test_spans):
     spans = get_test_spans()
     assert len(spans) == 1
     assert spans[0].name == span_name
-    assert spans[0].attributes[saleor_attributes.OPERATION_NAME] == span_name
+    assert spans[0].attributes[pmtraders_attributes.OPERATION_NAME] == span_name
 
 
 def test_span_override_operation_name(get_test_spans):
@@ -260,12 +260,12 @@ def test_span_override_operation_name(get_test_spans):
 
     # when
     with tracer.start_as_current_span(span_name) as span:
-        span.set_attribute(saleor_attributes.OPERATION_NAME, custom_operation_name)
+        span.set_attribute(pmtraders_attributes.OPERATION_NAME, custom_operation_name)
 
     # then
     spans = get_test_spans()
     assert len(spans) == 1
     assert spans[0].name == span_name
     assert (
-        spans[0].attributes[saleor_attributes.OPERATION_NAME] == custom_operation_name
+        spans[0].attributes[pmtraders_attributes.OPERATION_NAME] == custom_operation_name
     )

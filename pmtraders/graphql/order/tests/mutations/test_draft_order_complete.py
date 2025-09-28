@@ -76,13 +76,13 @@ DRAFT_ORDER_COMPLETE_MUTATION = """
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_complete.store_user_addresses_from_draft_order",
+    "pmtraders.graphql.order.mutations.draft_order_complete.store_user_addresses_from_draft_order",
 )
 @patch(
-    "saleor.graphql.order.mutations.draft_order_complete.order_created",
+    "pmtraders.graphql.order.mutations.draft_order_complete.order_created",
     wraps=order_created,
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_draft_order_complete(
     product_variant_out_of_stock_webhook_mock,
     order_created_mock,
@@ -216,7 +216,7 @@ def test_draft_order_complete_by_user_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_draft_order_complete_by_app(
     product_variant_out_of_stock_webhook_mock,
     app_api_client,
@@ -246,7 +246,7 @@ def test_draft_order_complete_by_app(
     assert order.search_vector
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_draft_order_complete_with_voucher(
     product_variant_out_of_stock_webhook_mock,
     staff_api_client,
@@ -387,7 +387,7 @@ def test_draft_order_complete_with_voucher_once_per_customer(
     ).exists()
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_draft_order_complete_0_total(
     product_variant_out_of_stock_webhook_mock,
     staff_api_client,
@@ -455,7 +455,7 @@ def test_draft_order_complete_0_total(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_draft_order_complete_without_sku(
     product_variant_out_of_stock_webhook_mock,
     staff_api_client,
@@ -511,7 +511,7 @@ def test_draft_order_complete_without_sku(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_out_of_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_out_of_stock")
 def test_draft_order_complete_with_out_of_stock_webhook(
     product_variant_out_of_stock_webhook_mock,
     staff_api_client,
@@ -766,7 +766,7 @@ def test_draft_order_complete_not_available_shipping_method(
     assert {error["field"] for error in data["errors"]} == {"shipping", "lines"}
 
 
-@patch("saleor.plugins.manager.PluginsManager.excluded_shipping_methods_for_order")
+@patch("pmtraders.plugins.manager.PluginsManager.excluded_shipping_methods_for_order")
 def test_draft_order_complete_with_excluded_shipping_method(
     mocked_webhook,
     draft_order,
@@ -776,7 +776,7 @@ def test_draft_order_complete_with_excluded_shipping_method(
     settings,
 ):
     permission_group_manage_orders.user_set.add(staff_api_client.user)
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook_reason = "archives-are-incomplete"
     mocked_webhook.return_value = [
         ExcludedShippingMethod(str(shipping_method.id), webhook_reason)
@@ -797,7 +797,7 @@ def test_draft_order_complete_with_excluded_shipping_method(
     assert data["errors"][0]["field"] == "shipping"
 
 
-@patch("saleor.plugins.manager.PluginsManager.excluded_shipping_methods_for_order")
+@patch("pmtraders.plugins.manager.PluginsManager.excluded_shipping_methods_for_order")
 def test_draft_order_complete_with_not_excluded_shipping_method(
     mocked_webhook,
     draft_order,
@@ -807,7 +807,7 @@ def test_draft_order_complete_with_not_excluded_shipping_method(
     settings,
 ):
     permission_group_manage_orders.user_set.add(staff_api_client.user)
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     webhook_reason = "archives-are-incomplete"
     other_shipping_method_id = "1337"
     assert other_shipping_method_id != shipping_method.id
@@ -1086,8 +1086,8 @@ def test_draft_order_complete_display_gross_prices(
 
 
 @freeze_time()
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_draft_order_complete_fails_with_invalid_tax_app(
     mock_request,
     staff_api_client,
@@ -1132,8 +1132,8 @@ def test_draft_order_complete_fails_with_invalid_tax_app(
 
 
 @freeze_time()
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_draft_order_complete_force_tax_calculation_when_tax_error_was_saved(
     mock_request,
     staff_api_client,
@@ -1179,8 +1179,8 @@ def test_draft_order_complete_force_tax_calculation_when_tax_error_was_saved(
 
 
 @freeze_time()
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_draft_order_complete_calls_correct_tax_app(
     mock_request,
     staff_api_client,
@@ -1225,8 +1225,8 @@ def test_draft_order_complete_calls_correct_tax_app(
 
 
 @freeze_time()
-@patch("saleor.plugins.tests.sample_plugins.PluginSample.calculate_order_line_total")
-@override_settings(PLUGINS=["saleor.plugins.tests.sample_plugins.PluginSample"])
+@patch("pmtraders.plugins.tests.sample_plugins.PluginSample.calculate_order_line_total")
+@override_settings(PLUGINS=["pmtraders.plugins.tests.sample_plugins.PluginSample"])
 def test_draft_order_complete_calls_failing_plugin(
     mock_calculate_order_line_total,
     staff_api_client,
@@ -1546,7 +1546,7 @@ def test_draft_order_complete_with_invalid_address(
 ):
     """Check if draft order can be completed with invalid address.
 
-    After introducing `AddressInput.skip_validation`, Saleor may have invalid address
+    After introducing `AddressInput.skip_validation`, pmtraders may have invalid address
     stored in database.
     """
     # given
@@ -1590,7 +1590,7 @@ def test_draft_order_complete_with_invalid_address_save_addresses_on(
 ):
     """Check if draft order can be completed with invalid address.
 
-    After introducing `AddressInput.skip_validation`, Saleor may have invalid address
+    After introducing `AddressInput.skip_validation`, pmtraders may have invalid address
     stored in database.
     """
     # given
@@ -1640,14 +1640,14 @@ def test_draft_order_complete_with_invalid_address_save_addresses_on(
 
 
 @patch(
-    "saleor.order.actions.call_order_event",
+    "pmtraders.order.actions.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_draft_order_complete_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -1709,7 +1709,7 @@ def test_draft_order_complete_triggers_webhooks(
             call(
                 kwargs={"event_delivery_id": delivery.id, "telemetry_context": ANY},
                 queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-                MessageGroupId="example.com:saleor.app.additional",
+                MessageGroupId="example.com:pmtraders.app.additional",
             )
             for delivery in order_deliveries
         ],
@@ -1740,7 +1740,7 @@ def test_draft_order_complete_triggers_webhooks(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_complete.order_created",
+    "pmtraders.graphql.order.mutations.draft_order_complete.order_created",
 )
 def test_draft_order_complete_save_user_addresses_in_customer_book(
     order_created_mock,
@@ -1798,7 +1798,7 @@ def test_draft_order_complete_save_user_addresses_in_customer_book(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_complete.order_created",
+    "pmtraders.graphql.order.mutations.draft_order_complete.order_created",
 )
 def test_draft_order_complete_do_not_save_user_addresses_in_customer_book(
     order_created_mock,

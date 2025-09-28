@@ -2,7 +2,7 @@ from django.apps import apps as registry
 from django.db import migrations
 from django.db.models.signals import post_migrate
 
-from .tasks.saleor3_22 import fulfill_attribute_value_numeric_field
+from .tasks.pmtraders3_22 import fulfill_attribute_value_numeric_field
 
 
 def set_up_numeric_attribute_values(apps, _schema_editor):

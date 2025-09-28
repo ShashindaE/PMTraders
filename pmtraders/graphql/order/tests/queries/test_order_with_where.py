@@ -1212,7 +1212,7 @@ def test_order_filter_with_search_and_charge_status(
     customer_user,
 ):
     # given
-    customer_user.first_name = "Search test Saleor"
+    customer_user.first_name = "Search test pmtraders"
     customer_user.save()
     for order in orders[:-1]:
         order.user = customer_user

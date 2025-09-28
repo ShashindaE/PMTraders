@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 def test_validate_address():
     # given
     address_data = {
-        "first_name": "John Saleor",
+        "first_name": "John pmtraders",
         "last_name": "Doe Mirumee",
         "company_name": "Mirumee Software",
         "street_address_1": "Tęczowa 7",
@@ -39,7 +39,7 @@ def test_validate_address():
 def test_validate_address_invalid_postal_code():
     # given
     address_data = {
-        "first_name": "John Saleor",
+        "first_name": "John pmtraders",
         "last_name": "Doe Mirumee",
         "company_name": "Mirumee Software",
         "street_address_1": "Tęczowa 7",
@@ -62,7 +62,7 @@ def test_validate_address_invalid_postal_code():
 def test_validate_address_no_country_code():
     # given
     address_data = {
-        "first_name": "John Saleor",
+        "first_name": "John pmtraders",
         "last_name": "Doe Mirumee",
         "company_name": "Mirumee Software",
         "street_address_1": "Tęczowa 7",
@@ -85,7 +85,7 @@ def test_validate_address_no_country_code():
 def test_validate_address_no_city():
     # given
     address_data = {
-        "first_name": "John Saleor",
+        "first_name": "John pmtraders",
         "last_name": "Doe Mirumee",
         "company_name": "Mirumee Software",
         "street_address_1": "Tęczowa 7",
@@ -127,7 +127,7 @@ ADDRESS_CREATE_MUTATION = """
 """
 
 
-@mock.patch("saleor.graphql.account.i18n.SKIP_ADDRESS_VALIDATION_PERMISSION_MAP", {})
+@mock.patch("pmtraders.graphql.account.i18n.SKIP_ADDRESS_VALIDATION_PERMISSION_MAP", {})
 def test_skip_address_validation_mutation_not_supported(
     staff_api_client,
     customer_user,

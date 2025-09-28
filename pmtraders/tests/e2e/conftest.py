@@ -63,7 +63,7 @@ def e2e_logged_api_client():
         email="JoeCustomer@example.com",
         password="password",
         first_name="Joe",
-        last_name="Saleor",
+        last_name="pmtraders",
         is_active=True,
         is_staff=False,
     )
@@ -80,7 +80,7 @@ def e2e_app_api_client():
     e2e_app = App.objects.create(
         name="e2e app",
         is_active=True,
-        identifier="saleor.e2e.app.test",
+        identifier="pmtraders.e2e.app.test",
     )
     return E2eApiClient(app=e2e_app)
 

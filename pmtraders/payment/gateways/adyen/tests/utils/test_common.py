@@ -5,10 +5,10 @@ from unittest import mock
 import pytest
 from prices import Money, TaxedMoney
 
-from saleor.checkout.fetch import fetch_checkout_info, fetch_checkout_lines
-from saleor.core.prices import quantize_price
-from saleor.payment import PaymentError
-from saleor.payment.gateways.adyen.utils.common import (
+from pmtraders.checkout.fetch import fetch_checkout_info, fetch_checkout_lines
+from pmtraders.core.prices import quantize_price
+from pmtraders.payment import PaymentError
+from pmtraders.payment.gateways.adyen.utils.common import (
     append_checkout_details,
     get_payment_method_info,
     get_request_data_for_check_payment,
@@ -17,9 +17,9 @@ from saleor.payment.gateways.adyen.utils.common import (
     request_data_for_payment,
     update_payment_with_action_required_data,
 )
-from saleor.payment.interface import PaymentMethodInfo
-from saleor.payment.utils import price_from_minor_unit, price_to_minor_unit
-from saleor.plugins.manager import get_plugins_manager
+from pmtraders.payment.interface import PaymentMethodInfo
+from pmtraders.payment.utils import price_from_minor_unit, price_to_minor_unit
+from pmtraders.plugins.manager import get_plugins_manager
 
 from ...utils.common import prepare_address_request_data
 
@@ -134,8 +134,8 @@ def test_append_checkout_details_without_sku(
     }
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.calculate_checkout_line_total")
-@mock.patch("saleor.plugins.manager.PluginsManager.calculate_checkout_line_unit_price")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.calculate_checkout_line_total")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.calculate_checkout_line_unit_price")
 def test_append_checkout_details_tax_included(
     mocked_calculate_checkout_line_unit_price,
     mocked_calculate_checkout_line_total,
@@ -608,7 +608,7 @@ def test_request_data_for_payment_channel_different_than_web(
 
 
 @pytest.mark.parametrize("method_type", ["klarna", "clearpay", "afterpaytouch"])
-@mock.patch("saleor.payment.gateways.adyen.utils.common.append_checkout_details")
+@mock.patch("pmtraders.payment.gateways.adyen.utils.common.append_checkout_details")
 def test_request_data_for_payment_append_checkout_details(
     append_checkout_details_mock, method_type, dummy_payment_data, dummy_address_data
 ):

@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 # No need to seperate state and db, cause CeleryTask model
-# is no longer used in code in SaleorCore.
+# is no longer used in code in pmtradersCore.
 class Migration(migrations.Migration):
     dependencies = [
         ("core", "0006_celerytask"),

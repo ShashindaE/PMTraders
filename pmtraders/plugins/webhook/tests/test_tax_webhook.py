@@ -20,7 +20,7 @@ from ....webhook.transport.taxes import (
 from ...manager import get_plugins_manager
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_taxes_for_checkout_no_permission(
     mock_request,
     webhook_plugin,
@@ -43,8 +43,8 @@ def test_get_taxes_for_checkout_no_permission(
 
 
 @freeze_time()
-@mock.patch("saleor.order.calculations.fetch_order_prices_if_expired")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_taxes_for_order(
     mock_request,
     mock_fetch,
@@ -80,7 +80,7 @@ def test_get_taxes_for_order(
     assert tax_data == parse_tax_data(tax_data_response, order.lines.count())
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_taxes_for_order_no_permission(
     mock_request,
     webhook_plugin,
@@ -160,8 +160,8 @@ def test_get_tax_code_from_object_meta_default_code(
 
 
 @freeze_time()
-@mock.patch("saleor.order.calculations.fetch_order_prices_if_expired")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_taxes_for_order_with_sync_subscription(
     mock_request,
     mock_fetch,
@@ -199,10 +199,10 @@ def test_get_taxes_for_order_with_sync_subscription(
 
 
 @freeze_time()
-@mock.patch("saleor.checkout.calculations.fetch_checkout_data")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.checkout.calculations.fetch_checkout_data")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_checkout_with_sync_subscription(
     mock_generate_payload,
@@ -235,7 +235,7 @@ def test_get_taxes_for_checkout_with_sync_subscription(
         event_type=WebhookEventSyncType.CHECKOUT_CALCULATE_TAXES,
         subscribable_object=checkout,
         subscription_query=subscription_query,
-        request=ANY,  # SaleorContext,
+        request=ANY,  # pmtradersContext,
         app=tax_app,
     )
     mock_request.assert_called_once()
@@ -251,10 +251,10 @@ def test_get_taxes_for_checkout_with_sync_subscription(
 
 
 @freeze_time()
-@mock.patch("saleor.checkout.calculations.fetch_checkout_data")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.checkout.calculations.fetch_checkout_data")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_checkout_with_sync_subscription_with_pregenerated_payload(
     mock_generate_payload,
@@ -335,10 +335,10 @@ def test_get_taxes_for_checkout_with_app_identifier_webhook_is_missing(
         )
 
 
-@mock.patch("saleor.checkout.calculations.fetch_checkout_data")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.checkout.calculations.fetch_checkout_data")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_checkout_with_app_identifier_invalid_response(
     mock_generate_payload,
@@ -370,10 +370,10 @@ def test_get_taxes_for_checkout_with_app_identifier_invalid_response(
 
 
 @freeze_time()
-@mock.patch("saleor.checkout.calculations.fetch_checkout_data")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.checkout.calculations.fetch_checkout_data")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_checkout_with_app_identifier(
     mock_generate_payload,
@@ -406,7 +406,7 @@ def test_get_taxes_for_checkout_with_app_identifier(
         event_type=WebhookEventSyncType.CHECKOUT_CALCULATE_TAXES,
         subscribable_object=checkout,
         subscription_query=subscription_query,
-        request=ANY,  # SaleorContext,
+        request=ANY,  # pmtradersContext,
         app=tax_app,
     )
     mock_request.assert_called_once()
@@ -445,10 +445,10 @@ def test_get_taxes_for_order_with_app_identifier_webhook_is_missing(
         plugin.get_taxes_for_order(order, app.identifier, None)
 
 
-@mock.patch("saleor.order.calculations.fetch_order_prices_if_expired")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_order_with_app_identifier_invalid_response(
     mock_generate_payload,
@@ -477,10 +477,10 @@ def test_get_taxes_for_order_with_app_identifier_invalid_response(
 
 
 @freeze_time()
-@mock.patch("saleor.order.calculations.fetch_order_prices_if_expired")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_order_with_app_identifier(
     mock_generate_payload,
@@ -510,7 +510,7 @@ def test_get_taxes_for_order_with_app_identifier(
         event_type=WebhookEventSyncType.ORDER_CALCULATE_TAXES,
         subscribable_object=order,
         subscription_query=subscription_query,
-        request=ANY,  # SaleorContext,
+        request=ANY,  # pmtradersContext,
         app=tax_app,
     )
     mock_request.assert_called_once()
@@ -526,10 +526,10 @@ def test_get_taxes_for_order_with_app_identifier(
 
 
 @freeze_time()
-@mock.patch("saleor.order.calculations.fetch_order_prices_if_expired")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_order_with_app_identifier_empty_response(
     mock_generate_payload,
@@ -557,10 +557,10 @@ def test_get_taxes_for_order_with_app_identifier_empty_response(
 
 
 @freeze_time()
-@mock.patch("saleor.checkout.calculations.fetch_checkout_data")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.checkout.calculations.fetch_checkout_data")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.webhook.transport.synchronous.transport.generate_payload_from_subscription"
+    "pmtraders.webhook.transport.synchronous.transport.generate_payload_from_subscription"
 )
 def test_get_taxes_for_checkout_with_app_identifier_empty_response(
     mock_generate_payload,

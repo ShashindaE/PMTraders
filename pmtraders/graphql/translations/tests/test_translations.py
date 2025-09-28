@@ -844,8 +844,8 @@ PRODUCT_TRANSLATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_product_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -856,7 +856,7 @@ def test_product_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     product_id = graphene.Node.to_global_id("Product", product.id)
     response = staff_api_client.post_graphql(
@@ -996,8 +996,8 @@ def test_product_create_translation_by_invalid_translatable_content_id(
     assert errors["field"] == "id"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_product_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1008,7 +1008,7 @@ def test_product_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = product.translations.create(language_code="pl", name="Produkt")
 
@@ -1060,8 +1060,8 @@ mutation productVariantTranslate(
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_product_variant_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1073,7 +1073,7 @@ def test_product_variant_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     product_variant_id = graphene.Node.to_global_id("ProductVariant", variant.id)
     response = staff_api_client.post_graphql(
@@ -1118,8 +1118,8 @@ def test_product_variant_create_translation_by_translatable_content_id(
     assert data["productVariant"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_product_variant_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1130,7 +1130,7 @@ def test_product_variant_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = variant.translations.create(language_code="pl", name="Wariant")
 
@@ -1208,8 +1208,8 @@ mutation collectionTranslate($collectionId: ID!, $input: TranslationInput!) {
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_collection_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1220,7 +1220,7 @@ def test_collection_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     collection_id = graphene.Node.to_global_id("Collection", published_collection.id)
     response = staff_api_client.post_graphql(
@@ -1301,8 +1301,8 @@ def test_collection_create_translation_for_description_name_as_null(
     assert data["collection"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_collection_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1313,7 +1313,7 @@ def test_collection_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = published_collection.translations.create(
         language_code="pl", name="Kolekcja"
@@ -1381,8 +1381,8 @@ mutation categoryTranslate($categoryId: ID!, $input: TranslationInput!) {
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_category_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1393,7 +1393,7 @@ def test_category_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     category_id = graphene.Node.to_global_id("Category", category.id)
     response = staff_api_client.post_graphql(
@@ -1474,8 +1474,8 @@ def test_category_create_translation_for_description_name_as_null(
     assert data["category"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_category_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1486,7 +1486,7 @@ def test_category_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = category.translations.create(language_code="pl", name="Kategoria")
 
@@ -1532,8 +1532,8 @@ VOUCHER_TRANSLATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_voucher_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1544,7 +1544,7 @@ def test_voucher_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     voucher_id = graphene.Node.to_global_id("Voucher", voucher.id)
     response = staff_api_client.post_graphql(
@@ -1588,8 +1588,8 @@ def test_voucher_create_translation_by_translatable_content_id(
     assert data["voucher"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_voucher_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1600,7 +1600,7 @@ def test_voucher_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     translation = voucher.translations.create(language_code="pl", name="Kategoria")
 
     voucher_id = graphene.Node.to_global_id("Voucher", voucher.id)
@@ -1649,8 +1649,8 @@ SALE_TRANSLATION_MUTATION = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_sale_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1662,7 +1662,7 @@ def test_sale_create_translation(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     sale = promotion_converted_from_sale
     sale_id = graphene.Node.to_global_id("Sale", sale.old_sale_id)
@@ -1719,8 +1719,8 @@ def test_sale_create_translation_by_translatable_content_id(
     assert data["sale"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_sale_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1732,7 +1732,7 @@ def test_sale_update_translation(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     promotion = promotion_converted_from_sale
     translation = promotion.translations.create(language_code="pl", name="Sale")
@@ -1813,8 +1813,8 @@ mutation pageTranslate($pageId: ID!, $input: PageTranslationInput!) {
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_page_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1825,7 +1825,7 @@ def test_page_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     page_id = graphene.Node.to_global_id("Page", page.id)
     response = staff_api_client.post_graphql(
@@ -1903,8 +1903,8 @@ def test_page_create_translation_by_translatable_content_id(
     assert data["page"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_page_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1915,7 +1915,7 @@ def test_page_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     translation = page.translations.create(language_code="pl", title="Strona")
 
     page_id = graphene.Node.to_global_id("Page", page.id)
@@ -1962,8 +1962,8 @@ ATTRIBUTE_TRANSLATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_attribute_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -1974,7 +1974,7 @@ def test_attribute_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     attribute_id = graphene.Node.to_global_id("Attribute", color_attribute.id)
     response = staff_api_client.post_graphql(
@@ -2018,8 +2018,8 @@ def test_attribute_create_translation_by_translatable_content_id(
     assert data["attribute"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_attribute_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2030,7 +2030,7 @@ def test_attribute_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = color_attribute.translations.create(language_code="pl", name="Kolor")
 
@@ -2083,8 +2083,8 @@ ATTRIBUTE_VALUE_TRANSLATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_attribute_value_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2095,7 +2095,7 @@ def test_attribute_value_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     attribute_value_id = graphene.Node.to_global_id(
         "AttributeValue", pink_attribute_value.id
@@ -2208,8 +2208,8 @@ def test_attribute_value_create_translation_by_translatable_content_id(
     assert data["attributeValue"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_attribute_value_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2220,7 +2220,7 @@ def test_attribute_value_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = pink_attribute_value.translations.create(
         language_code="pl", name="Różowy"
@@ -2670,8 +2670,8 @@ SHIPPING_PRICE_TRANSLATE = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_shipping_method_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2682,7 +2682,7 @@ def test_shipping_method_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     shipping_method_id = graphene.Node.to_global_id(
         "ShippingMethodType", shipping_method.id
     )
@@ -2740,8 +2740,8 @@ def test_shipping_method_create_translation_by_translatable_content_id(
     assert data["shippingMethod"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_shipping_method_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2752,7 +2752,7 @@ def test_shipping_method_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = shipping_method.translations.create(language_code="pl", name="DHL")
 
@@ -2818,8 +2818,8 @@ MENU_ITEM_TRANSLATE = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_menu_item_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2830,7 +2830,7 @@ def test_menu_item_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = menu_item.translations.create(language_code="pl", name="Odnośnik")
 
@@ -2876,8 +2876,8 @@ def test_menu_item_create_translation_by_translatable_content_id(
     assert data["menuItem"]["translation"]["language"]["code"] == "PL"
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_shop_create_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2888,7 +2888,7 @@ def test_shop_create_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     query = """
     mutation shopSettingsTranslate {
@@ -2948,8 +2948,8 @@ SHOP_SETTINGS_TRANSLATE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.webhook.plugin.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
+@patch("pmtraders.plugins.webhook.plugin.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async_for_multiple_objects")
 def test_shop_update_translation(
     mocked_webhook_trigger_for_multiple_objects,
     mocked_get_webhooks_for_event,
@@ -2960,7 +2960,7 @@ def test_shop_update_translation(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     translation = site_settings.translations.create(
         language_code="pl", header_text="Nagłówek"
@@ -2989,7 +2989,7 @@ def test_shop_update_translation(
     )
 
 
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_shop_translation_validates_values_lengths(
     mocked_webhook_trigger,
     staff_api_client,
@@ -2997,7 +2997,7 @@ def test_shop_translation_validates_values_lengths(
     permission_manage_translations,
     settings,
 ):
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     response = staff_api_client.post_graphql(
         SHOP_SETTINGS_TRANSLATE_MUTATION,

@@ -23,7 +23,7 @@ mutation addCheckoutLines($checkoutId: ID!, $line: CheckoutLineInput!) {
 """
 
 
-@patch("saleor.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout")
+@patch("pmtraders.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout")
 def test_checkout_lines_add_invalidate_prices(
     mocked_invalidate_checkout,
     api_client,
@@ -69,7 +69,7 @@ mutation updateCheckoutLines($token: UUID!, $line: CheckoutLineUpdateInput!) {
 """
 
 
-@patch("saleor.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout")
+@patch("pmtraders.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout")
 def test_checkout_lines_update_invalidate_prices(
     mocked_invalidate_checkout,
     api_client,
@@ -117,7 +117,7 @@ mutation deleteCheckoutLines($token: UUID!, $lineId: ID!){
 """
 
 
-@patch("saleor.graphql.checkout.mutations.checkout_lines_delete.invalidate_checkout")
+@patch("pmtraders.graphql.checkout.mutations.checkout_lines_delete.invalidate_checkout")
 def test_checkout_lines_delete_invalidate_prices(
     mocked_invalidate_checkout,
     api_client,
@@ -159,7 +159,7 @@ mutation deleteCheckoutLine($token: UUID!, $lineId: ID!){
 """
 
 
-@patch("saleor.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout")
+@patch("pmtraders.graphql.checkout.mutations.checkout_line_delete.invalidate_checkout")
 def test_checkout_line_delete_invalidate_prices(
     mocked_invalidate_checkout,
     api_client,
@@ -202,7 +202,7 @@ mutation UpdateCheckoutShippingAddress($token: UUID!, $address: AddressInput!) {
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_shipping_address_update"
+    "pmtraders.graphql.checkout.mutations.checkout_shipping_address_update"
     ".invalidate_checkout"
 )
 def test_checkout_shipping_address_update_invalidate_prices(
@@ -248,7 +248,7 @@ mutation UpdateCheckoutBillingAddress($token: UUID!, $address: AddressInput!) {
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_billing_address_update"
+    "pmtraders.graphql.checkout.mutations.checkout_billing_address_update"
     ".invalidate_checkout"
 )
 def test_checkout_billing_address_update_invalidate_prices(
@@ -292,7 +292,7 @@ mutation updateCheckoutShippingOptions($token: UUID!, $shippingMethodId: ID) {
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_shipping_method_update_invalidate_prices(
@@ -335,7 +335,7 @@ mutation updateCheckoutDeliveryOptions($token: UUID!, $deliveryMethodId: ID!) {
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.utils.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.utils.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_delivery_method_update_invalidate_prices(

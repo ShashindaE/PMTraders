@@ -83,12 +83,12 @@ MUTATION_CHECKOUT_LINES_UPDATE = """
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_lines_update(
@@ -141,12 +141,12 @@ def test_checkout_lines_update(
     ],
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout",
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add.invalidate_checkout",
     wraps=invalidate_checkout,
 )
 def test_checkout_lines_update_when_checkout_has_line_without_listing(
@@ -208,7 +208,7 @@ def test_checkout_lines_update_when_checkout_has_line_without_listing(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -251,7 +251,7 @@ def test_checkout_lines_update_using_line_id(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -357,7 +357,7 @@ def test_checkout_lines_update_block_when_variant_id_and_line_id_provided(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -1227,7 +1227,7 @@ def test_checkout_lines_delete_with_by_zero_quantity_when_variant_out_of_stock(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -1262,7 +1262,7 @@ def test_checkout_line_delete_by_zero_quantity(
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -1297,7 +1297,7 @@ def test_checkout_line_delete_by_zero_quantity_when_variant_unavailable_for_purc
 
 
 @mock.patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add."
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add."
     "update_checkout_shipping_method_if_invalid",
     wraps=update_checkout_shipping_method_if_invalid,
 )
@@ -1500,18 +1500,18 @@ def test_checkout_lines_update_quantity_gift(user_api_client, checkout_with_item
 
 
 @patch(
-    "saleor.graphql.checkout.mutations.checkout_lines_add.call_checkout_info_event",
+    "pmtraders.graphql.checkout.mutations.checkout_lines_add.call_checkout_info_event",
     wraps=call_checkout_info_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async",
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async",
     wraps=send_webhook_request_async.apply_async,
 )
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_using_scheme_method"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_lines_update_triggers_webhooks(
     mocked_send_webhook_using_scheme_method,
     mocked_send_webhook_request_async,
@@ -1613,7 +1613,7 @@ def test_checkout_lines_update_when_line_deleted(user_api_client, checkout_with_
 
     # when
     with mock.patch(
-        "saleor.graphql.checkout.mutations.checkout_lines_add.add_variants_to_checkout",
+        "pmtraders.graphql.checkout.mutations.checkout_lines_add.add_variants_to_checkout",
         wraps=add_variants_to_checkout_wrapper,
     ):
         response = user_api_client.post_graphql(
@@ -1923,11 +1923,11 @@ def test_checkout_lines_update_with_new_metadata_merge_old(
 
 
 @mock.patch(
-    "saleor.checkout.calculations._calculate_and_add_tax",
+    "pmtraders.checkout.calculations._calculate_and_add_tax",
     wraps=_calculate_and_add_tax,
 )
 @mock.patch(
-    "saleor.checkout.calculations.fetch_checkout_data",
+    "pmtraders.checkout.calculations.fetch_checkout_data",
     wraps=fetch_checkout_data,
 )
 def test_checkout_lines_update_checkout_updated_during_price_recalculation(
@@ -1955,7 +1955,7 @@ def test_checkout_lines_update_checkout_updated_during_price_recalculation(
         checkout_to_modify.save(update_fields=["email", "last_change"])
 
     with race_condition.RunAfter(
-        "saleor.checkout.calculations._calculate_and_add_tax", modify_checkout
+        "pmtraders.checkout.calculations._calculate_and_add_tax", modify_checkout
     ):
         response = user_api_client.post_graphql(
             MUTATION_CHECKOUT_LINES_UPDATE, variables
@@ -1999,7 +1999,7 @@ def test_checkout_lines_update_checkout_removed_before_adding_variants_to_checko
         Checkout.objects.filter(pk=checkout.pk).delete()
 
     with race_condition.RunBefore(
-        "saleor.graphql.checkout.mutations.checkout_lines_add.add_variants_to_checkout",
+        "pmtraders.graphql.checkout.mutations.checkout_lines_add.add_variants_to_checkout",
         delete_checkout,
     ):
         response = user_api_client.post_graphql(

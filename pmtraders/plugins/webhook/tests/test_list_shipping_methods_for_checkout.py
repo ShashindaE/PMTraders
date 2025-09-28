@@ -14,7 +14,7 @@ from ....webhook.transport.utils import generate_cache_key_for_webhook
 from ..plugin import CACHE_TIME_SHIPPING_LIST_METHODS_FOR_CHECKOUT
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_shipping_methods_for_checkout_webhook_response_none(
     mocked_webhook,
     webhook_plugin,
@@ -33,8 +33,8 @@ def test_get_shipping_methods_for_checkout_webhook_response_none(
     assert not response
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_shipping_methods_for_checkout_set_cache(
     mocked_webhook,
     mocked_cache_set,
@@ -61,8 +61,8 @@ def test_get_shipping_methods_for_checkout_set_cache(
     assert mocked_cache_set.called
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_shipping_methods_no_webhook_response_sets_short_term_cache(
     mocked_webhook,
     mocked_cache_set,
@@ -97,8 +97,8 @@ def test_get_shipping_methods_no_webhook_response_sets_short_term_cache(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_shipping_methods_for_checkout_use_cache(
     mocked_webhook,
     mocked_cache_get,
@@ -125,8 +125,8 @@ def test_get_shipping_methods_for_checkout_use_cache(
     assert mocked_cache_get.called
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_get_shipping_methods_for_checkout_use_cache_for_empty_list(
     mocked_webhook,
     mocked_cache_get,
@@ -146,9 +146,9 @@ def test_get_shipping_methods_for_checkout_use_cache_for_empty_list(
     assert mocked_cache_get.called
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_checkout_change_invalidates_cache_key(
     mocked_webhook,
     mocked_cache_get,
@@ -203,9 +203,9 @@ def test_checkout_change_invalidates_cache_key(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 def test_ignore_selected_fields_on_generating_cache_key(
     mocked_webhook,
     mocked_cache_get,

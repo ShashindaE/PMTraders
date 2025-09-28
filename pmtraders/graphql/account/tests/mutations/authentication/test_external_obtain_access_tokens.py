@@ -39,7 +39,7 @@ def test_external_obtain_access_tokens_plugin_not_active(api_client, customer_us
     assert data["user"] is None
 
 
-@patch("saleor.core.middleware.jwt_decode_with_exception_handler")
+@patch("pmtraders.core.middleware.jwt_decode_with_exception_handler")
 def test_external_obtain_access_tokens(
     mock_refresh_token_middleware, api_client, customer_user, monkeypatch
 ):
@@ -55,7 +55,7 @@ def test_external_obtain_access_tokens(
     )
     mocked_plugin_fun.return_value = expected_return
     monkeypatch.setattr(
-        "saleor.plugins.manager.PluginsManager.external_obtain_access_tokens",
+        "pmtraders.plugins.manager.PluginsManager.external_obtain_access_tokens",
         mocked_plugin_fun,
     )
     variables = {
@@ -74,7 +74,7 @@ def test_external_obtain_access_tokens(
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.core.middleware.jwt_decode_with_exception_handler")
+@patch("pmtraders.core.middleware.jwt_decode_with_exception_handler")
 def test_external_obtain_access_tokens_do_not_update_last_login_when_in_threshold(
     mock_refresh_token_middleware, api_client, customer_user, monkeypatch, settings
 ):
@@ -91,7 +91,7 @@ def test_external_obtain_access_tokens_do_not_update_last_login_when_in_threshol
     )
     mocked_plugin_fun.return_value = expected_return
     monkeypatch.setattr(
-        "saleor.plugins.manager.PluginsManager.external_obtain_access_tokens",
+        "pmtraders.plugins.manager.PluginsManager.external_obtain_access_tokens",
         mocked_plugin_fun,
     )
     variables = {
@@ -120,7 +120,7 @@ def test_external_obtain_access_tokens_do_not_update_last_login_when_in_threshol
 
 
 @freeze_time("2020-03-18 12:00:00")
-@patch("saleor.core.middleware.jwt_decode_with_exception_handler")
+@patch("pmtraders.core.middleware.jwt_decode_with_exception_handler")
 def test_external_obtain_access_tokens_do_update_last_login_when_out_of_threshold(
     mock_refresh_token_middleware, api_client, customer_user, monkeypatch, settings
 ):
@@ -137,7 +137,7 @@ def test_external_obtain_access_tokens_do_update_last_login_when_out_of_threshol
     )
     mocked_plugin_fun.return_value = expected_return
     monkeypatch.setattr(
-        "saleor.plugins.manager.PluginsManager.external_obtain_access_tokens",
+        "pmtraders.plugins.manager.PluginsManager.external_obtain_access_tokens",
         mocked_plugin_fun,
     )
     variables = {

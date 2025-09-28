@@ -47,7 +47,7 @@ def test_install_app_mutation(
     # given
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_install.install_app_task.delay", mocked_task
+        "pmtraders.graphql.app.mutations.app_install.install_app_task.delay", mocked_task
     )
     staff_user.user_permissions.set([permission_manage_apps, permission_manage_orders])
     variables = {
@@ -82,7 +82,7 @@ def test_install_app_mutation_with_another_app_installed_but_marked_to_be_remove
     # given
     mocked_task = Mock()
     monkeypatch.setattr(
-        "saleor.graphql.app.mutations.app_install.install_app_task.delay", mocked_task
+        "pmtraders.graphql.app.mutations.app_install.install_app_task.delay", mocked_task
     )
     staff_user.user_permissions.set([permission_manage_apps, permission_manage_orders])
     variables = {
@@ -148,9 +148,9 @@ def test_app_install_mutation_out_of_scope_permissions(
     assert error["permissions"] == [PermissionEnum.MANAGE_ORDERS.name]
 
 
-@patch("saleor.app.installation_utils.send_app_token", Mock())
+@patch("pmtraders.app.installation_utils.send_app_token", Mock())
 @patch(
-    "saleor.graphql.app.mutations.app_install.install_app_task.delay", install_app_task
+    "pmtraders.graphql.app.mutations.app_install.install_app_task.delay", install_app_task
 )
 def test_install_app_mutation_with_the_same_identifier_twice(
     permission_manage_apps,
@@ -169,7 +169,7 @@ def test_install_app_mutation_with_the_same_identifier_twice(
     }
 
     # when
-    with patch("saleor.app.installation_utils.fetch_manifest") as mocked_fetch:
+    with patch("pmtraders.app.installation_utils.fetch_manifest") as mocked_fetch:
         mocked_fetch.return_value = {
             "id": app.identifier,
             "tokenTargetUrl": "http://localhost:3000/register",

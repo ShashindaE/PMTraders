@@ -293,14 +293,14 @@ def test_draft_order_delete_release_voucher_codes_single_use(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_delete.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_delete.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_draft_order_delete_do_not_trigger_sync_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -343,7 +343,7 @@ def test_draft_order_delete_do_not_trigger_sync_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
     assert not mocked_send_webhook_request_sync.called
     assert wrapped_call_order_event.called

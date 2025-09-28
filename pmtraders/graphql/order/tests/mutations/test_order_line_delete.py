@@ -45,7 +45,7 @@ ORDER_LINE_DELETE_MUTATION = """
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_variant_back_in_stock")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_back_in_stock")
 def test_order_line_remove_with_back_in_stock_webhook(
     back_in_stock_webhook_mock,
     order_with_lines,
@@ -96,8 +96,8 @@ def test_order_line_remove_with_back_in_stock_webhook(
 
 
 @pytest.mark.parametrize("status", [OrderStatus.DRAFT, OrderStatus.UNCONFIRMED])
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_remove(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -134,8 +134,8 @@ def test_order_line_remove(
     assert order.lines_count == order.lines.count()
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_remove_no_line_allocations(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -196,8 +196,8 @@ def test_order_line_remove_by_usr_no_channel_access(
     assert_no_permission(response)
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_order_line_remove_by_app(
     order_updated_webhook_mock,
     draft_order_updated_webhook_mock,
@@ -238,8 +238,8 @@ def test_order_line_remove_by_app(
     assert order.lines_count == order.lines.count()
 
 
-@patch("saleor.plugins.manager.PluginsManager.draft_order_updated")
-@patch("saleor.plugins.manager.PluginsManager.order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.draft_order_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.order_updated")
 def test_invalid_order_when_removing_lines(
     order_update_webhook_mock,
     draft_order_update_webhook_mock,
@@ -323,14 +323,14 @@ def test_order_line_delete_non_removable_gift(
     ],
 )
 @patch(
-    "saleor.graphql.order.mutations.utils.call_order_event",
+    "pmtraders.graphql.order.mutations.utils.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_order_line_delete_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -375,7 +375,7 @@ def test_order_line_delete_triggers_webhooks(
     mocked_send_webhook_request_async.assert_called_once_with(
         kwargs={"event_delivery_id": order_delivery.id, "telemetry_context": ANY},
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

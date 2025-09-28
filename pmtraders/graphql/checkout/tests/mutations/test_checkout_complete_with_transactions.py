@@ -1306,8 +1306,8 @@ def test_checkout_complete_with_inactive_channel(
 
 
 @pytest.mark.integration
-@patch("saleor.order.calculations._recalculate_with_plugins")
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.order.calculations._recalculate_with_plugins")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete(
     order_confirmed_mock,
     recalculate_with_plugins_mock,
@@ -1452,7 +1452,7 @@ def test_checkout_complete(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_with_metadata(
     order_confirmed_mock,
     user_api_client,
@@ -1518,7 +1518,7 @@ def test_checkout_complete_with_metadata(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_with_metadata_updates_existing_keys(
     site_settings,
     user_api_client,
@@ -1572,7 +1572,7 @@ def test_checkout_complete_with_metadata_updates_existing_keys(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_with_metadata_checkout_without_metadata(
     order_confirmed_mock,
     user_api_client,
@@ -1634,7 +1634,7 @@ def test_checkout_complete_with_metadata_checkout_without_metadata(
 
 
 @pytest.mark.integration
-@patch("saleor.graphql.checkout.mutations.checkout_complete.complete_checkout")
+@patch("pmtraders.graphql.checkout.mutations.checkout_complete.complete_checkout")
 def test_checkout_complete_by_app(
     mocked_complete_checkout,
     app_api_client,
@@ -1691,7 +1691,7 @@ def test_checkout_complete_by_app(
 
 
 @pytest.mark.integration
-@patch("saleor.graphql.checkout.mutations.checkout_complete.complete_checkout")
+@patch("pmtraders.graphql.checkout.mutations.checkout_complete.complete_checkout")
 def test_checkout_complete_by_app_with_missing_permission(
     mocked_complete_checkout,
     app_api_client,
@@ -1745,8 +1745,8 @@ def test_checkout_complete_by_app_with_missing_permission(
     )
 
 
-@patch("saleor.giftcard.utils.send_gift_card_notification")
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.giftcard.utils.send_gift_card_notification")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_gift_card_bought(
     order_confirmed_mock,
     send_notification_mock,
@@ -1813,7 +1813,7 @@ def test_checkout_complete_gift_card_bought(
     assert Fulfillment.objects.count() == 1
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_with_shipping_voucher_and_gift_card(
     order_confirmed_mock,
     user_api_client,
@@ -1996,7 +1996,7 @@ def test_checkout_complete_with_variant_without_sku(
         "expected_unit_discount_reason",
     ),
     [
-        (True, Decimal(1), "Entire order voucher code: saleor"),
+        (True, Decimal(1), "Entire order voucher code: pmtraders"),
         (False, Decimal(0), None),
     ],
 )
@@ -2707,7 +2707,7 @@ def test_checkout_complete_with_voucher_single_use(
     )
 
 
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_with_shipping_voucher(
     order_confirmed_mock,
     user_api_client,
@@ -4301,7 +4301,7 @@ def test_checkout_complete_raises_InvalidShippingMethod_when_warehouse_disabled(
 
 
 @pytest.mark.integration
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_with_preorder_variant(
     order_confirmed_mock,
     site_settings,
@@ -4971,7 +4971,7 @@ def test_checkout_complete_line_deleted_in_the_meantime(
 
     # when
     with race_condition.RunBefore(
-        "saleor.graphql.checkout.mutations.checkout_complete.complete_checkout",
+        "pmtraders.graphql.checkout.mutations.checkout_complete.complete_checkout",
         delete_order_line,
     ):
         response = user_api_client.post_graphql(MUTATION_CHECKOUT_COMPLETE, variables)
@@ -4994,7 +4994,7 @@ def test_checkout_complete_with_invalid_address(
 ):
     """Check if checkout can be completed with invalid address.
 
-    After introducing `AddressInput.skip_validation`, Saleor may have invalid address
+    After introducing `AddressInput.skip_validation`, pmtraders may have invalid address
     stored in database.
     """
     # given
@@ -5055,7 +5055,7 @@ def test_checkout_complete_with_invalid_address(
     assert customer_user.addresses.first().id != order.billing_address.id
 
 
-@patch("saleor.checkout.complete_checkout._get_unit_discount_reason")
+@patch("pmtraders.checkout.complete_checkout._get_unit_discount_reason")
 def test_checkout_complete_log_unknown_discount_reason(
     mocked_discount_reason,
     user_api_client,
@@ -5099,8 +5099,8 @@ def test_checkout_complete_log_unknown_discount_reason(
     assert caplog.records[0].checkout_id == to_global_id_or_none(checkout)
 
 
-@patch("saleor.order.calculations._recalculate_with_plugins")
-@patch("saleor.plugins.manager.PluginsManager.order_confirmed")
+@patch("pmtraders.order.calculations._recalculate_with_plugins")
+@patch("pmtraders.plugins.manager.PluginsManager.order_confirmed")
 def test_checkout_complete_empty_product_translation(
     order_confirmed_mock,
     recalculate_with_plugins_mock,
@@ -5245,8 +5245,8 @@ def test_complete_checkout_order_status_changed_after_creation(
     assert order["status"] == OrderStatus.UNFULFILLED.upper()
 
 
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_checkout_complete_with_external_shipping_method(
     mocked_sync_webhook,
     user_api_client,

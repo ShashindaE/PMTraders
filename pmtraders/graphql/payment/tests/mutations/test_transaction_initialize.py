@@ -199,7 +199,7 @@ def _assert_fields(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_without_payment_gateway_data(
     mocked_initialize,
     user_api_client,
@@ -286,7 +286,7 @@ def test_for_checkout_transactions_limit_on_transaction_initialize(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_with_idempotency_key(
     mocked_initialize,
     user_api_client,
@@ -340,7 +340,7 @@ def test_for_checkout_with_idempotency_key(
     assert transaction.events.first().idempotency_key == idempotency_key
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_amount_with_lot_of_decimal_places(
     mocked_initialize,
     user_api_client,
@@ -405,7 +405,7 @@ def test_for_checkout_amount_with_lot_of_decimal_places(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_with_multiple_calls_and_idempotency_key(
     mocked_initialize,
     user_api_client,
@@ -462,7 +462,7 @@ def test_for_checkout_with_multiple_calls_and_idempotency_key(
     assert transaction.events.first().idempotency_key == idempotency_key
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_order_with_multiple_calls_and_idempotency_key(
     mocked_initialize,
     user_api_client,
@@ -519,7 +519,7 @@ def test_for_order_with_multiple_calls_and_idempotency_key(
     assert transaction.events.first().idempotency_key == idempotency_key
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_order_with_idempotency_key(
     mocked_initialize,
     user_api_client,
@@ -573,7 +573,7 @@ def test_for_order_with_idempotency_key(
     assert transaction.events.first().idempotency_key == idempotency_key
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_order_without_payment_gateway_data(
     mocked_initialize,
     user_api_client,
@@ -624,7 +624,7 @@ def test_for_order_without_payment_gateway_data(
     assert order.total_charged_amount == expected_amount
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_with_pending_amount(
     mocked_initialize,
     user_api_client,
@@ -676,7 +676,7 @@ def test_checkout_with_pending_amount(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.PARTIAL
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_order_with_pending_amount(
     mocked_initialize,
     user_api_client,
@@ -729,7 +729,7 @@ def test_order_with_pending_amount(
     assert order.total_charged_amount == Decimal(0)
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_with_action_required_response(
     mocked_initialize,
     user_api_client,
@@ -779,7 +779,7 @@ def test_checkout_with_action_required_response(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.NONE
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_order_with_action_required_response(
     mocked_initialize,
     user_api_client,
@@ -830,7 +830,7 @@ def test_order_with_action_required_response(
     assert order.total_charged_amount == Decimal(0)
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_with_action_required_response_and_missing_psp_reference(
     mocked_initialize,
     user_api_client,
@@ -879,7 +879,7 @@ def test_checkout_with_action_required_response_and_missing_psp_reference(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.NONE
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_order_with_action_required_response_and_missing_psp_reference(
     mocked_initialize,
     user_api_client,
@@ -929,7 +929,7 @@ def test_order_with_action_required_response_and_missing_psp_reference(
     assert order.total_charged_amount == Decimal(0)
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_when_amount_is_not_provided(
     mocked_initialize,
     user_api_client,
@@ -984,7 +984,7 @@ def test_checkout_when_amount_is_not_provided(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.FULL
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_order_when_amount_is_not_provided(
     mocked_initialize,
     user_api_client,
@@ -1043,7 +1043,7 @@ def test_order_when_amount_is_not_provided(
         (False, OrderStatus.UNCONFIRMED),
     ],
 )
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_order_status_with_order_confirmation(
     mocked_initialize,
     auto_order_confirmation,
@@ -1107,7 +1107,7 @@ def test_order_status_with_order_confirmation(
     "auto_order_confirmation",
     [True, False],
 )
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_draft_order_status_with_order_confirmation(
     mocked_initialize,
     auto_order_confirmation,
@@ -1165,7 +1165,7 @@ def test_draft_order_status_with_order_confirmation(
     assert order.charge_status == OrderChargeStatus.FULL
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_order_with_transaction_when_amount_is_not_provided(
     mocked_initialize,
     user_api_client,
@@ -1227,7 +1227,7 @@ def test_order_with_transaction_when_amount_is_not_provided(
     assert order.total_charged_amount == order.total_gross_amount
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_with_transaction_when_amount_is_not_provided(
     mocked_initialize,
     user_api_client,
@@ -1294,7 +1294,7 @@ def test_checkout_with_transaction_when_amount_is_not_provided(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.FULL
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_app_with_action_field_and_handle_payments(
     mocked_initialize,
     app_api_client,
@@ -1355,7 +1355,7 @@ def test_app_with_action_field_and_handle_payments(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.FULL
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_uses_default_channel_action(
     mocked_initialize,
     user_api_client,
@@ -1409,7 +1409,7 @@ def test_uses_default_channel_action(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_transaction_initialize_for_already_used_idempotency_key(
     mocked_initialize,
     user_api_client,
@@ -1459,7 +1459,7 @@ def test_transaction_initialize_for_already_used_idempotency_key(
     mocked_initialize.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_transaction_initialize_for_already_used_idempotency_key_and_different_input(
     mocked_initialize,
     user_api_client,
@@ -1525,7 +1525,7 @@ def test_transaction_initialize_for_already_used_idempotency_key_and_different_i
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_transaction_initialize_for_empty_string_as_idempotency_key(
     mocked_initialize,
     user_api_client,
@@ -1571,7 +1571,7 @@ def test_transaction_initialize_for_empty_string_as_idempotency_key(
     mocked_initialize.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_transaction_initialize_for_removed_app(
     mocked_initialize,
     user_api_client,
@@ -1603,7 +1603,7 @@ def test_transaction_initialize_for_removed_app(
     mocked_initialize.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_transaction_initialize_for_disabled_app(
     mocked_initialize,
     user_api_client,
@@ -1636,7 +1636,7 @@ def test_transaction_initialize_for_disabled_app(
     mocked_initialize.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_app_with_action_field(
     mocked_initialize,
     app_api_client,
@@ -1826,10 +1826,10 @@ def test_order_doesnt_exists(
 @pytest.mark.parametrize(
     "result", [TransactionEventType.CHARGE_REQUEST, TransactionEventType.CHARGE_SUCCESS]
 )
-@mock.patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_fully_paid(
     mocked_initialize,
     mocked_fully_authorized,
@@ -1883,9 +1883,9 @@ def test_checkout_fully_paid(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.FULL
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_fully_paid_automatic_completion(
     mocked_initialize,
     mocked_fully_paid,
@@ -1945,9 +1945,9 @@ def test_checkout_fully_paid_automatic_completion(
     mocked_fully_authorized.assert_called_once_with(checkout, webhooks=set())
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_fully_paid_pending_charge_automatic_completion(
     mocked_initialize,
     mocked_fully_paid,
@@ -2011,10 +2011,10 @@ def test_checkout_fully_paid_pending_charge_automatic_completion(
         TransactionEventType.AUTHORIZATION_SUCCESS,
     ],
 )
-@mock.patch("saleor.checkout.tasks.automatic_checkout_completion_task.delay")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.checkout.tasks.automatic_checkout_completion_task.delay")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_fully_authorized(
     mocked_initialize,
     mocked_fully_authorized,
@@ -2068,9 +2068,9 @@ def test_checkout_fully_authorized(
     mocked_fully_paid.assert_not_called()
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_fully_authorized_automatic_completion(
     mocked_initialize,
     mocked_fully_paid,
@@ -2130,9 +2130,9 @@ def test_checkout_fully_authorized_automatic_completion(
     mocked_fully_authorized.assert_called_once_with(checkout, webhooks=set())
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_authorized")
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_authorized")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_checkout_fully_authorizaed_pending_authorization_automatic_completion(
     mocked_initialize,
     mocked_fully_paid,
@@ -2245,7 +2245,7 @@ def test_app_missing_permission_for_customer_ip_address(
     assert_no_permission(response)
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_with_customer_ip_address(
     mocked_initialize,
     app_api_client,
@@ -2303,7 +2303,7 @@ def test_with_customer_ip_address(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_sets_customer_ip_address_when_not_provided(
     mocked_initialize,
     app_api_client,
@@ -2399,7 +2399,7 @@ def test_customer_ip_address_wrong_format(
     assert errors[0]["code"] == TransactionInitializeErrorCode.INVALID.name
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_customer_ip_address_ipv6(
     mocked_initialize,
     app_api_client,
@@ -2462,8 +2462,8 @@ def test_customer_ip_address_ipv6(
     "previous_last_transaction_modified_at",
     [None, datetime.datetime(2020, 1, 1, tzinfo=datetime.UTC)],
 )
-@mock.patch("saleor.plugins.manager.PluginsManager.checkout_fully_paid")
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.checkout_fully_paid")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_updates_checkout_last_transaction_modified_at(
     mocked_initialize,
     mocked_fully_paid,
@@ -2520,7 +2520,7 @@ def test_updates_checkout_last_transaction_modified_at(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_locked_checkout(
     mocked_initialize,
     user_api_client,
@@ -2570,7 +2570,7 @@ def test_for_locked_checkout(
     assert error["field"] == "id"
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_with_payments(
     mocked_initialize,
     user_api_client,
@@ -2639,7 +2639,7 @@ def test_for_checkout_with_payments(
         assert payment.is_active is False
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_with_payments_error_raised(
     mocked_initialize,
     user_api_client,
@@ -2697,7 +2697,7 @@ def test_for_checkout_with_payments_error_raised(
     assert payments[1].is_active is False
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_too_long_message_in_response(
     mocked_initialize,
     user_api_client,
@@ -2755,7 +2755,7 @@ def test_for_checkout_too_long_message_in_response(
     ) in [record.message for record in caplog.records]
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_for_checkout_empty_message(
     mocked_initialize,
     user_api_client,
@@ -2809,8 +2809,8 @@ def test_for_checkout_empty_message(
     assert checkout.authorize_status == CheckoutAuthorizeStatus.PARTIAL
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_for_checkout_with_shipping_app(
     mocked_send_webhook_request_sync,
     app_api_client,
@@ -2877,9 +2877,9 @@ def test_for_checkout_with_shipping_app(
         assert delivery.payload.get_payload()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @override_settings(
-    PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"],
+    PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"],
     CHECKOUT_PRICES_TTL=datetime.timedelta(0),
 )
 def test_for_checkout_with_tax_app(
@@ -2932,8 +2932,8 @@ def test_for_checkout_with_tax_app(
         assert delivery.payload.get_payload()
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_for_order_with_tax_app(
     mocked_send_webhook_request_sync,
     app_api_client,
@@ -2993,10 +2993,10 @@ def test_for_order_with_tax_app(
 # Test wrapped by `transaction=True` to ensure that `selector_for_update` is called in a database transaction.
 @pytest.mark.django_db(transaction=True)
 @mock.patch(
-    "saleor.payment.utils.get_order_and_transaction_item_locked_for_update",
+    "pmtraders.payment.utils.get_order_and_transaction_item_locked_for_update",
     wraps=get_order_and_transaction_item_locked_for_update,
 )
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_lock_order_during_updating_order_amounts(
     mocked_initialize,
     mocked_get_order_and_transaction_item_locked_for_update,
@@ -3059,10 +3059,10 @@ def test_lock_order_during_updating_order_amounts(
 # Test wrapped by `transaction=True` to ensure that `selector_for_update` is called in a database transaction.
 @pytest.mark.django_db(transaction=True)
 @mock.patch(
-    "saleor.payment.utils.get_checkout_and_transaction_item_locked_for_update",
+    "pmtraders.payment.utils.get_checkout_and_transaction_item_locked_for_update",
     wraps=get_checkout_and_transaction_item_locked_for_update,
 )
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_lock_checkout_during_updating_checkout_amounts(
     mocked_initialize,
     mocked_get_checkout_and_transaction_item_locked_for_update,
@@ -3122,7 +3122,7 @@ def test_lock_checkout_during_updating_checkout_amounts(
     )
 
 
-@mock.patch("saleor.plugins.manager.PluginsManager.transaction_initialize_session")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.transaction_initialize_session")
 def test_transaction_initialize_checkout_completed_race_condition(
     mocked_initialize,
     user_api_client,
@@ -3163,7 +3163,7 @@ def test_transaction_initialize_checkout_completed_race_condition(
         )
 
     with race_condition.RunBefore(
-        "saleor.payment.utils.recalculate_transaction_amounts",
+        "pmtraders.payment.utils.recalculate_transaction_amounts",
         complete_checkout,
     ):
         user_api_client.post_graphql(TRANSACTION_INITIALIZE, variables)

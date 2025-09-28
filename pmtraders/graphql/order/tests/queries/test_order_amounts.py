@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import pytest
 
-from saleor.core.prices import quantize_price
+from pmtraders.core.prices import quantize_price
 
 from ....core.utils import to_global_id_or_none
 from ....tests.utils import assert_no_permission, get_graphql_content

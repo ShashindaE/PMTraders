@@ -39,7 +39,7 @@ def test_should_not_be_able_to_create_account_with_existing_email_core_1503(
         },
     )
     channel_slug = shop_data[0]["slug"]
-    user_email = "user@saleor.io"
+    user_email = "user@pmtraders.io"
     user_password = "Test1234!"
 
     # Step 1 - Create account for the new customer

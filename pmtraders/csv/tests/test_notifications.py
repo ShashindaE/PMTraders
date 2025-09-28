@@ -11,9 +11,9 @@ from ..notifications import get_default_export_payload
 
 
 @freeze_time("2018-05-31 12:00:01")
-@mock.patch("saleor.plugins.manager.PluginsManager.gift_card_export_completed")
-@mock.patch("saleor.plugins.manager.PluginsManager.product_export_completed")
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.gift_card_export_completed")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_export_completed")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_export_download_link_notification(
     mocked_notify,
     mocked_product_export_completed,
@@ -56,9 +56,9 @@ def test_send_export_download_link_notification(
 
 
 @freeze_time("2018-05-31 12:00:01")
-@mock.patch("saleor.plugins.manager.PluginsManager.gift_card_export_completed")
-@mock.patch("saleor.plugins.manager.PluginsManager.product_export_completed")
-@mock.patch("saleor.plugins.manager.PluginsManager.notify")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.gift_card_export_completed")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.product_export_completed")
+@mock.patch("pmtraders.plugins.manager.PluginsManager.notify")
 def test_send_export_failed_info(
     mocked_notify,
     mocked_product_export_completed,

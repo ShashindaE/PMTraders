@@ -46,14 +46,14 @@ class TaxConfiguration(ModelObjectType[models.TaxConfiguration]):
         required=True,
     )
     countries = NonNullList(
-        "saleor.graphql.tax.types.TaxConfigurationPerCountry",
+        "pmtraders.graphql.tax.types.TaxConfigurationPerCountry",
         required=True,
         description="List of country-specific exceptions in tax configuration.",
     )
     tax_app_id = graphene.String(
         description=(
             "The tax app `App.identifier` that will be used to calculate the taxes for the given channel. "
-            "Empty value for `TAX_APP` set as `taxCalculationStrategy` means that Saleor will "
+            "Empty value for `TAX_APP` set as `taxCalculationStrategy` means that pmtraders will "
             "iterate over all installed tax apps. If multiple tax apps exist with provided "
             "tax app id use the `App` with newest `created` date. "
             "Will become mandatory in 4.0 for `TAX_APP` `taxCalculationStrategy`."
@@ -157,7 +157,7 @@ class TaxConfigurationPerCountry(ModelObjectType[models.TaxConfigurationPerCount
 class TaxClass(ModelObjectType[models.TaxClass]):
     name = graphene.String(description="Name of the tax class.", required=True)
     countries = NonNullList(
-        "saleor.graphql.tax.types.TaxClassCountryRate",
+        "pmtraders.graphql.tax.types.TaxClassCountryRate",
         required=True,
         description="Country-specific tax rates for this tax class.",
     )

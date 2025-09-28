@@ -10,7 +10,7 @@ from opentelemetry.semconv._incubating.attributes import graphql_attributes
 from opentelemetry.trace import StatusCode
 from requests_hardened import HTTPSession
 
-from ...core.telemetry import saleor_attributes
+from ...core.telemetry import pmtraders_attributes
 from ...graphql.api import backend, schema
 from ...tests.utils import filter_spans_by_name, get_span_by_name
 from ..views import GraphQLView
@@ -45,7 +45,7 @@ def test_tracing_query_hashing(
         span.attributes[graphql_attributes.GRAPHQL_DOCUMENT].encode("utf-8")
     ).hexdigest()
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
+        span.attributes[pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
         == f"query:test:{hash}"
     )
 
@@ -85,7 +85,7 @@ def test_tracing_query_hashing_with_fragment(
         span.attributes[graphql_attributes.GRAPHQL_DOCUMENT].encode("utf-8")
     ).hexdigest()
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
+        span.attributes[pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
         == f"query:test:{hash}"
     )
 
@@ -117,7 +117,7 @@ def test_tracing_query_hashing_different_vars_same_checksum(
 
     # then
     fingerprints = [
-        span.attributes[saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
+        span.attributes[pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
         for span in filter_spans_by_name(get_test_spans(), query)
     ]
     assert len(fingerprints) == QUERIES
@@ -153,7 +153,7 @@ def test_tracing_query_hashing_unnamed_query(
         span.attributes[graphql_attributes.GRAPHQL_DOCUMENT].encode("utf-8")
     ).hexdigest()
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
+        span.attributes[pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
         == f"query:{hash}"
     )
 
@@ -187,7 +187,7 @@ def test_tracing_query_hashing_unnamed_query_no_query_spec(
         span.attributes[graphql_attributes.GRAPHQL_DOCUMENT].encode("utf-8")
     ).hexdigest()
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
+        span.attributes[pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
         == f"query:{hash}"
     )
 
@@ -230,7 +230,7 @@ def test_tracing_mutation_hashing(
         span.attributes[graphql_attributes.GRAPHQL_DOCUMENT].encode("utf-8")
     ).hexdigest()
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
+        span.attributes[pmtraders_attributes.GRAPHQL_DOCUMENT_FINGERPRINT]
         == f"mutation:cancelOrder:{hash}"
     )
 
@@ -270,7 +270,7 @@ def test_tracing_query_identifier_for_query(
 
     # then
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER]
+        span.attributes[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER]
         == "me, products"
     )
 
@@ -305,7 +305,7 @@ def test_tracing_query_identifier_with_fragment(
     span = get_span_by_name(get_test_spans(), query)
 
     # then
-    assert span.attributes[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "products"
+    assert span.attributes[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "products"
 
 
 def test_tracing_query_identifier_for_unnamed_mutation(
@@ -327,7 +327,7 @@ def test_tracing_query_identifier_for_unnamed_mutation(
 
     # then
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "tokenCreate"
+        span.attributes[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "tokenCreate"
     )
 
 
@@ -350,7 +350,7 @@ def test_tracing_query_identifier_for_named_mutation(
 
     # then
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "tokenCreate"
+        span.attributes[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "tokenCreate"
     )
 
 
@@ -380,7 +380,7 @@ def test_tracing_query_identifier_for_many_mutations(
 
     # then
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER]
+        span.attributes[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER]
         == "deleteWarehouse, tokenCreate"
     )
 
@@ -404,7 +404,7 @@ def test_tracing_query_identifier_undefined(
 
     # then
     assert (
-        span.attributes[saleor_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "undefined"
+        span.attributes[pmtraders_attributes.GRAPHQL_OPERATION_IDENTIFIER] == "undefined"
     )
 
 
@@ -463,20 +463,20 @@ def test_tracing_have_app_data_app_as_requestor(
     span = get_span_by_name(get_test_spans(), query)
 
     # then
-    assert span.attributes[saleor_attributes.SALEOR_APP_NAME] == app.name
-    assert span.attributes[saleor_attributes.SALEOR_APP_ID] == app.id
+    assert span.attributes[pmtraders_attributes.pmtraders_APP_NAME] == app.name
+    assert span.attributes[pmtraders_attributes.pmtraders_APP_ID] == app.id
 
 
 @pytest.mark.parametrize(
     ("header_source", "expected_result"),
     [
-        ("saleor.dashboard", "saleor.dashboard"),
-        ("saleor.dashboard.playground", "saleor.dashboard.playground"),
-        ("saleor.playground", "saleor.playground"),
-        ("saleor.DASHBOARD", "saleor.dashboard"),
-        ("SALEOR.dashboard", "saleor.dashboard"),
-        ("saleor.dashboard.Playground", "saleor.dashboard.playground"),
-        ("saleor.playgrounD", "saleor.playground"),
+        ("pmtraders.dashboard", "pmtraders.dashboard"),
+        ("pmtraders.dashboard.playground", "pmtraders.dashboard.playground"),
+        ("pmtraders.playground", "pmtraders.playground"),
+        ("pmtraders.DASHBOARD", "pmtraders.dashboard"),
+        ("pmtraders.dashboard", "pmtraders.dashboard"),
+        ("pmtraders.dashboard.Playground", "pmtraders.dashboard.playground"),
+        ("pmtraders.playgrounD", "pmtraders.playground"),
         ("incorrect-value", "unknown_service"),
         (None, "unknown_service"),
     ],
@@ -510,7 +510,7 @@ def test_tracing_have_source_service_name_set(
     # then
     span = get_span_by_name(get_test_spans(), query)
     assert (
-        span.attributes[saleor_attributes.SALEOR_SOURCE_SERVICE_NAME] == expected_result
+        span.attributes[pmtraders_attributes.pmtraders_SOURCE_SERVICE_NAME] == expected_result
     )
 
 
@@ -534,7 +534,7 @@ def test_tracing_have_source_service_name_set(
         ),
     ],
 )
-@patch("saleor.core.telemetry.tracer.start_as_current_span")
+@patch("pmtraders.core.telemetry.tracer.start_as_current_span")
 def test_graphql_query_span_set_status_error_invalid_query(
     mock_start_span,
     data,
@@ -562,7 +562,7 @@ def test_graphql_query_span_set_status_error_invalid_query(
 
 
 @override_settings(GRAPHQL_QUERY_MAX_COMPLEXITY=1)
-@patch("saleor.core.telemetry.tracer.start_as_current_span")
+@patch("pmtraders.core.telemetry.tracer.start_as_current_span")
 def test_graphql_query_span_set_status_error_cost_exceeded(
     mock_start_span,
     api_client,
@@ -643,7 +643,7 @@ def test_trace_context_propagation(
 
 @patch.object(HTTPSession, "request")
 @override_settings(
-    PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"],
+    PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"],
     CHECKOUT_PRICES_TTL=datetime.timedelta(0),
 )
 def test_trace_context_propagation_in_sync_webhook(

@@ -9,7 +9,7 @@ from ..utils.product import (
 )
 
 
-@patch("saleor.product.utils.product.ProductChannelListing.objects.filter")
+@patch("pmtraders.product.utils.product.ProductChannelListing.objects.filter")
 def test_mark_products_in_channels_as_dirty_skips_when_input_as_empty_dict(
     mocked_product_channel_listing_filter,
 ):

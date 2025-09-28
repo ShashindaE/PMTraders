@@ -100,9 +100,9 @@ class OrderGrantRefundUpdateInput(BaseInputObjectType):
             "If `amount` provided in the input, the transaction.chargedAmount needs to "
             "be equal or greater than provided `amount`."
             "If `amount` is not provided in the input and calculated automatically by "
-            "Saleor, the `min(calculatedAmount, transaction.chargedAmount)` will be "
+            "pmtraders, the `min(calculatedAmount, transaction.chargedAmount)` will be "
             "used."
-            "Field will be required starting from Saleor 3.21."
+            "Field will be required starting from pmtraders 3.21."
             + ADDED_IN_320
             + PREVIEW_FEATURE
         ),

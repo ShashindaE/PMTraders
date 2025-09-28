@@ -34,7 +34,7 @@ MUTATION_CATEGORY_DELETE = """
 """
 
 
-@patch("saleor.core.tasks.delete_from_storage_task.delay")
+@patch("pmtraders.core.tasks.delete_from_storage_task.delay")
 def test_category_delete_mutation(
     delete_from_storage_task_mock,
     staff_api_client,
@@ -75,8 +75,8 @@ def test_category_delete_mutation(
 
 
 @freeze_time("2022-05-12 12:00:00")
-@patch("saleor.product.utils.get_webhooks_for_event")
-@patch("saleor.plugins.webhook.plugin.trigger_webhooks_async")
+@patch("pmtraders.product.utils.get_webhooks_for_event")
+@patch("pmtraders.plugins.webhook.plugin.trigger_webhooks_async")
 def test_category_delete_trigger_webhook(
     mocked_webhook_trigger,
     mocked_get_webhooks_for_event,
@@ -87,7 +87,7 @@ def test_category_delete_trigger_webhook(
     settings,
 ):
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     variables = {"id": graphene.Node.to_global_id("Category", category.id)}
     response = staff_api_client.post_graphql(

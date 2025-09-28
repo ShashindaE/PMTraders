@@ -5,7 +5,7 @@ original_complete_value_catching_error = executor.complete_value_catching_error
 
 def _patched_complete_value_catching_error(*args, **kwargs):
     info = args[3]
-    from saleor.core.db.connection import allow_writer_in_context
+    from pmtraders.core.db.connection import allow_writer_in_context
 
     with allow_writer_in_context(info.context):
         return original_complete_value_catching_error(*args, **kwargs)

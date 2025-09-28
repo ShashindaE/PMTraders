@@ -1838,7 +1838,7 @@ def test_draft_order_create_variant_with_0_price(
     assert created_draft_event.parameters == {}
 
 
-@patch("saleor.graphql.order.mutations.draft_order_create.create_order_line")
+@patch("pmtraders.graphql.order.mutations.draft_order_create.create_order_line")
 def test_draft_order_create_tax_error(
     create_order_line_mock,
     staff_api_client,
@@ -2539,7 +2539,7 @@ def test_draft_order_create_invalid_address_skip_validation(
     assert order.billing_address.validation_skipped is True
 
 
-@patch("saleor.order.calculations.fetch_order_prices_if_expired")
+@patch("pmtraders.order.calculations.fetch_order_prices_if_expired")
 def test_draft_order_create_price_recalculation(
     mock_fetch_order_prices_if_expired,
     staff_api_client,
@@ -3703,14 +3703,14 @@ def test_draft_order_create_voucher_with_usage_limit(
 
 
 @patch(
-    "saleor.graphql.order.mutations.draft_order_create.call_order_event",
+    "pmtraders.graphql.order.mutations.draft_order_create.call_order_event",
     wraps=call_order_event,
 )
-@patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @patch(
-    "saleor.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
+    "pmtraders.webhook.transport.asynchronous.transport.send_webhook_request_async.apply_async"
 )
-@override_settings(PLUGINS=["saleor.plugins.webhook.plugin.WebhookPlugin"])
+@override_settings(PLUGINS=["pmtraders.plugins.webhook.plugin.WebhookPlugin"])
 def test_draft_order_create_triggers_webhooks(
     mocked_send_webhook_request_async,
     mocked_send_webhook_request_sync,
@@ -3780,7 +3780,7 @@ def test_draft_order_create_triggers_webhooks(
             "telemetry_context": ANY,
         },
         queue=settings.ORDER_WEBHOOK_EVENTS_CELERY_QUEUE_NAME,
-        MessageGroupId="example.com:saleor.app.additional",
+        MessageGroupId="example.com:pmtraders.app.additional",
     )
 
     # confirm each sync webhook was called without saving event delivery

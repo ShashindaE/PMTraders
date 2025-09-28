@@ -9,11 +9,11 @@ from ....webhook.transport.utils import generate_cache_key_for_webhook
 from ...base_plugin import ExcludedShippingMethod
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
+    "pmtraders.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
 )
 def test_excluded_shipping_methods_for_order_use_cache(
     mocked_payload,
@@ -62,11 +62,11 @@ def test_excluded_shipping_methods_for_order_use_cache(
     assert not mocked_cache_set.called
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
+    "pmtraders.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
 )
 def test_excluded_shipping_methods_for_order_stores_in_cache_when_empty(
     mocked_payload,
@@ -131,11 +131,11 @@ def test_excluded_shipping_methods_for_order_stores_in_cache_when_empty(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
+    "pmtraders.plugins.webhook.plugin.generate_excluded_shipping_methods_for_order_payload"
 )
 def test_excluded_shipping_methods_for_order_stores_in_cache_when_payload_is_different(
     mocked_payload,
@@ -199,11 +199,11 @@ def test_excluded_shipping_methods_for_order_stores_in_cache_when_payload_is_dif
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 def test_excluded_shipping_methods_for_checkout_use_cache(
@@ -255,11 +255,11 @@ def test_excluded_shipping_methods_for_checkout_use_cache(
     assert not mocked_cache_set.called
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 def test_excluded_shipping_methods_for_checkout_stores_in_cache_when_empty(
@@ -326,11 +326,11 @@ def test_excluded_shipping_methods_for_checkout_stores_in_cache_when_empty(
     )
 
 
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.get")
-@mock.patch("saleor.webhook.transport.synchronous.transport.cache.set")
-@mock.patch("saleor.webhook.transport.synchronous.transport.send_webhook_request_sync")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.get")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.cache.set")
+@mock.patch("pmtraders.webhook.transport.synchronous.transport.send_webhook_request_sync")
 @mock.patch(
-    "saleor.plugins.webhook.plugin."
+    "pmtraders.plugins.webhook.plugin."
     "generate_excluded_shipping_methods_for_checkout_payload"
 )
 def test_excluded_shipping_methods_for_checkout_stores_in_cache_when_payload_different(

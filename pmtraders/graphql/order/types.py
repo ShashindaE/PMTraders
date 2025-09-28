@@ -235,7 +235,7 @@ class OrderGrantedRefundLine(
     id = graphene.GlobalID(required=True)
     quantity = graphene.Int(description="Number of items to refund.", required=True)
     order_line = graphene.Field(
-        "saleor.graphql.order.types.OrderLine",
+        "pmtraders.graphql.order.types.OrderLine",
         description="Line of the order associated with this granted refund.",
         required=True,
     )
@@ -1125,7 +1125,7 @@ class OrderLine(
         description="Determine if the line is a gift." + ADDED_IN_319 + PREVIEW_FEATURE,
     )
     discounts = NonNullList(
-        "saleor.graphql.discount.types.discounts.OrderLineDiscount",
+        "pmtraders.graphql.discount.types.discounts.OrderLineDiscount",
         description="List of applied discounts" + ADDED_IN_321,
     )
 
@@ -1522,7 +1522,7 @@ class Order(SyncWebhookControlContextModelObjectType[ModelObjectType[models.Orde
         User,
         description=(
             "User who placed the order. This field is set only for orders placed by "
-            "authenticated users. Can be fetched for orders created in Saleor 3.2 "
+            "authenticated users. Can be fetched for orders created in pmtraders 3.2 "
             "and later, for other orders requires one of the following permissions: "
             f"{AccountPermissions.MANAGE_USERS.name}, "
             f"{OrderPermissions.MANAGE_ORDERS.name}, "
@@ -1535,19 +1535,19 @@ class Order(SyncWebhookControlContextModelObjectType[ModelObjectType[models.Orde
         description="Google Analytics tracking client ID. " + DEPRECATED_IN_3X_INPUT,
     )
     billing_address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         description=(
             "Billing address. The full data can be access for orders created "
-            "in Saleor 3.2 and later, for other orders requires one of the following "
+            "in pmtraders 3.2 and later, for other orders requires one of the following "
             f"permissions: {OrderPermissions.MANAGE_ORDERS.name}, "
             f"{AuthorizationFilters.OWNER.name}."
         ),
     )
     shipping_address = graphene.Field(
-        "saleor.graphql.account.types.Address",
+        "pmtraders.graphql.account.types.Address",
         description=(
             "Shipping address. The full data can be access for orders created "
-            "in Saleor 3.2 and later, for other orders requires one of the following "
+            "in pmtraders 3.2 and later, for other orders requires one of the following "
             f"permissions: {OrderPermissions.MANAGE_ORDERS.name}, "
             f"{AuthorizationFilters.OWNER.name}."
         ),
@@ -1593,7 +1593,7 @@ class Order(SyncWebhookControlContextModelObjectType[ModelObjectType[models.Orde
     invoices = NonNullList(
         Invoice,
         description=(
-            "List of order invoices. Can be fetched for orders created in Saleor 3.2 "
+            "List of order invoices. Can be fetched for orders created in pmtraders 3.2 "
             "and later, for other orders requires one of the following permissions: "
             f"{OrderPermissions.MANAGE_ORDERS.name}, {AuthorizationFilters.OWNER.name}."
         ),
@@ -1759,7 +1759,7 @@ class Order(SyncWebhookControlContextModelObjectType[ModelObjectType[models.Orde
     user_email = graphene.String(
         description=(
             "Email address of the customer. The full data can be access for orders "
-            "created in Saleor 3.2 and later, for other orders requires one of "
+            "created in pmtraders 3.2 and later, for other orders requires one of "
             f"the following permissions: {OrderPermissions.MANAGE_ORDERS.name}, "
             f"{AuthorizationFilters.OWNER.name}."
         ),
@@ -1793,7 +1793,7 @@ class Order(SyncWebhookControlContextModelObjectType[ModelObjectType[models.Orde
         deprecation_reason="Use the `discounts` field instead.",
     )
     discounts = NonNullList(
-        "saleor.graphql.discount.types.OrderDiscount",
+        "pmtraders.graphql.discount.types.OrderDiscount",
         description="List of all discounts assigned to the order.",
         required=True,
     )

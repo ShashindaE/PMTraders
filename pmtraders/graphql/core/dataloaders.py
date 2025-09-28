@@ -6,10 +6,10 @@ from promise import Promise
 from promise.dataloader import DataLoader as BaseLoader
 
 from ...core.db.connection import allow_writer_in_context
-from ...core.telemetry import saleor_attributes, tracer
+from ...core.telemetry import pmtraders_attributes, tracer
 from ...thumbnail.models import Thumbnail
 from ...thumbnail.utils import get_thumbnail_format
-from . import SaleorContext
+from . import pmtradersContext
 from .context import get_database_connection_name
 
 K = TypeVar("K")
@@ -18,10 +18,10 @@ R = TypeVar("R")
 
 class DataLoader[K, R](BaseLoader):
     context_key: str
-    context: SaleorContext
+    context: pmtradersContext
     database_connection_name: str
 
-    def __new__(cls, context: SaleorContext):
+    def __new__(cls, context: pmtradersContext):
         key = cls.context_key
         if key is None:
             raise TypeError(f"Data loader {cls} does not define a context key")
@@ -33,7 +33,7 @@ class DataLoader[K, R](BaseLoader):
         assert isinstance(loader, cls)
         return loader
 
-    def __init__(self, context: SaleorContext) -> None:
+    def __init__(self, context: pmtradersContext) -> None:
         if getattr(self, "context", None) != context:
             self.context = context
             self.database_connection_name = get_database_connection_name(context)
@@ -46,7 +46,7 @@ class DataLoader[K, R](BaseLoader):
             self.__class__.__name__, end_on_exit=False
         ) as span:
             span.set_attribute(
-                saleor_attributes.OPERATION_NAME, "dataloader.batch_load"
+                pmtraders_attributes.OPERATION_NAME, "dataloader.batch_load"
             )
 
             with allow_writer_in_context(self.context):
@@ -54,14 +54,14 @@ class DataLoader[K, R](BaseLoader):
 
             if not isinstance(results, Promise):
                 span.set_attribute(
-                    saleor_attributes.GRAPHQL_RESOLVER_ROW_COUNT, len(results)
+                    pmtraders_attributes.GRAPHQL_RESOLVER_ROW_COUNT, len(results)
                 )
                 span.end()
                 return Promise.resolve(results)
 
             def did_fulfill(results: list[R]) -> list[R]:
                 span.set_attribute(
-                    saleor_attributes.GRAPHQL_RESOLVER_ROW_COUNT, len(results)
+                    pmtraders_attributes.GRAPHQL_RESOLVER_ROW_COUNT, len(results)
                 )
                 span.end()
                 return results

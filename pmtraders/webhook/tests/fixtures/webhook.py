@@ -162,17 +162,17 @@ def setup_checkout_webhooks(
                 App(
                     name="Sample tax app",
                     is_active=True,
-                    identifier="saleor.app.tax",
+                    identifier="pmtraders.app.tax",
                 ),
                 App(
                     name="Sample shipping app",
                     is_active=True,
-                    identifier="saleor.app.shipping",
+                    identifier="pmtraders.app.shipping",
                 ),
                 App(
                     name="Sample async webhook app",
                     is_active=True,
-                    identifier="saleor.app.additional",
+                    identifier="pmtraders.app.additional",
                 ),
             ]
         )
@@ -352,17 +352,17 @@ def setup_order_webhooks(
                 App(
                     name="Sample tax app",
                     is_active=True,
-                    identifier="saleor.app.tax",
+                    identifier="pmtraders.app.tax",
                 ),
                 App(
                     name="Sample shipping app",
                     is_active=True,
-                    identifier="saleor.app.shipping",
+                    identifier="pmtraders.app.shipping",
                 ),
                 App(
                     name="Sample async webhook app",
                     is_active=True,
-                    identifier="saleor.app.additional",
+                    identifier="pmtraders.app.additional",
                 ),
             ]
         )

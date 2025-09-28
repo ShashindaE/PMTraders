@@ -185,8 +185,8 @@ mutation createProduct($input: ProductCreateInput!) {
 """
 
 
-@patch("saleor.plugins.manager.PluginsManager.product_updated")
-@patch("saleor.plugins.manager.PluginsManager.product_created")
+@patch("pmtraders.plugins.manager.PluginsManager.product_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_created")
 def test_create_product(
     created_webhook_mock,
     updated_webhook_mock,
@@ -1562,7 +1562,7 @@ def test_product_create_with_collections_webhook(
         assert product.collections.first() == published_collection
 
     monkeypatch.setattr(
-        "saleor.plugins.manager.PluginsManager.product_created",
+        "pmtraders.plugins.manager.PluginsManager.product_created",
         lambda _, product: assert_product_has_collections(product),
     )
 

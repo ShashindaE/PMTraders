@@ -202,10 +202,10 @@ PRODUCT_VARIANT_BULK_UPDATE_MUTATION = """
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_bulk_update.get_webhooks_for_event"
 )
-@patch("saleor.plugins.manager.PluginsManager.product_variant_updated")
+@patch("pmtraders.plugins.manager.PluginsManager.product_variant_updated")
 def test_product_variant_bulk_update(
     product_variant_created_webhook_mock,
     mocked_get_webhooks_for_event,
@@ -218,7 +218,7 @@ def test_product_variant_bulk_update(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     # given
     variant = product_with_single_variant.variants.last()
     product_id = graphene.Node.to_global_id("Product", product_with_single_variant.pk)
@@ -277,7 +277,7 @@ def test_product_variant_bulk_update(
     [ErrorPolicyEnum.REJECT_FAILED_ROWS.name, ErrorPolicyEnum.IGNORE_FAILED.name],
 )
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_bulk_update.get_webhooks_for_event"
 )
 @patch.object(ProductVariantBulkUpdate, "save_variants")
@@ -294,7 +294,7 @@ def test_product_variant_bulk_create_stock_thread_race(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
 
     variant = variant_with_many_stocks
     new_stock_quantity_created_before_save = 999
@@ -356,7 +356,7 @@ def test_product_variant_bulk_create_stock_thread_race(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_bulk_update.get_webhooks_for_event"
 )
 def test_product_variant_bulk_update_stocks(
@@ -370,7 +370,7 @@ def test_product_variant_bulk_update_stocks(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     # given
     variant = variant_with_many_stocks
     product_id = graphene.Node.to_global_id("Product", variant.product_id)
@@ -853,7 +853,7 @@ def test_product_variant_bulk_update_when_variant_not_exists(
 
 
 @patch(
-    "saleor.graphql.product.bulk_mutations."
+    "pmtraders.graphql.product.bulk_mutations."
     "product_variant_bulk_update.get_webhooks_for_event"
 )
 def test_product_variant_bulk_update_attributes(
@@ -868,7 +868,7 @@ def test_product_variant_bulk_update_attributes(
 ):
     # given
     mocked_get_webhooks_for_event.return_value = [any_webhook]
-    settings.PLUGINS = ["saleor.plugins.webhook.plugin.WebhookPlugin"]
+    settings.PLUGINS = ["pmtraders.plugins.webhook.plugin.WebhookPlugin"]
     # given
     variant = variant_with_many_stocks
     product_id = graphene.Node.to_global_id("Product", variant.product_id)
@@ -1114,7 +1114,7 @@ def test_product_variant_bulk_update_with_ref_attributes__refs_not_in_available_
 
 @override_settings(ENABLE_LIMITING_WEBHOOKS_FOR_IDENTICAL_PAYLOADS=True)
 @mock.patch(
-    "saleor.graphql.product.bulk_mutations.product_variant_bulk_update.ProductVariantBulkUpdate.call_event"
+    "pmtraders.graphql.product.bulk_mutations.product_variant_bulk_update.ProductVariantBulkUpdate.call_event"
 )
 def test_generate_pre_save_payloads(
     mocked_call_event,
