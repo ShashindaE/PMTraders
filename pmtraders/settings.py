@@ -854,8 +854,8 @@ FEDERATED_QUERY_MAX_ENTITIES = int(os.environ.get("FEDERATED_QUERY_MAX_ENTITIES"
 BUILTIN_PLUGINS = [
     # "pmtraders.plugins.avatax.plugin.DeprecatedAvataxPlugin",
     # "pmtraders.plugins.webhook.plugin.WebhookPlugin",
-    # "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
-    # "pmtraders.payment.gateways.dummy_credit_card.plugin.DeprecatedDummyCreditCardGatewayPlugin",
+    "pmtraders.payment.gateways.dummy.plugin.DeprecatedDummyGatewayPlugin",
+    "pmtraders.payment.gateways.dummy_credit_card.plugin.DeprecatedDummyCreditCardGatewayPlugin",
     # "pmtraders.payment.gateways.stripe.plugin.StripeGatewayPlugin",
     # "pmtraders.payment.gateways.braintree.plugin.DeprecatedBraintreeGatewayPlugin",
     # "pmtraders.payment.gateways.razorpay.plugin.DeprecatedRazorpayGatewayPlugin",
